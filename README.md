@@ -2,10 +2,10 @@
 
 使用flutter实现的一个后台管理系统
 
-![image](https://www.javascriptvue.com/f/p4/login.PNG)
-![image](https://www.javascriptvue.com/f/p4/dashboard.PNG)
-![image](https://www.javascriptvue.com/f/p4/user.PNG)
-![image](https://www.javascriptvue.com/f/p4/user-update.PNG)
+![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_login.PNG)
+![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_dashboard.PNG)
+![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_user.PNG)
+![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_user-update.PNG)
 
 ---
 ## 功能技术
