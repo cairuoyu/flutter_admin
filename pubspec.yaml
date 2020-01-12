@@ -1,0 +1,29 @@
+name: flutter_admin
+description: 一个基于flutter的后台管理系统
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.2.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dio: 3.0.7
+  intl: 0.16.0
+  cupertino_icons: ^0.1.2
+  charts_flutter: ^0.8.0
+  flutter_custom_clippers: ^1.1.0
+  cached_network_image: ^2.0.0-rc
+  font_awesome_flutter: ^8.5.0
+  json_annotation: ^2.2.0
+  bot_toast: ^2.2.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  json_model: #latest version
+  json_serializable: ^2.0.0
+  build_runner: ^1.0.0
+flutter:
+  uses-material-design: true
