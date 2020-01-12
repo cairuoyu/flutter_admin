@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/pages/register.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_admin/api/userApi.dart';
 import 'package:flutter_admin/models/index.dart';
@@ -47,7 +48,6 @@ class LoginState extends State {
             height: 60.0,
           ),
           Center(child: appName),
-          
           SizedBox(
             height: 20.0,
           ),
@@ -78,10 +78,8 @@ class LoginState extends State {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      
                       Container(
                         padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-                        
                         child: TextFormField(
                           initialValue: user.username,
                           style: TextStyle(color: Colors.black),
@@ -100,7 +98,6 @@ class LoginState extends State {
                       ),
                       Container(
                         padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-                        
                         child: TextFormField(
                           initialValue: user.password,
                           style: TextStyle(color: Colors.black),
@@ -120,6 +117,13 @@ class LoginState extends State {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
+                          FlatButton(
+                            child: Text(
+                              "注册新账号",
+                              style: TextStyle(color: Colors.black45),
+                            ),
+                            onPressed: () => register(),
+                          ),
                           FlatButton(
                             child: Text(
                               "忘记密码",
@@ -149,7 +153,7 @@ class LoginState extends State {
             ],
           ),
           Container(
-            height: 370,
+            height: 400,
             alignment: Alignment.bottomCenter,
             child: SizedBox(
               width: 400,
@@ -163,38 +167,18 @@ class LoginState extends State {
               ),
             ),
           ),
-          Container(
-            height: 420,
-            alignment: Alignment.bottomCenter,
-            child: SizedBox(
-              width: 400,
-              child: RaisedButton(
-                onPressed: () {
-                  register();
-                },
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
-                child: Text("注册", style: TextStyle(color: Colors.white70)),
-                color: Colors.blue,
-              ),
-            ),
-          ),
-          // Wrap(
-          //   children: <Widget>[Text(error)],
-          // ),
         ],
       ),
     );
   }
 
   register() {
-    
-    BotToast.showText(text: '开发中...');
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Register()));
   }
 
   login() {
     formKey.currentState.save();
     UserApi.login(user.toJson()).then((ResponeBodyApi responeBodyApi) {
-      
       if (responeBodyApi.success) {
         GlobalUtil.token = responeBodyApi.data;
         Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Layout1()));
@@ -206,7 +190,6 @@ class LoginState extends State {
     }).catchError((e) {
       error = e;
       setState(() {});
-      
     });
   }
 }
