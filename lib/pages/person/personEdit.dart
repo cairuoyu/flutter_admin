@@ -1,14 +1,14 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/api/userInfoApi.dart';
+import 'package:flutter_admin/api/personApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/cryInput.dart';
 import 'package:flutter_admin/components/crySelect.dart';
 import 'package:flutter_admin/components/crySelectDate.dart';
 import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/models/index.dart';
-import 'package:flutter_admin/models/userInfo.dart';
+import 'package:flutter_admin/models/person.dart';
 
 class EditPage extends StatefulWidget {
   final String id;
@@ -21,13 +21,13 @@ class EditPage extends StatefulWidget {
 
 class EditPageState extends State<EditPage> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  UserInfo formData = UserInfo();
+  Person formData = Person();
   @override
   void initState() {
     super.initState();
     if (widget.id != null) {
-      UserInfoApi.getById({'id': widget.id}).then((ResponeBodyApi res) {
-        formData = UserInfo.fromJson(res.data);
+      PersonApi.getById({'id': widget.id}).then((ResponeBodyApi res) {
+        formData = Person.fromJson(res.data);
         setState(() {});
       });
     }
@@ -89,7 +89,7 @@ class EditPageState extends State<EditPage> {
           onPressed: () {
             FormState form = formKey.currentState;
             form.save();
-            UserInfoApi.saveOrUpdate(formData.toJson()).then((res) {
+            PersonApi.saveOrUpdate(formData.toJson()).then((res) {
               BotToast.showText(text: "保存成功");
               Navigator.pop(context, true);
             });

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/models/index.dart';
 
 class Test1 extends StatefulWidget {
   @override
@@ -10,7 +9,6 @@ class Test1 extends StatefulWidget {
 }
 
 class Test1State extends State {
-  UserInfo formData = UserInfo();
   String value1 = 'test';
   @override
   void initState() {

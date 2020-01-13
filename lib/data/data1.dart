@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/pages/person/personList.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_admin/pages/crud/crud1.dart';
 import 'package:flutter_admin/pages/dash/dashboard1.dart';
 import 'package:flutter_admin/pages/test1.dart';
 import 'package:flutter_admin/vo/listTileVO.dart';
@@ -19,7 +19,7 @@ List<SelectOptionVO> genderList = [
 
 List<PageVO> testPageVOAll = <PageVO>[
   PageVO(id: "1", icon: Icons.dashboard, title: 'Dashboard', widget: Dashboard1()),
-  PageVO(id: "4", icon: Icons.people, title: '用户管理', widget: Curd1()),
+  PageVO(id: "4", icon: Icons.people, title: '用户管理', widget: PersonList()),
   PageVO(id: "2", icon: Icons.folder, title: '树结构一级菜单', children: [
     PageVO(
       title: '二级菜单',

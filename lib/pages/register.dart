@@ -115,7 +115,7 @@ class RegisterState extends State {
               FlatButton(
                   child: Text(
                     "已有账号，登录",
-                    style: TextStyle(color: Colors.black45),
+                    style: TextStyle(color: Colors.blue),
                   ),
                   onPressed: () => login())
             ],

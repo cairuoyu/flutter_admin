@@ -67,7 +67,7 @@ class LoginState extends State {
               clipper: WaveClipperTwo(reverse: true),
               child: Container(
                 width: 500,
-                height: 450,
+                height: 420,
                 padding: EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(40.0)),
@@ -78,6 +78,7 @@ class LoginState extends State {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      SizedBox(height: 40),
                       Container(
                         padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
                         child: TextFormField(
@@ -85,8 +86,7 @@ class LoginState extends State {
                           style: TextStyle(color: Colors.black),
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: "用户名",
-                            hintStyle: TextStyle(color: Colors.black),
+                            labelText: '用户名',
                             icon: Icon(
                               Icons.people,
                               color: Colors.blue,
@@ -103,8 +103,8 @@ class LoginState extends State {
                           initialValue: user.password,
                           style: TextStyle(color: Colors.black),
                           decoration: InputDecoration(
-                            hintText: "密码",
-                            hintStyle: TextStyle(color: Colors.black),
+                            border: OutlineInputBorder(),
+                            labelText: '密码',
                             icon: Icon(
                               Icons.lock,
                               color: Colors.blue,
@@ -134,9 +134,6 @@ class LoginState extends State {
                           )
                         ],
                       ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
                     ],
                   ),
                 ),
@@ -154,10 +151,10 @@ class LoginState extends State {
             ],
           ),
           Container(
-            height: 400,
+            height: 380,
             alignment: Alignment.bottomCenter,
             child: SizedBox(
-              width: 400,
+              width: 420,
               child: RaisedButton(
                 onPressed: () {
                   login();
