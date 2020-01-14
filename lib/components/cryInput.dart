@@ -6,8 +6,9 @@ class CryInput extends CryFormField {
   final String label;
   final ValueChanged onChange;
   final FormFieldSetter onSaved;
+  final FormFieldValidator<String> validator;
 
-  CryInput({Key key, this.label, String value, this.onChange, this.onSaved})
+  CryInput({Key key, this.label, String value, this.onChange, this.onSaved, this.validator})
       : super(
           key: key,
           builder: (state) {
@@ -27,6 +28,7 @@ class CryInput extends CryFormField {
                   onSaved(v);
                 }
               },
+              validator: validator,
             );
           },
         );

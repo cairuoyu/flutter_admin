@@ -35,7 +35,6 @@ class EditPageState extends State<EditPage> {
 
   @override
   Widget build(BuildContext context) {
-    
     var form = Form(
       key: formKey,
       child: Wrap(
@@ -46,12 +45,15 @@ class EditPageState extends State<EditPage> {
             onSaved: (v) {
               formData.name = v;
             },
+            validator: (v) {
+              return v.isEmpty ? '必填' : null;
+            },
           ),
           CryInput(
             value: formData.nickName,
             label: '呢称',
             onSaved: (v) {
-              formData.nickName= v;
+              formData.nickName = v;
             },
           ),
           CrySelect(
@@ -59,7 +61,7 @@ class EditPageState extends State<EditPage> {
             value: formData.gender,
             dataList: genderList,
             onSaved: (v) {
-              formData.gender= v;
+              formData.gender = v;
             },
           ),
           CrySelectDate(
@@ -67,7 +69,7 @@ class EditPageState extends State<EditPage> {
             value: formData.birthday,
             label: '出生年月',
             onSaved: (v) {
-              formData.birthday= v;
+              formData.birthday = v;
             },
           ),
           CrySelect(
@@ -88,19 +90,29 @@ class EditPageState extends State<EditPage> {
           text: '保存',
           onPressed: () {
             FormState form = formKey.currentState;
+            if (!form.validate()) {
+              return;
+            }
             form.save();
             PersonApi.saveOrUpdate(formData.toJson()).then((res) {
               BotToast.showText(text: "保存成功");
+              // BotToast.showSimpleNotification(title: "init");
               Navigator.pop(context, true);
             });
           },
         ),
-        CryButton(text: '取消',onPressed: (){
-          Navigator.pop(context);
-        },)
+        CryButton(
+          text: '取消',
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        )
       ],
     );
-    DecoratedBox footer = DecoratedBox(decoration: BoxDecoration(color: Colors.white),child: buttonBar,);
+    DecoratedBox footer = DecoratedBox(
+      decoration: BoxDecoration(color: Colors.white),
+      child: buttonBar,
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

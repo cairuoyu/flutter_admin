@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/utils/globalUtil.dart';
 import 'package:flutter_admin/vo/pageVO.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
 class Layout1 extends StatefulWidget {
   @override
@@ -9,12 +10,14 @@ class Layout1 extends StatefulWidget {
 }
 
 class Layout1State extends State with TickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
   List<PageVO> pageVoAll;
   List<PageVO> pageVoOpened;
   TabController tabController;
   Container content;
   int length;
   bool expandMenu = true;
+  List<bool> isSelected = [true, false, false];
   @override
   void initState() {
     super.initState();
@@ -25,6 +28,9 @@ class Layout1State extends State with TickerProviderStateMixin {
     if (pageVoOpened.length > 0) {
       loadPage(pageVoOpened[0]);
     }
+    WidgetsBinding.instance.addPostFrameCallback((v) {
+      scaffoldStateKey.currentState.openEndDrawer();
+    });
   }
 
   loadPage(page) {
@@ -67,8 +73,6 @@ class Layout1State extends State with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    
-
     ListTile menuHeader = ListTile(
       title: Icon(Icons.menu),
       onTap: () {
@@ -112,7 +116,6 @@ class Layout1State extends State with TickerProviderStateMixin {
                   Expanded(
                     child: Container(
                       child: tabBar,
-                      
                       decoration: BoxDecoration(
                         color: Colors.blue,
                         boxShadow: [
@@ -127,7 +130,6 @@ class Layout1State extends State with TickerProviderStateMixin {
                   ),
                 ],
               ),
-              
               content,
             ],
           ),
@@ -135,21 +137,79 @@ class Layout1State extends State with TickerProviderStateMixin {
       ],
     );
     Scaffold subWidget = Scaffold(
-        appBar: AppBar(
-          
-          title: Text("FLUTTER_ADMIN"),
-          actions: <Widget>[
-            OutlineButton.icon(
-              label: Text("退出"),
-              onPressed: () {
-                logout();
-              },
-              icon: Icon(Icons.exit_to_app),
-            ),
-          ],
-        ),
-        body: body);
+      key: scaffoldStateKey,
+      // endDrawer: getDrawer(),
+      body: body,
+      appBar: AppBar(
+        title: Text("FLUTTER_ADMIN"),
+        actions: <Widget>[
+          OutlineButton.icon(
+            label: Text("退出"),
+            onPressed: () {
+              logout();
+            },
+            icon: Icon(Icons.exit_to_app),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          scaffoldStateKey.currentState.openEndDrawer();
+        },
+      ),
+    );
     return subWidget;
+  }
+
+  getToggleButton() {
+    return ToggleButtons(
+      children: <Widget>[
+        Icon(Icons.cake),
+        Icon(Icons.cake),
+        Icon(Icons.cake),
+      ],
+      onPressed: (int index) {
+        setState(() {
+          for (int buttonIndex = 0; buttonIndex < isSelected.length; buttonIndex++) {
+            if (buttonIndex == index) {
+              isSelected[buttonIndex] = true;
+            } else {
+              isSelected[buttonIndex] = false;
+            }
+          }
+        });
+      },
+      isSelected: isSelected,
+    );
+  }
+
+  getDrawer() {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            child: Text('我的'),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            child: getToggleButton(),
+          ),
+          ListTile(
+            title: Text('Item 1'),
+            onTap: () {},
+          ),
+          ListTile(
+            title: Text('Item 2'),
+            onTap: () {},
+          ),
+        ],
+      ),
+    );
   }
 
   logout() {

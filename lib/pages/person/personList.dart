@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/personApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
+import 'package:flutter_admin/components/cryConfirm.dart';
 import 'package:flutter_admin/components/cryDialog.dart';
 import 'package:flutter_admin/components/cryInput.dart';
 import 'package:flutter_admin/components/crySelect.dart';
@@ -26,6 +27,7 @@ class Curd1State extends State {
   Person formData = Person();
 
   reset() {
+    this.formData = Person();
     formKey.currentState.reset();
     myDS.loadData(queryParams: formData.toJson());
   }
@@ -82,9 +84,7 @@ class Curd1State extends State {
         CryButton(
           text: '重置',
           onPressed: () {
-            formData = Person();
             reset();
-            setState(() {});
           },
         ),
         CryButton(
@@ -129,14 +129,17 @@ class Curd1State extends State {
           text: '删除',
           onPressed: myDS.selectedCount < 1
               ? null
-              : () async {
-                  List ids = myDS.dataList.where((v) {
-                    return v.selected;
-                  }).map<String>((v) {
-                    return v.id;
-                  }).toList();
-                  await PersonApi.removeByIds(ids);
-                  loadData();
+              : () {
+                  cryConfirm(context, '确定删除', () async {
+                    List ids = myDS.dataList.where((v) {
+                      return v.selected;
+                    }).map<String>((v) {
+                      return v.id;
+                    }).toList();
+                    await PersonApi.removeByIds(ids);
+                    loadData();
+                    Navigator.of(context).pop();
+                  });
                 },
         ),
       ],

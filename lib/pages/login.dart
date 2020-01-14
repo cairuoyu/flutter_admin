@@ -23,8 +23,8 @@ class LoginState extends State {
   @override
   void initState() {
     super.initState();
-    user.userName = 'admin';
-    user.password = '1';
+    // user.userName = 'admin';
+    // user.password = '1';
   }
 
   @override
@@ -67,7 +67,7 @@ class LoginState extends State {
               clipper: WaveClipperTwo(reverse: true),
               child: Container(
                 width: 500,
-                height: 420,
+                height: 400,
                 padding: EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(40.0)),
@@ -95,6 +95,9 @@ class LoginState extends State {
                           onSaved: (v) {
                             user.userName = v;
                           },
+                          validator: (v) {
+                            return v.isEmpty ? '用户名必填' : null;
+                          },
                         ),
                       ),
                       Container(
@@ -112,6 +115,9 @@ class LoginState extends State {
                           ),
                           onSaved: (v) {
                             user.password = v;
+                          },
+                          validator: (v) {
+                            return v.isEmpty ? '密码必填' : null;
                           },
                         ),
                       ),
@@ -175,7 +181,11 @@ class LoginState extends State {
   }
 
   login() {
-    formKey.currentState.save();
+    var form = formKey.currentState;
+    if (!form.validate()) {
+      return;
+    }
+    form.save();
     UserApi.login(user.toJson()).then((ResponeBodyApi responeBodyApi) {
       if (responeBodyApi.success) {
         GlobalUtil.token = responeBodyApi.data;
