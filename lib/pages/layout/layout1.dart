@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/utils/globalUtil.dart';
 import 'package:flutter_admin/vo/pageVO.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:flutter_colorpicker/block_picker.dart';
 
 class Layout1 extends StatefulWidget {
   @override
@@ -18,6 +18,9 @@ class Layout1State extends State with TickerProviderStateMixin {
   int length;
   bool expandMenu = true;
   List<bool> isSelected = [true, false, false];
+  Color themeColor = Colors.blue;
+  void changeColor(Color color) => setState(() => themeColor = color);
+
   @override
   void initState() {
     super.initState();
@@ -29,46 +32,8 @@ class Layout1State extends State with TickerProviderStateMixin {
       loadPage(pageVoOpened[0]);
     }
     WidgetsBinding.instance.addPostFrameCallback((v) {
-      scaffoldStateKey.currentState.openEndDrawer();
+      // scaffoldStateKey.currentState.openEndDrawer();
     });
-  }
-
-  loadPage(page) {
-    content = Container(
-      child: Expanded(
-        child: page.widget != null ? page.widget : Center(child: Text('404')),
-      ),
-    );
-    int index = pageVoOpened.indexWhere((note) => note.id == page.id);
-    if (index > -1) {
-      tabController.index = index;
-    } else {
-      pageVoOpened.add(page);
-      tabController = TabController(vsync: this, length: ++length);
-      tabController.index = length - 1;
-    }
-    setState(() {});
-  }
-
-  List<Widget> genListTile(data) {
-    List<Widget> listTileList = data.map<Widget>((PageVO page) {
-      Text title = Text(expandMenu ? page.title : '');
-      if (page.children != null && page.children.length > 0) {
-        return ExpansionTile(
-          leading: Icon(expandMenu ? page.icon : null),
-          backgroundColor: Theme.of(context).accentColor.withOpacity(0.025),
-          children: genListTile(page.children),
-          title: title,
-        );
-      } else {
-        return ListTile(
-          leading: Icon(page.icon),
-          title: title,
-          onTap: () => loadPage(page),
-        );
-      }
-    }).toList();
-    return listTileList;
   }
 
   @override
@@ -117,7 +82,7 @@ class Layout1State extends State with TickerProviderStateMixin {
                     child: Container(
                       child: tabBar,
                       decoration: BoxDecoration(
-                        color: Colors.blue,
+                        color: themeColor,
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black54,
@@ -138,50 +103,45 @@ class Layout1State extends State with TickerProviderStateMixin {
     );
     Scaffold subWidget = Scaffold(
       key: scaffoldStateKey,
-      // endDrawer: getDrawer(),
+      endDrawer: getDrawer(),
       body: body,
       appBar: AppBar(
         title: Text("FLUTTER_ADMIN"),
         actions: <Widget>[
-          OutlineButton.icon(
-            label: Text("退出"),
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
             onPressed: () {
               logout();
             },
-            icon: Icon(Icons.exit_to_app),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: Icon(Icons.settings),
         onPressed: () {
           scaffoldStateKey.currentState.openEndDrawer();
         },
       ),
     );
-    return subWidget;
+    return Theme(
+      data: ThemeData(
+        primaryColor: themeColor,
+        iconTheme: IconThemeData(color: themeColor),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: themeColor,
+        ),
+        buttonTheme: ButtonThemeData(buttonColor: themeColor),
+      ),
+      child: subWidget,
+    );
   }
 
-  getToggleButton() {
-    return ToggleButtons(
-      children: <Widget>[
-        Icon(Icons.cake),
-        Icon(Icons.cake),
-        Icon(Icons.cake),
-      ],
-      onPressed: (int index) {
-        setState(() {
-          for (int buttonIndex = 0; buttonIndex < isSelected.length; buttonIndex++) {
-            if (buttonIndex == index) {
-              isSelected[buttonIndex] = true;
-            } else {
-              isSelected[buttonIndex] = false;
-            }
-          }
-        });
-      },
-      isSelected: isSelected,
+  getColorPicker() {
+    var a = BlockPicker(
+      pickerColor: themeColor,
+      onColorChanged: changeColor,
     );
+    return a;
   }
 
   getDrawer() {
@@ -190,26 +150,60 @@ class Layout1State extends State with TickerProviderStateMixin {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text('我的'),
+            child: Text('我的设置'),
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
           ),
           Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(bottom: BorderSide(color: Colors.black12)),
+            ),
             padding: EdgeInsets.all(10),
-            child: getToggleButton(),
-          ),
-          ListTile(
-            title: Text('Item 1'),
-            onTap: () {},
-          ),
-          ListTile(
-            title: Text('Item 2'),
-            onTap: () {},
+            child: getColorPicker(),
           ),
         ],
       ),
     );
+  }
+
+  loadPage(page) {
+    content = Container(
+      child: Expanded(
+        child: page.widget != null ? page.widget : Center(child: Text('404')),
+      ),
+    );
+    int index = pageVoOpened.indexWhere((note) => note.id == page.id);
+    if (index > -1) {
+      tabController.index = index;
+    } else {
+      pageVoOpened.add(page);
+      tabController = TabController(vsync: this, length: ++length);
+      tabController.index = length - 1;
+    }
+    setState(() {});
+  }
+
+  List<Widget> genListTile(data) {
+    List<Widget> listTileList = data.map<Widget>((PageVO page) {
+      Text title = Text(expandMenu ? page.title : '');
+      if (page.children != null && page.children.length > 0) {
+        return ExpansionTile(
+          leading: Icon(expandMenu ? page.icon : null),
+          backgroundColor: Theme.of(context).accentColor.withOpacity(0.025),
+          children: genListTile(page.children),
+          title: title,
+        );
+      } else {
+        return ListTile(
+          leading: Icon(page.icon),
+          title: title,
+          onTap: () => loadPage(page),
+        );
+      }
+    }).toList();
+    return listTileList;
   }
 
   logout() {
