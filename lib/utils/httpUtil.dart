@@ -16,12 +16,11 @@ class HttpUtil {
 
   static const String POST = 'post';
 
-  static Future<ResponeBodyApi<T>> post<T>(String url, {data, requestToken = true}) async {
+  static Future<ResponeBodyApi> post(String url, {data, requestToken = true}) async {
     Map map = await request(url, data: data, requestToken: requestToken);
-    if (map == null) {
-    }
-
-    return ResponeBodyApi.fromJson(map);
+    if (map == null) {}
+    ResponeBodyApi responeBodyApi = ResponeBodyApi.fromJson(map);
+    return responeBodyApi;
   }
 
   static Future<Map> request(String url, {data, method, requestToken = true}) async {

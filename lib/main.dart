@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter_admin/pages/layout/layout1.dart';
 import 'package:flutter_admin/pages/login.dart';
+import 'package:flutter_admin/pages/userInfo/userInfoEdit.dart';
 
 
 void main() => runApp(MyApp());
@@ -19,8 +20,8 @@ class MyApp extends StatelessWidget {
       // home: Test1(),
       // home: PersonList(),
       // home: Register(),
-      // home: Login(),
-      home: Layout1(),
+      home: Login(),
+      // home: Layout1(),
     ));
   }
 }

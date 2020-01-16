@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/data/data1.dart';
+import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/utils/globalUtil.dart';
 import 'package:flutter_admin/vo/pageVO.dart';
 import 'package:flutter_colorpicker/block_picker.dart';
@@ -137,11 +138,11 @@ class Layout1State extends State with TickerProviderStateMixin {
   }
 
   getColorPicker() {
-    var a = BlockPicker(
+    var picker = BlockPicker(
       pickerColor: themeColor,
       onColorChanged: changeColor,
     );
-    return a;
+    return picker;
   }
 
   getDrawer() {
@@ -208,7 +209,8 @@ class Layout1State extends State with TickerProviderStateMixin {
 
   logout() {
     GlobalUtil.token = null;
-    Navigator.of(context, rootNavigator: true).pop();
+    // Navigator.of(context, rootNavigator: true).pop();
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Login()));
   }
 
   getIndicator() {

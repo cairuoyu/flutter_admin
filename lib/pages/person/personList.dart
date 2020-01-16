@@ -2,10 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/personApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
-import 'package:flutter_admin/components/cryConfirm.dart';
 import 'package:flutter_admin/components/cryDialog.dart';
-import 'package:flutter_admin/components/cryInput.dart';
-import 'package:flutter_admin/components/crySelect.dart';
+import 'package:flutter_admin/components/form1/cryInput.dart';
+import 'package:flutter_admin/components/form1/crySelect.dart';
 import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/models/index.dart';
 import 'package:flutter_admin/models/person.dart';
@@ -76,19 +75,19 @@ class Curd1State extends State {
       alignment: MainAxisAlignment.start,
       children: <Widget>[
         CryButton(
-          text: '查询',
+          label: '查询',
           onPressed: () {
             loadData();
           },
         ),
         CryButton(
-          text: '重置',
+          label: '重置',
           onPressed: () {
             reset();
           },
         ),
         CryButton(
-          text: '增加',
+          label: '增加',
           onPressed: () {
             cryDialog(
               width: 900,
@@ -103,7 +102,7 @@ class Curd1State extends State {
           },
         ),
         CryButton(
-          text: '修改',
+          label: '修改',
           onPressed: myDS.selectedCount != 1
               ? null
               : () {
@@ -126,7 +125,7 @@ class Curd1State extends State {
                 },
         ),
         CryButton(
-          text: '删除',
+          label: '删除',
           onPressed: myDS.selectedCount < 1
               ? null
               : () {
@@ -174,18 +173,19 @@ class Curd1State extends State {
       ),
     );
     return Scaffold(
-        body: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        SizedBox(height: 10),
-        form,
-        buttonBar,
-        Expanded(
-          child: table,
-        ),
-      ],
-    ));
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height: 10),
+          form,
+          buttonBar,
+          Expanded(
+            child: table,
+          ),
+        ],
+      ),
+    );
   }
 }
 

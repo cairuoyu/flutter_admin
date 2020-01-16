@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/personApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
-import 'package:flutter_admin/components/cryInput.dart';
-import 'package:flutter_admin/components/crySelect.dart';
-import 'package:flutter_admin/components/crySelectDate.dart';
+import 'package:flutter_admin/components/form1/cryInput.dart';
+import 'package:flutter_admin/components/form1/crySelect.dart';
+import 'package:flutter_admin/components/form1/crySelectDate.dart';
 import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/models/index.dart';
 import 'package:flutter_admin/models/person.dart';
@@ -87,7 +87,7 @@ class EditPageState extends State<EditPage> {
       alignment: MainAxisAlignment.center,
       children: <Widget>[
         CryButton(
-          text: '保存',
+          label: '保存',
           onPressed: () {
             FormState form = formKey.currentState;
             if (!form.validate()) {
@@ -102,7 +102,7 @@ class EditPageState extends State<EditPage> {
           },
         ),
         CryButton(
-          text: '取消',
+          label: '取消',
           onPressed: () {
             Navigator.pop(context);
           },

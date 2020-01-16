@@ -1,17 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/components/cryFormField.dart';
+import 'package:intl/intl.dart';
 
-class CryInput extends CryFormField {
+import 'cryFormField.dart';
+
+class CrySelectDate extends CryFormField {
   final String label;
   final ValueChanged onChange;
   final FormFieldSetter onSaved;
-  final FormFieldValidator<String> validator;
+  final BuildContext context;
 
-  CryInput({Key key, this.label, String value, this.onChange, this.onSaved, this.validator})
+  CrySelectDate({Key key, this.context, this.label, String value, this.onChange, this.onSaved})
       : super(
           key: key,
-          builder: (state) {
+          builder: (CryFormFieldState state) {
             return TextFormField(
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(horizontal: 10),
@@ -23,12 +25,21 @@ class CryInput extends CryFormField {
                   onChange(v);
                 }
               },
+              onTap: () async {
+                final DateTime picked = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(2015, 8),
+                  lastDate: DateTime(2101),
+                );
+                value = DateFormat("yyyy-MM-dd").format(picked);
+                state.didChange();
+              },
               onSaved: (v) {
                 if (onSaved != null) {
                   onSaved(v);
                 }
               },
-              validator: validator,
             );
           },
         );

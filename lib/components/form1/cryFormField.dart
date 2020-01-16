@@ -7,25 +7,22 @@ class CryFormField extends StatefulWidget {
   final ValueChanged onChange;
   final Function builder;
 
-  CryFormField({Key key, this.label, this.value, this.onChange, this.builder})
-      : super(key: key);
+  CryFormField({Key key, this.label, this.value, this.onChange, this.builder}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => CryFormFieldState();
 }
 
 class CryFormFieldState extends State<CryFormField> {
-  didChange(){
-    setState(() {
-      
-    });
+  didChange() {
+    setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: UnconstrainedBox(
-        
         child: Row(
           children: <Widget>[
             SizedBox(
@@ -40,10 +37,7 @@ class CryFormFieldState extends State<CryFormField> {
             ),
             SizedBox(
               width: 300,
-              
-              
-                child: widget.builder(this),
-              
+              child: widget.builder(this),
             ),
           ],
         ),

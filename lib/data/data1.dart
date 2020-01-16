@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/pages/person/personList.dart';
+import 'package:flutter_admin/pages/userInfo/userInfoEdit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_admin/pages/dash/dashboard1.dart';
-import 'package:flutter_admin/pages/test1.dart';
 import 'package:flutter_admin/vo/listTileVO.dart';
 import 'package:flutter_admin/vo/pageVO.dart';
 import 'package:flutter_admin/vo/selectOptionVO.dart';
@@ -33,7 +33,7 @@ List<PageVO> testPageVOAll = <PageVO>[
       icon: Icons.insert_photo,
     )
   ]),
-  // PageVO(id: "5", icon: Icons.grade, title: 'Test', widget: Test1()),
+  PageVO(id: "5", icon: Icons.grade, title: '我的信息', widget: UserInfoEdit()),
 ];
 
 List<ListTileVO> todoList = [

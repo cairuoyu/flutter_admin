@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_admin/components/cryFormField.dart';
+
+import 'cryFormField.dart';
 
 class CrySelectDate extends CryFormField {
   final String label;
@@ -16,7 +17,7 @@ class CrySelectDate extends CryFormField {
             return TextFormField(
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                border: OutlineInputBorder(),
+                labelText: label,
               ),
               controller: TextEditingController(text: value),
               onChanged: (v) {
@@ -34,11 +35,7 @@ class CrySelectDate extends CryFormField {
                 value = DateFormat("yyyy-MM-dd").format(picked);
                 state.didChange();
               },
-              onSaved: (v) {
-                if (onSaved != null) {
-                  onSaved(v);
-                }
-              },
+              onSaved: onSaved,
             );
           },
         );

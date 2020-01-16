@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/components/cryFormField.dart';
 import 'package:flutter_admin/vo/selectOptionVO.dart';
+import 'cryFormField.dart';
 
 class CrySelect extends CryFormField {
   final String label;
