@@ -11,12 +11,14 @@
 ## 功能技术
 * 登录登出
 * 功能菜单
-* Dashboard
-* 用户管理
 * 注册
+* Dashboard
+* 人员管理
+* 我的信息
 * 主题切换
-* JWT
+
 * Json转Dart Model类
+* JWT
 
 ## 安装
 ```bash
@@ -30,4 +32,4 @@ flutter run -d chrome
 ```
 
 ## live demo
-https://www.javascriptvue.com/p4/web
+http://www.cryqd.com/flutter_admin

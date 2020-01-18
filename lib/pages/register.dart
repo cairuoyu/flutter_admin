@@ -130,7 +130,7 @@ class RegisterState extends State {
                   register();
                 },
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
-                child: Text("注册", style: TextStyle(color: Colors.white70)),
+                child: Text("注册", style: TextStyle(color: Colors.white70, fontSize: 20)),
                 color: Colors.blue,
               ),
             ),
