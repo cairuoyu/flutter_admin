@@ -55,7 +55,17 @@ class Layout1State extends State with TickerProviderStateMixin {
       indicator: getIndicator(),
       tabs: pageVoOpened.map<Tab>((PageVO page) {
         return Tab(
-          text: page.title,
+          // text: page.title,
+          child: Row(
+            children: <Widget>[
+              Text(page.title),
+              SizedBox(width: 3),
+              InkWell(
+                child: Icon(Icons.close, size: 10),
+                onTap: () => closePage(page),
+              ),
+            ],
+          ),
         );
       }).toList(),
     );
@@ -169,12 +179,30 @@ class Layout1State extends State with TickerProviderStateMixin {
     );
   }
 
+  closePage(page) {
+    pageVoOpened.remove(page);
+    --length;
+    tabController = TabController(vsync: this, length: length);
+    var openPage;
+    if (length > 0) {
+      tabController.index = length - 1;
+      openPage = pageVoOpened[0];
+    }
+    loadPage(openPage);
+    setState(() {});
+  }
+
   loadPage(page) {
+    if (page == null) {
+      content = Container();
+      return;
+    }
     content = Container(
       child: Expanded(
         child: page.widget != null ? page.widget : Center(child: Text('404')),
       ),
     );
+
     int index = pageVoOpened.indexWhere((note) => note.id == page.id);
     if (index > -1) {
       tabController.index = index;
@@ -210,7 +238,10 @@ class Layout1State extends State with TickerProviderStateMixin {
   logout() {
     GlobalUtil.token = null;
     // Navigator.of(context, rootNavigator: true).pop();
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Login()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (BuildContext context) => Login()),
+    );
   }
 
   getIndicator() {
