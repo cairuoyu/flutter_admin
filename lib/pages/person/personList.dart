@@ -8,6 +8,8 @@ import 'package:flutter_admin/components/form1/crySelect.dart';
 import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/models/index.dart';
 import 'package:flutter_admin/models/person.dart';
+import 'package:flutter_admin/models/requestBodyApi.dart';
+import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/utils/dictUtil.dart';
 
 import 'personEdit.dart';
@@ -28,18 +30,17 @@ class Curd1State extends State {
   reset() {
     this.formData = Person();
     formKey.currentState.reset();
-    myDS.loadData(queryParams: formData.toJson());
+    myDS.loadData(params: formData.toJson());
   }
 
-  loadData() {
+  query() {
     formKey.currentState.save();
-    myDS.loadData(queryParams: formData.toJson());
+    myDS.loadData(params: formData.toJson());
   }
 
   @override
   void initState() {
     super.initState();
-    myDS.size = rowsPerPage;
     myDS.loadData();
     myDS.addListener(() {
       setState(() {});
@@ -77,7 +78,7 @@ class Curd1State extends State {
         CryButton(
           label: '查询',
           onPressed: () {
-            loadData();
+            query();
           },
         ),
         CryButton(
@@ -96,7 +97,7 @@ class Curd1State extends State {
               body: EditPage(),
             ).then((v) {
               if (v != null) {
-                loadData();
+                query();
               }
             });
           },
@@ -119,7 +120,7 @@ class Curd1State extends State {
                     body: EditPage(id: person.id),
                   ).then((v) {
                     if (v) {
-                      loadData();
+                      query();
                     }
                   });
                 },
@@ -136,7 +137,7 @@ class Curd1State extends State {
                       return v.id;
                     }).toList();
                     await PersonApi.removeByIds(ids);
-                    loadData();
+                    query();
                     Navigator.of(context).pop();
                   });
                 },
@@ -156,10 +157,13 @@ class Curd1State extends State {
                 rowsPerPage = value;
               });
             },
-            availableRowsPerPage: <int>[2, 5, 10],
+            availableRowsPerPage: <int>[2, 5, 10, 20],
             onPageChanged: myDS.onPageChanged,
             columns: <DataColumn>[
-              DataColumn(label: const Text('姓名')),
+              DataColumn(
+                label: const Text('姓名'),
+                onSort: (int columnIndex, bool ascending) => myDS.sort('name', ascending),
+              ),
               DataColumn(label: const Text('呢称')),
               DataColumn(label: const Text('性别')),
               DataColumn(label: const Text('出生年月')),
@@ -190,15 +194,19 @@ class Curd1State extends State {
 }
 
 class MyDS extends DataTableSource {
-  MyDS({size});
+  MyDS();
   List<Person> dataList;
-  int size = 10;
-  int current = 1;
   int selectedCount = 0;
+  String orderItemColumn = "update_time";
+  sort(column, ascending) {
+    orderItemColumn = column;
+    loadData();
+  }
 
-  loadData({queryParams}) async {
-    ResponeBodyApi responeBodyApi = await PersonApi.list({'vo': queryParams});
-    dataList = responeBodyApi.data.map<Person>((v) {
+  loadData({params}) async {
+    ResponeBodyApi responeBodyApi =
+        await PersonApi.page(RequestBodyApi(page: Page(orders: [OrderItem(column: orderItemColumn)]), params: params));
+    dataList = responeBodyApi.data['records'].map<Person>((v) {
       Person person = Person.fromJson(v);
       person.selected = false;
       return person;
@@ -207,7 +215,7 @@ class MyDS extends DataTableSource {
     notifyListeners();
   }
 
-  onPageChanged(v) {
+  onPageChanged(firstRowIndex) {
     dataList.forEach((v) {
       v.selected = false;
     });

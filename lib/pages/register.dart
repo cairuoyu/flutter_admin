@@ -2,7 +2,6 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/userApi.dart';
 import 'package:flutter_admin/pages/login.dart';
-import 'package:flutter_admin/models/index.dart';
 import 'package:flutter_admin/models/user.dart';
 
 class Register extends StatefulWidget {

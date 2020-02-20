@@ -7,8 +7,8 @@ import 'package:flutter_admin/components/form1/cryInput.dart';
 import 'package:flutter_admin/components/form1/crySelect.dart';
 import 'package:flutter_admin/components/form1/crySelectDate.dart';
 import 'package:flutter_admin/data/data1.dart';
-import 'package:flutter_admin/models/index.dart';
 import 'package:flutter_admin/models/person.dart';
+import 'package:flutter_admin/models/responeBodyApi.dart';
 
 class EditPage extends StatefulWidget {
   final String id;

@@ -1,9 +1,9 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/pages/register.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_admin/api/userApi.dart';
-import 'package:flutter_admin/models/index.dart';
 import 'package:flutter_admin/models/user.dart';
 import 'package:flutter_admin/utils/globalUtil.dart';
 
