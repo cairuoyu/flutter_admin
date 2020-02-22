@@ -4,7 +4,7 @@ part 'requestBodyApi.g.dart';
 
 @JsonSerializable()
 class RequestBodyApi {
-    RequestBodyApi({this.page, this.params});
+    RequestBodyApi();
 
     Page page;
     Map params;

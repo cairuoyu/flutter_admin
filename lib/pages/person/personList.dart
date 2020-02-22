@@ -30,22 +30,24 @@ class Curd1State extends State {
   reset() {
     this.formData = Person();
     formKey.currentState.reset();
-    myDS.loadData(params: formData.toJson());
+    myDS.requestBodyApi.params = formData.toJson();
+    myDS.loadData();
   }
 
   query() {
     formKey.currentState.save();
-    myDS.loadData(params: formData.toJson());
+    myDS.requestBodyApi.params = formData.toJson();
+    myDS.loadData();
   }
 
   @override
   void initState() {
     super.initState();
-    myDS.loadData();
-    myDS.addListener(() {
-      setState(() {});
+    myDS.page.size = rowsPerPage;
+    myDS.page.orders.add(OrderItem(column: 'update_time', asc: false));
+    WidgetsBinding.instance.addPostFrameCallback((c) {
+      query();
     });
-    WidgetsBinding.instance.addPostFrameCallback((c) {});
   }
 
   @override
@@ -155,6 +157,8 @@ class Curd1State extends State {
             onRowsPerPageChanged: (int value) {
               setState(() {
                 rowsPerPage = value;
+                myDS.page.size = rowsPerPage;
+                myDS.loadData();
               });
             },
             availableRowsPerPage: <int>[2, 5, 10, 20],
@@ -164,12 +168,30 @@ class Curd1State extends State {
                 label: const Text('姓名'),
                 onSort: (int columnIndex, bool ascending) => myDS.sort('name', ascending),
               ),
-              DataColumn(label: const Text('呢称')),
-              DataColumn(label: const Text('性别')),
-              DataColumn(label: const Text('出生年月')),
-              DataColumn(label: const Text('部门')),
-              DataColumn(label: const Text('创建时间')),
-              DataColumn(label: const Text('修改时间')),
+              DataColumn(
+                label: const Text('呢称'),
+                onSort: (int columnIndex, bool ascending) => myDS.sort('nick_name', ascending),
+              ),
+              DataColumn(
+                label: const Text('性别'),
+                onSort: (int columnIndex, bool ascending) => myDS.sort('gender', ascending),
+              ),
+              DataColumn(
+                label: const Text('出生年月'),
+                onSort: (int columnIndex, bool ascending) => myDS.sort('birthday', ascending),
+              ),
+              DataColumn(
+                label: const Text('部门'),
+                onSort: (int columnIndex, bool ascending) => myDS.sort('dept_id', ascending),
+              ),
+              DataColumn(
+                label: const Text('创建时间'),
+                onSort: (int columnIndex, bool ascending) => myDS.sort('create_time', ascending),
+              ),
+              DataColumn(
+                label: const Text('修改时间'),
+                onSort: (int columnIndex, bool ascending) => myDS.sort('update_time', ascending),
+              ),
             ],
             source: myDS,
           ),
@@ -197,16 +219,20 @@ class MyDS extends DataTableSource {
   MyDS();
   List<Person> dataList;
   int selectedCount = 0;
-  String orderItemColumn = "update_time";
+  RequestBodyApi requestBodyApi = RequestBodyApi();
+  Page page = Page();
   sort(column, ascending) {
-    orderItemColumn = column;
+    page.orders[0].column = column;
+    page.orders[0].asc = !page.orders[0].asc;
     loadData();
   }
 
-  loadData({params}) async {
-    ResponeBodyApi responeBodyApi =
-        await PersonApi.page(RequestBodyApi(page: Page(orders: [OrderItem(column: orderItemColumn)]), params: params));
-    dataList = responeBodyApi.data['records'].map<Person>((v) {
+  loadData() async {
+    requestBodyApi.page = page;
+    ResponeBodyApi responeBodyApi = await PersonApi.page(requestBodyApi);
+    page = Page.fromJson(responeBodyApi.data);
+
+    dataList = page.records.map<Person>((v) {
       Person person = Person.fromJson(v);
       person.selected = false;
       return person;
@@ -216,16 +242,19 @@ class MyDS extends DataTableSource {
   }
 
   onPageChanged(firstRowIndex) {
-    dataList.forEach((v) {
-      v.selected = false;
-    });
-    selectedCount = 0;
-    notifyListeners();
+    page.current = firstRowIndex / page.size + 1;
+    loadData();
   }
 
   @override
   DataRow getRow(int index) {
-    Person person = dataList[index];
+    var dataIndex = index - page.size * (page.current - 1);
+
+    if (dataIndex >= dataList.length) {
+      return null;
+    }
+    Person person = dataList[dataIndex];
+
     return DataRow.byIndex(
       index: index,
       selected: person.selected,
@@ -250,7 +279,7 @@ class MyDS extends DataTableSource {
   bool get isRowCountApproximate => false;
 
   @override
-  int get rowCount => dataList == null ? 0 : dataList.length;
+  int get rowCount => page.total;
 
   @override
   int get selectedRowCount => selectedCount;
