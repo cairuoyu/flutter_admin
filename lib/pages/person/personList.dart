@@ -43,8 +43,12 @@ class Curd1State extends State {
   @override
   void initState() {
     super.initState();
+    myDS.context = context;
     myDS.page.size = rowsPerPage;
     myDS.page.orders.add(OrderItem(column: 'update_time', asc: false));
+    myDS.addListener(() {
+      setState(() {});
+    });
     WidgetsBinding.instance.addPostFrameCallback((c) {
       query();
     });
@@ -192,6 +196,9 @@ class Curd1State extends State {
                 label: const Text('修改时间'),
                 onSort: (int columnIndex, bool ascending) => myDS.sort('update_time', ascending),
               ),
+              DataColumn(
+                label: const Text('操作'),
+              ),
             ],
             source: myDS,
           ),
@@ -217,6 +224,7 @@ class Curd1State extends State {
 
 class MyDS extends DataTableSource {
   MyDS();
+  BuildContext context;
   List<Person> dataList;
   int selectedCount = 0;
   RequestBodyApi requestBodyApi = RequestBodyApi();
@@ -271,6 +279,35 @@ class MyDS extends DataTableSource {
         DataCell(Text(DictUtil.getDictName(person.deptId, deptIdList, defaultValue: '--'))),
         DataCell(Text(person.createTime ?? '--')),
         DataCell(Text(person.updateTime ?? '--')),
+        DataCell(ButtonBar(
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.edit),
+              onPressed: () {
+                cryDialog(
+                  width: 900,
+                  context: context,
+                  title: '修改',
+                  body: EditPage(id: person.id),
+                ).then((v) {
+                  if (v) {
+                    loadData();
+                  }
+                });
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                cryConfirm(context, '确定删除', () async {
+                  await PersonApi.removeByIds([person.id]);
+                  loadData();
+                  Navigator.of(context).pop();
+                });
+              },
+            ),
+          ],
+        )),
       ],
     );
   }
