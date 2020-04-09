@@ -10,7 +10,7 @@ class HttpUtil {
   static Dio dio;
 
   // static const String API_PREFIX = 'http://localhost:9094/';
-  static const String API_PREFIX = 'https://www.javascriptvue.com/api/p4/';
+  static const String API_PREFIX = 'http://www.cryqd.com/api/p4/';
   static const int CONNECT_TIMEOUT = 10000;
   static const int RECEIVE_TIMEOUT = 3000;
 

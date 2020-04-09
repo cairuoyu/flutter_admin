@@ -3,7 +3,7 @@ import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/utils/globalUtil.dart';
 import 'package:flutter_admin/vo/pageVO.dart';
-import 'package:flutter_colorpicker/block_picker.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class Layout1 extends StatefulWidget {
   @override

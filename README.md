@@ -20,6 +20,9 @@
 * Json转Dart Model类
 * JWT
 
+## flutter 版本
+* v1.18.1-pre.20
+
 ## 安装
 ```bash
 flutter packages get
