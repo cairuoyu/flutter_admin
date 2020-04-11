@@ -24,7 +24,9 @@ class EditPageState extends State<EditPage> {
   @override
   void initState() {
     super.initState();
-    formData = widget.person;
+    if (formData.id != null) {
+      formData = widget.person;
+    }
   }
 
   @override
