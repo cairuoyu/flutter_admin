@@ -117,6 +117,7 @@ class Layout1State extends State with TickerProviderStateMixin {
       endDrawer: getDrawer(),
       body: body,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("FLUTTER_ADMIN"),
         actions: <Widget>[
           IconButton(

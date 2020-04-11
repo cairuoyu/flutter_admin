@@ -122,9 +122,9 @@ class Curd1State extends State {
                     width: 900,
                     context: context,
                     title: '修改',
-                    body: EditPage(id: person.id),
+                    body: EditPage(person: person),
                   ).then((v) {
-                    if (v) {
+                    if (v != null) {
                       query();
                     }
                   });
@@ -287,9 +287,9 @@ class MyDS extends DataTableSource {
                   width: 900,
                   context: context,
                   title: '修改',
-                  body: EditPage(id: person.id),
+                  body: EditPage(person: person),
                 ).then((v) {
-                  if (v) {
+                  if (v != null) {
                     loadData();
                   }
                 });
