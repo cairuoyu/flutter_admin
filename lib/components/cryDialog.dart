@@ -29,8 +29,8 @@ cryDialog({
   String title,
   Widget body,
   Future then,
-  int width,
-  int height,
+  double width,
+  double height,
 }) {
   AppBar header = AppBar(
     title: Text(title),
