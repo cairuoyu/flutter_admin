@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/utils/adaptiveUtil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_admin/charts/SimpleSeriesLegend.dart';
 import 'package:flutter_admin/data/data1.dart';
@@ -53,7 +54,6 @@ class Dashboard1 extends StatelessWidget {
         boxShadow: [
           BoxShadow(color: Colors.black26, offset: Offset(2.0, 2.0), blurRadius: 4.0),
         ],
-        
         color: Colors.white,
       ),
       child: Column(
@@ -115,24 +115,45 @@ class Dashboard1 extends StatelessWidget {
     return b;
   }
 
+  getASizedBox(isDesktop) {
+    return SizedBox(
+      width: isDesktop ? 20 : 0,
+      height: isDesktop ? 0 : 20,
+    );
+  }
+
+  getOverview(isDesktop) {
+    var boxList = <Widget>[
+      getABox('190', '待办', Colors.red, Icon(FontAwesomeIcons.list)),
+      getASizedBox(isDesktop),
+      getABox('33', '在办', Colors.blue, Icon(FontAwesomeIcons.footballBall)),
+      getASizedBox(isDesktop),
+      getABox('58', '已办', Colors.green, Icon(FontAwesomeIcons.wind)),
+      getASizedBox(isDesktop),
+      getABox('1024', '办结', Colors.black38, Icon(FontAwesomeIcons.wallet)),
+    ];
+
+    if (isDesktop) {
+      return Container(
+        padding: const EdgeInsets.all(18.0),
+        child: Row(children: boxList),
+      );
+    } else {
+      return Container(
+        width: double.infinity,
+        height: 500,
+        padding: const EdgeInsets.all(18.0),
+        child: Column(children: boxList),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isDesktop = isDisplayDesktop(context);
     var a = Column(
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Row(
-            children: <Widget>[
-              getABox('190', '待办', Colors.red, Icon(FontAwesomeIcons.list)),
-              SizedBox(width: 20),
-              getABox('33', '在办', Colors.blue, Icon(FontAwesomeIcons.footballBall)),
-              SizedBox(width: 20),
-              getABox('58', '已办', Colors.green, Icon(FontAwesomeIcons.wind)),
-              SizedBox(width: 20),
-              getABox('1024', '办结', Colors.black38, Icon(FontAwesomeIcons.wallet)),
-            ],
-          ),
-        ),
+        getOverview(isDesktop),
         Container(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -147,14 +168,24 @@ class Dashboard1 extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.all(16),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              getAList(todoList, flex: 3, title: '待办列表'),
-              SizedBox(width: 16),
-              getAList(linkList, flex: 1, title: "常用链接"),
-            ],
-          ),
+          child: isDesktop
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    getAList(todoList, flex: 3, title: '待办列表'),
+                    SizedBox(width: 16),
+                    getAList(linkList, flex: 1, title: "常用链接"),
+                  ],
+                )
+              : Container(
+                  width: double.infinity,
+                  height: 850,
+                  child: Column(
+                    children: <Widget>[
+                      getAList(todoList, flex: 1, title: '待办列表'),
+                      getAList(linkList, flex: 1, title: "常用链接"),
+                    ],
+                  )),
         ),
       ],
     );
