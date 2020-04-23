@@ -96,7 +96,7 @@ class Curd1State extends State {
           label: '增加',
           onPressed: () {
             cryDialog(
-              width: 900,
+              width: 700,
               context: context,
               title: '增加',
               body: EditPage(),
@@ -119,7 +119,7 @@ class Curd1State extends State {
                     return v.selected;
                   });
                   cryDialog(
-                    width: 900,
+                    width: 700,
                     context: context,
                     title: '修改',
                     body: EditPage(person: person),

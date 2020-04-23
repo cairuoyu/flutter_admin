@@ -26,7 +26,8 @@ class UserInfoEditState extends State {
     super.initState();
     UserInfoApi.getCurrentUserInfo().then((v) {
       if (v.data == null) {
-        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Login()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (BuildContext context) => Login()));
       } else {
         setState(() {
           userInfo = UserInfo.fromJson(v.data);
@@ -40,22 +41,36 @@ class UserInfoEditState extends State {
       key: formKey,
       child: Wrap(
         children: <Widget>[
-          CryInput(label: '姓名', value: userInfo.name, onSaved: (v) => {userInfo.name = v}),
-          CryInput(label: '呢称', value: userInfo.nickName, onSaved: (v) => {userInfo.nickName = v}),
+          CryInput(
+              label: '姓名',
+              value: userInfo.name,
+              onSaved: (v) => {userInfo.name = v}),
+          CryInput(
+              label: '呢称',
+              value: userInfo.nickName,
+              onSaved: (v) => {userInfo.nickName = v}),
           CrySelectDate(
             label: '出生年月',
             context: context,
             value: userInfo.birthday,
             onSaved: (v) => {userInfo.birthday = v},
           ),
-          CrySelect(label: '性别', dataList: genderList, value: userInfo.gender, onSaved: (v) => {userInfo.gender = v}),
-          CrySelect(label: '部门', dataList: deptIdList, value: userInfo.deptId, onSaved: (v) => {userInfo.deptId = v}),
+          CrySelect(
+              label: '性别',
+              dataList: genderList,
+              value: userInfo.gender,
+              onSaved: (v) => {userInfo.gender = v}),
+          CrySelect(
+              label: '部门',
+              dataList: deptIdList,
+              value: userInfo.deptId,
+              onSaved: (v) => {userInfo.deptId = v}),
           // CryInput(label: '籍贯'),
         ],
       ),
     );
     var b = ButtonBar(
-      alignment: MainAxisAlignment.center,
+      alignment: MainAxisAlignment.start,
       children: <Widget>[
         CryButton(
           label: '保存',
@@ -72,7 +87,7 @@ class UserInfoEditState extends State {
     );
     var c = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[a, SizedBox(height: 20), b],
+      children: <Widget>[b, a, SizedBox(height: 20)],
     );
     return c;
   }
