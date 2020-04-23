@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_admin/charts/SimpleSeriesLegend.dart';
 import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/vo/listTileVO.dart';
+import 'package:intl/intl.dart';
 import '../../generated/l10n.dart';
 
 class Dashboard1 extends StatelessWidget {
@@ -185,8 +186,10 @@ class Dashboard1 extends StatelessWidget {
               ? Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    getAList(todoList_en,
-                        flex: 3, title: S.of(context).dashToDoList),
+                    getAList(
+                        Intl.defaultLocale == 'en' ? todoList_en : todoList,
+                        flex: 3,
+                        title: S.of(context).dashToDoList),
                     SizedBox(width: 16),
                     getAList(linkList,
                         flex: 1, title: S.of(context).dashTopLinks),
@@ -197,8 +200,10 @@ class Dashboard1 extends StatelessWidget {
                   height: 850,
                   child: Column(
                     children: <Widget>[
-                      getAList(todoList_en,
-                          flex: 1, title: S.of(context).dashToDoList),
+                      getAList(
+                          Intl.defaultLocale == 'en' ? todoList_en : todoList,
+                          flex: 1,
+                          title: S.of(context).dashToDoList),
                       getAList(linkList,
                           flex: 1, title: S.of(context).dashTopLinks),
                     ],
