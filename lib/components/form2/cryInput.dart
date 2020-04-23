@@ -5,7 +5,7 @@ import 'cryFormField.dart';
 
 class CryInput extends CryFormField {
   final String label;
-  final int width;
+  final double width;
   final ValueChanged onChange;
   final FormFieldSetter onSaved;
   final FormFieldValidator<String> validator;

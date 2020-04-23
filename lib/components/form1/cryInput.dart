@@ -5,11 +5,21 @@ import 'cryFormField.dart';
 
 class CryInput extends CryFormField {
   final String label;
+  final double width;
+  final double labelWidth;
   final ValueChanged onChange;
   final FormFieldSetter onSaved;
   final FormFieldValidator<String> validator;
 
-  CryInput({Key key, this.label, String value, this.onChange, this.onSaved, this.validator})
+  CryInput(
+      {Key key,
+      this.label,
+      String value,
+      this.onChange,
+      this.onSaved,
+      this.validator,
+      this.width,
+      this.labelWidth})
       : super(
           key: key,
           builder: (state) {

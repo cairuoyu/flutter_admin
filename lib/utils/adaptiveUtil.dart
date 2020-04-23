@@ -30,3 +30,7 @@ bool isDisplaySmallDesktop(BuildContext context) {
   return isDisplayDesktop(context) &&
       MediaQuery.of(context).size.width < _desktopLandscapeBreakpoint;
 }
+
+bool isDesktop(BuildContext context) {
+  return MediaQuery.of(context).size.width > _desktopPortraitBreakpoint;
+}

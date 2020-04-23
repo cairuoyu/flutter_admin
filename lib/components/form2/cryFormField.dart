@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class CryFormField extends StatefulWidget {
   final String label;
   final String value;
-  final int width;
+  final double width;
   final ValueChanged onChange;
   final Function builder;
 
@@ -23,7 +23,7 @@ class CryFormFieldState extends State<CryFormField> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(20),
-      width: widget.width ?? 300,
+      width: widget.width ?? double.infinity,
       child: widget.builder(this),
     );
   }

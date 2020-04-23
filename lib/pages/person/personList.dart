@@ -98,7 +98,7 @@ class Curd1State extends State {
           label: S.of(context).increase,
           onPressed: () {
             cryDialog(
-              width: 900,
+              width: 700,
               context: context,
               title: S.of(context).increase,
               body: EditPage(),
@@ -121,7 +121,7 @@ class Curd1State extends State {
                     return v.selected;
                   });
                   cryDialog(
-                    width: 900,
+                    width: 700,
                     context: context,
                     title: S.of(context).modify,
                     body: EditPage(person: person),

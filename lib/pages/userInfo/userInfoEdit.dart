@@ -72,7 +72,7 @@ class UserInfoEditState extends State {
       ),
     );
     var b = ButtonBar(
-      alignment: MainAxisAlignment.center,
+      alignment: MainAxisAlignment.start,
       children: <Widget>[
         CryButton(
           label: S.of(context).save,
@@ -89,7 +89,7 @@ class UserInfoEditState extends State {
     );
     var c = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[a, SizedBox(height: 20), b],
+      children: <Widget>[b, a, SizedBox(height: 20)],
     );
     return c;
   }
