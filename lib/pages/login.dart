@@ -8,6 +8,7 @@ import 'package:flutter_admin/models/user.dart';
 import 'package:flutter_admin/utils/globalUtil.dart';
 
 import 'layout/layout1.dart';
+import '../generated/l10n.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -86,7 +87,7 @@ class LoginState extends State {
                           style: TextStyle(color: Colors.black),
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: '用户名',
+                            labelText: S.of(context).username,
                             icon: Icon(
                               Icons.people,
                               color: Colors.blue,
@@ -96,7 +97,9 @@ class LoginState extends State {
                             user.userName = v;
                           },
                           validator: (v) {
-                            return v.isEmpty ? '用户名必填' : null;
+                            return v.isEmpty
+                                ? S.of(context).usernameRequired
+                                : null;
                           },
                         ),
                       ),
@@ -107,7 +110,7 @@ class LoginState extends State {
                           style: TextStyle(color: Colors.black),
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: '密码',
+                            labelText: S.of(context).password,
                             icon: Icon(
                               Icons.lock,
                               color: Colors.blue,
@@ -117,7 +120,9 @@ class LoginState extends State {
                             user.password = v;
                           },
                           validator: (v) {
-                            return v.isEmpty ? '密码必填' : null;
+                            return v.isEmpty
+                                ? S.of(context).passwordRequired
+                                : null;
                           },
                         ),
                       ),
@@ -126,14 +131,14 @@ class LoginState extends State {
                         children: <Widget>[
                           FlatButton(
                             child: Text(
-                              "注册新账号",
+                              S.of(context).register,
                               style: TextStyle(color: Colors.blue),
                             ),
                             onPressed: () => register(),
                           ),
                           FlatButton(
                             child: Text(
-                              "忘记密码",
+                              S.of(context).forgetPassword,
                               style: TextStyle(color: Colors.black45),
                             ),
                             onPressed: () {},
@@ -165,8 +170,10 @@ class LoginState extends State {
                 onPressed: () {
                   login();
                 },
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
-                child: Text("登录", style: TextStyle(color: Colors.white70, fontSize: 20)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40.0)),
+                child: Text(S.of(context).login,
+                    style: TextStyle(color: Colors.white70, fontSize: 20)),
                 color: Colors.blue,
               ),
             ),
@@ -177,7 +184,8 @@ class LoginState extends State {
   }
 
   register() {
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Register()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) => Register()));
   }
 
   login() {
@@ -189,7 +197,8 @@ class LoginState extends State {
     UserApi.login(user.toJson()).then((ResponeBodyApi responeBodyApi) {
       if (responeBodyApi.success) {
         GlobalUtil.token = responeBodyApi.data;
-        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Layout1()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (BuildContext context) => Layout1()));
       } else {
         this.error = responeBodyApi.message;
         BotToast.showText(text: this.error);

@@ -9,6 +9,8 @@ import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/models/userInfo.dart';
 import 'package:flutter_admin/pages/login.dart';
+import 'package:intl/intl.dart';
+import '../../generated/l10n.dart';
 
 class UserInfoEdit extends StatefulWidget {
   @override
@@ -26,7 +28,8 @@ class UserInfoEditState extends State {
     super.initState();
     UserInfoApi.getCurrentUserInfo().then((v) {
       if (v.data == null) {
-        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Login()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (BuildContext context) => Login()));
       } else {
         setState(() {
           userInfo = UserInfo.fromJson(v.data);
@@ -40,16 +43,30 @@ class UserInfoEditState extends State {
       key: formKey,
       child: Wrap(
         children: <Widget>[
-          CryInput(label: '姓名', value: userInfo.name, onSaved: (v) => {userInfo.name = v}),
-          CryInput(label: '呢称', value: userInfo.nickName, onSaved: (v) => {userInfo.nickName = v}),
+          CryInput(
+              label: S.of(context).personName,
+              value: userInfo.name,
+              onSaved: (v) => {userInfo.name = v}),
+          CryInput(
+              label: S.of(context).personNickname,
+              value: userInfo.nickName,
+              onSaved: (v) => {userInfo.nickName = v}),
           CrySelectDate(
-            label: '出生年月',
+            label: S.of(context).personBirthday,
             context: context,
             value: userInfo.birthday,
             onSaved: (v) => {userInfo.birthday = v},
           ),
-          CrySelect(label: '性别', dataList: genderList, value: userInfo.gender, onSaved: (v) => {userInfo.gender = v}),
-          CrySelect(label: '部门', dataList: deptIdList, value: userInfo.deptId, onSaved: (v) => {userInfo.deptId = v}),
+          CrySelect(
+              label: S.of(context).personGender,
+              dataList: Intl.defaultLocale == 'en' ? genderList_en : genderList,
+              value: userInfo.gender,
+              onSaved: (v) => {userInfo.gender = v}),
+          CrySelect(
+              label: S.of(context).personDepartment,
+              dataList: Intl.defaultLocale == 'en' ? deptIdList_en : deptIdList,
+              value: userInfo.deptId,
+              onSaved: (v) => {userInfo.deptId = v}),
           // CryInput(label: '籍贯'),
         ],
       ),
@@ -58,12 +75,12 @@ class UserInfoEditState extends State {
       alignment: MainAxisAlignment.center,
       children: <Widget>[
         CryButton(
-          label: '保存',
+          label: S.of(context).save,
           onPressed: () {
             FormState form = formKey.currentState;
             form.save();
             UserInfoApi.saveOrUpdate(userInfo.toJson()).then((res) {
-              BotToast.showText(text: "保存成功");
+              BotToast.showText(text: S.of(context).saved);
             });
           },
           iconData: Icons.save,

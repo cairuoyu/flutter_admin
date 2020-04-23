@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/userApi.dart';
 import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/models/user.dart';
+import '../generated/l10n.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -10,7 +11,7 @@ class Register extends StatefulWidget {
 }
 
 class RegisterState extends State {
-  static final String path = "lib/src/pages/login/login2.dart";
+  static final String path = "lib/src/pages/login/register.dart";
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   User user = new User();
   String password2 = "";
@@ -29,7 +30,7 @@ class RegisterState extends State {
 
   Widget buildPageContent() {
     var appName = Text(
-      "注册",
+      S.of(context).register,
       style: TextStyle(fontSize: 16, color: Colors.green),
       textScaleFactor: 3.2,
     );
@@ -61,15 +62,15 @@ class RegisterState extends State {
             padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
             child: TextFormField(
               style: TextStyle(color: Colors.black),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: '用户名',
+                labelText: S.of(context).username,
               ),
               onSaved: (v) {
                 user.userName = v;
               },
               validator: (v) {
-                return v.isEmpty ? '用户名必填' : null;
+                return v.isEmpty ? S.of(context).usernameRequired : null;
               },
             ),
           ),
@@ -78,15 +79,15 @@ class RegisterState extends State {
             child: TextFormField(
               style: TextStyle(color: Colors.black),
               obscureText: true,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: '密码',
+                labelText: S.of(context).password,
               ),
               onSaved: (v) {
                 user.password = v;
               },
               validator: (v) {
-                return v.isEmpty ? '密码必填' : null;
+                return v.isEmpty ? S.of(context).passwordRequired : null;
               },
             ),
           ),
@@ -95,16 +96,18 @@ class RegisterState extends State {
             child: TextFormField(
               style: TextStyle(color: Colors.black),
               obscureText: true,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 // helperText: '两次密码必须一致',
-                labelText: '确认密码',
+                labelText: S.of(context).confirmPassword,
               ),
               onSaved: (v) {
                 password2 = v;
               },
               validator: (v) {
-                return password2 == user.password ? null : '两次密码必须一致';
+                return password2 == user.password
+                    ? null
+                    : S.of(context).passwordMismatch;
               },
             ),
           ),
@@ -113,7 +116,7 @@ class RegisterState extends State {
             children: <Widget>[
               FlatButton(
                   child: Text(
-                    "已有账号，登录",
+                    S.of(context).haveAccountLogin,
                     style: TextStyle(color: Colors.blue),
                   ),
                   onPressed: () => login())
@@ -128,8 +131,10 @@ class RegisterState extends State {
                 onPressed: () {
                   register();
                 },
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
-                child: Text("注册", style: TextStyle(color: Colors.white70, fontSize: 20)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40.0)),
+                child: Text(S.of(context).register,
+                    style: TextStyle(color: Colors.white70, fontSize: 20)),
                 color: Colors.blue,
               ),
             ),
@@ -152,7 +157,8 @@ class RegisterState extends State {
   }
 
   login() {
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Login()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (BuildContext context) => Login()));
   }
 
   register() {
@@ -161,7 +167,7 @@ class RegisterState extends State {
     if (form.validate()) {
       UserApi.register(user.toJson()).then((v) {
         login();
-        BotToast.showText(text: '注册成功');
+        BotToast.showText(text: S.of(context).registerSuccess);
       });
     }
   }

@@ -1,5 +1,5 @@
 name: flutter_admin
-description: 一个基于flutter的后台管理系统
+description: 一个基于flutter的后台管理系统 - A management system based on flutter
 version: 1.0.0+1
 
 environment:
@@ -9,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   dio: 3.0.7
-  intl: 0.16.0
+
   cupertino_icons: ^0.1.2
   charts_flutter: ^0.8.0
   flutter_custom_clippers: ^1.1.0
@@ -18,15 +18,20 @@ dependencies:
   json_annotation: ^2.2.0
   bot_toast: ^2.2.1
   flutter_colorpicker: any
-  
 
+  flutter_localizations:
+    sdk: flutter
+  intl_translation: null
+  intl: null
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   json_model: #latest version
+    null
   json_serializable: ^2.0.0
   build_runner: ^1.0.0
 flutter:
   uses-material-design: true
-  
+flutter_intl:
+  enabled: true

@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_admin/charts/SimpleSeriesLegend.dart';
 import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/vo/listTileVO.dart';
+import '../../generated/l10n.dart';
 
 class Dashboard1 extends StatelessWidget {
   const Dashboard1({Key key}) : super(key: key);
@@ -16,7 +17,10 @@ class Dashboard1 extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           boxShadow: [
-            BoxShadow(color: Colors.black26, offset: Offset(2.0, 2.0), blurRadius: 4.0),
+            BoxShadow(
+                color: Colors.black26,
+                offset: Offset(2.0, 2.0),
+                blurRadius: 4.0),
           ],
         ),
         child: Column(
@@ -52,7 +56,8 @@ class Dashboard1 extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         boxShadow: [
-          BoxShadow(color: Colors.black26, offset: Offset(2.0, 2.0), blurRadius: 4.0),
+          BoxShadow(
+              color: Colors.black26, offset: Offset(2.0, 2.0), blurRadius: 4.0),
         ],
         color: Colors.white,
       ),
@@ -73,7 +78,8 @@ class Dashboard1 extends StatelessWidget {
     var header = Container(
       decoration: BoxDecoration(
         boxShadow: [
-          BoxShadow(color: Colors.black26, offset: Offset(2.0, 2.0), blurRadius: 4.0),
+          BoxShadow(
+              color: Colors.black26, offset: Offset(2.0, 2.0), blurRadius: 4.0),
         ],
         color: Colors.white,
         border: Border(bottom: BorderSide(color: Colors.black12)),
@@ -91,7 +97,10 @@ class Dashboard1 extends StatelessWidget {
       return Container(
         decoration: BoxDecoration(
           boxShadow: [
-            BoxShadow(color: Colors.black26, offset: Offset(2.0, 2.0), blurRadius: 4.0),
+            BoxShadow(
+                color: Colors.black26,
+                offset: Offset(2.0, 2.0),
+                blurRadius: 4.0),
           ],
           color: Colors.white,
           border: Border(bottom: BorderSide(color: Colors.black12)),
@@ -122,15 +131,19 @@ class Dashboard1 extends StatelessWidget {
     );
   }
 
-  getOverview(isDesktop) {
+  getOverview(context, isDesktop) {
     var boxList = <Widget>[
-      getABox('190', '待办', Colors.red, Icon(FontAwesomeIcons.list)),
+      getABox('190', S.of(context).dashUpcoming, Colors.red,
+          Icon(FontAwesomeIcons.list)),
       getASizedBox(isDesktop),
-      getABox('33', '在办', Colors.blue, Icon(FontAwesomeIcons.footballBall)),
+      getABox('33', S.of(context).dashInProgress, Colors.blue,
+          Icon(FontAwesomeIcons.footballBall)),
       getASizedBox(isDesktop),
-      getABox('58', '已办', Colors.green, Icon(FontAwesomeIcons.wind)),
+      getABox('58', S.of(context).dashDone, Colors.green,
+          Icon(FontAwesomeIcons.wind)),
       getASizedBox(isDesktop),
-      getABox('1024', '办结', Colors.black38, Icon(FontAwesomeIcons.wallet)),
+      getABox('1024', S.of(context).dashFinish, Colors.black38,
+          Icon(FontAwesomeIcons.wallet)),
     ];
 
     if (isDesktop) {
@@ -153,12 +166,12 @@ class Dashboard1 extends StatelessWidget {
     final isDesktop = isDisplayDesktop(context);
     var a = Column(
       children: <Widget>[
-        getOverview(isDesktop),
+        getOverview(context, isDesktop),
         Container(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: buildTitledContainer(
-              "数量统计",
+              S.of(context).dashTotal,
               child: Container(
                 height: 200,
                 child: SimpleSeriesLegend.withSampleData(),
@@ -172,9 +185,11 @@ class Dashboard1 extends StatelessWidget {
               ? Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    getAList(todoList, flex: 3, title: '待办列表'),
+                    getAList(todoList_en,
+                        flex: 3, title: S.of(context).dashToDoList),
                     SizedBox(width: 16),
-                    getAList(linkList, flex: 1, title: "常用链接"),
+                    getAList(linkList,
+                        flex: 1, title: S.of(context).dashTopLinks),
                   ],
                 )
               : Container(
@@ -182,8 +197,10 @@ class Dashboard1 extends StatelessWidget {
                   height: 850,
                   child: Column(
                     children: <Widget>[
-                      getAList(todoList, flex: 1, title: '待办列表'),
-                      getAList(linkList, flex: 1, title: "常用链接"),
+                      getAList(todoList_en,
+                          flex: 1, title: S.of(context).dashToDoList),
+                      getAList(linkList,
+                          flex: 1, title: S.of(context).dashTopLinks),
                     ],
                   )),
         ),

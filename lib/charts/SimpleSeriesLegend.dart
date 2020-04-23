@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:intl/intl.dart';
+import '../generated/l10n.dart';
 
 class SimpleSeriesLegend extends StatelessWidget {
   final List<charts.Series> seriesList;
@@ -53,30 +55,59 @@ class SimpleSeriesLegend extends StatelessWidget {
       new OrdinalSales('第四季度', 10),
     ];
 
+    final desktopSalesData_en = [
+      new OrdinalSales('Q1', 5),
+      new OrdinalSales('Q2', 25),
+      new OrdinalSales('Q3', 100),
+      new OrdinalSales('Q4', 75),
+    ];
+
+    final tabletSalesData_en = [
+      new OrdinalSales('Q1', 25),
+      new OrdinalSales('Q2', 50),
+      new OrdinalSales('Q3', 10),
+      new OrdinalSales('Q4', 20),
+    ];
+
+    final mobileSalesData_en = [
+      new OrdinalSales('Q1', 10),
+      new OrdinalSales('Q2', 15),
+      new OrdinalSales('Q3', 50),
+      new OrdinalSales('Q4', 45),
+    ];
+
+    final otherSalesData_en = [
+      new OrdinalSales('Q1', 20),
+      new OrdinalSales('Q2', 35),
+      new OrdinalSales('Q3', 15),
+      new OrdinalSales('Q4', 10),
+    ];
+
     return [
       new charts.Series<OrdinalSales, String>(
-        id: '待办',
+        id: Intl.defaultLocale == 'en' ? 'DeskTop' : '待办',
         domainFn: (OrdinalSales sales, _) => sales.year,
         measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: desktopSalesData,
+        data:
+            Intl.defaultLocale == 'en' ? desktopSalesData_en : desktopSalesData,
       ),
       new charts.Series<OrdinalSales, String>(
-        id: '在办',
+        id: Intl.defaultLocale == 'en' ? 'Tablet' : '在办',
         domainFn: (OrdinalSales sales, _) => sales.year,
         measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: tabletSalesData,
+        data: Intl.defaultLocale == 'en' ? tabletSalesData_en : tabletSalesData,
       ),
       new charts.Series<OrdinalSales, String>(
-        id: '已办',
+        id: Intl.defaultLocale == 'en' ? 'Mobile' : '已办',
         domainFn: (OrdinalSales sales, _) => sales.year,
         measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: mobileSalesData,
+        data: Intl.defaultLocale == 'en' ? mobileSalesData_en : mobileSalesData,
       ),
       new charts.Series<OrdinalSales, String>(
-        id: '办结',
+        id: Intl.defaultLocale == 'en' ? 'Other' : '办结',
         domainFn: (OrdinalSales sales, _) => sales.year,
         measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: otherSalesData,
+        data: Intl.defaultLocale == 'en' ? otherSalesData_en : otherSalesData,
       ),
     ];
   }
