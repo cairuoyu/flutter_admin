@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/pages/login.dart';
+import 'package:flutter_admin/utils/adaptiveUtil.dart';
 import 'package:flutter_admin/utils/globalUtil.dart';
 import 'package:flutter_admin/vo/pageVO.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -32,6 +35,7 @@ class Layout1State extends State with TickerProviderStateMixin {
     if (pageVoOpened.length > 0) {
       loadPage(pageVoOpened[0]);
     }
+    this.expandMenu = isDesktopInit();
     WidgetsBinding.instance.addPostFrameCallback((v) {
       // scaffoldStateKey.currentState.openEndDrawer();
     });
