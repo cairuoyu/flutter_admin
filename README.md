@@ -2,10 +2,12 @@
 
 使用flutter实现的一个后台管理系统
 
-![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_login.PNG)
-![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_dashboard.PNG)
-![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_user.PNG)
-![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_user-update.PNG)
+![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_login.png)
+![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_dashboard.png)
+![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_setting.png)
+![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_personEdit.png)
+![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_userInfo.png)
+![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_menu.png)
 
 ---
 ## 功能技术
@@ -14,6 +16,7 @@
 * 功能菜单
 * Dashboard
 * 人员管理
+* 菜单管理
 * 我的信息
 * 主题切换
 * Json转Dart Model类

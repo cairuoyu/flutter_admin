@@ -20,9 +20,11 @@ List<SelectOptionVO> genderList = [
 ];
 
 List<Menu> testMenuList = <Menu>[
-  Menu(id: '1', name: 'a',url: 'http://test/1'),
-  Menu(id: '2', name: 'a1',pid: '1',url: 'test2/'),
-  Menu(id: '3', name: 'b'),
+  Menu(id: '1', name: 'Dashboard', url: 'http://test/1'),
+  Menu(id: '2', name: '人员管理', url: 'test2/'),
+  Menu(id: '3', name: '菜单管理'),
+  Menu(id: '4', name: '树结构一级菜单', url: '404.html'),
+  Menu(id: '5', name: '二级菜单', pid: '4'),
 ];
 List<PageVO> testPageVOAll = <PageVO>[
   PageVO(id: "1", icon: Icons.dashboard, title: 'Dashboard', widget: Dashboard1()),
