@@ -8,6 +8,8 @@ import 'package:flutter_admin/components/form1/crySelect.dart';
 import 'package:flutter_admin/components/form1/crySelectDate.dart';
 import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/models/person.dart';
+import 'package:intl/intl.dart';
+import '../../generated/l10n.dart';
 
 class EditPage extends StatefulWidget {
   final Person person;
@@ -37,25 +39,25 @@ class EditPageState extends State<EditPage> {
         children: <Widget>[
           CryInput(
             value: formData.name,
-            label: '人员姓名',
+            label: S.of(context).personName,
             onSaved: (v) {
               formData.name = v;
             },
             validator: (v) {
-              return v.isEmpty ? '必填' : null;
+              return v.isEmpty ? S.of(context).personRequired : null;
             },
           ),
           CryInput(
             value: formData.nickName,
-            label: '呢称',
+            label: S.of(context).personNickname,
             onSaved: (v) {
               formData.nickName = v;
             },
           ),
           CrySelect(
-            label: '性别',
+            label: S.of(context).personGender,
             value: formData.gender,
-            dataList: genderList,
+            dataList: Intl.defaultLocale == 'en' ? genderList_en : genderList,
             onSaved: (v) {
               formData.gender = v;
             },
@@ -63,15 +65,15 @@ class EditPageState extends State<EditPage> {
           CrySelectDate(
             context: context,
             value: formData.birthday,
-            label: '出生年月',
+            label: S.of(context).personBirthday,
             onSaved: (v) {
               formData.birthday = v;
             },
           ),
           CrySelect(
-            label: '所属部门',
+            label: S.of(context).personDepartment,
             value: formData.deptId,
-            dataList: deptIdList,
+            dataList: Intl.defaultLocale == 'en' ? deptIdList_en : deptIdList,
             onSaved: (v) {
               formData.deptId = v;
             },
@@ -83,7 +85,7 @@ class EditPageState extends State<EditPage> {
       alignment: MainAxisAlignment.center,
       children: <Widget>[
         CryButton(
-          label: '保存',
+          label: S.of(context).save,
           onPressed: () {
             FormState form = formKey.currentState;
             if (!form.validate()) {
@@ -91,14 +93,14 @@ class EditPageState extends State<EditPage> {
             }
             form.save();
             PersonApi.saveOrUpdate(formData.toJson()).then((res) {
-              BotToast.showText(text: "保存成功");
+              BotToast.showText(text: S.of(context).saved);
               // BotToast.showSimpleNotification(title: "init");
               Navigator.pop(context, true);
             });
           },
         ),
         CryButton(
-          label: '取消',
+          label: S.of(context).cancel,
           onPressed: () {
             Navigator.pop(context);
           },

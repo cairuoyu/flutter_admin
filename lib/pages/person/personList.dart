@@ -10,6 +10,8 @@ import 'package:flutter_admin/models/index.dart' as model;
 import 'package:flutter_admin/models/requestBodyApi.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/utils/dictUtil.dart';
+import 'package:intl/intl.dart';
+import '../../generated/l10n.dart';
 
 import 'personEdit.dart';
 
@@ -60,15 +62,15 @@ class Curd1State extends State {
       child: Wrap(
         children: <Widget>[
           CryInput(
-            label: '人员姓名',
+            label: S.of(context).personName,
             onSaved: (v) {
               formData.name = v;
             },
           ),
           CrySelect(
-            label: '所属部门',
+            label: S.of(context).personDepartment,
             value: formData.deptId,
-            dataList: deptIdList,
+            dataList: Intl.defaultLocale == 'en' ? deptIdList_en : deptIdList,
             onSaved: (v) {
               formData.deptId = v;
             },
@@ -81,24 +83,24 @@ class Curd1State extends State {
       alignment: MainAxisAlignment.start,
       children: <Widget>[
         CryButton(
-          label: '查询',
+          label: S.of(context).inquire,
           onPressed: () {
             query();
           },
         ),
         CryButton(
-          label: '重置',
+          label: S.of(context).reset,
           onPressed: () {
             reset();
           },
         ),
         CryButton(
-          label: '增加',
+          label: S.of(context).increase,
           onPressed: () {
             cryDialog(
               width: 650,
               context: context,
-              title: '增加',
+              title: S.of(context).increase,
               body: EditPage(),
             ).then((v) {
               if (v != null) {
@@ -108,7 +110,7 @@ class Curd1State extends State {
           },
         ),
         CryButton(
-          label: '修改',
+          label: S.of(context).modify,
           onPressed: myDS.selectedCount != 1
               ? null
               : () {
@@ -121,7 +123,7 @@ class Curd1State extends State {
                   cryDialog(
                     width: 650,
                     context: context,
-                    title: '修改',
+                    title: S.of(context).modify,
                     body: EditPage(person: person),
                   ).then((v) {
                     if (v != null) {
@@ -131,11 +133,11 @@ class Curd1State extends State {
                 },
         ),
         CryButton(
-          label: '删除',
+          label: S.of(context).delete,
           onPressed: myDS.selectedCount < 1
               ? null
               : () {
-                  cryConfirm(context, '确定删除', () async {
+                  cryConfirm(context, S.of(context).confirmDelete, () async {
                     List ids = myDS.dataList.where((v) {
                       return v.selected;
                     }).map<String>((v) {
@@ -155,7 +157,7 @@ class Curd1State extends State {
         padding: const EdgeInsets.all(10.0),
         children: <Widget>[
           PaginatedDataTable(
-            header: const Text('用户列表'),
+            header: Text(S.of(context).userList),
             rowsPerPage: rowsPerPage,
             onRowsPerPageChanged: (int value) {
               setState(() {
@@ -168,35 +170,42 @@ class Curd1State extends State {
             onPageChanged: myDS.onPageChanged,
             columns: <DataColumn>[
               DataColumn(
-                label: const Text('姓名'),
-                onSort: (int columnIndex, bool ascending) => myDS.sort('name', ascending),
+                label: Text(S.of(context).name),
+                onSort: (int columnIndex, bool ascending) =>
+                    myDS.sort('name', ascending),
               ),
               DataColumn(
-                label: const Text('呢称'),
-                onSort: (int columnIndex, bool ascending) => myDS.sort('nick_name', ascending),
+                label: Text(S.of(context).personNickname),
+                onSort: (int columnIndex, bool ascending) =>
+                    myDS.sort('nick_name', ascending),
               ),
               DataColumn(
-                label: const Text('性别'),
-                onSort: (int columnIndex, bool ascending) => myDS.sort('gender', ascending),
+                label: Text(S.of(context).personGender),
+                onSort: (int columnIndex, bool ascending) =>
+                    myDS.sort('gender', ascending),
               ),
               DataColumn(
-                label: const Text('出生年月'),
-                onSort: (int columnIndex, bool ascending) => myDS.sort('birthday', ascending),
+                label: Text(S.of(context).personBirthday),
+                onSort: (int columnIndex, bool ascending) =>
+                    myDS.sort('birthday', ascending),
               ),
               DataColumn(
-                label: const Text('部门'),
-                onSort: (int columnIndex, bool ascending) => myDS.sort('dept_id', ascending),
+                label: Text(S.of(context).personDepartment),
+                onSort: (int columnIndex, bool ascending) =>
+                    myDS.sort('dept_id', ascending),
               ),
               DataColumn(
-                label: const Text('创建时间'),
-                onSort: (int columnIndex, bool ascending) => myDS.sort('create_time', ascending),
+                label: Text(S.of(context).creationTime),
+                onSort: (int columnIndex, bool ascending) =>
+                    myDS.sort('create_time', ascending),
               ),
               DataColumn(
-                label: const Text('修改时间'),
-                onSort: (int columnIndex, bool ascending) => myDS.sort('update_time', ascending),
+                label: Text(S.of(context).updateTime),
+                onSort: (int columnIndex, bool ascending) =>
+                    myDS.sort('update_time', ascending),
               ),
               DataColumn(
-                label: const Text('操作'),
+                label: Text(S.of(context).operating),
               ),
             ],
             source: myDS,
@@ -273,9 +282,12 @@ class MyDS extends DataTableSource {
       cells: <DataCell>[
         DataCell(Text(person.name ?? '--')),
         DataCell(Text(person.nickName ?? '--')),
-        DataCell(Text(DictUtil.getDictName(person.gender, genderList))),
+        DataCell(Text(DictUtil.getDictName(person.gender,
+            Intl.defaultLocale == 'en' ? genderList_en : genderList))),
         DataCell(Text(person.birthday ?? '--')),
-        DataCell(Text(DictUtil.getDictName(person.deptId, deptIdList, defaultValue: '--'))),
+        DataCell(Text(DictUtil.getDictName(person.deptId,
+            Intl.defaultLocale == 'en' ? deptIdList_en : deptIdList,
+            defaultValue: '--'))),
         DataCell(Text(person.createTime ?? '--')),
         DataCell(Text(person.updateTime ?? '--')),
         DataCell(ButtonBar(
@@ -286,7 +298,7 @@ class MyDS extends DataTableSource {
                 cryDialog(
                   width: 900,
                   context: context,
-                  title: '修改',
+                  title: S.of(context).modify,
                   body: EditPage(person: person),
                 ).then((v) {
                   if (v != null) {
@@ -298,7 +310,7 @@ class MyDS extends DataTableSource {
             IconButton(
               icon: Icon(Icons.delete),
               onPressed: () {
-                cryConfirm(context, '确定删除', () async {
+                cryConfirm(context, S.of(context).confirmDelete, () async {
                   await PersonApi.removeByIds([person.id]);
                   loadData();
                   Navigator.of(context).pop();

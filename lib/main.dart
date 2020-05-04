@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter_admin/pages/layout/layout1.dart';
-import 'package:flutter_admin/pages/login.dart';
-import 'package:flutter_admin/pages/person/personList.dart';
-import 'package:flutter_admin/pages/userInfo/userInfoEdit.dart';
+import './pages/layout/layout1.dart';
+import './pages/login.dart';
+import './pages/person/personList.dart';
+import './pages/userInfo/userInfoEdit.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import './generated/l10n.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,6 +19,14 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
+        localizationsDelegates: [
+          S.delegate, // class from the generate l10n.dart file
+          GlobalCupertinoLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+
         // home: Test1(),
         // home: PersonList(),
         // home: Register(),
