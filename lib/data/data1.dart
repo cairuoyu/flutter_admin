@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/models/index.dart';
+import 'package:flutter_admin/pages/dash/dashboard1.dart';
+import 'package:flutter_admin/pages/menu/menuList.dart';
 import 'package:flutter_admin/pages/person/personList.dart';
 import 'package:flutter_admin/pages/userInfo/userInfoEdit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_admin/pages/dash/dashboard1.dart';
 import 'package:flutter_admin/vo/listTileVO.dart';
 import 'package:flutter_admin/vo/pageVO.dart';
 import 'package:flutter_admin/vo/selectOptionVO.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 List<SelectOptionVO> deptIdList = [
   SelectOptionVO(value: '1', label: '技术部门'),
@@ -17,6 +19,13 @@ List<SelectOptionVO> genderList = [
   SelectOptionVO(value: '2', label: '女'),
 ];
 
+List<Menu> testMenuList = <Menu>[
+  Menu(id: '1', name: 'Dashboard', url: 'http://test/1'),
+  Menu(id: '2', name: '人员管理', url: 'test2/'),
+  Menu(id: '3', name: '菜单管理'),
+  Menu(id: '4', name: '树结构一级菜单', url: '404.html'),
+  Menu(id: '5', name: '二级菜单', pid: '4'),
+];
 List<SelectOptionVO> deptIdList_en = [
   SelectOptionVO(value: '1', label: 'Technical Department'),
   SelectOptionVO(value: '2', label: 'Product Department'),
@@ -63,6 +72,7 @@ List<PageVO> testPageVOAll = <PageVO>[
   PageVO(
       id: "1", icon: Icons.dashboard, title: 'Dashboard', widget: Dashboard1()),
   PageVO(id: "4", icon: Icons.people, title: '人员管理', widget: PersonList()),
+  PageVO(id: "3", icon: Icons.people, title: '菜单管理', widget: MenuList()),
   PageVO(id: "2", icon: Icons.folder, title: '树结构一级菜单', children: [
     PageVO(
       title: '二级菜单',
