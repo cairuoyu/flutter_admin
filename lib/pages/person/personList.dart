@@ -41,10 +41,24 @@ class Curd1State extends State {
     myDS.loadData();
   }
 
+  edit({model.Person person}) {
+    cryDialog(
+      width: 650,
+      context: context,
+      title: person == null ? S.of(context).increase : S.of(context).modify,
+      body: EditPage(person: person),
+    ).then((v) {
+      if (v != null) {
+        query();
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     myDS.context = context;
+    myDS.state = this;
     myDS.page.size = rowsPerPage;
     myDS.page.orders.add(model.OrderItem(column: 'update_time', asc: false));
     myDS.addListener(() {
@@ -97,16 +111,7 @@ class Curd1State extends State {
         CryButton(
           label: S.of(context).increase,
           onPressed: () {
-            cryDialog(
-              width: 650,
-              context: context,
-              title: S.of(context).increase,
-              body: EditPage(),
-            ).then((v) {
-              if (v != null) {
-                query();
-              }
-            });
+            edit();
           },
         ),
         CryButton(
@@ -120,16 +125,7 @@ class Curd1State extends State {
                   model.Person person = myDS.dataList.firstWhere((v) {
                     return v.selected;
                   });
-                  cryDialog(
-                    width: 650,
-                    context: context,
-                    title: S.of(context).modify,
-                    body: EditPage(person: person),
-                  ).then((v) {
-                    if (v != null) {
-                      query();
-                    }
-                  });
+                  edit(person: person);
                 },
         ),
         CryButton(
@@ -171,38 +167,31 @@ class Curd1State extends State {
             columns: <DataColumn>[
               DataColumn(
                 label: Text(S.of(context).name),
-                onSort: (int columnIndex, bool ascending) =>
-                    myDS.sort('name', ascending),
+                onSort: (int columnIndex, bool ascending) => myDS.sort('name', ascending),
               ),
               DataColumn(
                 label: Text(S.of(context).personNickname),
-                onSort: (int columnIndex, bool ascending) =>
-                    myDS.sort('nick_name', ascending),
+                onSort: (int columnIndex, bool ascending) => myDS.sort('nick_name', ascending),
               ),
               DataColumn(
                 label: Text(S.of(context).personGender),
-                onSort: (int columnIndex, bool ascending) =>
-                    myDS.sort('gender', ascending),
+                onSort: (int columnIndex, bool ascending) => myDS.sort('gender', ascending),
               ),
               DataColumn(
                 label: Text(S.of(context).personBirthday),
-                onSort: (int columnIndex, bool ascending) =>
-                    myDS.sort('birthday', ascending),
+                onSort: (int columnIndex, bool ascending) => myDS.sort('birthday', ascending),
               ),
               DataColumn(
                 label: Text(S.of(context).personDepartment),
-                onSort: (int columnIndex, bool ascending) =>
-                    myDS.sort('dept_id', ascending),
+                onSort: (int columnIndex, bool ascending) => myDS.sort('dept_id', ascending),
               ),
               DataColumn(
                 label: Text(S.of(context).creationTime),
-                onSort: (int columnIndex, bool ascending) =>
-                    myDS.sort('create_time', ascending),
+                onSort: (int columnIndex, bool ascending) => myDS.sort('create_time', ascending),
               ),
               DataColumn(
                 label: Text(S.of(context).updateTime),
-                onSort: (int columnIndex, bool ascending) =>
-                    myDS.sort('update_time', ascending),
+                onSort: (int columnIndex, bool ascending) => myDS.sort('update_time', ascending),
               ),
               DataColumn(
                 label: Text(S.of(context).operating),
@@ -232,6 +221,7 @@ class Curd1State extends State {
 
 class MyDS extends DataTableSource {
   MyDS();
+  Curd1State state;
   BuildContext context;
   List<model.Person> dataList;
   int selectedCount = 0;
@@ -282,11 +272,9 @@ class MyDS extends DataTableSource {
       cells: <DataCell>[
         DataCell(Text(person.name ?? '--')),
         DataCell(Text(person.nickName ?? '--')),
-        DataCell(Text(DictUtil.getDictName(person.gender,
-            Intl.defaultLocale == 'en' ? genderList_en : genderList))),
+        DataCell(Text(DictUtil.getDictName(person.gender, Intl.defaultLocale == 'en' ? genderList_en : genderList))),
         DataCell(Text(person.birthday ?? '--')),
-        DataCell(Text(DictUtil.getDictName(person.deptId,
-            Intl.defaultLocale == 'en' ? deptIdList_en : deptIdList,
+        DataCell(Text(DictUtil.getDictName(person.deptId, Intl.defaultLocale == 'en' ? deptIdList_en : deptIdList,
             defaultValue: '--'))),
         DataCell(Text(person.createTime ?? '--')),
         DataCell(Text(person.updateTime ?? '--')),
@@ -295,16 +283,7 @@ class MyDS extends DataTableSource {
             IconButton(
               icon: Icon(Icons.edit),
               onPressed: () {
-                cryDialog(
-                  width: 900,
-                  context: context,
-                  title: S.of(context).modify,
-                  body: EditPage(person: person),
-                ).then((v) {
-                  if (v != null) {
-                    loadData();
-                  }
-                });
+                state.edit(person: person);
               },
             ),
             IconButton(

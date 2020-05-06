@@ -1,11 +1,14 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/components/cryRoot.dart';
+import 'package:flutter_admin/components/cryToggleButtons.dart';
 import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/utils/adaptiveUtil.dart';
 import 'package:flutter_admin/utils/globalUtil.dart';
 import 'package:flutter_admin/vo/pageVO.dart';
+import 'package:flutter_admin/vo/selectOptionVO.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:intl/intl.dart';
 import '../../generated/l10n.dart';
@@ -47,6 +50,7 @@ class Layout1State extends State with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    pageVoAll = Intl.defaultLocale == 'en' ? testPageVOAll_en : testPageVOAll;
     ListTile menuHeader = ListTile(
       title: Icon(Icons.menu),
       onTap: () {
@@ -181,6 +185,24 @@ class Layout1State extends State with TickerProviderStateMixin {
               border: Border(bottom: BorderSide(color: Colors.black12)),
             ),
             padding: EdgeInsets.all(10),
+            child: CryToggleButtons(
+              [
+                SelectOptionVO(value: 'en', label: 'english'),
+                SelectOptionVO(value: 'zh', label: '中文'),
+              ],
+              afterOnPress: (v) {
+                setState(() {
+                  CryRootScope.updateLocale(context, v);
+                });
+              },
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(bottom: BorderSide(color: Colors.black12)),
+            ),
+            padding: EdgeInsets.all(5),
             child: getColorPicker(),
           ),
         ],
