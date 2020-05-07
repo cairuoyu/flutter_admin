@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/components/cryRoot.dart';
 import 'package:flutter_admin/components/cryToggleButtons.dart';
 import 'package:flutter_admin/data/data1.dart';
+import 'package:flutter_admin/pages/common/langSwitch.dart';
 import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/utils/adaptiveUtil.dart';
 import 'package:flutter_admin/utils/globalUtil.dart';
@@ -185,17 +186,7 @@ class Layout1State extends State with TickerProviderStateMixin {
               border: Border(bottom: BorderSide(color: Colors.black12)),
             ),
             padding: EdgeInsets.all(10),
-            child: CryToggleButtons(
-              [
-                SelectOptionVO(value: 'en', label: 'english'),
-                SelectOptionVO(value: 'zh', label: '中文'),
-              ],
-              afterOnPress: (v) {
-                setState(() {
-                  CryRootScope.updateLocale(context, v);
-                });
-              },
-            ),
+            child: LangSwitch(),
           ),
           Container(
             decoration: BoxDecoration(
