@@ -6,8 +6,9 @@
 ![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_dashboard.png)
 ![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_setting.png)
 ![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_personEdit.png)
-![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_userInfo.png)
+![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_regist.png)
 ![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_menu.png)
+![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_userInfo.png)
 
 ---
 ## 功能技术
