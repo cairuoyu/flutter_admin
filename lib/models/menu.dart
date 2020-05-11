@@ -4,11 +4,12 @@ part 'menu.g.dart';
 
 @JsonSerializable()
 class Menu {
-  Menu({this.id, this.pid, this.name,this.url});
+  Menu({this.id, this.pid, this.name, this.pname, this.url});
 
   String id;
   String name;
   String pid;
+  String pname;
   String url;
   String module;
   String remark;

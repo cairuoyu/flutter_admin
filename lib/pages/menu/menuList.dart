@@ -41,15 +41,13 @@ class MenuListState extends State<MenuList> {
           children: <Widget>[
             CryButton(
               iconData: Icons.add,
-              label: '添加子菜单',
-              onPressed: selected.length == 1
-                  ? () {
-                      this.setState(() {
-                        this.isEdit = true;
-                        this.formData = Menu(pid: selected[0].data.name);
-                      });
-                    }
-                  : null,
+              label: '添加菜单',
+              onPressed: () {
+                this.setState(() {
+                  this.isEdit = true;
+                  this.formData = Menu();
+                });
+              },
             ),
             CryButton(
               iconData: Icons.delete,
@@ -61,10 +59,10 @@ class MenuListState extends State<MenuList> {
       ),
     );
     ListView listView = ListView(
-      children: [header, ...genListTile(treeVOList)],
+      children: [header, ...genListTile(treeVOList, null)],
     );
     var left = Container(
-      width: 400,
+      width: 450,
       child: listView,
     );
     var right = Expanded(
@@ -118,10 +116,10 @@ class MenuListState extends State<MenuList> {
             },
           ),
           CryInput(
-            value: formData.pid,
-            label: '所属模块',
+            value: formData.pname ?? '根目录',
+            label: '父菜单',
             onSaved: (v) {
-              formData.pid = v;
+              formData.pname = v;
             },
           ),
           CryInput(
@@ -137,7 +135,7 @@ class MenuListState extends State<MenuList> {
     return form;
   }
 
-  List<Widget> genListTile(List data) {
+  List<Widget> genListTile(List data, TreeVO<Menu> parent) {
     List<Widget> list = [];
     for (var i = 0; i < data.length; i++) {
       TreeVO<Menu> vo = data[i];
@@ -147,10 +145,24 @@ class MenuListState extends State<MenuList> {
       }
       columnList.add(
         IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () {
+            setState(() {
+              this.formData = Menu(pname: vo.data.name);
+              this.isEdit = true;
+            });
+          },
+        ),
+      );
+      columnList.add(
+        IconButton(
           icon: Icon(Icons.edit),
           onPressed: () {
             setState(() {
               this.formData = vo.data;
+              if (parent != null) {
+                this.formData.pname = parent.data.name;
+              }
               this.isEdit = true;
             });
           },
@@ -172,7 +184,7 @@ class MenuListState extends State<MenuList> {
           decoration: getBD(),
           child: ExpansionTile(
             leading: leading,
-            children: genListTile(vo.children),
+            children: genListTile(vo.children, vo),
             title: title,
           ),
         );
