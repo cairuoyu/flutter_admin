@@ -1,7 +1,10 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/api/menuApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
-import 'package:flutter_admin/data/data1.dart';
+import 'package:flutter_admin/generated/l10n.dart';
+import 'package:flutter_admin/models/index.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
 
@@ -13,7 +16,9 @@ class MenuList extends StatefulWidget {
 }
 
 class MenuListState extends State<MenuList> {
-  List<TreeVO<Menu>> treeVOList = toTreeVOList(testMenuList);
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  List<TreeVO<Menu>> treeVOList = [];
   bool isEdit = false;
   Menu formData = Menu();
 
@@ -28,6 +33,20 @@ class MenuListState extends State<MenuList> {
       }
     });
     return selected;
+  }
+
+  loadData() async {
+    ResponeBodyApi responeBodyApi = await MenuApi.list(null);
+    var data = responeBodyApi.data;
+    List<Menu> list = List.from(data).map((e) => Menu.fromJson(e)).toList();
+    this.treeVOList = toTreeVOList(list);
+    this.setState(() {});
+  }
+
+  @override
+  void initState() {
+    this.loadData();
+    super.initState();
   }
 
   @override
@@ -52,7 +71,15 @@ class MenuListState extends State<MenuList> {
             CryButton(
               iconData: Icons.delete,
               label: '删除',
-              onPressed: selected.length >= 1 ? () {} : null,
+              onPressed: selected.length >= 1
+                  ? () async {
+                      List ids = selected.map((e) => e.data.id).toList();
+                      await MenuApi.removeByIds(ids);
+                      setState(() {
+                        this.loadData();
+                      });
+                    }
+                  : null,
             ),
           ],
         ),
@@ -74,7 +101,17 @@ class MenuListState extends State<MenuList> {
             children: <Widget>[
               CryButton(
                 label: '保存',
-                onPressed: () {},
+                onPressed: () {
+                  FormState form = formKey.currentState;
+                  if (!form.validate()) {
+                    return;
+                  }
+                  form.save();
+                  MenuApi.saveOrUpdate(formData.toJson()).then((res) {
+                    BotToast.showText(text: S.of(context).saved);
+                    this.loadData();
+                  });
+                },
                 iconData: Icons.save,
               ),
               CryButton(
@@ -102,7 +139,7 @@ class MenuListState extends State<MenuList> {
 
   Form getForm() {
     var form = Form(
-      // key: formKey,
+      key: formKey,
       child: Wrap(
         children: <Widget>[
           CryInput(
@@ -148,7 +185,7 @@ class MenuListState extends State<MenuList> {
           icon: Icon(Icons.add),
           onPressed: () {
             setState(() {
-              this.formData = Menu(pname: vo.data.name);
+              this.formData = Menu(pname: vo.data.name, pid: vo.data.id);
               this.isEdit = true;
             });
           },
@@ -184,6 +221,7 @@ class MenuListState extends State<MenuList> {
           decoration: getBD(),
           child: ExpansionTile(
             leading: leading,
+            initiallyExpanded: true,
             children: genListTile(vo.children, vo),
             title: title,
           ),
@@ -228,26 +266,34 @@ checkChildren(TreeVO vo, bool v) {
   }
 }
 
-addMenu(List<TreeVO<Menu>> list, Menu menu) {
-  TreeVO<Menu> treeVO = TreeVO(data: menu);
+findChildren(List<TreeVO<Menu>> list, TreeVO<Menu> treeVO) {
   for (var v in list) {
-    if (v.data.pid == menu.id) {
+    if (v.data.pid == treeVO.data.id) {
       treeVO.children.add(v);
     }
+    if (v.children.length > 0) {
+      findChildren(v.children, treeVO);
+    }
   }
+}
+findParent(List<TreeVO<Menu>> list, TreeVO<Menu> treeVO) {
   for (var v in list) {
-    if (v.data.id == menu.pid) {
+    if (v.data.id == treeVO.data.pid) {
       v.children.add(treeVO);
       return;
     }
   }
+}
+addMenu(List<TreeVO<Menu>> list, Menu menu) {
+  TreeVO<Menu> treeVO = TreeVO(data: menu);
+  findChildren(list, treeVO);
+  findParent(list, treeVO);
   list.add(treeVO);
 }
-
 List<TreeVO<Menu>> toTreeVOList(List<Menu> data) {
   List<TreeVO<Menu>> result = [];
   data.forEach((element) {
     addMenu(result, element);
   });
-  return result;
+  return result.where((element) => element.data.pid == null).toList();
 }
