@@ -9,13 +9,15 @@ class CryInput extends CryFormField {
   final ValueChanged onChange;
   final FormFieldSetter onSaved;
   final FormFieldValidator<String> validator;
+  final bool enable;
 
-  CryInput({Key key, this.width, this.label, String value, this.onChange, this.onSaved, this.validator})
+  CryInput({Key key, this.width, this.label, String value, this.onChange, this.onSaved, this.validator, this.enable})
       : super(
           key: key,
           builder: (state) {
             return TextFormField(
               decoration: InputDecoration(
+                enabled: enable ?? true,
                 labelText: label,
                 contentPadding: EdgeInsets.symmetric(horizontal: 10),
               ),

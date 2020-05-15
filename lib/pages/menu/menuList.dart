@@ -153,6 +153,7 @@ class MenuListState extends State<MenuList> {
             },
           ),
           CryInput(
+            enable: false,
             value: formData.pname ?? '根目录',
             label: '父菜单',
             onSaved: (v) {
@@ -241,7 +242,7 @@ class MenuListState extends State<MenuList> {
   }
 }
 
-getACell(title, {width: 200}) {
+getACell(title, {width: 200.0}) {
   return Container(padding: EdgeInsets.symmetric(horizontal: 20), child: Text(title), width: width);
 }
 
