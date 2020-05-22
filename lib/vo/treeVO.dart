@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 
-class TreeVO<T>{
+class TreeVO<T extends TreeData> {
+  TreeVO({this.data});
+
   T data;
   List<TreeVO<T>> children = [];
   bool isExpanded = false;
   IconData icon;
   bool checked = false;
+}
 
-  TreeVO({this.data});
+class TreeData {
+  TreeData(this.id, this.pid);
+  String id;
+  String pid;
 }

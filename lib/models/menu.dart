@@ -1,14 +1,13 @@
+import 'package:flutter_admin/vo/treeVO.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'menu.g.dart';
 
 @JsonSerializable()
-class Menu {
-  Menu({this.id, this.pid, this.name, this.pname, this.url});
+class Menu extends TreeData {
+  Menu({String id, String pid, this.name, this.pname, this.url}) : super(id, pid);
 
-  String id;
   String name;
-  String pid;
   String pname;
   String url;
   String module;

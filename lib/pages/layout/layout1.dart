@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/pages/common/langSwitch.dart';
 import 'package:flutter_admin/pages/login.dart';
+import 'package:flutter_admin/utils/Utils.dart';
 import 'package:flutter_admin/utils/adaptiveUtil.dart';
 import 'package:flutter_admin/utils/globalUtil.dart';
 import 'package:flutter_admin/vo/pageVO.dart';
@@ -130,6 +131,12 @@ class Layout1State extends State with TickerProviderStateMixin {
         automaticallyImplyLeading: false,
         title: Text("FLUTTER_ADMIN"),
         actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.code),
+            onPressed: () {
+              Utils.launchURL("https://github.com/cairuoyu/flutter_admin");
+            },
+          ),
           IconButton(
             icon: Icon(Icons.exit_to_app),
             onPressed: () {

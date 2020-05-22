@@ -6,6 +6,7 @@ import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/index.dart';
 import 'package:flutter_admin/models/menu.dart';
+import 'package:flutter_admin/utils/treeUtil.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
 
 class MenuList extends StatefulWidget {
@@ -39,7 +40,7 @@ class MenuListState extends State<MenuList> {
     ResponeBodyApi responeBodyApi = await MenuApi.list(null);
     var data = responeBodyApi.data;
     List<Menu> list = List.from(data).map((e) => Menu.fromJson(e)).toList();
-    this.treeVOList = toTreeVOList(list);
+    this.treeVOList = new TreeUtil<Menu>().toTreeVOList(list);
     this.setState(() {});
   }
 
@@ -265,36 +266,4 @@ checkChildren(TreeVO vo, bool v) {
       checkChildren(c, v);
     });
   }
-}
-
-findChildren(List<TreeVO<Menu>> list, TreeVO<Menu> treeVO) {
-  for (var v in list) {
-    if (v.data.pid == treeVO.data.id) {
-      treeVO.children.add(v);
-    }
-    if (v.children.length > 0) {
-      findChildren(v.children, treeVO);
-    }
-  }
-}
-findParent(List<TreeVO<Menu>> list, TreeVO<Menu> treeVO) {
-  for (var v in list) {
-    if (v.data.id == treeVO.data.pid) {
-      v.children.add(treeVO);
-      return;
-    }
-  }
-}
-addMenu(List<TreeVO<Menu>> list, Menu menu) {
-  TreeVO<Menu> treeVO = TreeVO(data: menu);
-  findChildren(list, treeVO);
-  findParent(list, treeVO);
-  list.add(treeVO);
-}
-List<TreeVO<Menu>> toTreeVOList(List<Menu> data) {
-  List<TreeVO<Menu>> result = [];
-  data.forEach((element) {
-    addMenu(result, element);
-  });
-  return result.where((element) => element.data.pid == null).toList();
 }
