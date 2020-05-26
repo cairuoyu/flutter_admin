@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter_admin/components/cryRoot.dart';
+import 'package:flutter_admin/utils/localStorageUtil.dart';
 import './pages/layout/layout1.dart';
 import './pages/login.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import './generated/l10n.dart';
+import 'constants/constant.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print(111);
+    print(LocalStorageUtil.get(Constant.KEY_TOKEN) );
+    print(LocalStorageUtil.get(Constant.KEY_TOKEN) == null);
     return CryRoot(
-       BotToastInit(
+      BotToastInit(
         child: Builder(
           builder: (context) {
             return MaterialApp(
@@ -29,8 +34,7 @@ class MyApp extends StatelessWidget {
               ],
               supportedLocales: S.delegate.supportedLocales,
               locale: Locale(CryRootScope.of(context).state.locale),
-              home: Login(),
-              // home: Layout1(),
+              home: LocalStorageUtil.get(Constant.KEY_TOKEN) == null ? Login() : Layout1(),
             );
           },
         ),

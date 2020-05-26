@@ -1,12 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/pages/common/langSwitch.dart';
 import 'package:flutter_admin/pages/login.dart';
-import 'package:flutter_admin/utils/Utils.dart';
+import 'package:flutter_admin/utils/LocalStorageUtil.dart';
+import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_admin/utils/adaptiveUtil.dart';
-import 'package:flutter_admin/utils/globalUtil.dart';
 import 'package:flutter_admin/vo/pageVO.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:intl/intl.dart';
@@ -129,7 +130,7 @@ class Layout1State extends State with TickerProviderStateMixin {
       body: body,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("FLUTTER_ADMIN"),
+        title: Text("FLUTTER_ADMIN2"+LocalStorageUtil.get(Constant.KEY_TOKEN)),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.code),
@@ -262,7 +263,7 @@ class Layout1State extends State with TickerProviderStateMixin {
   }
 
   logout() {
-    GlobalUtil.token = null;
+    LocalStorageUtil.set(Constant.KEY_TOKEN, null);
     // Navigator.of(context, rootNavigator: true).pop();
     Navigator.push(
       context,

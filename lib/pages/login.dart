@@ -1,12 +1,13 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/pages/common/langSwitch.dart';
 import 'package:flutter_admin/pages/register.dart';
+import 'package:flutter_admin/utils/localStorageUtil.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_admin/api/userApi.dart';
 import 'package:flutter_admin/models/user.dart';
-import 'package:flutter_admin/utils/globalUtil.dart';
 
 import 'layout/layout1.dart';
 import '../generated/l10n.dart';
@@ -25,8 +26,8 @@ class LoginState extends State {
   @override
   void initState() {
     super.initState();
-    // user.userName = 'q';
-    // user.password = '1';
+    user.userName = '1';
+    user.password = '1';
   }
 
   @override
@@ -102,7 +103,9 @@ class LoginState extends State {
                             user.userName = v;
                           },
                           validator: (v) {
-                            return v.isEmpty ? S.of(context).usernameRequired : null;
+                            return v.isEmpty
+                                ? S.of(context).usernameRequired
+                                : null;
                           },
                         ),
                       ),
@@ -123,7 +126,9 @@ class LoginState extends State {
                             user.password = v;
                           },
                           validator: (v) {
-                            return v.isEmpty ? S.of(context).passwordRequired : null;
+                            return v.isEmpty
+                                ? S.of(context).passwordRequired
+                                : null;
                           },
                         ),
                       ),
@@ -171,8 +176,10 @@ class LoginState extends State {
                 onPressed: () {
                   login();
                 },
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
-                child: Text(S.of(context).login, style: TextStyle(color: Colors.white70, fontSize: 20)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40.0)),
+                child: Text(S.of(context).login,
+                    style: TextStyle(color: Colors.white70, fontSize: 20)),
                 color: Colors.blue,
               ),
             ),
@@ -197,7 +204,7 @@ class LoginState extends State {
     form.save();
     UserApi.login(user.toJson()).then((ResponeBodyApi responeBodyApi) {
       if (responeBodyApi.success) {
-        GlobalUtil.token = responeBodyApi.data;
+        LocalStorageUtil.set(Constant.KEY_TOKEN, responeBodyApi.data);
         Navigator.push(
           context,
           MaterialPageRoute(builder: (BuildContext context) => Layout1()),
