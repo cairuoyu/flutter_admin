@@ -130,7 +130,7 @@ class Layout1State extends State with TickerProviderStateMixin {
       body: body,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("FLUTTER_ADMIN2"+LocalStorageUtil.get(Constant.KEY_TOKEN)),
+        title: Text("FLUTTER_ADMIN"),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.code),

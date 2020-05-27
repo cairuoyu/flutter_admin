@@ -2,10 +2,12 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/menuApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
+import 'package:flutter_admin/components/cryDialog.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/index.dart';
 import 'package:flutter_admin/models/menu.dart';
+import 'package:flutter_admin/utils/adaptiveUtil.dart';
 import 'package:flutter_admin/utils/treeUtil.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
 
@@ -52,6 +54,9 @@ class MenuListState extends State<MenuList> {
 
   @override
   Widget build(BuildContext context) {
+    if (this.isEdit && !isDisplayDesktop(context)) {
+      return getForm();
+    }
     var selected = getSelected(treeVOList);
     var header = Container(
       decoration: getBD(),
@@ -73,11 +78,15 @@ class MenuListState extends State<MenuList> {
               iconData: Icons.delete,
               label: '删除',
               onPressed: selected.length >= 1
-                  ? () async {
-                      List ids = selected.map((e) => e.data.id).toList();
-                      await MenuApi.removeByIds(ids);
-                      setState(() {
-                        this.loadData();
+                  ? () {
+                      cryConfirm(context, S.of(context).confirmDelete,
+                          () async {
+                        List ids = selected.map((e) => e.data.id).toList();
+                        await MenuApi.removeByIds(ids);
+                        setState(() {
+                          this.loadData();
+                        });
+                        Navigator.of(context).pop();
                       });
                     }
                   : null,
@@ -87,49 +96,20 @@ class MenuListState extends State<MenuList> {
       ),
     );
     ListView listView = ListView(
-      children: [header, ...genListTile(treeVOList, null)],
+      children: [
+        header,
+        this.getListTileHeader(),
+        ...getListTile(treeVOList, null)
+      ],
     );
     var left = Container(
       width: 450,
       child: listView,
     );
     var right = Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          ButtonBar(
-            alignment: MainAxisAlignment.start,
-            children: <Widget>[
-              CryButton(
-                label: '保存',
-                onPressed: () {
-                  FormState form = formKey.currentState;
-                  if (!form.validate()) {
-                    return;
-                  }
-                  form.save();
-                  MenuApi.saveOrUpdate(formData.toJson()).then((res) {
-                    BotToast.showText(text: S.of(context).saved);
-                    this.loadData();
-                  });
-                },
-                iconData: Icons.save,
-              ),
-              CryButton(
-                  label: '取消',
-                  iconData: Icons.cancel,
-                  onPressed: () {
-                    this.setState(() {
-                      this.isEdit = false;
-                    });
-                  }),
-            ],
-          ),
-          getForm(),
-        ],
-      ),
+      child: getForm(),
     );
-    var result = this.isEdit
+    var result = this.isEdit && isDisplayDesktop(context)
         ? Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [left, right],
@@ -138,50 +118,120 @@ class MenuListState extends State<MenuList> {
     return result;
   }
 
-  Form getForm() {
-    var form = Form(
-      key: formKey,
-      child: Wrap(
-        children: <Widget>[
-          CryInput(
-            value: formData.name,
-            label: '菜单名',
-            onSaved: (v) {
-              formData.name = v;
-            },
-            validator: (v) {
-              return v.isEmpty ? '必填' : null;
-            },
+  getForm() {
+    var form = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        ButtonBar(
+          alignment: MainAxisAlignment.start,
+          children: <Widget>[
+            CryButton(
+              label: '保存',
+              onPressed: () {
+                FormState form = formKey.currentState;
+                if (!form.validate()) {
+                  return;
+                }
+                form.save();
+                MenuApi.saveOrUpdate(formData.toJson()).then((res) {
+                  BotToast.showText(text: S.of(context).saved);
+                  setState(() {
+                    this.isEdit = false;
+                    loadData();
+                  });
+                });
+              },
+              iconData: Icons.save,
+            ),
+            CryButton(
+                label: '取消',
+                iconData: Icons.cancel,
+                onPressed: () {
+                  this.setState(() {
+                    this.isEdit = false;
+                  });
+                }),
+          ],
+        ),
+        Form(
+          key: formKey,
+          child: Wrap(
+            children: <Widget>[
+              CryInput(
+                value: formData.name,
+                label: '菜单名',
+                onSaved: (v) {
+                  formData.name = v;
+                },
+                validator: (v) {
+                  return v.isEmpty ? '必填' : null;
+                },
+              ),
+              CryInput(
+                enable: false,
+                value: formData.pname ?? '根目录',
+                label: '父菜单',
+                onSaved: (v) {
+                  formData.pname = v;
+                },
+              ),
+              CryInput(
+                value: formData.url,
+                label: 'URL',
+                onSaved: (v) {
+                  formData.url = v;
+                },
+              ),
+              CryInput(
+                value: formData.remark,
+                label: '备注',
+                onSaved: (v) {
+                  formData.remark = v;
+                },
+              ),
+            ],
           ),
-          CryInput(
-            enable: false,
-            value: formData.pname ?? '根目录',
-            label: '父菜单',
-            onSaved: (v) {
-              formData.pname = v;
-            },
-          ),
-          CryInput(
-            value: formData.url,
-            label: 'URL',
-            onSaved: (v) {
-              formData.url = v;
-            },
-          ),
-        ],
-      ),
+        )
+      ],
     );
     return form;
   }
 
-  List<Widget> genListTile(List data, TreeVO<Menu> parent) {
+  Widget getListTileHeader() {
+    var leading = Checkbox(
+        value: false,
+        onChanged: (v) {
+          setState(() {
+            // checkChildren(vo, v);
+          });
+        });
+    List<Widget> list = [
+      SizedBox(
+        width: 100,
+      ),
+      getACell("名称"),
+    ];
+    if (!isEdit && isDisplayDesktop(context)) {
+      list.add(getACell("URL"));
+      list.add(getACell("备注"));
+    }
+    var d = Container(
+      decoration: getBD(header: true),
+      child: ListTile(
+        leading: leading,
+        title: Row(
+          children: list,
+        ),
+      ),
+    );
+    return d;
+  }
+
+  List<Widget> getListTile(List data, TreeVO<Menu> parent) {
     List<Widget> list = [];
     for (var i = 0; i < data.length; i++) {
       TreeVO<Menu> vo = data[i];
-      List<Widget> columnList = [getACell(vo.data.name)];
-      if (!isEdit) {
-        columnList.add(getACell(vo.data.url ?? '--'));
-      }
+      List<Widget> columnList = [];
       columnList.add(
         IconButton(
           icon: Icon(Icons.add),
@@ -208,6 +258,11 @@ class MenuListState extends State<MenuList> {
         ),
       );
 
+      columnList.add(getACell(vo.data.name));
+      if (!isEdit && isDisplayDesktop(context)) {
+        columnList.add(getACell(vo.data.url ?? '--'));
+        columnList.add(getACell(vo.data.remark ?? '--'));
+      }
       var title = Row(children: columnList);
       var leading = Checkbox(
           value: vo.checked,
@@ -224,7 +279,7 @@ class MenuListState extends State<MenuList> {
           child: ExpansionTile(
             leading: leading,
             initiallyExpanded: true,
-            children: genListTile(vo.children, vo),
+            children: getListTile(vo.children, vo),
             title: title,
           ),
         );
@@ -244,15 +299,19 @@ class MenuListState extends State<MenuList> {
 }
 
 getACell(title, {width: 200.0}) {
-  return Container(padding: EdgeInsets.symmetric(horizontal: 20), child: Text(title), width: width);
+  return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Text(title),
+      width: width);
 }
 
-getBD({odd: true}) {
+getBD({header: false, odd: true}) {
   var bd = BoxDecoration(
     boxShadow: [
-      BoxShadow(color: Colors.black26, offset: Offset(2.0, 2.0), blurRadius: 4.0),
+      BoxShadow(
+          color: Colors.black26, offset: Offset(2.0, 2.0), blurRadius: 4.0),
     ],
-    color: odd ? Colors.white : Colors.white38,
+    color: header ? Colors.white60 : odd ? Colors.white : Colors.white38,
     border: Border(bottom: BorderSide(color: Colors.black12)),
   );
   return bd;

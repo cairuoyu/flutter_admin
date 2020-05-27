@@ -13,9 +13,6 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print(111);
-    print(LocalStorageUtil.get(Constant.KEY_TOKEN) );
-    print(LocalStorageUtil.get(Constant.KEY_TOKEN) == null);
     return CryRoot(
       BotToastInit(
         child: Builder(

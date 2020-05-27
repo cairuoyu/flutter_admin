@@ -39,7 +39,7 @@ List<SelectOptionVO> genderList_en = [
 List<PageVO> testPageVOAll_en = <PageVO>[
   PageVO(id: "1", icon: Icons.dashboard, title: 'Dashboard', widget: Dashboard1()),
   PageVO(id: "4", icon: Icons.people, title: 'Personnel List', widget: PersonList()),
-  PageVO(id: "3", icon: Icons.people, title: 'Menu List', widget: MenuList()),
+  PageVO(id: "3", icon: Icons.menu, title: 'Menu List', widget: MenuList()),
   PageVO(id: "2", icon: Icons.folder, title: 'Tree Structure - First level Menu', children: [
     PageVO(
       title: 'Secondary Menu',
@@ -59,7 +59,7 @@ List<PageVO> testPageVOAll_en = <PageVO>[
 List<PageVO> testPageVOAll = <PageVO>[
   PageVO(id: "1", icon: Icons.dashboard, title: 'Dashboard', widget: Dashboard1()),
   PageVO(id: "4", icon: Icons.people, title: '人员管理', widget: PersonList()),
-  PageVO(id: "3", icon: Icons.people, title: '菜单管理', widget: MenuList()),
+  PageVO(id: "3", icon: Icons.menu, title: '菜单管理', widget: MenuList()),
   PageVO(id: "2", icon: Icons.folder, title: '树结构一级菜单', children: [
     PageVO(
       title: '二级菜单',
