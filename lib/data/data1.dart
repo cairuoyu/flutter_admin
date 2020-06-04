@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/models/index.dart';
 import 'package:flutter_admin/pages/dash/dashboard1.dart';
+import 'package:flutter_admin/pages/image/imageUpload.dart';
 import 'package:flutter_admin/pages/menu/menuList.dart';
 import 'package:flutter_admin/pages/person/personList.dart';
 import 'package:flutter_admin/pages/userInfo/userInfoEdit.dart';
@@ -19,13 +20,6 @@ List<SelectOptionVO> genderList = [
   SelectOptionVO(value: '2', label: '女'),
 ];
 
-List<Menu> testMenuList = <Menu>[
-  Menu(id: '1', name: 'Dashboard', url: 'http://test/1'),
-  Menu(id: '2', name: '人员管理', url: 'test2/'),
-  Menu(id: '3', name: '菜单管理'),
-  Menu(id: '4', name: '树结构一级菜单', url: '404.html'),
-  Menu(id: '5', name: '二级菜单', pid: '4'),
-];
 List<SelectOptionVO> deptIdList_en = [
   SelectOptionVO(value: '1', label: 'Technical Department'),
   SelectOptionVO(value: '2', label: 'Product Department'),
@@ -40,6 +34,8 @@ List<PageVO> testPageVOAll_en = <PageVO>[
   PageVO(id: "1", icon: Icons.dashboard, title: 'Dashboard', widget: Dashboard1()),
   PageVO(id: "4", icon: Icons.people, title: 'Personnel List', widget: PersonList()),
   PageVO(id: "3", icon: Icons.menu, title: 'Menu List', widget: MenuList()),
+  PageVO(id: "5", icon: Icons.grade, title: 'My Information', widget: UserInfoEdit()),
+  PageVO(id: "6", icon: Icons.file_upload, title: 'Image Upload', widget: ImageUpload()),
   PageVO(id: "2", icon: Icons.folder, title: 'Tree Structure - First level Menu', children: [
     PageVO(
       title: 'Secondary Menu',
@@ -53,13 +49,14 @@ List<PageVO> testPageVOAll_en = <PageVO>[
       icon: Icons.insert_photo,
     )
   ]),
-  PageVO(id: "5", icon: Icons.grade, title: 'My Information', widget: UserInfoEdit()),
 ];
 
 List<PageVO> testPageVOAll = <PageVO>[
   PageVO(id: "1", icon: Icons.dashboard, title: 'Dashboard', widget: Dashboard1()),
   PageVO(id: "4", icon: Icons.people, title: '人员管理', widget: PersonList()),
   PageVO(id: "3", icon: Icons.menu, title: '菜单管理', widget: MenuList()),
+  PageVO(id: "5", icon: Icons.grade, title: '我的信息', widget: UserInfoEdit()),
+  PageVO(id: "6", icon: Icons.file_upload, title: '图片上传', widget: ImageUpload()),
   PageVO(id: "2", icon: Icons.folder, title: '树结构一级菜单', children: [
     PageVO(
       title: '二级菜单',
@@ -73,7 +70,6 @@ List<PageVO> testPageVOAll = <PageVO>[
       icon: Icons.insert_photo,
     )
   ]),
-  PageVO(id: "5", icon: Icons.grade, title: '我的信息', widget: UserInfoEdit()),
 ];
 
 List<ListTileVO> todoList = [

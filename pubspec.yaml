@@ -9,7 +9,6 @@ dependencies:
   flutter:
     sdk: flutter
   dio: 3.0.7
-
   cupertino_icons: ^0.1.2
   charts_flutter: ^0.8.0
   flutter_custom_clippers: ^1.1.0
@@ -18,13 +17,15 @@ dependencies:
   json_annotation: ^2.2.0
   bot_toast: ^2.2.1
   flutter_colorpicker: any
-  url_launcher: ^5.4.1
-  universal_html: ^1.2.2
-
   flutter_localizations:
     sdk: flutter
   intl_translation: null
   intl: null
+  url_launcher: ^5.4.1
+  universal_html: ^1.2.2
+  mime_type: ^0.3.1
+  image_picker_web: ^1.0.9
+
 
 dev_dependencies:
   flutter_test:
