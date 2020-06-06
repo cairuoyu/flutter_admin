@@ -15,7 +15,14 @@ class HttpUtil {
   static const int RECEIVE_TIMEOUT = 3000;
 
   static const String POST = 'post';
+  static const String GET= 'get';
 
+  static Future<ResponeBodyApi> get(String url, {data, requestToken = true}) async {
+    Map map = await request(url, data: data, requestToken: requestToken,method: GET);
+    if (map == null) {}
+    ResponeBodyApi responeBodyApi = ResponeBodyApi.fromJson(map);
+    return responeBodyApi;
+  }
   static Future<ResponeBodyApi> post(String url, {data, requestToken = true}) async {
     Map map = await request(url, data: data, requestToken: requestToken);
     if (map == null) {}
@@ -28,9 +35,9 @@ class HttpUtil {
     method = method ?? POST;
 
     String token = LocalStorageUtil.get(Constant.KEY_TOKEN);
-    if (url != "/user/login" && requestToken && token == null) {
+//    if (url != "/user/login" && requestToken && token == null) {
       // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Layout1()));
-    }
+//    }
 
     Dio dio = createInstance();
     if (requestToken) {

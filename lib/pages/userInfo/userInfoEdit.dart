@@ -28,8 +28,7 @@ class UserInfoEditState extends State {
     super.initState();
     UserInfoApi.getCurrentUserInfo().then((v) {
       if (v.data == null) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (BuildContext context) => Login()));
+        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Login()));
       } else {
         setState(() {
           userInfo = UserInfo.fromJson(v.data);
@@ -43,14 +42,8 @@ class UserInfoEditState extends State {
       key: formKey,
       child: Wrap(
         children: <Widget>[
-          CryInput(
-              label: S.of(context).personName,
-              value: userInfo.name,
-              onSaved: (v) => {userInfo.name = v}),
-          CryInput(
-              label: S.of(context).personNickname,
-              value: userInfo.nickName,
-              onSaved: (v) => {userInfo.nickName = v}),
+          CryInput(label: S.of(context).personName, value: userInfo.name, onSaved: (v) => {userInfo.name = v}),
+          CryInput(label: S.of(context).personNickname, value: userInfo.nickName, onSaved: (v) => {userInfo.nickName = v}),
           CrySelectDate(
             label: S.of(context).personBirthday,
             context: context,
@@ -58,10 +51,11 @@ class UserInfoEditState extends State {
             onSaved: (v) => {userInfo.birthday = v},
           ),
           CrySelect(
-              label: S.of(context).personGender,
-              dataList: Intl.defaultLocale == 'en' ? genderList_en : genderList,
-              value: userInfo.gender,
-              onSaved: (v) => {userInfo.gender = v}),
+            label: S.of(context).personGender,
+            dataList: Intl.defaultLocale == 'en' ? genderList_en : genderList,
+            value: userInfo.gender,
+            onSaved: (v) => {userInfo.gender = v},
+          ),
           CrySelect(
               label: S.of(context).personDepartment,
               dataList: Intl.defaultLocale == 'en' ? deptIdList_en : deptIdList,
