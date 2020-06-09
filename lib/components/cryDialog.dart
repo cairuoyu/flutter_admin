@@ -1,6 +1,26 @@
 import 'package:flutter/material.dart';
 import '../generated/l10n.dart';
 
+void cryAlert(BuildContext context, Widget content) {
+  showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(S.of(context).information),
+        content: content,
+        actions: <Widget>[
+          FlatButton(
+            child: Text(S.of(context).cancel),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 void cryConfirm(BuildContext context, String content, onConfirm) {
   showDialog<void>(
     context: context,

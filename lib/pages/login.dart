@@ -26,8 +26,6 @@ class LoginState extends State {
   @override
   void initState() {
     super.initState();
-    user.userName = '1';
-    user.password = '1';
   }
 
   @override

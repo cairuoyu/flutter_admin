@@ -28,6 +28,7 @@ class Layout1State extends State with TickerProviderStateMixin {
   bool expandMenu = true;
   List<bool> isSelected = [true, false, false];
   Color themeColor = Colors.blue;
+
   void changeColor(Color color) => setState(() => themeColor = color);
 
   @override
@@ -42,7 +43,7 @@ class Layout1State extends State with TickerProviderStateMixin {
     if (pageVoOpened.length > 0) {
       loadPage(pageVoOpened[0]);
     }
-    this.expandMenu = isDesktopInit();
+    this.expandMenu = isDisplayDesktopInit();
     WidgetsBinding.instance.addPostFrameCallback((v) {
       // scaffoldStateKey.currentState.openEndDrawer();
     });

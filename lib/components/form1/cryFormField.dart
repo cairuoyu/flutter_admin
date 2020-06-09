@@ -31,7 +31,7 @@ class CryFormFieldState extends State<CryFormField> {
 
   @override
   Widget build(BuildContext context) {
-    var displayDesktop = isDesktop(context);
+    var displayDesktop = isDisplayDesktop(context);
     if (!displayDesktop) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 20),

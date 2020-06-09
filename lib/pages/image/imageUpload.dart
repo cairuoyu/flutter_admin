@@ -3,10 +3,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/imageApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
+import 'package:flutter_admin/components/cryDialog.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/image.dart' as model;
 import 'package:flutter_admin/models/responeBodyApi.dart';
+import 'package:flutter_admin/utils/utils.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart' as Path;
@@ -39,6 +41,30 @@ class ImageUploadState extends State<ImageUpload> {
     }
   }
 
+  toPortal() {
+    cryAlert(
+      context,
+      Container(
+        height: 100,
+        child: Column(
+          children: [
+            Text('保存成功！'),
+            SizedBox(
+              height: 20,
+            ),
+            FlatButton(
+              color: Colors.lightBlue,
+              child: Text('前往门户查看图片'),
+              onPressed: () {
+                Utils.launchURL("http://www.cryqd.com/flutter_portal");
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   save() async {
     FormState form = formKey.currentState;
     if (!form.validate()) {
@@ -54,7 +80,7 @@ class ImageUploadState extends State<ImageUpload> {
 
     ResponeBodyApi responeBodyApi = await ImageApi.upload(formData);
     if (responeBodyApi.success) {
-      BotToast.showText(text: S.of(context).saved);
+      toPortal();
       setState(() {
         this.mediaInfo = null;
       });
