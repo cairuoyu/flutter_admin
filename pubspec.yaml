@@ -24,7 +24,9 @@ dependencies:
   url_launcher: ^5.4.1
   universal_html: ^1.2.2
   mime_type: ^0.3.1
-  image_picker_web: ^1.0.9
+  image_picker: ^0.6.7
+  image_picker_for_web: ^0.1.0
+  video_player: ^0.10.5
 
 
 dev_dependencies:

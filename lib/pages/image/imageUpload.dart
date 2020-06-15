@@ -1,16 +1,18 @@
-import 'package:bot_toast/bot_toast.dart';
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/imageApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/cryDialog.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
-import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/image.dart' as model;
 import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/utils/utils.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:image_picker/image_picker.dart';
+
 import 'package:path/path.dart' as Path;
 import 'package:mime_type/mime_type.dart';
 
@@ -21,7 +23,8 @@ class ImageUpload extends StatefulWidget {
 
 class ImageUploadState extends State<ImageUpload> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  MediaInfo mediaInfo;
+  PickedFile pickedFile;
+  final ImagePicker imagePicker = ImagePicker();
   model.Image image = model.Image();
 
   @override
@@ -30,39 +33,12 @@ class ImageUploadState extends State<ImageUpload> {
   }
 
   pickImage() async {
-    mediaInfo = await ImagePickerWeb.getImageInfo;
-    if (mediaInfo.data != null) {
-      if (image.title == null) {
-        image.title = mediaInfo.fileName;
-      }
+    pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
       setState(() {
         formKey.currentState.save();
       });
     }
-  }
-
-  toPortal() {
-    cryAlert(
-      context,
-      Container(
-        height: 100,
-        child: Column(
-          children: [
-            Text('保存成功！'),
-            SizedBox(
-              height: 20,
-            ),
-            FlatButton(
-              color: Colors.lightBlue,
-              child: Text('前往门户查看图片'),
-              onPressed: () {
-                Utils.launchURL("http://www.cryqd.com/flutter_portal");
-              },
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
   save() async {
@@ -71,19 +47,33 @@ class ImageUploadState extends State<ImageUpload> {
       return;
     }
     form.save();
-    String mimeType = mime(Path.basename(mediaInfo.fileName));
+    String filename = "test.png"; //todo
+    String mimeType = mime(Path.basename(filename));
     var mediaType = MediaType.parse(mimeType);
-    var file = MultipartFile.fromBytes(mediaInfo.data, contentType: mediaType, filename: mediaInfo.fileName);
+    Uint8List uint8list = await pickedFile.readAsBytes();
+    var file = MultipartFile.fromBytes(uint8list, contentType: mediaType, filename: filename);
     Map map = image.toJson();
     map['file'] = file;
     FormData formData = FormData.fromMap(map);
 
     ResponeBodyApi responeBodyApi = await ImageApi.upload(formData);
     if (responeBodyApi.success) {
-      toPortal();
+      Utils.toPortal(context,'保存成功！','前往门户查看图片',"http://www.cryqd.com/flutter_portal");
       setState(() {
-        this.mediaInfo = null;
+        this.pickedFile = null;
       });
+    }
+  }
+
+  Widget previewImage() {
+    if (pickedFile != null) {
+      if (kIsWeb) {
+        return Image.network(pickedFile.path);
+      } else {
+        return Image.file(File(pickedFile.path));
+      }
+    } else {
+      return Container();
     }
   }
 
@@ -119,30 +109,23 @@ class ImageUploadState extends State<ImageUpload> {
         ),
         CryButton(
           label: '保存',
-          onPressed: mediaInfo == null ? null : () => save(),
+          onPressed: pickedFile == null ? null : () => save(),
           iconData: Icons.save,
         ),
       ],
     );
-    var a = Column(
-      children: <Widget>[
-        form,
-        bb,
-        Row(
+    var result = Scrollbar(
+      child: SingleChildScrollView(
+        child: Column(
           children: <Widget>[
-            AnimatedSwitcher(
-              duration: Duration(milliseconds: 300),
-              switchInCurve: Curves.easeIn,
-              child: SizedBox(
-                    width: 200,
-                    child: mediaInfo == null ? Container() : Image.memory(mediaInfo.data),
-                  ) ??
-                  Container(),
-            ),
+            form,
+            bb,
+            previewImage(),
           ],
         ),
-      ],
+      ),
     );
-    return a;
+
+    return result;
   }
 }
