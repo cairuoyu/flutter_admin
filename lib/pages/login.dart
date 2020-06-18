@@ -38,20 +38,17 @@ class LoginState extends State {
   Widget buildPageContent() {
     var appName = Text(
       "FLUTTER_ADMIN",
-      style: TextStyle(fontSize: 16, color: Colors.green),
+      style: TextStyle(fontSize: 16, color: Colors.blue),
       textScaleFactor: 3.2,
     );
     return Container(
-      color: Colors.blue.shade100,
+      color: Colors.cyan.shade100,
       child: ListView(
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [LangSwitch()],
           ),
-          // SizedBox(
-          //   height: 60.0,
-          // ),
           Center(child: appName),
           SizedBox(
             height: 20.0,

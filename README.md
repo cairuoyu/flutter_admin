@@ -1,14 +1,12 @@
 # FLUTTER_ADMIN
 
-使用flutter实现的一个后台管理系统
+> 使用flutter实现的一个后台管理系统，对应的门户：https://github.com/cairuoyu/flutter_portal
 
-![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_login.png)
-![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_dashboard.png)
-![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_setting.png)
-![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_personEdit.png)
-![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_regist.png)
-![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_menu.png)
-![image](https://raw.githubusercontent.com/cairuoyu/screenshots/master/flutter_admin_userInfo.png)
+![image](http://cryqd.com/f/screenshots/flutter_admin_login.png)
+![image](http://cryqd.com/f/screenshots/flutter_admin_dashboard.png)
+![image](http://cryqd.com/f/screenshots/flutter_admin_setting.png)
+![image](http://cryqd.com/f/screenshots/flutter_admin_personEdit.png)
+![image](http://cryqd.com/f/screenshots/flutter_admin_menu.png)
 
 ---
 ## 功能技术

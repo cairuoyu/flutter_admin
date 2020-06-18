@@ -68,7 +68,6 @@ class Layout1State extends State with TickerProviderStateMixin {
       indicator: getIndicator(),
       tabs: pageVoOpened.map<Tab>((PageVO page) {
         return Tab(
-          // text: page.title,
           child: Row(
             children: <Widget>[
               Text(page.title),

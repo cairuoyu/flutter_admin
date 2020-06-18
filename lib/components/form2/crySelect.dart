@@ -19,7 +19,6 @@ class CrySelect extends CryFormField {
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(horizontal: 10),
                 labelText: label,
-                // border: OutlineInputBorder(),
               ),
               value: value,
               items: dataList.map((v) {
