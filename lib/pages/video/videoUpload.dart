@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/videoApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
+import 'package:flutter_admin/components/cryDialog.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/models/video.dart';
@@ -26,6 +27,8 @@ class VideoUploadState extends State<VideoUpload> {
   final ImagePicker videoPicker = ImagePicker();
   VideoPlayerController controller;
   Video video = Video();
+  Uint8List videoBytes;
+  final limitMessage = '视频大小不能超过10M';
 
   @override
   void initState() {
@@ -67,6 +70,10 @@ class VideoUploadState extends State<VideoUpload> {
           onPressed: pickedFile == null ? null : () => save(),
           iconData: Icons.save,
         ),
+        Text(
+          limitMessage,
+          style: TextStyle(color: Colors.red),
+        ),
       ],
     );
     var result = Scrollbar(
@@ -87,6 +94,15 @@ class VideoUploadState extends State<VideoUpload> {
   pickVideo() async {
     pickedFile = await videoPicker.getVideo(source: ImageSource.gallery);
     if (pickedFile == null || !mounted) {
+      return;
+    }
+    videoBytes = await pickedFile.readAsBytes();
+    if (videoBytes.length > 1000 * 1000 * 10) {
+      cryAlert(context, limitMessage);
+      pickedFile = null;
+      videoBytes = null;
+      controller = null;
+      setState(() {});
       return;
     }
 //    await this.disposeController();
@@ -116,8 +132,8 @@ class VideoUploadState extends State<VideoUpload> {
     String filename = "test.avi"; //todo
     String mimeType = mime(Path.basename(filename));
     var mediaType = MediaType.parse(mimeType);
-    Uint8List uint8list = await pickedFile.readAsBytes();
-    var file = MultipartFile.fromBytes(uint8list, contentType: mediaType, filename: filename);
+    // Uint8List uint8list = await pickedFile.readAsBytes();
+    var file = MultipartFile.fromBytes(videoBytes, contentType: mediaType, filename: filename);
     Map map = video.toJson();
     map['file'] = file;
     FormData formData = FormData.fromMap(map);

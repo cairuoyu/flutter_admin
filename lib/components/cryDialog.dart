@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import '../generated/l10n.dart';
 
-void cryAlert(BuildContext context, Widget content) {
+void cryAlert(BuildContext context, String content) {
+  cryAlertWidget(context, Text(content));
+}
+
+void cryAlertWidget(BuildContext context, Widget content) {
   showDialog<void>(
     context: context,
     builder: (BuildContext context) {

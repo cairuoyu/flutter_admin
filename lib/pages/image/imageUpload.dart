@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/imageApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
+import 'package:flutter_admin/components/cryDialog.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/models/image.dart' as model;
 import 'package:flutter_admin/models/responeBodyApi.dart';
@@ -25,6 +26,8 @@ class ImageUploadState extends State<ImageUpload> {
   PickedFile pickedFile;
   final ImagePicker imagePicker = ImagePicker();
   model.Image image = model.Image();
+  Uint8List imageBytes;
+  final limitMessage = '图片大小不能超过10M';
 
   @override
   void initState() {
@@ -33,6 +36,15 @@ class ImageUploadState extends State<ImageUpload> {
 
   pickImage() async {
     pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
+    imageBytes = await pickedFile.readAsBytes();
+    if (imageBytes.length > 1000 * 1000 * 10) {
+      cryAlert(context, limitMessage);
+      pickedFile = null;
+      imageBytes = null;
+      setState(() {});
+      return;
+    }
+
     if (pickedFile != null) {
       setState(() {
         formKey.currentState.save();
@@ -49,15 +61,14 @@ class ImageUploadState extends State<ImageUpload> {
     String filename = "test.png"; //todo
     String mimeType = mime(Path.basename(filename));
     var mediaType = MediaType.parse(mimeType);
-    Uint8List uint8list = await pickedFile.readAsBytes();
-    var file = MultipartFile.fromBytes(uint8list, contentType: mediaType, filename: filename);
+    var file = MultipartFile.fromBytes(imageBytes, contentType: mediaType, filename: filename);
     Map map = image.toJson();
     map['file'] = file;
     FormData formData = FormData.fromMap(map);
 
     ResponeBodyApi responeBodyApi = await ImageApi.upload(formData);
     if (responeBodyApi.success) {
-      Utils.toPortal(context,'保存成功！','前往门户查看图片',"http://www.cryqd.com/flutter_portal");
+      Utils.toPortal(context, '保存成功！', '前往门户查看图片', "http://www.cryqd.com/flutter_portal");
       setState(() {
         this.pickedFile = null;
       });
@@ -110,6 +121,10 @@ class ImageUploadState extends State<ImageUpload> {
           label: '保存',
           onPressed: pickedFile == null ? null : () => save(),
           iconData: Icons.save,
+        ),
+        Text(
+          limitMessage,
+          style: TextStyle(color: Colors.red),
         ),
       ],
     );

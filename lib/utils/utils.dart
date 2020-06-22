@@ -12,7 +12,7 @@ class Utils {
   }
 
   static toPortal(BuildContext context,String message,String buttonText,String url) {
-    cryAlert(
+    cryAlertWidget(
       context,
       Container(
         height: 100,
