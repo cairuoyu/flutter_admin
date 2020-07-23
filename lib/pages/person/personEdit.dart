@@ -11,16 +11,16 @@ import 'package:flutter_admin/models/person.dart';
 import 'package:intl/intl.dart';
 import '../../generated/l10n.dart';
 
-class EditPage extends StatefulWidget {
+class PersonEdit extends StatefulWidget {
   final Person person;
-  const EditPage({Key key, this.person}) : super(key: key);
+  const PersonEdit({Key key, this.person}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return EditPageState();
+    return PersonEditState();
   }
 }
 
-class EditPageState extends State<EditPage> {
+class PersonEditState extends State<PersonEdit> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Person formData = Person();
   @override

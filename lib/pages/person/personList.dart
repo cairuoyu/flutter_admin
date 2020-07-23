@@ -12,17 +12,16 @@ import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/utils/dictUtil.dart';
 import 'package:intl/intl.dart';
 import '../../generated/l10n.dart';
-
 import 'personEdit.dart';
 
 class PersonList extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return Curd1State();
+    return PersonListState();
   }
 }
 
-class Curd1State extends State {
+class PersonListState extends State {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   int rowsPerPage = 10;
   MyDS myDS = new MyDS();
@@ -46,7 +45,7 @@ class Curd1State extends State {
       width: 650,
       context: context,
       title: person == null ? S.of(context).increase : S.of(context).modify,
-      body: EditPage(person: person),
+      body: PersonEdit(person: person),
     ).then((v) {
       if (v != null) {
         query();
@@ -221,7 +220,7 @@ class Curd1State extends State {
 
 class MyDS extends DataTableSource {
   MyDS();
-  Curd1State state;
+  PersonListState state;
   BuildContext context;
   List<model.Person> dataList;
   int selectedCount = 0;

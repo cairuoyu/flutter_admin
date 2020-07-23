@@ -1,21 +1,19 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/api/menuApi.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/data/router.dart';
 import 'package:flutter_admin/models/menu.dart';
-import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/pages/common/langSwitch.dart';
+import 'package:flutter_admin/pages/layout/layoutMenu.dart';
 import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/utils/LocalStorageUtil.dart';
-import 'package:flutter_admin/utils/treeUtil.dart';
 import 'package:flutter_admin/utils/utils.dart';
-import 'package:flutter_admin/utils/adaptiveUtil.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:intl/intl.dart';
 import '../../generated/l10n.dart';
+import '../../vo/treeVO.dart';
 
 class Layout1 extends StatefulWidget {
   @override
@@ -24,13 +22,10 @@ class Layout1 extends StatefulWidget {
 
 class Layout1State extends State with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
-  List<TreeVO<Menu>> treeVOAll = [];
   List<TreeVO<Menu>> treeVOOpened = [];
   TabController tabController;
   Container content = Container();
   int length = 0;
-  bool expandMenu = true;
-  List<bool> isSelected = [true, false, false];
   Color themeColor = Colors.blue;
 
   void changeColor(Color color) => setState(() => themeColor = color);
@@ -39,35 +34,24 @@ class Layout1State extends State with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    this.loadData();
     tabController = TabController(vsync: this, length: length);
     if (treeVOOpened.length > 0) {
-      loadPage(treeVOOpened[0]);
+      openPage(treeVOOpened[0]);
     }
-    this.expandMenu = isDisplayDesktopInit();
   }
 
   @override
   Widget build(BuildContext context) {
-    ListTile menuHeader = ListTile(
-      title: Icon(Icons.menu),
-      onTap: () {
-        expandMenu = !expandMenu;
-        setState(() {});
-      },
-    );
-    List<Widget> menuBody = genListTile(treeVOAll);
-    ListView menu = ListView(children: [menuHeader, ...menuBody]);
     TabBar tabBar = TabBar(
-      onTap: (index) => loadPage(treeVOOpened[index]),
+      onTap: (index) => openPage(treeVOOpened[index]),
       controller: tabController,
       isScrollable: true,
-      indicator: getIndicator(),
+      indicator: const UnderlineTabIndicator(),
       tabs: treeVOOpened.map<Tab>((TreeVO<Menu> treeVO) {
         return Tab(
           child: Row(
             children: <Widget>[
-              Text(treeVO.data.name),
+              Text(Intl.defaultLocale == 'en' ? treeVO.data.nameEn ?? '' : treeVO.data.name ?? ''),
               SizedBox(width: 3),
               InkWell(
                 child: Icon(Icons.close, size: 10),
@@ -82,16 +66,7 @@ class Layout1State extends State with TickerProviderStateMixin {
     Row body = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(
-          width: expandMenu ? 300 : 60,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.blue[50],
-              // border: Border(right: BorderSide(color: Colors.black)),
-            ),
-            child: menu,
-          ),
-        ),
+        LayoutMenu(onClick: openPage),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,27 +138,11 @@ class Layout1State extends State with TickerProviderStateMixin {
     );
   }
 
-  loadData() async {
-    ResponeBodyApi responeBodyApi = await MenuApi.list(null);
-    var data = responeBodyApi.data;
-    List<Menu> list = List.from(data).map((e) => Menu.fromJson(e)).toList();
-    this.treeVOAll = new TreeUtil<Menu>().toTreeVOList(list);
-    this.setState(() {
-      if (treeVOAll.length > 0) {
-        loadPage(treeVOAll[0]);
-      }
-    });
-  }
-
-  getColorPicker() {
+  getDrawer() {
     var picker = BlockPicker(
       pickerColor: themeColor,
       onColorChanged: changeColor,
     );
-    return picker;
-  }
-
-  getDrawer() {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -208,7 +167,7 @@ class Layout1State extends State with TickerProviderStateMixin {
               border: Border(bottom: BorderSide(color: Colors.black12)),
             ),
             padding: EdgeInsets.all(5),
-            child: getColorPicker(),
+            child: picker,
           ),
         ],
       ),
@@ -224,11 +183,11 @@ class Layout1State extends State with TickerProviderStateMixin {
       tabController.index = length - 1;
       openPage = treeVOOpened[0];
     }
-    loadPage(openPage);
+    openPage(openPage);
     setState(() {});
   }
 
-  loadPage(TreeVO<Menu> treeVO) {
+  openPage(TreeVO<Menu> treeVO) {
     if (treeVO == null) {
       content = Container();
       return;
@@ -253,40 +212,11 @@ class Layout1State extends State with TickerProviderStateMixin {
     setState(() {});
   }
 
-  List<Widget> genListTile(List<TreeVO<Menu>> data) {
-    List<Widget> listTileList = data.map<Widget>((TreeVO<Menu> treeVO) {
-      IconData iconData = Utils.toIconData(treeVO.data.icon);
-      String name = Intl.defaultLocale == 'en' ? treeVO.data.nameEn ?? '' : treeVO.data.name ?? '';
-      Text title = Text(expandMenu ? name : '');
-      if (treeVO.children != null && treeVO.children.length > 0) {
-        return ExpansionTile(
-          leading: Icon(expandMenu ? treeVO.icon : null),
-          backgroundColor: Theme.of(context).accentColor.withOpacity(0.025),
-          children: genListTile(treeVO.children),
-          title: title,
-        );
-      } else {
-        return ListTile(
-          leading: Icon(iconData),
-          // leading: Icon(treeVO.icon),
-          title: title,
-          onTap: () => loadPage(treeVO),
-        );
-      }
-    }).toList();
-    return listTileList;
-  }
-
   logout() {
     LocalStorageUtil.set(Constant.KEY_TOKEN, null);
-    // Navigator.of(context, rootNavigator: true).pop();
     Navigator.push(
       context,
       MaterialPageRoute(builder: (BuildContext context) => Login()),
     );
-  }
-
-  getIndicator() {
-    return const UnderlineTabIndicator();
   }
 }

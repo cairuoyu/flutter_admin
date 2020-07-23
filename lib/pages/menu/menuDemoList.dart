@@ -11,14 +11,15 @@ import 'package:flutter_admin/utils/adaptiveUtil.dart';
 import 'package:flutter_admin/utils/treeUtil.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
 
-class MenuList extends StatefulWidget {
-  MenuList({Key key}) : super(key: key);
+
+class MenuDemoList extends StatefulWidget {
+  MenuDemoList({Key key}) : super(key: key);
 
   @override
-  MenuListState createState() => MenuListState();
+  MenuDemoListState createState() => MenuDemoListState();
 }
 
-class MenuListState extends State<MenuList> {
+class MenuDemoListState extends State<MenuDemoList> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   List<TreeVO<Menu>> treeVOList = [];
@@ -79,8 +80,7 @@ class MenuListState extends State<MenuList> {
               label: '删除',
               onPressed: selected.length >= 1
                   ? () {
-                      cryConfirm(context, S.of(context).confirmDelete,
-                          () async {
+                      cryConfirm(context, S.of(context).confirmDelete, () async {
                         List ids = selected.map((e) => e.data.id).toList();
                         await MenuDemoApi.removeByIds(ids);
                         setState(() {
@@ -96,11 +96,7 @@ class MenuListState extends State<MenuList> {
       ),
     );
     ListView listView = ListView(
-      children: [
-        header,
-        this.getListTileHeader(),
-        ...getListTile(treeVOList, null)
-      ],
+      children: [header, this.getListTileHeader(), ...getListTile(treeVOList, null)],
     );
     var left = Container(
       width: 450,
@@ -158,6 +154,14 @@ class MenuListState extends State<MenuList> {
           child: Wrap(
             children: <Widget>[
               CryInput(
+                enable: false,
+                value: formData.pname ?? '根目录',
+                label: '父菜单',
+                onSaved: (v) {
+                  formData.pname = v;
+                },
+              ),
+              CryInput(
                 value: formData.name,
                 label: '菜单名',
                 onSaved: (v) {
@@ -168,11 +172,10 @@ class MenuListState extends State<MenuList> {
                 },
               ),
               CryInput(
-                enable: false,
-                value: formData.pname ?? '根目录',
-                label: '父菜单',
+                value: formData.nameEn,
+                label: '菜单英文名',
                 onSaved: (v) {
-                  formData.pname = v;
+                  formData.nameEn = v;
                 },
               ),
               CryInput(
@@ -299,17 +302,13 @@ class MenuListState extends State<MenuList> {
 }
 
 getACell(title, {width: 200.0}) {
-  return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: Text(title),
-      width: width);
+  return Container(padding: EdgeInsets.symmetric(horizontal: 20), child: Text(title), width: width);
 }
 
 getBD({header: false, odd: true}) {
   var bd = BoxDecoration(
     boxShadow: [
-      BoxShadow(
-          color: Colors.black26, offset: Offset(2.0, 2.0), blurRadius: 4.0),
+      BoxShadow(color: Colors.black26, offset: Offset(2.0, 2.0), blurRadius: 4.0),
     ],
     color: header ? Colors.white60 : odd ? Colors.white : Colors.white38,
     border: Border(bottom: BorderSide(color: Colors.black12)),
