@@ -11,7 +11,7 @@ class Utils {
     }
   }
 
-  static toPortal(BuildContext context,String message,String buttonText,String url) {
+  static toPortal(BuildContext context, String message, String buttonText, String url) {
     cryAlertWidget(
       context,
       Container(
@@ -33,5 +33,13 @@ class Utils {
         ),
       ),
     );
+  }
+
+  static toIconData(String icon) {
+    if (icon == null || icon == '') {
+      return Icons.menu;
+    }
+    IconData iconData = IconData(int.parse(icon), fontFamily: 'MaterialIcons');
+    return iconData;
   }
 }

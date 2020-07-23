@@ -1,6 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/api/menuApi.dart';
+import 'package:flutter_admin/api/menuDemoApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/cryDialog.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
@@ -39,7 +39,7 @@ class MenuListState extends State<MenuList> {
   }
 
   loadData() async {
-    ResponeBodyApi responeBodyApi = await MenuApi.list(null);
+    ResponeBodyApi responeBodyApi = await MenuDemoApi.list(null);
     var data = responeBodyApi.data;
     List<Menu> list = List.from(data).map((e) => Menu.fromJson(e)).toList();
     this.treeVOList = new TreeUtil<Menu>().toTreeVOList(list);
@@ -82,7 +82,7 @@ class MenuListState extends State<MenuList> {
                       cryConfirm(context, S.of(context).confirmDelete,
                           () async {
                         List ids = selected.map((e) => e.data.id).toList();
-                        await MenuApi.removeByIds(ids);
+                        await MenuDemoApi.removeByIds(ids);
                         setState(() {
                           this.loadData();
                         });
@@ -133,7 +133,7 @@ class MenuListState extends State<MenuList> {
                   return;
                 }
                 form.save();
-                MenuApi.saveOrUpdate(formData.toJson()).then((res) {
+                MenuDemoApi.saveOrUpdate(formData.toJson()).then((res) {
                   BotToast.showText(text: S.of(context).saved);
                   setState(() {
                     this.isEdit = false;

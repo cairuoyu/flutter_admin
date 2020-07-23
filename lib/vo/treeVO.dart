@@ -6,7 +6,7 @@ class TreeVO<T extends TreeData> {
   T data;
   List<TreeVO<T>> children = [];
   bool isExpanded = false;
-  IconData icon;
+  IconData icon = Icons.menu;
   bool checked = false;
 }
 

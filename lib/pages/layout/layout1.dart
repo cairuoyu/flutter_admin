@@ -1,14 +1,18 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/api/menuApi.dart';
 import 'package:flutter_admin/constants/constant.dart';
-import 'package:flutter_admin/data/data1.dart';
+import 'package:flutter_admin/data/router.dart';
+import 'package:flutter_admin/models/menu.dart';
+import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/pages/common/langSwitch.dart';
 import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/utils/LocalStorageUtil.dart';
+import 'package:flutter_admin/utils/treeUtil.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_admin/utils/adaptiveUtil.dart';
-import 'package:flutter_admin/vo/pageVO.dart';
+import 'package:flutter_admin/vo/treeVO.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:intl/intl.dart';
 import '../../generated/l10n.dart';
@@ -20,11 +24,11 @@ class Layout1 extends StatefulWidget {
 
 class Layout1State extends State with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
-  List<PageVO> pageVoAll;
-  List<PageVO> pageVoOpened;
+  List<TreeVO<Menu>> treeVOAll = [];
+  List<TreeVO<Menu>> treeVOOpened = [];
   TabController tabController;
-  Container content;
-  int length;
+  Container content = Container();
+  int length = 0;
   bool expandMenu = true;
   List<bool> isSelected = [true, false, false];
   Color themeColor = Colors.blue;
@@ -35,23 +39,16 @@ class Layout1State extends State with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    pageVoAll = Intl.defaultLocale == 'en' ? testPageVOAll_en : testPageVOAll;
-
-    pageVoOpened = <PageVO>[pageVoAll[0]];
-    length = pageVoOpened.length;
+    this.loadData();
     tabController = TabController(vsync: this, length: length);
-    if (pageVoOpened.length > 0) {
-      loadPage(pageVoOpened[0]);
+    if (treeVOOpened.length > 0) {
+      loadPage(treeVOOpened[0]);
     }
     this.expandMenu = isDisplayDesktopInit();
-    WidgetsBinding.instance.addPostFrameCallback((v) {
-      // scaffoldStateKey.currentState.openEndDrawer();
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    pageVoAll = Intl.defaultLocale == 'en' ? testPageVOAll_en : testPageVOAll;
     ListTile menuHeader = ListTile(
       title: Icon(Icons.menu),
       onTap: () {
@@ -59,22 +56,22 @@ class Layout1State extends State with TickerProviderStateMixin {
         setState(() {});
       },
     );
-    List<Widget> menuBody = genListTile(pageVoAll);
+    List<Widget> menuBody = genListTile(treeVOAll);
     ListView menu = ListView(children: [menuHeader, ...menuBody]);
     TabBar tabBar = TabBar(
-      onTap: (index) => loadPage(pageVoOpened[index]),
+      onTap: (index) => loadPage(treeVOOpened[index]),
       controller: tabController,
       isScrollable: true,
       indicator: getIndicator(),
-      tabs: pageVoOpened.map<Tab>((PageVO page) {
+      tabs: treeVOOpened.map<Tab>((TreeVO<Menu> treeVO) {
         return Tab(
           child: Row(
             children: <Widget>[
-              Text(page.title),
+              Text(treeVO.data.name),
               SizedBox(width: 3),
               InkWell(
                 child: Icon(Icons.close, size: 10),
-                onTap: () => closePage(page),
+                onTap: () => closePage(treeVO),
               ),
             ],
           ),
@@ -166,6 +163,18 @@ class Layout1State extends State with TickerProviderStateMixin {
     );
   }
 
+  loadData() async {
+    ResponeBodyApi responeBodyApi = await MenuApi.list(null);
+    var data = responeBodyApi.data;
+    List<Menu> list = List.from(data).map((e) => Menu.fromJson(e)).toList();
+    this.treeVOAll = new TreeUtil<Menu>().toTreeVOList(list);
+    this.setState(() {
+      if (treeVOAll.length > 0) {
+        loadPage(treeVOAll[0]);
+      }
+    });
+  }
+
   getColorPicker() {
     var picker = BlockPicker(
       pickerColor: themeColor,
@@ -206,56 +215,62 @@ class Layout1State extends State with TickerProviderStateMixin {
     );
   }
 
-  closePage(page) {
-    pageVoOpened.remove(page);
+  closePage(treeVO) {
+    treeVOOpened.remove(treeVO);
     --length;
     tabController = TabController(vsync: this, length: length);
     var openPage;
     if (length > 0) {
       tabController.index = length - 1;
-      openPage = pageVoOpened[0];
+      openPage = treeVOOpened[0];
     }
     loadPage(openPage);
     setState(() {});
   }
 
-  loadPage(page) {
-    if (page == null) {
+  loadPage(TreeVO<Menu> treeVO) {
+    if (treeVO == null) {
       content = Container();
       return;
     }
+    Widget body = treeVO.data.url != null && layoutBodys[treeVO.data.url] != null
+        ? layoutBodys[treeVO.data.url]
+        : Center(child: Text('404'));
     content = Container(
       child: Expanded(
-        child: page.widget != null ? page.widget : Center(child: Text('404')),
+        child: body,
       ),
     );
 
-    int index = pageVoOpened.indexWhere((note) => note.id == page.id);
+    int index = treeVOOpened.indexWhere((note) => note.data.id == treeVO.data.id);
     if (index > -1) {
       tabController.index = index;
     } else {
-      pageVoOpened.add(page);
+      treeVOOpened.add(treeVO);
       tabController = TabController(vsync: this, length: ++length);
       tabController.index = length - 1;
     }
     setState(() {});
   }
 
-  List<Widget> genListTile(data) {
-    List<Widget> listTileList = data.map<Widget>((PageVO page) {
-      Text title = Text(expandMenu ? page.title : '');
-      if (page.children != null && page.children.length > 0) {
+  List<Widget> genListTile(List<TreeVO<Menu>> data) {
+    List<Widget> listTileList = data.map<Widget>((TreeVO<Menu> treeVO) {
+      IconData iconData = Utils.toIconData(treeVO.data.icon);
+      String name = Intl.defaultLocale == 'en' ? treeVO.data.nameEn ?? '' : treeVO.data.name ?? '';
+      Text title = Text(expandMenu ? name : '');
+      if (treeVO.children != null && treeVO.children.length > 0) {
         return ExpansionTile(
-          leading: Icon(expandMenu ? page.icon : null),
+          leading: Icon(expandMenu ? treeVO.icon : null),
           backgroundColor: Theme.of(context).accentColor.withOpacity(0.025),
-          children: genListTile(page.children),
+          children: genListTile(treeVO.children),
           title: title,
         );
       } else {
         return ListTile(
-          leading: Icon(page.icon),
+          leading: Icon(iconData),
+          // leading: Icon(treeVO.icon),
           title: title,
-          onTap: () => loadPage(page),
+          onTap: () => loadPage(treeVO),
         );
       }
     }).toList();

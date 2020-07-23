@@ -1,14 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_admin/pages/dash/dashboard1.dart';
-import 'package:flutter_admin/pages/image/imageUpload.dart';
-import 'package:flutter_admin/pages/menu/menuList.dart';
-import 'package:flutter_admin/pages/person/personList.dart';
-import 'package:flutter_admin/pages/userInfo/userInfoEdit.dart';
-import 'package:flutter_admin/pages/video/videoUpload.dart';
 import 'package:flutter_admin/vo/listTileVO.dart';
-import 'package:flutter_admin/vo/pageVO.dart';
 import 'package:flutter_admin/vo/selectOptionVO.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 List<SelectOptionVO> deptIdList = [
   SelectOptionVO(value: '1', label: '技术部门'),
@@ -28,50 +19,6 @@ List<SelectOptionVO> deptIdList_en = [
 List<SelectOptionVO> genderList_en = [
   SelectOptionVO(value: '1', label: 'Male'),
   SelectOptionVO(value: '2', label: 'Female'),
-];
-
-List<PageVO> testPageVOAll_en = <PageVO>[
-  PageVO(id: "1", icon: Icons.dashboard, title: 'Dashboard', widget: Dashboard1()),
-  PageVO(id: "4", icon: Icons.people, title: 'Personnel List', widget: PersonList()),
-  PageVO(id: "3", icon: Icons.menu, title: 'Menu List', widget: MenuList()),
-  PageVO(id: "5", icon: Icons.grade, title: 'My Information', widget: UserInfoEdit()),
-  PageVO(id: "6", icon: Icons.image, title: 'Image Upload', widget: ImageUpload()),
-  PageVO(id: "7", icon: Icons.video_library, title: 'Video Upload', widget: VideoUpload()),
-  PageVO(id: "2", icon: Icons.folder, title: 'Tree Structure - First level Menu', children: [
-    PageVO(
-      title: 'Secondary Menu',
-      icon: FontAwesomeIcons.tree,
-      children: [
-        PageVO(title: 'Level Three Menu', icon: Icons.insert_drive_file),
-      ],
-    ),
-    PageVO(
-      title: 'Secondary menu',
-      icon: Icons.insert_photo,
-    )
-  ]),
-];
-
-List<PageVO> testPageVOAll = <PageVO>[
-  PageVO(id: "1", icon: Icons.dashboard, title: 'Dashboard', widget: Dashboard1()),
-  PageVO(id: "4", icon: Icons.people, title: '人员管理', widget: PersonList()),
-  PageVO(id: "3", icon: Icons.menu, title: '菜单管理', widget: MenuList()),
-  PageVO(id: "5", icon: Icons.grade, title: '我的信息', widget: UserInfoEdit()),
-  PageVO(id: "6", icon: Icons.image, title: '图片上传', widget: ImageUpload()),
-  PageVO(id: "7", icon: Icons.video_library, title: '视频上传', widget: VideoUpload()),
-  PageVO(id: "2", icon: Icons.folder, title: '树结构一级菜单', children: [
-    PageVO(
-      title: '二级菜单',
-      icon: FontAwesomeIcons.tree,
-      children: [
-        PageVO(title: '三级菜单', icon: Icons.insert_drive_file),
-      ],
-    ),
-    PageVO(
-      title: '二级菜单',
-      icon: Icons.insert_photo,
-    )
-  ]),
 ];
 
 List<ListTileVO> todoList = [
