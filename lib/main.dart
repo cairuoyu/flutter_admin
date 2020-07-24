@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter_admin/components/cryRoot.dart';
+import 'package:flutter_admin/constants/constant.dart';
+import 'package:flutter_admin/pages/layout/layout.dart';
+import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/utils/localStorageUtil.dart';
-import './pages/layout/layout1.dart';
-import './pages/login.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import './generated/l10n.dart';
-import 'constants/constant.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
               ],
               supportedLocales: S.delegate.supportedLocales,
               locale: Locale(CryRootScope.of(context).state.locale),
-              home: LocalStorageUtil.get(Constant.KEY_TOKEN) == null ? Login() : Layout1(),
+              home: LocalStorageUtil.get(Constant.KEY_TOKEN) == null ? Login() : Layout(),
             );
           },
         ),

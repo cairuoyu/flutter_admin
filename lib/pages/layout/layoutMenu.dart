@@ -14,17 +14,17 @@ class LayoutMenu extends StatefulWidget {
   final Function onClick;
 
   @override
-  LayoutMenuState createState() => LayoutMenuState();
+  _LayoutMenuState createState() => _LayoutMenuState();
 }
 
-class LayoutMenuState extends State<LayoutMenu> {
+class _LayoutMenuState extends State<LayoutMenu> {
   List<TreeVO<Menu>> treeVOList = [];
   bool expandMenu = true;
 
   @override
   void initState() {
     super.initState();
-    this.loadData();
+    this._loadData();
     this.expandMenu = isDisplayDesktopInit();
   }
 
@@ -37,7 +37,7 @@ class LayoutMenuState extends State<LayoutMenu> {
         setState(() {});
       },
     );
-    List<Widget> menuBody = getMenuListTile(treeVOList);
+    List<Widget> menuBody = _getMenuListTile(treeVOList);
     ListView menu = ListView(children: [menuHeader, ...menuBody]);
     return SizedBox(
       width: expandMenu ? 300 : 60,
@@ -51,7 +51,7 @@ class LayoutMenuState extends State<LayoutMenu> {
     );
   }
 
-  loadData() async {
+  _loadData() async {
     ResponeBodyApi responeBodyApi = await MenuApi.list(null);
     var data = responeBodyApi.data;
     List<Menu> list = List.from(data).map((e) => Menu.fromJson(e)).toList();
@@ -63,7 +63,7 @@ class LayoutMenuState extends State<LayoutMenu> {
     });
   }
 
-  List<Widget> getMenuListTile(List<TreeVO<Menu>> data) {
+  List<Widget> _getMenuListTile(List<TreeVO<Menu>> data) {
     List<Widget> listTileList = data.map<Widget>((TreeVO<Menu> treeVO) {
       IconData iconData = Utils.toIconData(treeVO.data.icon);
       String name = Intl.defaultLocale == 'en' ? treeVO.data.nameEn ?? '' : treeVO.data.name ?? '';
@@ -72,7 +72,7 @@ class LayoutMenuState extends State<LayoutMenu> {
         return ExpansionTile(
           leading: Icon(expandMenu ? treeVO.icon : null),
           backgroundColor: Theme.of(context).accentColor.withOpacity(0.025),
-          children: getMenuListTile(treeVO.children),
+          children: _getMenuListTile(treeVO.children),
           title: title,
         );
       } else {

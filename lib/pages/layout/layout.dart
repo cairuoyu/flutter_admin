@@ -15,12 +15,12 @@ import 'package:intl/intl.dart';
 import '../../generated/l10n.dart';
 import '../../vo/treeVO.dart';
 
-class Layout1 extends StatefulWidget {
+class Layout extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => Layout1State();
+  _LayoutState createState() => _LayoutState();
 }
 
-class Layout1State extends State with TickerProviderStateMixin {
+class _LayoutState extends State with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
   List<TreeVO<Menu>> treeVOOpened = [];
   TabController tabController;
@@ -35,15 +35,12 @@ class Layout1State extends State with TickerProviderStateMixin {
     super.initState();
 
     tabController = TabController(vsync: this, length: length);
-    if (treeVOOpened.length > 0) {
-      openPage(treeVOOpened[0]);
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     TabBar tabBar = TabBar(
-      onTap: (index) => openPage(treeVOOpened[index]),
+      onTap: (index) => _openPage(treeVOOpened[index]),
       controller: tabController,
       isScrollable: true,
       indicator: const UnderlineTabIndicator(),
@@ -55,7 +52,7 @@ class Layout1State extends State with TickerProviderStateMixin {
               SizedBox(width: 3),
               InkWell(
                 child: Icon(Icons.close, size: 10),
-                onTap: () => closePage(treeVO),
+                onTap: () => _closePage(treeVO),
               ),
             ],
           ),
@@ -66,7 +63,7 @@ class Layout1State extends State with TickerProviderStateMixin {
     Row body = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        LayoutMenu(onClick: openPage),
+        LayoutMenu(onClick: _openPage),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,7 +95,7 @@ class Layout1State extends State with TickerProviderStateMixin {
     );
     Scaffold subWidget = Scaffold(
       key: scaffoldStateKey,
-      endDrawer: getDrawer(),
+      endDrawer: _getDrawer(),
       body: body,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -113,7 +110,7 @@ class Layout1State extends State with TickerProviderStateMixin {
           IconButton(
             icon: Icon(Icons.exit_to_app),
             onPressed: () {
-              logout();
+              _logout();
             },
           ),
         ],
@@ -138,7 +135,7 @@ class Layout1State extends State with TickerProviderStateMixin {
     );
   }
 
-  getDrawer() {
+  _getDrawer() {
     var picker = BlockPicker(
       pickerColor: themeColor,
       onColorChanged: changeColor,
@@ -174,7 +171,7 @@ class Layout1State extends State with TickerProviderStateMixin {
     );
   }
 
-  closePage(treeVO) {
+  _closePage(treeVO) {
     treeVOOpened.remove(treeVO);
     --length;
     tabController = TabController(vsync: this, length: length);
@@ -187,7 +184,7 @@ class Layout1State extends State with TickerProviderStateMixin {
     setState(() {});
   }
 
-  openPage(TreeVO<Menu> treeVO) {
+  _openPage(TreeVO<Menu> treeVO) {
     if (treeVO == null) {
       content = Container();
       return;
@@ -212,7 +209,7 @@ class Layout1State extends State with TickerProviderStateMixin {
     setState(() {});
   }
 
-  logout() {
+  _logout() {
     LocalStorageUtil.set(Constant.KEY_TOKEN, null);
     Navigator.push(
       context,

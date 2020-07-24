@@ -8,17 +8,15 @@ import 'package:flutter_admin/utils/localStorageUtil.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_admin/api/userApi.dart';
 import 'package:flutter_admin/models/user.dart';
-
-import 'layout/layout1.dart';
 import '../generated/l10n.dart';
+import 'layout/layout.dart';
 
 class Login extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => LoginState();
+  _LoginState createState() => _LoginState();
 }
 
-class LoginState extends State {
-  static final String path = "lib/src/pages/login/login2.dart";
+class _LoginState extends State<Login> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   User user = new User();
   String error = "";
@@ -31,11 +29,11 @@ class LoginState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: buildPageContent(),
+      body: _buildPageContent(),
     );
   }
 
-  Widget buildPageContent() {
+  Widget _buildPageContent() {
     var appName = Text(
       "FLUTTER_ADMIN",
       style: TextStyle(fontSize: 16, color: Colors.blue),
@@ -53,13 +51,13 @@ class LoginState extends State {
           SizedBox(
             height: 20.0,
           ),
-          buildLoginForm(),
+          _buildLoginForm(),
         ],
       ),
     );
   }
 
-  Container buildLoginForm() {
+  Container _buildLoginForm() {
     return Container(
       padding: EdgeInsets.all(20.0),
       child: Stack(
@@ -98,9 +96,7 @@ class LoginState extends State {
                             user.userName = v;
                           },
                           validator: (v) {
-                            return v.isEmpty
-                                ? S.of(context).usernameRequired
-                                : null;
+                            return v.isEmpty ? S.of(context).usernameRequired : null;
                           },
                         ),
                       ),
@@ -121,9 +117,7 @@ class LoginState extends State {
                             user.password = v;
                           },
                           validator: (v) {
-                            return v.isEmpty
-                                ? S.of(context).passwordRequired
-                                : null;
+                            return v.isEmpty ? S.of(context).passwordRequired : null;
                           },
                         ),
                       ),
@@ -135,7 +129,7 @@ class LoginState extends State {
                               S.of(context).register,
                               style: TextStyle(color: Colors.blue),
                             ),
-                            onPressed: () => register(),
+                            onPressed: () => _register(),
                           ),
                           FlatButton(
                             child: Text(
@@ -169,12 +163,10 @@ class LoginState extends State {
               width: 420,
               child: RaisedButton(
                 onPressed: () {
-                  login();
+                  _login();
                 },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40.0)),
-                child: Text(S.of(context).login,
-                    style: TextStyle(color: Colors.white70, fontSize: 20)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
+                child: Text(S.of(context).login, style: TextStyle(color: Colors.white70, fontSize: 20)),
                 color: Colors.blue,
               ),
             ),
@@ -184,14 +176,14 @@ class LoginState extends State {
     );
   }
 
-  register() {
+  _register() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (BuildContext context) => Register()),
     );
   }
 
-  login() {
+  _login() {
     var form = formKey.currentState;
     if (!form.validate()) {
       return;
@@ -202,7 +194,7 @@ class LoginState extends State {
         LocalStorageUtil.set(Constant.KEY_TOKEN, responeBodyApi.data);
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (BuildContext context) => Layout1()),
+          MaterialPageRoute(builder: (BuildContext context) => Layout()),
         );
       } else {
         this.error = responeBodyApi.message;

@@ -7,11 +7,10 @@ import '../generated/l10n.dart';
 
 class Register extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => RegisterState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class RegisterState extends State {
-  static final String path = "lib/src/pages/login/register.dart";
+class _RegisterState extends State {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   User user = new User();
   String password2 = "";
@@ -24,11 +23,11 @@ class RegisterState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: buildPageContent(),
+      body: _buildPageContent(),
     );
   }
 
-  Widget buildPageContent() {
+  Widget _buildPageContent() {
     var appName = Text(
       S.of(context).register,
       style: TextStyle(fontSize: 16, color: Colors.green),
@@ -45,13 +44,13 @@ class RegisterState extends State {
           SizedBox(
             height: 20.0,
           ),
-          buildRegisterForm(),
+          _buildRegisterForm(),
         ],
       ),
     );
   }
 
-  buildRegisterForm() {
+  _buildRegisterForm() {
     var form = Form(
       key: formKey,
       child: Column(
@@ -105,9 +104,7 @@ class RegisterState extends State {
                 password2 = v;
               },
               validator: (v) {
-                return password2 == user.password
-                    ? null
-                    : S.of(context).passwordMismatch;
+                return password2 == user.password ? null : S.of(context).passwordMismatch;
               },
             ),
           ),
@@ -119,7 +116,7 @@ class RegisterState extends State {
                     S.of(context).haveAccountLogin,
                     style: TextStyle(color: Colors.blue),
                   ),
-                  onPressed: () => login())
+                  onPressed: () => _login())
             ],
           ),
           Container(
@@ -129,12 +126,10 @@ class RegisterState extends State {
               width: 400,
               child: RaisedButton(
                 onPressed: () {
-                  register();
+                  _register();
                 },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40.0)),
-                child: Text(S.of(context).register,
-                    style: TextStyle(color: Colors.white70, fontSize: 20)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
+                child: Text(S.of(context).register, style: TextStyle(color: Colors.white70, fontSize: 20)),
                 color: Colors.blue,
               ),
             ),
@@ -156,17 +151,19 @@ class RegisterState extends State {
     );
   }
 
-  login() {
+  _login() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (BuildContext context) => Login()));
+      context,
+      MaterialPageRoute(builder: (BuildContext context) => Login()),
+    );
   }
 
-  register() {
+  _register() {
     var form = formKey.currentState;
     form.save();
     if (form.validate()) {
       UserApi.register(user.toJson()).then((v) {
-        login();
+        _login();
         BotToast.showText(text: S.of(context).registerSuccess);
       });
     }
