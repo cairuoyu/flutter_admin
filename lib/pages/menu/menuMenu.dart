@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/menuDemoApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/cryDialog.dart';
-import 'package:flutter_admin/components/treeTable.dart';
+import 'package:flutter_admin/components/CryTreeTable.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
@@ -26,13 +26,13 @@ class _MenuMenuState extends State<MenuMenu> {
 
   @override
   Widget build(BuildContext context) {
-    List<TreeTableColumnData> columnData = [
-      TreeTableColumnData('名称', (Menu v) => v.name, width: 250),
-      TreeTableColumnData('英文名', (Menu v) => v.nameEn),
-      TreeTableColumnData('URL', (Menu v) => v.url),
-      TreeTableColumnData('备注', (Menu v) => v.remark, width: 300),
+    List<CryTreeTableColumnData> columnData = [
+      CryTreeTableColumnData('名称', (Menu v) => v.name, width: 250),
+      CryTreeTableColumnData('英文名', (Menu v) => v.nameEn),
+      CryTreeTableColumnData('URL', (Menu v) => v.url),
+      CryTreeTableColumnData('备注', (Menu v) => v.remark, width: 300),
     ];
-    var result = TreeTable(
+    var result = CryTreeTable(
       columnData: columnData,
       data: widget.treeVOList,
       toolbars: _getToolbars(),

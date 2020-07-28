@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
 
-class TreeTableColumnData {
-  TreeTableColumnData(this.label, this.getData, {this.width = 200});
+class CryTreeTableColumnData {
+  CryTreeTableColumnData(this.label, this.getData, {this.width = 200});
   Function getData;
   String label;
   double width;
 }
 
-class TreeTable<T extends TreeData> extends StatefulWidget {
-  TreeTable({
+class CryTreeTable<T extends TreeData> extends StatefulWidget {
+  CryTreeTable({
     Key key,
     this.columnData,
     this.data,
@@ -19,7 +19,7 @@ class TreeTable<T extends TreeData> extends StatefulWidget {
     this.width = 1000,
     this.tableWidth = 1000,
   }) : super(key: key);
-  final List<TreeTableColumnData> columnData;
+  final List<CryTreeTableColumnData> columnData;
   final List<TreeVO<T>> data;
   final Widget toolbars;
   final Function getRowOper;
@@ -28,10 +28,10 @@ class TreeTable<T extends TreeData> extends StatefulWidget {
   final double tableWidth;
 
   @override
-  _TreeTableState createState() => _TreeTableState<T>();
+  _CryTreeTableState createState() => _CryTreeTableState<T>();
 }
 
-class _TreeTableState<T extends TreeData> extends State<TreeTable<T>> {
+class _CryTreeTableState<T extends TreeData> extends State<CryTreeTable<T>> {
   @override
   void initState() {
     super.initState();

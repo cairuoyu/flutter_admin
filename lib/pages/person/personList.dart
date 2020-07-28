@@ -27,20 +27,20 @@ class PersonListState extends State {
   MyDS myDS = new MyDS();
   model.Person formData = model.Person();
 
-  reset() {
+  _reset() {
     this.formData = model.Person();
     formKey.currentState.reset();
     myDS.requestBodyApi.params = formData.toJson();
     myDS.loadData();
   }
 
-  query() {
+  _query() {
     formKey.currentState.save();
     myDS.requestBodyApi.params = formData.toJson();
     myDS.loadData();
   }
 
-  edit({model.Person person}) {
+  _edit({model.Person person}) {
     cryDialog(
       width: 650,
       context: context,
@@ -48,7 +48,7 @@ class PersonListState extends State {
       body: PersonEdit(person: person),
     ).then((v) {
       if (v != null) {
-        query();
+        _query();
       }
     });
   }
@@ -64,7 +64,7 @@ class PersonListState extends State {
       setState(() {});
     });
     WidgetsBinding.instance.addPostFrameCallback((c) {
-      query();
+      _query();
     });
   }
 
@@ -98,19 +98,19 @@ class PersonListState extends State {
         CryButton(
           label: S.of(context).inquire,
           onPressed: () {
-            query();
+            _query();
           },
         ),
         CryButton(
           label: S.of(context).reset,
           onPressed: () {
-            reset();
+            _reset();
           },
         ),
         CryButton(
           label: S.of(context).increase,
           onPressed: () {
-            edit();
+            _edit();
           },
         ),
         CryButton(
@@ -124,7 +124,7 @@ class PersonListState extends State {
                   model.Person person = myDS.dataList.firstWhere((v) {
                     return v.selected;
                   });
-                  edit(person: person);
+                  _edit(person: person);
                 },
         ),
         CryButton(
@@ -139,7 +139,7 @@ class PersonListState extends State {
                       return v.id;
                     }).toList();
                     await PersonApi.removeByIds(ids);
-                    query();
+                    _query();
                     Navigator.of(context).pop();
                   });
                 },
@@ -282,7 +282,7 @@ class MyDS extends DataTableSource {
             IconButton(
               icon: Icon(Icons.edit),
               onPressed: () {
-                state.edit(person: person);
+                state._edit(person: person);
               },
             ),
             IconButton(

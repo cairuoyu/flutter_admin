@@ -7,10 +7,67 @@ import 'package:flutter_admin/vo/listTileVO.dart';
 import 'package:intl/intl.dart';
 import '../../generated/l10n.dart';
 
-class Dashboard1 extends StatelessWidget {
-  const Dashboard1({Key key}) : super(key: key);
+class Dashboard extends StatelessWidget {
+  const Dashboard({Key key}) : super(key: key);
 
-  getABox(title, subtitle, color, icon) {
+  @override
+  Widget build(BuildContext context) {
+    final isDesktop = isDisplayDesktop(context);
+    var a = Column(
+      children: <Widget>[
+        _getOverview(context, isDesktop),
+        Container(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: _buildTitledContainer(
+              S.of(context).dashTotal,
+              child: Container(
+                height: 200,
+                child: SimpleSeriesLegend.withSampleData(),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(16),
+          child: isDesktop
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    _getAList(Intl.defaultLocale == 'en' ? todoList_en : todoList,
+                        flex: 3, title: S.of(context).dashToDoList),
+                    SizedBox(width: 16),
+                    _getAList(linkList, flex: 1, title: S.of(context).dashTopLinks),
+                  ],
+                )
+              : Container(
+                  width: double.infinity,
+                  height: 850,
+                  child: Column(
+                    children: <Widget>[
+                      _getAList(Intl.defaultLocale == 'en' ? todoList_en : todoList,
+                          flex: 1, title: S.of(context).dashToDoList),
+                      _getAList(linkList, flex: 1, title: S.of(context).dashTopLinks),
+                    ],
+                  ),
+                ),
+        ),
+      ],
+    );
+    var b = CustomScrollView(
+      slivers: <Widget>[
+        SliverToBoxAdapter(
+          child: a,
+        ),
+      ],
+    );
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: b,
+    );
+  }
+
+  _getABox(title, subtitle, color, icon) {
     final TextStyle whiteText = TextStyle(color: Colors.white);
     return Expanded(
       child: Container(
@@ -18,10 +75,7 @@ class Dashboard1 extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           boxShadow: [
-            BoxShadow(
-                color: Colors.black26,
-                offset: Offset(2.0, 2.0),
-                blurRadius: 4.0),
+            BoxShadow(color: Colors.black26, offset: Offset(2.0, 2.0), blurRadius: 4.0),
           ],
         ),
         child: Column(
@@ -50,15 +104,14 @@ class Dashboard1 extends StatelessWidget {
     );
   }
 
-  Container buildTitledContainer(String title, {Widget child, double height}) {
+  Container _buildTitledContainer(String title, {Widget child, double height}) {
     return Container(
       padding: const EdgeInsets.all(16.0),
       width: double.infinity,
       height: height,
       decoration: BoxDecoration(
         boxShadow: [
-          BoxShadow(
-              color: Colors.black26, offset: Offset(2.0, 2.0), blurRadius: 4.0),
+          BoxShadow(color: Colors.black26, offset: Offset(2.0, 2.0), blurRadius: 4.0),
         ],
         color: Colors.white,
       ),
@@ -75,12 +128,11 @@ class Dashboard1 extends StatelessWidget {
     );
   }
 
-  getAList(List<ListTileVO> list, {title, flex = 1}) {
+  _getAList(List<ListTileVO> list, {title, flex = 1}) {
     var header = Container(
       decoration: BoxDecoration(
         boxShadow: [
-          BoxShadow(
-              color: Colors.black26, offset: Offset(2.0, 2.0), blurRadius: 4.0),
+          BoxShadow(color: Colors.black26, offset: Offset(2.0, 2.0), blurRadius: 4.0),
         ],
         color: Colors.white,
         border: Border(bottom: BorderSide(color: Colors.black12)),
@@ -98,10 +150,7 @@ class Dashboard1 extends StatelessWidget {
       return Container(
         decoration: BoxDecoration(
           boxShadow: [
-            BoxShadow(
-                color: Colors.black26,
-                offset: Offset(2.0, 2.0),
-                blurRadius: 4.0),
+            BoxShadow(color: Colors.black26, offset: Offset(2.0, 2.0), blurRadius: 4.0),
           ],
           color: Colors.white,
           border: Border(bottom: BorderSide(color: Colors.black12)),
@@ -125,26 +174,22 @@ class Dashboard1 extends StatelessWidget {
     return b;
   }
 
-  getASizedBox(isDesktop) {
+  _getASizedBox(isDesktop) {
     return SizedBox(
       width: isDesktop ? 20 : 0,
       height: isDesktop ? 0 : 20,
     );
   }
 
-  getOverview(context, isDesktop) {
+  _getOverview(context, isDesktop) {
     var boxList = <Widget>[
-      getABox('190', S.of(context).dashUpcoming, Colors.red,
-          Icon(FontAwesomeIcons.list)),
-      getASizedBox(isDesktop),
-      getABox('33', S.of(context).dashInProgress, Colors.blue,
-          Icon(FontAwesomeIcons.footballBall)),
-      getASizedBox(isDesktop),
-      getABox('58', S.of(context).dashDone, Colors.green,
-          Icon(FontAwesomeIcons.wind)),
-      getASizedBox(isDesktop),
-      getABox('1024', S.of(context).dashFinish, Colors.black38,
-          Icon(FontAwesomeIcons.wallet)),
+      _getABox('190', S.of(context).dashUpcoming, Colors.red, Icon(FontAwesomeIcons.list)),
+      _getASizedBox(isDesktop),
+      _getABox('33', S.of(context).dashInProgress, Colors.blue, Icon(FontAwesomeIcons.footballBall)),
+      _getASizedBox(isDesktop),
+      _getABox('58', S.of(context).dashDone, Colors.green, Icon(FontAwesomeIcons.wind)),
+      _getASizedBox(isDesktop),
+      _getABox('1024', S.of(context).dashFinish, Colors.black38, Icon(FontAwesomeIcons.wallet)),
     ];
 
     if (isDesktop) {
@@ -160,67 +205,5 @@ class Dashboard1 extends StatelessWidget {
         child: Column(children: boxList),
       );
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final isDesktop = isDisplayDesktop(context);
-    var a = Column(
-      children: <Widget>[
-        getOverview(context, isDesktop),
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: buildTitledContainer(
-              S.of(context).dashTotal,
-              child: Container(
-                height: 200,
-                child: SimpleSeriesLegend.withSampleData(),
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(16),
-          child: isDesktop
-              ? Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    getAList(
-                        Intl.defaultLocale == 'en' ? todoList_en : todoList,
-                        flex: 3,
-                        title: S.of(context).dashToDoList),
-                    SizedBox(width: 16),
-                    getAList(linkList,
-                        flex: 1, title: S.of(context).dashTopLinks),
-                  ],
-                )
-              : Container(
-                  width: double.infinity,
-                  height: 850,
-                  child: Column(
-                    children: <Widget>[
-                      getAList(
-                          Intl.defaultLocale == 'en' ? todoList_en : todoList,
-                          flex: 1,
-                          title: S.of(context).dashToDoList),
-                      getAList(linkList,
-                          flex: 1, title: S.of(context).dashTopLinks),
-                    ],
-                  )),
-        ),
-      ],
-    );
-    var b = CustomScrollView(
-      slivers: <Widget>[
-        SliverToBoxAdapter(
-          child: a,
-        ),
-      ],
-    );
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: b,
-    );
   }
 }
