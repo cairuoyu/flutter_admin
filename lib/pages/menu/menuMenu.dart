@@ -24,16 +24,27 @@ class _MenuMenuState extends State<MenuMenu> {
 
   @override
   Widget build(BuildContext context) {
-    ListView listView = ListView(
+    Column c = Column(
       children: [
         _getToolbars(),
         _getTableHeader(),
         _getTableBody(),
       ],
     );
+    var s = SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Container(
+        width: 1100,
+        child: c,
+      ),
+    );
+
     return Container(
-      child: listView,
-      width: widget.expand ? double.infinity : 450,
+      child: ListView(
+        children: [s],
+      ),
+      width: widget.expand ? double.infinity : 400,
+      decoration: _getBoxDecoration(),
     );
   }
 
@@ -85,11 +96,9 @@ class _MenuMenuState extends State<MenuMenu> {
       ),
       _getCell("名称"),
     ];
-    if (widget.expand) {
-      list.add(_getCell("英文名"));
-      list.add(_getCell("URL"));
-      list.add(_getCell("备注"));
-    }
+    list.add(_getCell("英文名"));
+    list.add(_getCell("URL"));
+    list.add(_getCell("备注"));
     var d = Container(
       decoration: _getBoxDecoration(header: true),
       child: ListTile(
@@ -134,11 +143,9 @@ class _MenuMenuState extends State<MenuMenu> {
       );
 
       columnList.add(_getCell(vo.data.name));
-      if (widget.expand) {
-        columnList.add(_getCell(vo.data.nameEn ?? '--'));
-        columnList.add(_getCell(vo.data.url ?? '--'));
-        columnList.add(_getCell(vo.data.remark ?? '--'));
-      }
+      columnList.add(_getCell(vo.data.nameEn ?? '--'));
+      columnList.add(_getCell(vo.data.url ?? '--'));
+      columnList.add(_getCell(vo.data.remark ?? '--'));
       var title = Row(children: columnList);
       var leading = Checkbox(
           value: vo.checked,
