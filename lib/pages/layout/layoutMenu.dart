@@ -55,7 +55,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
     ResponeBodyApi responeBodyApi = await MenuApi.list(null);
     var data = responeBodyApi.data;
     List<Menu> list = List.from(data).map((e) => Menu.fromJson(e)).toList();
-    this.treeVOList = new TreeUtil<Menu>().toTreeVOList(list);
+    this.treeVOList = TreeUtil.toTreeVOList(list);
     this.setState(() {
       if (treeVOList.length > 0) {
         if (widget.onClick != null) widget.onClick(treeVOList[0]);

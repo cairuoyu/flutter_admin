@@ -4,6 +4,7 @@ import 'package:flutter_admin/components/cryRoot.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/pages/layout/layout.dart';
 import 'package:flutter_admin/pages/login.dart';
+import 'package:flutter_admin/pages/myTest.dart';
 import 'package:flutter_admin/utils/localStorageUtil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import './generated/l10n.dart';
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
               ],
+              routes: {
+                "/test": (context) => MyTest(),
+              },
               supportedLocales: S.delegate.supportedLocales,
               locale: Locale(CryRootScope.of(context).state.locale),
               home: LocalStorageUtil.get(Constant.KEY_TOKEN) == null ? Login() : Layout(),

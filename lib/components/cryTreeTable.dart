@@ -28,10 +28,10 @@ class CryTreeTable<T extends TreeData> extends StatefulWidget {
   final double tableWidth;
 
   @override
-  _CryTreeTableState createState() => _CryTreeTableState<T>();
+  CryTreeTableState createState() => CryTreeTableState<T>();
 }
 
-class _CryTreeTableState<T extends TreeData> extends State<CryTreeTable<T>> {
+class CryTreeTableState<T extends TreeData> extends State<CryTreeTable<T>> {
   @override
   void initState() {
     super.initState();
@@ -136,7 +136,7 @@ class _CryTreeTableState<T extends TreeData> extends State<CryTreeTable<T>> {
             setState(() {
               vo.checked = v;
               if (widget.onSelected != null) {
-                widget.onSelected(_getSelected(widget.data));
+                widget.onSelected(vo);
               }
               // _checkChildren(vo, v);
             });
@@ -164,22 +164,6 @@ class _CryTreeTableState<T extends TreeData> extends State<CryTreeTable<T>> {
       list.add(d);
     }
     return list;
-  }
-
-  List<TreeVO<T>> _getSelected(List<TreeVO<T>> data) {
-    if (data == null) {
-      return [];
-    }
-    var selected = List<TreeVO<T>>();
-    data.forEach((element) {
-      if (element.checked) {
-        selected.add(element);
-      }
-      if (element.children != null && element.children.length > 0) {
-        selected.addAll(_getSelected(element.children));
-      }
-    });
-    return selected;
   }
 
   _getBoxDecoration({header: false, odd: true}) {

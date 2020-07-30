@@ -5,6 +5,7 @@ import 'package:flutter_admin/components/cryDialog.dart';
 import 'package:flutter_admin/components/CryTreeTable.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
+import 'package:flutter_admin/utils/treeUtil.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
 
 class MenuMenu extends StatefulWidget {
@@ -18,7 +19,6 @@ class MenuMenu extends StatefulWidget {
 }
 
 class _MenuMenuState extends State<MenuMenu> {
-  List<TreeVO<Menu>> selected = [];
   @override
   void initState() {
     super.initState();
@@ -45,6 +45,7 @@ class _MenuMenuState extends State<MenuMenu> {
   }
 
   _getToolbars() {
+    var selected = TreeUtil.getSelected(widget.treeVOList);
     var result = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -95,8 +96,7 @@ class _MenuMenuState extends State<MenuMenu> {
     return columnList;
   }
 
-  _onSelected(v) {
-    selected = v;
+  _onSelected(TreeVO<Menu> v) {
     setState(() {});
   }
 }

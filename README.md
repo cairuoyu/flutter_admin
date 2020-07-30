@@ -1,6 +1,9 @@
 # FLUTTER_ADMIN
 
-> 使用flutter实现的一个后台管理系统，对应的门户：https://github.com/cairuoyu/flutter_portal
+> 使用flutter实现的一个后台管理系统
+
+## live demo
+http://www.cryqd.com/flutter_admin
 
 ![image](http://cryqd.com/f/screenshots/flutter_admin_login.png)
 ![image](http://cryqd.com/f/screenshots/flutter_admin_dashboard.png)
@@ -38,6 +41,3 @@ flutter create .
 ```bash
 flutter run -d chrome
 ```
-
-## live demo
-http://www.cryqd.com/flutter_admin
