@@ -4,21 +4,17 @@ import 'package:flutter_admin/utils/adaptiveUtil.dart';
 
 class CryFormField extends StatefulWidget {
   final String label;
-  final String value;
   final double width;
   final double labelWidth;
-  final ValueChanged onChange;
   final Function builder;
 
-  CryFormField(
-      {Key key,
-      this.label,
-      this.value,
-      this.onChange,
-      this.builder,
-      this.width,
-      this.labelWidth})
-      : super(key: key);
+  CryFormField({
+    Key key,
+    this.label,
+    this.builder,
+    this.width,
+    this.labelWidth,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => CryFormFieldState();
@@ -34,7 +30,7 @@ class CryFormFieldState extends State<CryFormField> {
     var displayDesktop = isDisplayDesktop(context);
     if (!displayDesktop) {
       return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
         child: Row(
           children: <Widget>[
             SizedBox(

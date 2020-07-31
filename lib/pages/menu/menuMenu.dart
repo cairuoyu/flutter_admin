@@ -27,9 +27,10 @@ class _MenuMenuState extends State<MenuMenu> {
   @override
   Widget build(BuildContext context) {
     List<CryTreeTableColumnData> columnData = [
-      CryTreeTableColumnData('名称', (Menu v) => v.name, width: 250),
+      CryTreeTableColumnData('名称', (Menu v) => v.name),
       CryTreeTableColumnData('英文名', (Menu v) => v.nameEn),
       CryTreeTableColumnData('URL', (Menu v) => v.url),
+      CryTreeTableColumnData('顺序号', (Menu v) => v.orderBy?.toString(), width: 80),
       CryTreeTableColumnData('备注', (Menu v) => v.remark, width: 300),
     ];
     var result = CryTreeTable(

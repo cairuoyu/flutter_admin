@@ -5,14 +5,16 @@ import 'package:intl/intl.dart';
 import 'cryFormField.dart';
 
 class CrySelectDate extends CryFormField {
-  final String label;
-  final ValueChanged onChange;
-  final FormFieldSetter onSaved;
-  final BuildContext context;
-
-  CrySelectDate({Key key, this.context, this.label, String value, this.onChange, this.onSaved})
-      : super(
+  CrySelectDate({
+    Key key,
+    String value,
+    String label,
+    ValueChanged onChange,
+    FormFieldSetter onSaved,
+    BuildContext context,
+  }) : super(
           key: key,
+          label: label,
           builder: (CryFormFieldState state) {
             return TextFormField(
               decoration: InputDecoration(

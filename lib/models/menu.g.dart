@@ -14,6 +14,7 @@ Menu _$MenuFromJson(Map<String, dynamic> json) {
     ..icon = json['icon'] as String
     ..pid = json['pid'] as String
     ..url = json['url'] as String
+    ..orderBy= json['orderBy'] as num 
     ..module = json['module'] as String
     ..remark = json['remark'] as String
     ..createTime = json['createTime'] as String
@@ -27,6 +28,7 @@ Map<String, dynamic> _$MenuToJson(Menu instance) => <String, dynamic>{
       'icon': instance.icon,
       'pid': instance.pid,
       'url': instance.url,
+      'orderBy': instance.orderBy,
       'module': instance.module,
       'remark': instance.remark,
       'createTime': instance.createTime,

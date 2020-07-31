@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CryFormField extends StatefulWidget {
-  final String label;
-  final String value;
   final double width;
-  final ValueChanged onChange;
   final Function builder;
 
-  CryFormField({Key key, this.label, this.value, this.onChange, this.builder, this.width}) : super(key: key);
+  CryFormField({
+    Key key,
+    this.builder,
+    this.width,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => CryFormFieldState();

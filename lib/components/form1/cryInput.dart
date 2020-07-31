@@ -4,29 +4,27 @@ import 'package:flutter/material.dart';
 import 'cryFormField.dart';
 
 class CryInput extends CryFormField {
-  final String label;
-  final double width;
-  final double labelWidth;
-  final ValueChanged onChange;
-  final FormFieldSetter onSaved;
-  final FormFieldValidator<String> validator;
-
-  CryInput(
-      {Key key,
-      this.label,
-      String value,
-      this.onChange,
-      this.onSaved,
-      this.validator,
-      this.width,
-      this.labelWidth})
-      : super(
+  CryInput({
+    Key key,
+    double width,
+    String label,
+    double labelWidth,
+    String value,
+    ValueChanged onChange,
+    FormFieldSetter onSaved,
+    FormFieldValidator<String> validator,
+    bool enable,
+  }) : super(
           key: key,
+          width: width,
+          label: label,
+          labelWidth: labelWidth,
           builder: (state) {
             return TextFormField(
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(horizontal: 10),
                 border: OutlineInputBorder(),
+                enabled: enable ?? true,
               ),
               controller: TextEditingController(text: value),
               onChanged: (v) {

@@ -9,6 +9,14 @@ class CryTreeTableColumnData {
 }
 
 class CryTreeTable<T extends TreeData> extends StatefulWidget {
+  final List<CryTreeTableColumnData> columnData;
+  final List<TreeVO<T>> data;
+  final Widget toolbars;
+  final Function getRowOper;
+  final Function onSelected;
+  final double width;
+  final double tableWidth;
+
   CryTreeTable({
     Key key,
     this.columnData,
@@ -19,13 +27,6 @@ class CryTreeTable<T extends TreeData> extends StatefulWidget {
     this.width = 1000,
     this.tableWidth = 1000,
   }) : super(key: key);
-  final List<CryTreeTableColumnData> columnData;
-  final List<TreeVO<T>> data;
-  final Widget toolbars;
-  final Function getRowOper;
-  final Function onSelected;
-  final double width;
-  final double tableWidth;
 
   @override
   CryTreeTableState createState() => CryTreeTableState<T>();
@@ -181,7 +182,7 @@ class CryTreeTableState<T extends TreeData> extends State<CryTreeTable<T>> {
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.symmetric(horizontal: 10),
-      child: Text(title),
+      child: Text(title ?? ''),
       width: width,
     );
   }

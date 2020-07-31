@@ -4,10 +4,9 @@ import 'package:flutter_admin/vo/selectOptionVO.dart';
 import 'cryFormField.dart';
 
 class CrySelect extends CryFormField {
-  final String label;
   CrySelect({
     Key key,
-    this.label,
+    String label,
     String value,
     ValueChanged onChange,
     FormFieldSetter onSaved,
