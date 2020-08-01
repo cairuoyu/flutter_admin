@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 class CryRootScope extends InheritedWidget {
   CryRootScope(this.state, {Widget child}) : super(child: child);
@@ -6,6 +6,10 @@ class CryRootScope extends InheritedWidget {
 
   static CryRootScope of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<CryRootScope>();
+  }
+
+  static uploadThemeColor(BuildContext context, Color value) {
+    context.dependOnInheritedWidgetOfExactType<CryRootScope>().state.updateThemeColor(value);
   }
 
   static updateLocale(BuildContext context, String value) {
@@ -28,6 +32,7 @@ class CryRoot extends StatefulWidget {
 
 class CryRootState extends State<CryRoot> {
   String locale = 'system';
+  Color themeColor = Colors.blue;
   @override
   Widget build(BuildContext context) {
     return CryRootScope(
@@ -39,6 +44,12 @@ class CryRootState extends State<CryRoot> {
   updateLocal(String value) {
     setState(() {
       this.locale = value;
+    });
+  }
+
+  updateThemeColor(Color value) {
+    setState(() {
+      themeColor = value;
     });
   }
 }

@@ -1,19 +1,17 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/components/cryRoot.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/data/router.dart';
 import 'package:flutter_admin/models/menu.dart';
-import 'package:flutter_admin/pages/common/langSwitch.dart';
 import 'package:flutter_admin/pages/layout/layoutMenu.dart';
+import 'package:flutter_admin/pages/layout/layoutSetting.dart';
 import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/utils/LocalStorageUtil.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:intl/intl.dart';
-import '../../generated/l10n.dart';
-import '../../vo/treeVO.dart';
 
 class Layout extends StatefulWidget {
   @override
@@ -26,9 +24,6 @@ class _LayoutState extends State with TickerProviderStateMixin {
   TabController tabController;
   Container content = Container();
   int length = 0;
-  Color themeColor = Colors.blue;
-
-  void changeColor(Color color) => setState(() => themeColor = color);
 
   @override
   void initState() {
@@ -39,6 +34,7 @@ class _LayoutState extends State with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    Color themeColor = CryRootScope.of(context).state.themeColor;
     TabBar tabBar = TabBar(
       onTap: (index) => _openPage(treeVOOpened[index]),
       controller: tabController,
@@ -95,7 +91,7 @@ class _LayoutState extends State with TickerProviderStateMixin {
     );
     Scaffold subWidget = Scaffold(
       key: scaffoldStateKey,
-      endDrawer: _getDrawer(),
+      endDrawer: LayoutSetting(),
       body: body,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -132,42 +128,6 @@ class _LayoutState extends State with TickerProviderStateMixin {
         buttonTheme: ButtonThemeData(buttonColor: themeColor),
       ),
       child: subWidget,
-    );
-  }
-
-  _getDrawer() {
-    var picker = BlockPicker(
-      pickerColor: themeColor,
-      onColorChanged: changeColor,
-    );
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          DrawerHeader(
-            child: Text(S.of(context).mySettings),
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border(bottom: BorderSide(color: Colors.black12)),
-            ),
-            padding: EdgeInsets.all(10),
-            child: LangSwitch(),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border(bottom: BorderSide(color: Colors.black12)),
-            ),
-            padding: EdgeInsets.all(5),
-            child: picker,
-          ),
-        ],
-      ),
     );
   }
 
