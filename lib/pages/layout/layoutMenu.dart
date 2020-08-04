@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/utils/GlobalUtil.dart';
 import 'package:intl/intl.dart';
 
 import '../../api/menuApi.dart';
@@ -10,8 +11,9 @@ import '../../utils/utils.dart';
 import '../../vo/treeVO.dart';
 
 class LayoutMenu extends StatefulWidget {
-  LayoutMenu({Key key, this.onClick}) : super(key: key);
+  LayoutMenu({Key key, this.onClick, this.data}) : super(key: key);
   final Function onClick;
+  final List<TreeVO<Menu>> data;
 
   @override
   _LayoutMenuState createState() => _LayoutMenuState();
@@ -52,13 +54,18 @@ class _LayoutMenuState extends State<LayoutMenu> {
   }
 
   _loadData() async {
+    if (GlobalUtil.treeVOList.length > 0) {
+      this.treeVOList = GlobalUtil.treeVOList;
+      return;
+    }
     ResponeBodyApi responeBodyApi = await MenuApi.list(null);
     var data = responeBodyApi.data;
     List<Menu> list = List.from(data).map((e) => Menu.fromJson(e)).toList();
     this.treeVOList = TreeUtil.toTreeVOList(list);
+    GlobalUtil.treeVOList = this.treeVOList;
     this.setState(() {
       if (treeVOList.length > 0) {
-        if (widget.onClick != null) widget.onClick(treeVOList[0]);
+        // if (widget.onClick != null) widget.onClick(treeVOList[0]);
       }
     });
   }

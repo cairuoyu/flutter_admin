@@ -3,57 +3,44 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/components/cryRoot.dart';
 import 'package:flutter_admin/constants/constant.dart';
+import 'package:flutter_admin/routes/routes.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/pages/layout/layoutMenu.dart';
 import 'package:flutter_admin/pages/layout/layoutSetting.dart';
 import 'package:flutter_admin/pages/login.dart';
-import 'package:flutter_admin/utils/GlobalUtil.dart';
-import 'package:flutter_admin/utils/localStorageUtil.dart';
+import 'package:flutter_admin/utils/LocalStorageUtil.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
 import 'package:intl/intl.dart';
 
 class Layout extends StatefulWidget {
-  final Widget content;
-  Layout({this.content});
   @override
   _LayoutState createState() => _LayoutState();
 }
 
-class _LayoutState extends State<Layout> with TickerProviderStateMixin {
+class _LayoutState extends State with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
+  List<TreeVO<Menu>> treeVOOpened = [];
   TabController tabController;
+  Container content = Container();
+  int length = 0;
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(vsync: this, length: GlobalUtil.treeVOOpened.length);
+
+    tabController = TabController(vsync: this, length: length);
   }
 
   @override
   Widget build(BuildContext context) {
-    String url = ModalRoute.of(context).settings.name;
-    int index = GlobalUtil.treeVOOpened.indexWhere((v) => v.data.url == url);
-
-    if (index > -1) {
-      tabController.index = index;
-    } else {
-      TreeVO<Menu> treeVO = GlobalUtil.treeVOList.firstWhere((v) {
-        return v.data.url == url;
-      }, orElse: () => null);
-      if (treeVO != null) {
-        GlobalUtil.treeVOOpened.add(treeVO);
-        tabController = TabController(vsync: this, length: GlobalUtil.treeVOOpened.length);
-        tabController.index = GlobalUtil.treeVOOpened.length - 1;
-      }
-    }
     Color themeColor = CryRootScope.of(context).state.themeColor;
     TabBar tabBar = TabBar(
-      onTap: (index) => _openPage(GlobalUtil.treeVOOpened[index]),
+      onTap: (index) => _openPage(treeVOOpened[index]),
       controller: tabController,
       isScrollable: true,
       indicator: const UnderlineTabIndicator(),
-      tabs: GlobalUtil.treeVOOpened.map<Tab>((TreeVO<Menu> treeVO) {
+      tabs: treeVOOpened.map<Tab>((TreeVO<Menu> treeVO) {
         return Tab(
           child: Row(
             children: <Widget>[
@@ -96,11 +83,7 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
                   ),
                 ],
               ),
-              Container(
-                child: Expanded(
-                  child: widget.content ?? Container(),
-                ),
-              ),
+              content,
             ],
           ),
         ),
@@ -148,27 +131,41 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
     );
   }
 
-  _openPage(TreeVO<Menu> treeVO) {
-    int index = GlobalUtil.treeVOOpened.indexWhere((note) => note.data.id == treeVO.data.id);
-    if (index == -1) {
-      GlobalUtil.treeVOOpened.add(treeVO);
+  _closePage(treeVO) {
+    treeVOOpened.remove(treeVO);
+    --length;
+    tabController = TabController(vsync: this, length: length);
+    var openPage;
+    if (length > 0) {
+      tabController.index = length - 1;
+      openPage = treeVOOpened[0];
     }
-    Navigator.pushNamed(context, treeVO.data.url);
+    _openPage(openPage);
+    setState(() {});
   }
 
-  _closePage(TreeVO<Menu> treeVO) {
-    int index = GlobalUtil.treeVOOpened.indexWhere((note) => note.data.id == treeVO.data.id);
-    GlobalUtil.treeVOOpened.remove(treeVO);
-    if (GlobalUtil.treeVOOpened.length == 0) {
-      Navigator.pushNamed(context, '/dashboard');
+  _openPage(TreeVO<Menu> treeVO) {
+    if (treeVO == null) {
+      content = Container();
       return;
     }
-    if (index == tabController.index) {
-      TreeVO<Menu> openPage = GlobalUtil.treeVOOpened[0];
-      _openPage(openPage);
-      return;
+    Widget body = treeVO.data.url != null && layoutRoutesData[treeVO.data.url] != null
+        ? layoutRoutesData[treeVO.data.url]
+        : Center(child: Text('404'));
+    content = Container(
+      child: Expanded(
+        child: body,
+      ),
+    );
+
+    int index = treeVOOpened.indexWhere((note) => note.data.id == treeVO.data.id);
+    if (index > -1) {
+      tabController.index = index;
+    } else {
+      treeVOOpened.add(treeVO);
+      tabController = TabController(vsync: this, length: ++length);
+      tabController.index = length - 1;
     }
-    tabController = TabController(vsync: this, length: GlobalUtil.treeVOOpened.length);
     setState(() {});
   }
 
