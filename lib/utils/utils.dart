@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/components/cryDialog.dart';
+import 'package:flutter_admin/constants/constant.dart';
+import 'package:flutter_admin/utils/localStorageUtil.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
+  static isLogin() {
+    return LocalStorageUtil.get(Constant.KEY_TOKEN) != null;
+  }
+
   static launchURL(url) async {
     if (await canLaunch(url)) {
       await launch(url);

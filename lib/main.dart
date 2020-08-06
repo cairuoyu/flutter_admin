@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter_admin/components/cryRoot.dart';
-import 'package:flutter_admin/constants/constant.dart';
-import 'package:flutter_admin/pages/layout/layout.dart';
-import 'package:flutter_admin/pages/login.dart';
-import 'package:flutter_admin/utils/localStorageUtil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'routes/routes.dart';
 import 'generated/l10n.dart';
@@ -32,8 +28,7 @@ class MyApp extends StatelessWidget {
               ],
               supportedLocales: S.delegate.supportedLocales,
               locale: Locale(CryRootScope.of(context).state.locale),
-              home: LocalStorageUtil.get(Constant.KEY_TOKEN) == null ? Login() : Layout(),
-              onGenerateRoute: (settings)=>Routes.onGenerateRoute(settings),
+              onGenerateRoute: (settings) => Routes.onGenerateRoute(settings),
             );
           },
         ),

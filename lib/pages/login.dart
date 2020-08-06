@@ -4,12 +4,12 @@ import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/pages/common/langSwitch.dart';
 import 'package:flutter_admin/pages/register.dart';
+import 'package:flutter_admin/utils/storeUtil.dart';
 import 'package:flutter_admin/utils/localStorageUtil.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_admin/api/userApi.dart';
 import 'package:flutter_admin/models/user.dart';
 import '../generated/l10n.dart';
-import 'layout/layout.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -189,13 +189,15 @@ class _LoginState extends State<Login> {
       return;
     }
     form.save();
-    UserApi.login(user.toJson()).then((ResponeBodyApi responeBodyApi) {
+    UserApi.login(user.toJson()).then((ResponeBodyApi responeBodyApi) async {
       if (responeBodyApi.success) {
         LocalStorageUtil.set(Constant.KEY_TOKEN, responeBodyApi.data);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (BuildContext context) => Layout()),
-        );
+        await StoreUtil.loadMenuData();
+        String defaultPage = '/layout';
+        if (StoreUtil.treeVOList.length > 0) {
+          defaultPage = StoreUtil.treeVOList.first.data.url;
+        }
+        Navigator.pushNamed(context, defaultPage);
       } else {
         this.error = responeBodyApi.message;
         BotToast.showText(text: this.error);

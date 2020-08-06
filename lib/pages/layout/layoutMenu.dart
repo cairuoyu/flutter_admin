@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/utils/GlobalUtil.dart';
+import 'package:flutter_admin/utils/storeUtil.dart';
 import 'package:intl/intl.dart';
 
-import '../../api/menuApi.dart';
 import '../../models/menu.dart';
-import '../../models/responeBodyApi.dart';
 import '../../utils/adaptiveUtil.dart';
-import '../../utils/treeUtil.dart';
 import '../../utils/utils.dart';
 import '../../vo/treeVO.dart';
 
@@ -20,7 +17,6 @@ class LayoutMenu extends StatefulWidget {
 }
 
 class _LayoutMenuState extends State<LayoutMenu> {
-  List<TreeVO<Menu>> treeVOList = [];
   bool expandMenu = true;
 
   @override
@@ -39,7 +35,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
         setState(() {});
       },
     );
-    List<Widget> menuBody = _getMenuListTile(treeVOList);
+    List<Widget> menuBody = _getMenuListTile(StoreUtil.treeVOList);
     ListView menu = ListView(children: [menuHeader, ...menuBody]);
     return SizedBox(
       width: expandMenu ? 300 : 60,
@@ -54,20 +50,10 @@ class _LayoutMenuState extends State<LayoutMenu> {
   }
 
   _loadData() async {
-    if (GlobalUtil.treeVOList.length > 0) {
-      this.treeVOList = GlobalUtil.treeVOList;
-      return;
+    if (StoreUtil.treeVOList.length == 0) {
+      await StoreUtil.loadMenuData();
+      setState(() {});
     }
-    ResponeBodyApi responeBodyApi = await MenuApi.list(null);
-    var data = responeBodyApi.data;
-    List<Menu> list = List.from(data).map((e) => Menu.fromJson(e)).toList();
-    this.treeVOList = TreeUtil.toTreeVOList(list);
-    GlobalUtil.treeVOList = this.treeVOList;
-    this.setState(() {
-      if (treeVOList.length > 0) {
-        // if (widget.onClick != null) widget.onClick(treeVOList[0]);
-      }
-    });
   }
 
   List<Widget> _getMenuListTile(List<TreeVO<Menu>> data) {

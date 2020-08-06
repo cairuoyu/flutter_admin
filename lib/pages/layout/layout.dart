@@ -7,7 +7,7 @@ import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/pages/layout/layoutMenu.dart';
 import 'package:flutter_admin/pages/layout/layoutSetting.dart';
 import 'package:flutter_admin/pages/login.dart';
-import 'package:flutter_admin/utils/GlobalUtil.dart';
+import 'package:flutter_admin/utils/storeUtil.dart';
 import 'package:flutter_admin/utils/localStorageUtil.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
@@ -27,33 +27,33 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    tabController = TabController(vsync: this, length: GlobalUtil.treeVOOpened.length);
+    tabController = TabController(vsync: this, length: StoreUtil.treeVOOpened.length);
   }
 
   @override
   Widget build(BuildContext context) {
     String url = ModalRoute.of(context).settings.name;
-    int index = GlobalUtil.treeVOOpened.indexWhere((v) => v.data.url == url);
+    int index = StoreUtil.treeVOOpened.indexWhere((v) => v.data.url == url);
 
     if (index > -1) {
       tabController.index = index;
     } else {
-      TreeVO<Menu> treeVO = GlobalUtil.treeVOList.firstWhere((v) {
+      TreeVO<Menu> treeVO = StoreUtil.treeVOList.firstWhere((v) {
         return v.data.url == url;
       }, orElse: () => null);
       if (treeVO != null) {
-        GlobalUtil.treeVOOpened.add(treeVO);
-        tabController = TabController(vsync: this, length: GlobalUtil.treeVOOpened.length);
-        tabController.index = GlobalUtil.treeVOOpened.length - 1;
+        StoreUtil.treeVOOpened.add(treeVO);
+        tabController = TabController(vsync: this, length: StoreUtil.treeVOOpened.length);
+        tabController.index = StoreUtil.treeVOOpened.length - 1;
       }
     }
     Color themeColor = CryRootScope.of(context).state.themeColor;
     TabBar tabBar = TabBar(
-      onTap: (index) => _openPage(GlobalUtil.treeVOOpened[index]),
+      onTap: (index) => _openPage(StoreUtil.treeVOOpened[index]),
       controller: tabController,
       isScrollable: true,
       indicator: const UnderlineTabIndicator(),
-      tabs: GlobalUtil.treeVOOpened.map<Tab>((TreeVO<Menu> treeVO) {
+      tabs: StoreUtil.treeVOOpened.map<Tab>((TreeVO<Menu> treeVO) {
         return Tab(
           child: Row(
             children: <Widget>[
@@ -62,7 +62,7 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
               InkWell(
                 child: Icon(Icons.close, size: 10),
                 onTap: () {
-                  if (GlobalUtil.treeVOOpened.length > 1) {
+                  if (StoreUtil.treeVOOpened.length > 1) {
                     _closePage(treeVO);
                   }
                 },
@@ -153,33 +153,36 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
   }
 
   _openPage(TreeVO<Menu> treeVO) {
-    int index = GlobalUtil.treeVOOpened.indexWhere((note) => note.data.id == treeVO.data.id);
+    int index = StoreUtil.treeVOOpened.indexWhere((note) => note.data.id == treeVO.data.id);
     if (index == -1) {
-      GlobalUtil.treeVOOpened.add(treeVO);
+      StoreUtil.treeVOOpened.add(treeVO);
     }
     dispose();
     Navigator.pushNamed(context, treeVO.data.url);
   }
 
   _closePage(TreeVO<Menu> treeVO) {
-    int index = GlobalUtil.treeVOOpened.indexWhere((note) => note.data.id == treeVO.data.id);
-    GlobalUtil.treeVOOpened.remove(treeVO);
-    if (GlobalUtil.treeVOOpened.length == 0) {
+    int index = StoreUtil.treeVOOpened.indexWhere((note) => note.data.id == treeVO.data.id);
+    StoreUtil.treeVOOpened.remove(treeVO);
+    if (StoreUtil.treeVOOpened.length == 0) {
       dispose();
       Navigator.pushNamed(context, '/dashboard');
       return;
     }
     if (index == tabController.index) {
-      TreeVO<Menu> openPage = GlobalUtil.treeVOOpened[0];
+      TreeVO<Menu> openPage = StoreUtil.treeVOOpened[0];
       _openPage(openPage);
       return;
     }
-    tabController = TabController(vsync: this, length: GlobalUtil.treeVOOpened.length);
+    tabController = TabController(vsync: this, length: StoreUtil.treeVOOpened.length);
     setState(() {});
   }
 
   _logout() {
     LocalStorageUtil.set(Constant.KEY_TOKEN, null);
+    StoreUtil.treeVOList = [];
+    StoreUtil.treeVOOpened = [];
+
     Navigator.push(
       context,
       MaterialPageRoute(builder: (BuildContext context) => Login()),
