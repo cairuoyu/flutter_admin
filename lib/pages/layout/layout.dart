@@ -61,7 +61,11 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
               SizedBox(width: 3),
               InkWell(
                 child: Icon(Icons.close, size: 10),
-                onTap: () => _closePage(treeVO),
+                onTap: () {
+                  if (GlobalUtil.treeVOOpened.length > 1) {
+                    _closePage(treeVO);
+                  }
+                },
               ),
             ],
           ),
@@ -153,6 +157,7 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
     if (index == -1) {
       GlobalUtil.treeVOOpened.add(treeVO);
     }
+    dispose();
     Navigator.pushNamed(context, treeVO.data.url);
   }
 
@@ -160,6 +165,7 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
     int index = GlobalUtil.treeVOOpened.indexWhere((note) => note.data.id == treeVO.data.id);
     GlobalUtil.treeVOOpened.remove(treeVO);
     if (GlobalUtil.treeVOOpened.length == 0) {
+      dispose();
       Navigator.pushNamed(context, '/dashboard');
       return;
     }
@@ -178,5 +184,11 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
       context,
       MaterialPageRoute(builder: (BuildContext context) => Login()),
     );
+  }
+
+  @override
+  void dispose() async {
+    tabController.dispose();
+    super.dispose();
   }
 }
