@@ -140,7 +140,7 @@ class VideoUploadState extends State<VideoUpload> {
 
     ResponeBodyApi responeBodyApi = await VideoApi.upload(formData);
     if (responeBodyApi.success) {
-      Utils.toPortal(context, '保存成功！', '前往门户查看视频', "http://www.cryqd.com/flutter_portal");
+      Utils.toPortal(context, '保存成功！', '前往门户查看视频', "http://www.cairuoyu.com/flutter_portal");
       setState(() {
 //        this.disposeController();
       });

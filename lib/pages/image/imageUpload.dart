@@ -68,7 +68,7 @@ class ImageUploadState extends State<ImageUpload> {
 
     ResponeBodyApi responeBodyApi = await ImageApi.upload(formData);
     if (responeBodyApi.success) {
-      Utils.toPortal(context, '保存成功！', '前往门户查看图片', "http://www.cryqd.com/flutter_portal");
+      Utils.toPortal(context, '保存成功！', '前往门户查看图片', "http://www.cairuoyu.com/flutter_portal");
       setState(() {
         this.pickedFile = null;
       });

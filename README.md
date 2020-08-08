@@ -3,13 +3,13 @@
 > 使用flutter实现的一个后台管理系统
 
 ## live demo
-http://www.cryqd.com/flutter_admin
+http://www.cairuoyu.com/flutter_admin
 
-![image](http://cryqd.com/f/screenshots/flutter_admin_login.png)
-![image](http://cryqd.com/f/screenshots/flutter_admin_dashboard.png)
-![image](http://cryqd.com/f/screenshots/flutter_admin_setting.png)
-![image](http://cryqd.com/f/screenshots/flutter_admin_personEdit.png)
-![image](http://cryqd.com/f/screenshots/flutter_admin_menu.png)
+![image](http://cairuoyu.com/screenshots/flutter_admin_login.png)
+![image](http://cairuoyu.com/screenshots/flutter_admin_dashboard.png)
+![image](http://cairuoyu.com/screenshots/flutter_admin_setting.png)
+![image](http://cairuoyu.com/screenshots/flutter_admin_personEdit.png)
+![image](http://cairuoyu.com/screenshots/flutter_admin_menu.png)
 
 ---
 ## 功能技术
