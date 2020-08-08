@@ -38,6 +38,13 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
     if (index > -1) {
       tabController.index = index;
     } else {
+      if (StoreUtil.treeVOList == null) {
+        StoreUtil.loadMenuData().then((res) {
+          setState(() {});
+        });
+        return Container();
+      }
+
       TreeVO<Menu> treeVO = StoreUtil.treeVOList.firstWhere((v) {
         return v.data.url == url;
       }, orElse: () => null);
@@ -180,7 +187,7 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
 
   _logout() {
     LocalStorageUtil.set(Constant.KEY_TOKEN, null);
-    StoreUtil.treeVOList = [];
+    StoreUtil.treeVOList = null;
     StoreUtil.treeVOOpened = [];
 
     Navigator.push(

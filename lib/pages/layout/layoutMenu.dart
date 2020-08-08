@@ -22,7 +22,6 @@ class _LayoutMenuState extends State<LayoutMenu> {
   @override
   void initState() {
     super.initState();
-    this._loadData();
     this.expandMenu = isDisplayDesktopInit();
   }
 
@@ -49,14 +48,10 @@ class _LayoutMenuState extends State<LayoutMenu> {
     );
   }
 
-  _loadData() async {
-    if (StoreUtil.treeVOList.length == 0) {
-      await StoreUtil.loadMenuData();
-      setState(() {});
-    }
-  }
-
   List<Widget> _getMenuListTile(List<TreeVO<Menu>> data) {
+    if (data == null) {
+      return [];
+    }
     List<Widget> listTileList = data.map<Widget>((TreeVO<Menu> treeVO) {
       IconData iconData = Utils.toIconData(treeVO.data.icon);
       String name = Intl.defaultLocale == 'en' ? treeVO.data.nameEn ?? '' : treeVO.data.name ?? '';

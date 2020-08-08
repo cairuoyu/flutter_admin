@@ -5,7 +5,7 @@ import 'package:flutter_admin/utils/treeUtil.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
 
 class StoreUtil {
-  static List<TreeVO<Menu>> treeVOList = [];
+  static List<TreeVO<Menu>> treeVOList;
   static List<TreeVO<Menu>> treeVOOpened = [];
 
   static loadMenuData() async {
