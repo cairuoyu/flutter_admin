@@ -8,7 +8,7 @@ import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/pages/layout/layoutMenu.dart';
 import 'package:flutter_admin/pages/layout/layoutSetting.dart';
 import 'package:flutter_admin/pages/login.dart';
-import 'package:flutter_admin/utils/LocalStorageUtil.dart';
+import 'package:flutter_admin/utils/localStorageUtil.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
 import 'package:intl/intl.dart';

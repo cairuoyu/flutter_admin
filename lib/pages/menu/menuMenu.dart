@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/menuDemoApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/cryDialog.dart';
-import 'package:flutter_admin/components/CryTreeTable.dart';
+import 'package:flutter_admin/components/cryTreeTable.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/utils/treeUtil.dart';
