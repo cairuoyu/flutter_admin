@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/components/cryDialog.dart';
 import 'package:flutter_admin/constants/constant.dart';
+import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/utils/localStorageUtil.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -45,7 +46,7 @@ class Utils {
     if (icon == null || icon == '') {
       return Icons.menu;
     }
-    IconData iconData = IconData(int.parse(icon), fontFamily: 'MaterialIcons');
-    return iconData;
+    // IconData iconData = IconData(int.parse(icon), fontFamily: 'MaterialIcons');
+    return iconMap[icon] ?? Icons.menu;
   }
 }

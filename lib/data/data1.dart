@@ -1,5 +1,16 @@
+//todo
+import 'package:flutter/material.dart';
 import 'package:flutter_admin/vo/listTileVO.dart';
 import 'package:flutter_admin/vo/selectOptionVO.dart';
+
+Map<String, IconData> iconMap = {
+  'menu': Icons.menu,
+  'dashboard': Icons.dashboard,
+  'info': Icons.info,
+  'person': Icons.person,
+  'image': Icons.image,
+  'video': Icons.video_call,
+};
 
 List<SelectOptionVO> deptIdList = [
   SelectOptionVO(value: '1', label: '技术部门'),
