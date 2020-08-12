@@ -2,14 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/components/cryRoot.dart';
-import 'package:flutter_admin/constants/constant.dart';
+import 'package:flutter_admin/pages/layout/layoutAppBar.dart';
 import 'package:flutter_admin/routes/routes.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/pages/layout/layoutMenu.dart';
 import 'package:flutter_admin/pages/layout/layoutSetting.dart';
-import 'package:flutter_admin/pages/login.dart';
-import 'package:flutter_admin/utils/localStorageUtil.dart';
-import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
 import 'package:intl/intl.dart';
 
@@ -93,24 +90,7 @@ class _LayoutState extends State with TickerProviderStateMixin {
       key: scaffoldStateKey,
       endDrawer: LayoutSetting(),
       body: body,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text("FLUTTER_ADMIN"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.code),
-            onPressed: () {
-              Utils.launchURL("https://github.com/cairuoyu/flutter_admin");
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: () {
-              _logout();
-            },
-          ),
-        ],
-      ),
+      appBar: LayoutAppBar(context, type: 2),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.settings),
         onPressed: () {
@@ -169,11 +149,4 @@ class _LayoutState extends State with TickerProviderStateMixin {
     setState(() {});
   }
 
-  _logout() {
-    LocalStorageUtil.set(Constant.KEY_TOKEN, null);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (BuildContext context) => Login()),
-    );
-  }
 }

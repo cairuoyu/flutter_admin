@@ -2,14 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/components/cryRoot.dart';
-import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/models/menu.dart';
+import 'package:flutter_admin/pages/layout/layoutAppBar.dart';
 import 'package:flutter_admin/pages/layout/layoutMenu.dart';
 import 'package:flutter_admin/pages/layout/layoutSetting.dart';
-import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/utils/storeUtil.dart';
-import 'package:flutter_admin/utils/localStorageUtil.dart';
-import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
 import 'package:intl/intl.dart';
 
@@ -120,25 +117,8 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
     Scaffold subWidget = Scaffold(
       key: scaffoldStateKey,
       endDrawer: LayoutSetting(),
+      appBar: LayoutAppBar(context, type: 1),
       body: body,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text("FLUTTER_ADMIN"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.code),
-            onPressed: () {
-              Utils.launchURL("https://github.com/cairuoyu/flutter_admin");
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: () {
-              _logout();
-            },
-          ),
-        ],
-      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.settings),
         onPressed: () {
@@ -183,17 +163,6 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
     }
     tabController = TabController(vsync: this, length: StoreUtil.treeVOOpened.length);
     setState(() {});
-  }
-
-  _logout() {
-    LocalStorageUtil.set(Constant.KEY_TOKEN, null);
-    StoreUtil.treeVOList = null;
-    StoreUtil.treeVOOpened = [];
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (BuildContext context) => Login()),
-    );
   }
 
   @override
