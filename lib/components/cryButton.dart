@@ -4,21 +4,37 @@ class CryButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
   final IconData iconData;
-  CryButton({this.label, this.iconData, this.onPressed});
+  final String tip;
+  CryButton({this.label, this.iconData, this.onPressed, this.tip});
 
   @override
   Widget build(BuildContext context) {
+    Widget result;
     if (iconData != null) {
-      return RaisedButton.icon(
-        icon: Icon(iconData),
-        label: Text(this.label),
-        onPressed: onPressed,
-      );
+      if (label == null) {
+        result = IconButton(
+          icon: Icon(iconData),
+          onPressed: onPressed,
+        );
+      } else {
+        result = RaisedButton.icon(
+          icon: Icon(iconData),
+          label: Text(this.label),
+          onPressed: onPressed,
+        );
+      }
     } else {
-      return RaisedButton(
-        child: Text(this.label),
+      result = RaisedButton(
+        child: Text(this.label ?? ''),
         onPressed: onPressed,
       );
     }
+    if (tip != null) {
+      result = Tooltip(
+        child: result,
+        message: tip,
+      );
+    }
+    return result;
   }
 }

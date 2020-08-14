@@ -7,6 +7,7 @@ import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/pages/menu/menuDemoList.dart';
 import 'package:flutter_admin/pages/myTest.dart';
 import 'package:flutter_admin/pages/person/personList.dart';
+import 'package:flutter_admin/pages/role/roleList.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
 import '../pages/image/imageUpload.dart';
@@ -16,7 +17,7 @@ import '../pages/video/videoUpload.dart';
 
 Map<String, Widget> layoutRoutesData = {
   '/personList': PersonList(),
-  '/dashboard': Dashboard(),
+  '/dashboard': RoleList(),
   '/menuDemoList': MenuDemoList(),
   '/userInfoEdit': UserInfoEdit(),
   '/imageUpload': ImageUpload(),
