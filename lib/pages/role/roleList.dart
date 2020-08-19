@@ -17,12 +17,13 @@ class RoleList extends StatefulWidget {
 }
 
 class _RoleListState extends State<RoleList> {
-  model.Page page = model.Page();
-  List<Role> dataList = [];
+  final GlobalKey<CryDataTableState> tableKey = GlobalKey<CryDataTableState>();
+  model.Page page;
 
   @override
   void initState() {
     super.initState();
+    page = model.Page(orders: [model.OrderItem(column: 'name')]);
 
     WidgetsBinding.instance.addPostFrameCallback((c) {
       _query();
@@ -31,27 +32,52 @@ class _RoleListState extends State<RoleList> {
 
   @override
   Widget build(BuildContext context) {
-    CryDataTable table = CryDataTable<Role>(
+    CryDataTable table = CryDataTable(
+      key: tableKey,
       title: '角色管理',
       page: page,
-      dataList: dataList,
+      onPageChanged: _onPageChanged,
+      onSelectChanged: (Map selected) {
+        this.setState(() {});
+      },
       columns: [
-        DataColumn(label: Text('name')),
-        DataColumn(label: Text('操作')),
+        DataColumn(
+          label: Container(
+            alignment: Alignment.center,
+            child: Text('操作'),
+            width: 240,
+          ),
+        ),
+        DataColumn(
+          label: Container(
+            child: Text('名称'),
+            width: 800,
+          ),
+          onSort: (int columnIndex, bool ascending) => _sort('name', ascending),
+        ),
       ],
-      getCells: (Role p) => [
-        DataCell(Text(p.name)),
-        DataCell(ButtonBar(
-          children: [
-            CryButton(iconData: Icons.edit, tip: '编辑', onPressed: () => _edit(p)),
-            CryButton(iconData: Icons.delete, tip: '删除', onPressed: () {}),
-            CryButton(iconData: Icons.menu, tip: '授权菜单', onPressed: () {}),
-            CryButton(iconData: Icons.person, tip: '关联人员', onPressed: () {}),
-          ],
-        )),
-      ],
+      getCells: (Map m) {
+        Role role = Role.fromJson(m);
+        return [
+          DataCell(
+            Container(
+              width: 240,
+              child: ButtonBar(
+                children: [
+                  CryButton(iconData: Icons.edit, tip: '编辑', onPressed: () => _edit(role)),
+                  CryButton(iconData: Icons.delete, tip: '删除', onPressed: () => _delete([role])),
+                  CryButton(iconData: Icons.menu, tip: '授权菜单', onPressed: () {}),
+                  CryButton(iconData: Icons.person, tip: '关联人员', onPressed: () {}),
+                ],
+              ),
+            ),
+          ),
+          DataCell(Container(width: 800, child: Text(role.name ?? '--'))),
+        ];
+      },
     );
-
+    List<Role> selectedList =
+        tableKey?.currentState?.getSelectedList(page)?.map<Role>((e) => Role.fromJson(e))?.toList() ?? [];
     ButtonBar buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -60,6 +86,20 @@ class _RoleListState extends State<RoleList> {
           onPressed: () {
             _query();
           },
+        ),
+        CryButton(
+          label: '增加',
+          onPressed: () {
+            _add();
+          },
+        ),
+        CryButton(
+          label: '删除',
+          onPressed: selectedList.length == 0
+              ? null
+              : () {
+                  _delete(selectedList);
+                },
         ),
       ],
     );
@@ -80,15 +120,40 @@ class _RoleListState extends State<RoleList> {
     return result;
   }
 
-  _edit(Role role) {
+  _add() {
     cryDialog(
       context: context,
-      title: role == null ? S.of(context).increase : S.of(context).modify,
+      title: S.of(context).increase,
       body: RoleEdit(),
     ).then((v) {
       if (v != null) {
         _query();
       }
+    });
+  }
+
+  _edit(Role role) {
+    cryDialog(
+      context: context,
+      title: role == null ? S.of(context).increase : S.of(context).modify,
+      body: RoleEdit(
+        role: role,
+      ),
+    ).then((v) {
+      if (v != null) {
+        _query();
+      }
+    });
+  }
+
+  _delete(List<Role> roleList) {
+    if (roleList == null || roleList.length == 0) {
+      return;
+    }
+    cryConfirm(context, S.of(context).confirmDelete, () async {
+      await RoleApi.removeByIds(roleList.map((e) => e.id).toList());
+      _query();
+      Navigator.of(context).pop();
     });
   }
 
@@ -98,11 +163,17 @@ class _RoleListState extends State<RoleList> {
     ResponeBodyApi responeBodyApi = await RoleApi.page(requestBodyApi);
     page = model.Page.fromJson(responeBodyApi.data);
 
-    dataList = page.records.map<Role>((v) {
-      Role role = Role.fromJson(v);
-      role.selected = false;
-      return role;
-    }).toList();
     setState(() {});
+  }
+
+  _sort(column, ascending) {
+    page.orders[0].column = column;
+    page.orders[0].asc = !page.orders[0].asc;
+    _query();
+  }
+
+  _onPageChanged(int current) {
+    page.current = current;
+    _query();
   }
 }

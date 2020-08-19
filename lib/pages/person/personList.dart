@@ -59,7 +59,7 @@ class PersonListState extends State {
     myDS.context = context;
     myDS.state = this;
     myDS.page.size = rowsPerPage;
-    myDS.page.orders.add(model.OrderItem(column: 'create_time', asc: false));
+    myDS.page.orders??[].add(model.OrderItem(column: 'create_time', asc: false));
     myDS.addListener(() {
       setState(() {});
     });

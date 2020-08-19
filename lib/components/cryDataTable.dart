@@ -1,66 +1,75 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/models/index.dart' as model;
 
-class CryDataTable<T> extends StatefulWidget {
+class CryDataTable extends StatefulWidget {
   CryDataTable({
     Key key,
     this.title = '',
     this.columns,
     this.page,
-    this.dataList,
     this.getCells,
+    this.onPageChanged,
+    this.onSelectChanged,
   }) : super(key: key);
   final String title;
   final List<DataColumn> columns;
   final Function getCells;
+  final Function onPageChanged;
+  final Function onSelectChanged;
   final model.Page page;
-  final List<T> dataList;
 
   @override
-  _CryDataTableState createState() => _CryDataTableState<T>();
+  CryDataTableState createState() => CryDataTableState();
 }
 
-class _CryDataTableState<T> extends State<CryDataTable> {
-  _DS ds = _DS<T>();
+class CryDataTableState extends State<CryDataTable> {
+  _DS _ds = _DS();
   int rowsPerPage = 10;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
+    _ds._getCells = widget.getCells;
+    _ds._onSelectChanged = widget.onSelectChanged;
   }
 
   @override
   Widget build(BuildContext context) {
-    ds._page = widget.page ?? model.Page();
-    ds._getCells = widget.getCells;
-    ds._dataList = widget.dataList ?? [];
-    ds.reload();
+    _ds._page = widget.page ?? model.Page();
+    _ds.reload();
     var result = ListView(
       padding: const EdgeInsets.all(10.0),
       children: <Widget>[
         PaginatedDataTable(
           header: Text(widget.title),
           rowsPerPage: rowsPerPage,
+          onPageChanged: (firstRowIndex) {
+            int current = (firstRowIndex / widget.page.size + 1) as int;
+            return widget.onPageChanged(current);
+          },
           onRowsPerPageChanged: (int value) {
             setState(() {
               rowsPerPage = value;
             });
           },
           columns: widget.columns ?? [DataColumn(label: Text(''))],
-          source: ds,
+          source: _ds,
+          showCheckboxColumn: true,
         )
       ],
     );
     return result;
   }
+
+  List<Map> getSelectedList(model.Page page) {
+    return (page ?? widget.page)?.records?.where((v) => v['selected'] ?? false)?.toList() ?? [];
+  }
 }
 
-class _DS<T> extends DataTableSource {
-  _DS() {}
+class _DS extends DataTableSource {
   model.Page _page = model.Page();
-  List<T> _dataList;
-  int _selectedCount = 0;
   Function _getCells;
+  Function _onSelectChanged;
 
   reload() {
     notifyListeners();
@@ -70,15 +79,21 @@ class _DS<T> extends DataTableSource {
   DataRow getRow(int index) {
     var dataIndex = index - _page.size * (_page.current - 1);
 
-    if (dataIndex >= _dataList.length) {
+    if (dataIndex >= _page.records.length) {
       return null;
     }
-    T t = _dataList[dataIndex];
-    List<DataCell> cells = _getCells == null ? [] : _getCells(t);
+    Map m = _page.records[dataIndex];
 
+    List<DataCell> cells = _getCells == null ? [] : _getCells(m);
+    bool selected = m['selected'] ?? false;
     return DataRow.byIndex(
       index: index,
       cells: cells,
+      selected: selected,
+      onSelectChanged: (v) {
+        m['selected'] = v;
+        _onSelectChanged(m);
+      },
     );
   }
 
@@ -89,5 +104,5 @@ class _DS<T> extends DataTableSource {
   int get rowCount => _page.total;
 
   @override
-  int get selectedRowCount => _selectedCount;
+  int get selectedRowCount => (_page?.records?.where((v) => v['selected'] ?? false)?.length) ?? 0;
 }
