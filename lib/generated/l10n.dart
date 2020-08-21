@@ -344,7 +344,7 @@ class S {
 
   String get increase {
     return Intl.message(
-      'Add User',
+      'Add',
       name: 'increase',
       desc: '',
       args: [],

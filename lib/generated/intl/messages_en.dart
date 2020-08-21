@@ -37,7 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "delete" : MessageLookupByLibrary.simpleMessage("Delete"),
     "forgetPassword" : MessageLookupByLibrary.simpleMessage("Clear Password"),
     "haveAccountLogin" : MessageLookupByLibrary.simpleMessage("Login with existing account"),
-    "increase" : MessageLookupByLibrary.simpleMessage("Add User"),
+    "increase" : MessageLookupByLibrary.simpleMessage("Add"),
     "information" : MessageLookupByLibrary.simpleMessage("Information"),
     "inquire" : MessageLookupByLibrary.simpleMessage("Filter"),
     "login" : MessageLookupByLibrary.simpleMessage("login"),
