@@ -8,6 +8,7 @@ import 'package:flutter_admin/models/index.dart' as model;
 import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/pages/role/roleEdit.dart';
+import 'package:flutter_admin/pages/role/roleMenuSelect.dart';
 import 'package:flutter_admin/pages/role/roleUserSelect.dart';
 
 class RoleList extends StatefulWidget {
@@ -67,8 +68,8 @@ class _RoleListState extends State<RoleList> {
                 children: [
                   CryButton(iconData: Icons.edit, tip: '编辑', onPressed: () => _edit(role)),
                   CryButton(iconData: Icons.delete, tip: '删除', onPressed: () => _delete([role])),
-                  CryButton(iconData: Icons.person, tip: '关联人员', onPressed: () =>_selectUser(role)),
-                  CryButton(iconData: Icons.menu, tip: '授权菜单', onPressed: () {}),
+                  CryButton(iconData: Icons.person, tip: '关联人员', onPressed: () => _selectUser(role)),
+                  CryButton(iconData: Icons.menu, tip: '关联菜单', onPressed: () => _selectMenu(role)),
                 ],
               ),
             ),
@@ -121,12 +122,13 @@ class _RoleListState extends State<RoleList> {
     return result;
   }
 
-
-  _selectUser(Role role) {
+  _selectMenu(Role role) {
     cryDialog(
       context: context,
-      title: '关联人员',
-      body: RoleUserSelect(role: role,),
+      title: '关联菜单',
+      body: RoleMenuSelect(
+        role: role,
+      ),
     ).then((v) {
       if (v != null) {
         _query();
@@ -134,6 +136,19 @@ class _RoleListState extends State<RoleList> {
     });
   }
 
+  _selectUser(Role role) {
+    cryDialog(
+      context: context,
+      title: '关联人员',
+      body: RoleUserSelect(
+        role: role,
+      ),
+    ).then((v) {
+      if (v != null) {
+        _query();
+      }
+    });
+  }
 
   _add() {
     cryDialog(

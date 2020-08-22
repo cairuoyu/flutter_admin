@@ -1,6 +1,12 @@
 import 'package:flutter_admin/utils/httpUtil.dart';
 
 class RoleApi {
+  static getUnSelectedMenu(data) {
+    return HttpUtil.post('/role/getUnSelectedMenu', data: data);
+  }
+  static getSelectedMenu(data) {
+    return HttpUtil.post('/role/getSelectedMenu', data: data);
+  }
   static getUnSelectedUserInfo(data) {
     return HttpUtil.post('/role/getUnSelectedUserInfo', data: data);
   }
