@@ -125,7 +125,7 @@ class _RoleListState extends State<RoleList> {
   _selectUser(Role role) {
     cryDialog(
       context: context,
-      title: S.of(context).increase,
+      title: '关联人员',
       body: RoleUserSelect(role: role,),
     ).then((v) {
       if (v != null) {

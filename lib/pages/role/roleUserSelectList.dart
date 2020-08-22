@@ -7,9 +7,15 @@ import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/models/userInfo.dart';
 
 class RoleUserSelectList extends StatefulWidget {
-  RoleUserSelectList({Key key, @required this.role, this.isSelected = false}) : super(key: key);
+  RoleUserSelectList({
+    Key key,
+    @required this.role,
+    this.isSelected = false,
+    this.title,
+  }) : super(key: key);
   final Role role;
   final bool isSelected;
+  final String title;
 
   @override
   RoleUserSelectListState createState() => RoleUserSelectListState();
@@ -33,7 +39,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
   Widget build(BuildContext context) {
     CryDataTable table = CryDataTable(
       key: tableKey,
-      title: '角色',
+      title: widget.title,
       page: page,
       onPageChanged: _onPageChanged,
       onSelectChanged: (Map selected) {
