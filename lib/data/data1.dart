@@ -6,6 +6,7 @@ import 'package:flutter_admin/vo/selectOptionVO.dart';
 Map<String, IconData> iconMap = {
   'menu': Icons.menu,
   'dashboard': Icons.dashboard,
+  'role': Icons.rowing_outlined,
   'info': Icons.info,
   'person': Icons.person,
   'image': Icons.image,

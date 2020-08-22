@@ -16,14 +16,15 @@ import '../pages/userInfo/userInfoEdit.dart';
 import '../pages/video/videoUpload.dart';
 
 Map<String, Widget> layoutRoutesData = {
+  '/': Dashboard(),
+  '/dashboard': Dashboard(),
+  '/roleList': RoleList(),
   '/personList': PersonList(),
-  '/dashboard': RoleList(),
   '/menuDemoList': MenuDemoList(),
   '/userInfoEdit': UserInfoEdit(),
   '/imageUpload': ImageUpload(),
   '/videoUpload': VideoUpload(),
   '/layout404': Page404(),
-  '/': Dashboard(),
 };
 
 Map<String, Widget> routesData = {
@@ -45,9 +46,12 @@ class Routes {
   static onGenerateRoute(RouteSettings settings) {
     String name = settings.name;
     if (!routes.containsKey(name)) {
-      name = '/404';
-    }
-    if (!Utils.isLogin()) {
+      if (Utils.isLogin()) {
+        name = '/layout404';
+      } else {
+        name = '/404';
+      }
+    } else if (!Utils.isLogin()) {
       name = '/login';
     } else if (name == '/login') {
       name = '/dashbooad';

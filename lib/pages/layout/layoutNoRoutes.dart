@@ -7,6 +7,7 @@ import 'package:flutter_admin/routes/routes.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/pages/layout/layoutMenu.dart';
 import 'package:flutter_admin/pages/layout/layoutSetting.dart';
+import 'package:flutter_admin/utils/storeUtil.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
 import 'package:intl/intl.dart';
 
@@ -31,6 +32,13 @@ class _LayoutState extends State with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    if (StoreUtil.treeVOList == null) {
+      StoreUtil.loadMenuData().then((res) {
+        setState(() {});
+      });
+      return Container();
+    }
+
     Color themeColor = CryRootScope.of(context).state.themeColor;
     TabBar tabBar = TabBar(
       onTap: (index) => _openPage(treeVOOpened[index]),
@@ -148,5 +156,4 @@ class _LayoutState extends State with TickerProviderStateMixin {
     }
     setState(() {});
   }
-
 }
