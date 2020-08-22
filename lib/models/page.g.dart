@@ -6,8 +6,8 @@ part of 'page.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Page _$PageFromJson(Map<String, dynamic> json) {
-  return Page()
+PageModel _$PageModelFromJson(Map<String, dynamic> json) {
+  return PageModel()
     ..total = json['total'] as num
     ..size = json['size'] as num
     ..current = json['current'] as num
@@ -21,7 +21,7 @@ Page _$PageFromJson(Map<String, dynamic> json) {
         ?.toList();
 }
 
-Map<String, dynamic> _$PageToJson(Page instance) => <String, dynamic>{
+Map<String, dynamic> _$PageModelToJson(PageModel instance) => <String, dynamic>{
       'total': instance.total,
       'size': instance.size,
       'current': instance.current,

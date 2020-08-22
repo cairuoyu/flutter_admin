@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/roleApi.dart';
 import 'package:flutter_admin/components/cryDataTable.dart';
-import 'package:flutter_admin/models/index.dart' as model;
+import 'package:flutter_admin/models/orderItem.dart';
+import 'package:flutter_admin/models/page.dart';
+import 'package:flutter_admin/models/requestBodyApi.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/models/menu.dart';
@@ -23,12 +25,12 @@ class RoleMenuSelectList extends StatefulWidget {
 
 class RoleMenuSelectListState extends State<RoleMenuSelectList> {
   final GlobalKey<CryDataTableState> tableKey = GlobalKey<CryDataTableState>();
-  model.Page page;
+  PageModel page;
 
   @override
   void initState() {
     super.initState();
-    page = model.Page(orders: [model.OrderItem(column: 'name')]);
+    page = PageModel(orders: [OrderItem(column: 'name')]);
 
     WidgetsBinding.instance.addPostFrameCallback((c) {
       query();
@@ -54,7 +56,7 @@ class RoleMenuSelectListState extends State<RoleMenuSelectList> {
         ),
       ],
       getCells: (Map m) {
-        Menu menu = model.Menu.fromJson(m);
+        Menu menu = Menu.fromJson(m);
         return [
           DataCell(Container(width: 800, child: Text(menu.name ?? '--'))),
         ];
@@ -73,7 +75,7 @@ class RoleMenuSelectListState extends State<RoleMenuSelectList> {
   }
 
   query() async {
-    model.RequestBodyApi requestBodyApi = model.RequestBodyApi();
+    RequestBodyApi requestBodyApi = RequestBodyApi();
     requestBodyApi.page = page;
     requestBodyApi.params = widget.role.toJson();
     ResponeBodyApi responeBodyApi;
@@ -82,7 +84,7 @@ class RoleMenuSelectListState extends State<RoleMenuSelectList> {
     } else {
       responeBodyApi = await RoleApi.getUnSelectedMenu(requestBodyApi);
     }
-    page = model.Page.fromJson(responeBodyApi.data);
+    page = PageModel.fromJson(responeBodyApi.data);
 
     setState(() {});
   }

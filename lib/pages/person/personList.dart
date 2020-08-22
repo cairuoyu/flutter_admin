@@ -6,7 +6,9 @@ import 'package:flutter_admin/components/cryDialog.dart';
 import 'package:flutter_admin/components/form1/cryInput.dart';
 import 'package:flutter_admin/components/form1/crySelect.dart';
 import 'package:flutter_admin/data/data1.dart';
-import 'package:flutter_admin/models/index.dart' as model;
+import 'package:flutter_admin/models/orderItem.dart';
+import 'package:flutter_admin/models/page.dart';
+import 'package:flutter_admin/models/person.dart';
 import 'package:flutter_admin/models/requestBodyApi.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/utils/dictUtil.dart';
@@ -25,10 +27,10 @@ class PersonListState extends State {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   int rowsPerPage = 10;
   MyDS myDS = new MyDS();
-  model.Person formData = model.Person();
+  Person formData = Person();
 
   _reset() {
-    this.formData = model.Person();
+    this.formData = Person();
     formKey.currentState.reset();
     myDS.requestBodyApi.params = formData.toJson();
     myDS.loadData();
@@ -40,7 +42,7 @@ class PersonListState extends State {
     myDS.loadData();
   }
 
-  _edit({model.Person person}) {
+  _edit({Person person}) {
     cryDialog(
       width: 650,
       context: context,
@@ -59,7 +61,6 @@ class PersonListState extends State {
     myDS.context = context;
     myDS.state = this;
     myDS.page.size = rowsPerPage;
-    myDS.page.orders??[].add(model.OrderItem(column: 'create_time', asc: false));
     myDS.addListener(() {
       setState(() {});
     });
@@ -121,7 +122,7 @@ class PersonListState extends State {
                   if (myDS.selectedRowCount != 1) {
                     return;
                   }
-                  model.Person person = myDS.dataList.firstWhere((v) {
+                  Person person = myDS.dataList.firstWhere((v) {
                     return v.selected;
                   });
                   _edit(person: person);
@@ -222,10 +223,10 @@ class MyDS extends DataTableSource {
   MyDS();
   PersonListState state;
   BuildContext context;
-  List<model.Person> dataList;
+  List<Person> dataList;
   int selectedCount = 0;
   RequestBodyApi requestBodyApi = RequestBodyApi();
-  model.Page page = model.Page();
+  PageModel page = PageModel(orders: [OrderItem(column: 'create_time', asc: false)]);
   sort(column, ascending) {
     page.orders[0].column = column;
     page.orders[0].asc = !page.orders[0].asc;
@@ -235,10 +236,10 @@ class MyDS extends DataTableSource {
   loadData() async {
     requestBodyApi.page = page;
     ResponeBodyApi responeBodyApi = await PersonApi.page(requestBodyApi);
-    page = model.Page.fromJson(responeBodyApi.data);
+    page = PageModel.fromJson(responeBodyApi.data);
 
-    dataList = page.records.map<model.Person>((v) {
-      model.Person person = model.Person.fromJson(v);
+    dataList = page.records.map<Person>((v) {
+      Person person = Person.fromJson(v);
       person.selected = false;
       return person;
     }).toList();
@@ -258,7 +259,7 @@ class MyDS extends DataTableSource {
     if (dataIndex >= dataList.length) {
       return null;
     }
-    model.Person person = dataList[dataIndex];
+    Person person = dataList[dataIndex];
 
     return DataRow.byIndex(
       index: index,

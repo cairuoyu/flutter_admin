@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/RoleMenuApi.dart';
 import 'package:flutter_admin/components/cryTransfer.dart';
-import 'package:flutter_admin/models/index.dart' as model;
 import 'package:flutter_admin/models/menu.dart';
+import 'package:flutter_admin/models/page.dart';
 import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/models/roleMenu.dart';
 import 'package:flutter_admin/pages/role/roleMenuSelectList.dart';
@@ -19,7 +19,7 @@ class RoleMenuSelect extends StatefulWidget {
 class _RoleMenuSelectState extends State<RoleMenuSelect> {
   final GlobalKey<RoleMenuSelectListState> tableKey1 = GlobalKey<RoleMenuSelectListState>();
   final GlobalKey<RoleMenuSelectListState> tableKey2 = GlobalKey<RoleMenuSelectListState>();
-  model.Page page;
+  PageModel page;
 
   @override
   void initState() {
@@ -28,6 +28,7 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
 
   @override
   Widget build(BuildContext context) {
+    Page a;
     var table1 = RoleMenuSelectList(key: tableKey1, title: '未选择菜单', role: widget.role);
     var table2 = RoleMenuSelectList(key: tableKey2, title: '已选择菜单', role: widget.role, isSelected: true);
     var result = CryTransfer(

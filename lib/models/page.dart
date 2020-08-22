@@ -3,8 +3,8 @@ import "orderItem.dart";
 part 'page.g.dart';
 
 @JsonSerializable()
-class Page {
-    Page({this.orders});
+class PageModel {
+    PageModel({this.orders});
 
     num total=0;
     num size=10;
@@ -13,6 +13,6 @@ class Page {
     List<OrderItem> orders;
     List<Map> records;
     
-    factory Page.fromJson(Map<String,dynamic> json) => _$PageFromJson(json);
-    Map<String, dynamic> toJson() => _$PageToJson(this);
+    factory PageModel.fromJson(Map<String,dynamic> json) => _$PageModelFromJson(json);
+    Map<String, dynamic> toJson() => _$PageModelToJson(this);
 }

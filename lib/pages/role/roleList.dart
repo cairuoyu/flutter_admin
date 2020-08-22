@@ -4,7 +4,9 @@ import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/cryDataTable.dart';
 import 'package:flutter_admin/components/cryDialog.dart';
 import 'package:flutter_admin/generated/l10n.dart';
-import 'package:flutter_admin/models/index.dart' as model;
+import 'package:flutter_admin/models/orderItem.dart';
+import 'package:flutter_admin/models/page.dart';
+import 'package:flutter_admin/models/requestBodyApi.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/pages/role/roleEdit.dart';
@@ -20,12 +22,12 @@ class RoleList extends StatefulWidget {
 
 class _RoleListState extends State<RoleList> {
   final GlobalKey<CryDataTableState> tableKey = GlobalKey<CryDataTableState>();
-  model.Page page;
+  PageModel page;
 
   @override
   void initState() {
     super.initState();
-    page = model.Page(orders: [model.OrderItem(column: 'name')]);
+    page = PageModel(orders: [OrderItem(column: 'name')]);
 
     WidgetsBinding.instance.addPostFrameCallback((c) {
       _query();
@@ -188,10 +190,10 @@ class _RoleListState extends State<RoleList> {
   }
 
   _query() async {
-    model.RequestBodyApi requestBodyApi = model.RequestBodyApi();
+    RequestBodyApi requestBodyApi = RequestBodyApi();
     requestBodyApi.page = page;
     ResponeBodyApi responeBodyApi = await RoleApi.page(requestBodyApi);
-    page = model.Page.fromJson(responeBodyApi.data);
+    page = PageModel.fromJson(responeBodyApi.data);
 
     setState(() {});
   }

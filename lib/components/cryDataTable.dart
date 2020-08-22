@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/models/index.dart' as model;
+import 'package:flutter_admin/models/page.dart';
 
 class CryDataTable extends StatefulWidget {
   CryDataTable({
@@ -16,7 +16,7 @@ class CryDataTable extends StatefulWidget {
   final Function getCells;
   final Function onPageChanged;
   final Function onSelectChanged;
-  final model.Page page;
+  final PageModel page;
 
   @override
   CryDataTableState createState() => CryDataTableState();
@@ -35,7 +35,7 @@ class CryDataTableState extends State<CryDataTable> {
 
   @override
   Widget build(BuildContext context) {
-    _ds._page = widget.page ?? model.Page();
+    _ds._page = widget.page ?? PageModel();
     _ds.reload();
     var result = ListView(
       padding: const EdgeInsets.all(10.0),
@@ -61,13 +61,13 @@ class CryDataTableState extends State<CryDataTable> {
     return result;
   }
 
-  List<Map> getSelectedList(model.Page page) {
+  List<Map> getSelectedList(PageModel page) {
     return (page ?? widget.page)?.records?.where((v) => v['selected'] ?? false)?.toList() ?? [];
   }
 }
 
 class _DS extends DataTableSource {
-  model.Page _page = model.Page();
+  PageModel _page = PageModel();
   Function _getCells;
   Function _onSelectChanged;
 

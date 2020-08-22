@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/RoleUserApi.dart';
 import 'package:flutter_admin/components/cryTransfer.dart';
-import 'package:flutter_admin/models/index.dart' as model;
+import 'package:flutter_admin/models/page.dart';
 import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/models/roleUser.dart';
 import 'package:flutter_admin/models/userInfo.dart';
@@ -19,7 +19,7 @@ class RoleUserSelect extends StatefulWidget {
 class _RoleUserSelectState extends State<RoleUserSelect> {
   final GlobalKey<RoleUserSelectListState> tableKey1 = GlobalKey<RoleUserSelectListState>();
   final GlobalKey<RoleUserSelectListState> tableKey2 = GlobalKey<RoleUserSelectListState>();
-  model.Page page;
+  PageModel page;
 
   @override
   void initState() {

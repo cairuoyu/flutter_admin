@@ -10,7 +10,7 @@ RequestBodyApi _$RequestBodyApiFromJson(Map<String, dynamic> json) {
   return RequestBodyApi()
     ..page = json['page'] == null
         ? null
-        : Page.fromJson(json['page'] as Map<String, dynamic>)
+        : PageModel.fromJson(json['page'] as Map<String, dynamic>)
     ..params = json['params'] as Map<String, dynamic>;
 }
 
