@@ -1,15 +1,15 @@
 import 'dart:io';
 
-import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/utils/localStorageUtil.dart';
+import 'package:flutter_admin/utils/utils.dart';
 
 class HttpUtil {
   static Dio dio;
 
-//  static const String API_PREFIX = 'http://localhost:9094/';
+  // static const String API_PREFIX = 'http://localhost:9094/';
   static const String API_PREFIX = 'http://www.cairuoyu.com/api/p4/';
   static const int CONNECT_TIMEOUT = 10000;
   static const int RECEIVE_TIMEOUT = 3000;
@@ -18,45 +18,24 @@ class HttpUtil {
   static const String GET = 'get';
 
   static Future<ResponeBodyApi> get(String url, {data, requestToken = true}) async {
-    Map map = await request(url, data: data, requestToken: requestToken, method: GET);
-    if (map == null) {}
-    ResponeBodyApi responeBodyApi = ResponeBodyApi.fromJson(map);
-    return responeBodyApi;
+    return await request(url, data: data, requestToken: requestToken, method: GET);
   }
 
   static Future<ResponeBodyApi> post(String url, {data, requestToken = true}) async {
-    Map map = await request(url, data: data, requestToken: requestToken);
-    if (map == null) {}
-    ResponeBodyApi responeBodyApi = ResponeBodyApi.fromJson(map);
-    return responeBodyApi;
+    return await request(url, data: data, requestToken: requestToken);
   }
 
-  static Future<Map> request(String url, {data, method, requestToken = true}) async {
+  static Future<ResponeBodyApi> request(String url, {data, method, requestToken = true}) async {
     data = data ?? {};
     method = method ?? POST;
 
-    String token = LocalStorageUtil.get(Constant.KEY_TOKEN);
-//    if (url != "/user/login" && requestToken && token == null) {
-    // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Layout1()));
-//    }
-
     Dio dio = createInstance();
-    if (requestToken) {
-      dio.options.headers[HttpHeaders.authorizationHeader] = token;
-    }
     dio.options.method = method;
-    var result;
 
-    try {
-      Response res = await dio.request(url, data: data);
-      result = res.data;
-    } on DioError catch (e) {
-      BotToast.showText(text: '请求出错：' + e.toString());
+    Response res = await dio.request(url, data: data);
+    ResponeBodyApi responeBodyApi = res.data;
 
-      throw e.toString() + '||' + API_PREFIX + url;
-    }
-
-    return result;
+    return responeBodyApi;
   }
 
   static Dio createInstance() {
@@ -68,6 +47,7 @@ class HttpUtil {
       );
 
       dio = new Dio(options);
+      dio.interceptors.add(CryDioInterceptors());
     }
 
     return dio;
@@ -75,5 +55,33 @@ class HttpUtil {
 
   static clear() {
     dio = null;
+  }
+}
+
+class CryDioInterceptors extends InterceptorsWrapper {
+  @override
+  Future onRequest(RequestOptions options) {
+    // print("REQUEST[${options?.method}] => PATH: ${options?.path}");
+    String token = LocalStorageUtil.get(Constant.KEY_TOKEN);
+    options.headers[HttpHeaders.authorizationHeader] = token;
+    return super.onRequest(options);
+  }
+
+  @override
+  Future onResponse(Response response) {
+    // print("RESPONSE[${response?.statusCode}] => PATH: ${response?.request?.path}");
+    ResponeBodyApi responeBodyApi = ResponeBodyApi.fromJson(response.data);
+    if (!responeBodyApi.success) {
+      Utils.message(responeBodyApi.message);
+    }
+    response.data = responeBodyApi;
+    return super.onResponse(response);
+  }
+
+  @override
+  Future onError(DioError err) {
+    print("ERROR[${err?.response?.statusCode}] => PATH: ${err?.request?.path}");
+    Utils.message('请求出错：' + err.toString());
+    return super.onError(err);
   }
 }

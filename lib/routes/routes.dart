@@ -7,6 +7,7 @@ import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/pages/menu/menuDemoList.dart';
 import 'package:flutter_admin/pages/myTest.dart';
 import 'package:flutter_admin/pages/person/personList.dart';
+import 'package:flutter_admin/pages/register.dart';
 import 'package:flutter_admin/pages/role/roleList.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
@@ -29,10 +30,13 @@ Map<String, Widget> layoutRoutesData = {
 
 Map<String, Widget> routesData = {
   '/layoutNoRoutes': layoutNoRoutes.Layout(),
+  '/register': Register(),
   '/myTest': MyTest(),
   '/404': Page404(),
   '/login': Login(),
+  '/test': RoleList(),
 };
+List<String> whiteRouters = ['/register'];
 
 Map<String, WidgetBuilder> routes = routesData.map((key, value) {
   return MapEntry(key, (context) => value);
@@ -51,7 +55,7 @@ class Routes {
       } else {
         name = '/404';
       }
-    } else if (!Utils.isLogin()) {
+    } else if (!Utils.isLogin() && !whiteRouters.contains(name)) {
       name = '/login';
     } else if (name == '/login') {
       name = '/dashbooad';

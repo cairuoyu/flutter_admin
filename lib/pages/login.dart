@@ -190,22 +190,16 @@ class _LoginState extends State<Login> {
     }
     form.save();
     UserApi.login(user.toJson()).then((ResponeBodyApi responeBodyApi) async {
-      if (responeBodyApi.success) {
-        LocalStorageUtil.set(Constant.KEY_TOKEN, responeBodyApi.data);
-        await StoreUtil.loadMenuData();
-        String defaultPage = '/layout';
-        if (StoreUtil.treeVOList.length > 0) {
-          defaultPage = StoreUtil.treeVOList.first.data.url;
-        }
-        Navigator.pushNamed(context, defaultPage);
-      } else {
-        this.error = responeBodyApi.message;
-        BotToast.showText(text: this.error);
-        setState(() {});
+      if (!responeBodyApi.success) {
+        return;
       }
-    }).catchError((e) {
-      error = e;
-      setState(() {});
+      LocalStorageUtil.set(Constant.KEY_TOKEN, responeBodyApi.data);
+      await StoreUtil.loadMenuData();
+      String defaultPage = '/layout';
+      if (StoreUtil.treeVOList.length > 0) {
+        defaultPage = StoreUtil.treeVOList.first.data.url;
+      }
+      Navigator.pushNamed(context, defaultPage);
     });
   }
 }

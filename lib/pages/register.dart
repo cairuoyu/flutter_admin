@@ -163,6 +163,9 @@ class _RegisterState extends State {
     form.save();
     if (form.validate()) {
       UserApi.register(user.toJson()).then((v) {
+        if (!v.success) {
+          return;
+        }
         _login();
         BotToast.showText(text: S.of(context).registerSuccess);
       });
