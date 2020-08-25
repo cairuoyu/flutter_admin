@@ -9,11 +9,11 @@ import 'package:flutter_admin/pages/myTest.dart';
 import 'package:flutter_admin/pages/person/personList.dart';
 import 'package:flutter_admin/pages/register.dart';
 import 'package:flutter_admin/pages/role/roleList.dart';
+import 'package:flutter_admin/pages/userInfo/userInfoList.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
 import '../pages/image/imageUpload.dart';
 import '../pages/menu/menuDemoList.dart';
-import '../pages/userInfo/userInfoEdit.dart';
 import '../pages/video/videoUpload.dart';
 
 Map<String, Widget> layoutRoutesData = {
@@ -22,7 +22,7 @@ Map<String, Widget> layoutRoutesData = {
   '/roleList': RoleList(),
   '/personList': PersonList(),
   '/menuDemoList': MenuDemoList(),
-  '/userInfoEdit': UserInfoEdit(),
+  '/userInfoList': UserInfoList(),
   '/imageUpload': ImageUpload(),
   '/videoUpload': VideoUpload(),
   '/layout404': Page404(),

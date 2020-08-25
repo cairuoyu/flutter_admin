@@ -204,7 +204,8 @@ class _RoleListState extends State<RoleList> {
     _query();
   }
 
-  _onPageChanged(int current) {
+  _onPageChanged(int size, int current) {
+    page.size = size;
     page.current = current;
     _query();
   }

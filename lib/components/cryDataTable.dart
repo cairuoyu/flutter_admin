@@ -24,7 +24,6 @@ class CryDataTable extends StatefulWidget {
 
 class CryDataTableState extends State<CryDataTable> {
   _DS _ds = _DS();
-  int rowsPerPage = 10;
 
   @override
   void initState() {
@@ -35,22 +34,21 @@ class CryDataTableState extends State<CryDataTable> {
 
   @override
   Widget build(BuildContext context) {
-    _ds._page = widget.page ?? PageModel();
+    PageModel page = widget.page ?? PageModel();
+    _ds._page = page;
     _ds.reload();
     var result = ListView(
       padding: const EdgeInsets.all(10.0),
       children: <Widget>[
         PaginatedDataTable(
           header: Text(widget.title),
-          rowsPerPage: rowsPerPage,
+          rowsPerPage: page.size,
           onPageChanged: (firstRowIndex) {
-            int current = (firstRowIndex / widget.page.size + 1) as int;
-            return widget.onPageChanged(current);
+            int current = (firstRowIndex / page.size + 1) as int;
+            return widget.onPageChanged(page.size, current);
           },
           onRowsPerPageChanged: (int value) {
-            setState(() {
-              rowsPerPage = value;
-            });
+            return widget.onPageChanged(value, 1);
           },
           columns: widget.columns ?? [DataColumn(label: Text(''))],
           source: _ds,

@@ -89,7 +89,8 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
     setState(() {});
   }
 
-  _onPageChanged(int current) {
+  _onPageChanged(int size, int current) {
+    page.size = size;
     page.current = current;
     query();
   }
