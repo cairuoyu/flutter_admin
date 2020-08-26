@@ -6,6 +6,7 @@ import 'cryFormField.dart';
 class CrySelect extends CryFormField {
   CrySelect({
     Key key,
+    double width,
     String label,
     String value,
     ValueChanged onChange,
@@ -13,6 +14,7 @@ class CrySelect extends CryFormField {
     List<SelectOptionVO> dataList = const [],
   }) : super(
           key: key,
+          width: width,
           builder: (CryFormFieldState state) {
             return DropdownButtonFormField<String>(
               decoration: InputDecoration(

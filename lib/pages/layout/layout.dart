@@ -117,14 +117,16 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
     Scaffold subWidget = Scaffold(
       key: scaffoldStateKey,
       endDrawer: LayoutSetting(),
-      appBar: LayoutAppBar(context, type: 1),
+      appBar: LayoutAppBar(context, type: 1, openSetting: () {
+        scaffoldStateKey.currentState.openEndDrawer();
+      }),
       body: body,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.settings),
-        onPressed: () {
-          scaffoldStateKey.currentState.openEndDrawer();
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.settings),
+      //   onPressed: () {
+      //     scaffoldStateKey.currentState.openEndDrawer();
+      //   },
+      // ),
     );
     return Theme(
       data: ThemeData(

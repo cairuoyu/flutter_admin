@@ -3,6 +3,8 @@ import 'package:flutter_admin/api/userInfoApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/cryDataTable.dart';
 import 'package:flutter_admin/components/cryDialog.dart';
+import 'package:flutter_admin/components/form2/cryInput.dart';
+import 'package:flutter_admin/components/form2/crySelect.dart';
 import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/orderItem.dart';
@@ -23,7 +25,9 @@ class UserInfoList extends StatefulWidget {
 
 class _UserInfoListState extends State<UserInfoList> {
   final GlobalKey<CryDataTableState> tableKey = GlobalKey<CryDataTableState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   PageModel page;
+  UserInfo userInfo = UserInfo();
 
   @override
   void initState() {
@@ -37,6 +41,30 @@ class _UserInfoListState extends State<UserInfoList> {
 
   @override
   Widget build(BuildContext context) {
+    var form = Form(
+      key: formKey,
+      child: Wrap(
+        children: <Widget>[
+          CryInput(
+            width: 400,
+            label: '用户名称',
+            value: userInfo.name,
+            onSaved: (v) {
+              userInfo.name = v;
+            },
+          ),
+          CrySelect(
+            width: 400,
+            label: '部门',
+            value: userInfo.deptId,
+            dataList: Intl.defaultLocale == 'en' ? deptIdList_en : deptIdList,
+            onSaved: (v) {
+              userInfo.deptId = v;
+            }
+          ),
+        ],
+      ),
+    );
     CryDataTable table = CryDataTable(
       key: tableKey,
       title: '用户管理',
@@ -51,7 +79,7 @@ class _UserInfoListState extends State<UserInfoList> {
         ),
         DataColumn(
           label: Container(child: Text('名称')),
-          onSort: (int columnIndex, bool ascending) => _sort('name', ascending),
+          onSort: (int columnIndex, bool ascending) => _sort('name', ascending)
         ),
         DataColumn(
           label: Text(S.of(context).personNickname),
@@ -94,12 +122,18 @@ class _UserInfoListState extends State<UserInfoList> {
           DataCell(Text(userInfo.name ?? '--')),
           DataCell(Text(userInfo.nickName ?? '--')),
           DataCell(Text(
-            DictUtil.getDictName(userInfo.gender, Intl.defaultLocale == 'en' ? genderList_en : genderList),
+            DictUtil.getDictName(
+              userInfo.gender,
+              Intl.defaultLocale == 'en' ? genderList_en : genderList,
+            ),
           )),
           DataCell(Text(userInfo.birthday ?? '--')),
           DataCell(Text(
-            DictUtil.getDictName(userInfo.deptId, Intl.defaultLocale == 'en' ? deptIdList_en : deptIdList,
-                defaultValue: '--'),
+            DictUtil.getDictName(
+              userInfo.deptId,
+              Intl.defaultLocale == 'en' ? deptIdList_en : deptIdList,
+              defaultValue: '--',
+            ),
           )),
           DataCell(Text(userInfo.createTime ?? '--')),
           DataCell(Text(userInfo.updateTime ?? '--')),
@@ -111,22 +145,10 @@ class _UserInfoListState extends State<UserInfoList> {
     ButtonBar buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[
-        CryButton(
-          label: '查询',
-          onPressed: () {
-            _query();
-          },
-        ),
-        CryButton(
-          label: '增加',
-          onPressed: () {
-            _add();
-          },
-        ),
-        CryButton(
-          label: '编辑',
-          onPressed: selectedList.length != 1 ? null : () => _edit(selectedList[0]),
-        ),
+        CryButton(label: '查询', onPressed: () => _query()),
+        CryButton(label: '重置', onPressed: () => _reset()),
+        CryButton(label: '增加', onPressed: () => _add()),
+        CryButton(label: '编辑', onPressed: selectedList.length != 1 ? null : () => _edit(selectedList[0])),
       ],
     );
     var result = Scaffold(
@@ -135,7 +157,7 @@ class _UserInfoListState extends State<UserInfoList> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(height: 10),
-          // form,
+          form,
           buttonBar,
           Expanded(
             child: table,
@@ -172,8 +194,19 @@ class _UserInfoListState extends State<UserInfoList> {
     });
   }
 
-  _query() async {
+  _reset() {
+    userInfo = UserInfo();
+    _loadData();
+  }
+
+  _query() {
+    formKey.currentState.save();
+    _loadData();
+  }
+
+  _loadData() async {
     RequestBodyApi requestBodyApi = RequestBodyApi();
+    requestBodyApi.params = userInfo.toJson();
     requestBodyApi.page = page;
     ResponeBodyApi responeBodyApi = await UserInfoApi.page(requestBodyApi);
     page = PageModel.fromJson(responeBodyApi.data);

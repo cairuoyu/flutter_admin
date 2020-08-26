@@ -77,6 +77,7 @@ class PersonListState extends State {
         children: <Widget>[
           CryInput(
             label: S.of(context).personName,
+            value: formData.name,
             onSaved: (v) {
               formData.name = v;
             },
@@ -96,24 +97,9 @@ class PersonListState extends State {
     ButtonBar buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[
-        CryButton(
-          label: S.of(context).inquire,
-          onPressed: () {
-            _query();
-          },
-        ),
-        CryButton(
-          label: S.of(context).reset,
-          onPressed: () {
-            _reset();
-          },
-        ),
-        CryButton(
-          label: S.of(context).increase,
-          onPressed: () {
-            _edit();
-          },
-        ),
+        CryButton(label: S.of(context).inquire, onPressed: () => _query()),
+        CryButton(label: S.of(context).reset, onPressed: () => _reset()),
+        CryButton(label: S.of(context).increase, onPressed: () => _edit()),
         CryButton(
           label: S.of(context).modify,
           onPressed: myDS.selectedCount != 1

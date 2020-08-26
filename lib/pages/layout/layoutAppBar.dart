@@ -3,7 +3,7 @@ import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
 class LayoutAppBar extends AppBar {
-  LayoutAppBar(BuildContext context, {Key key, int type})
+  LayoutAppBar(BuildContext context, {Key key, int type, openSetting})
       : super(
           key: key,
           automaticallyImplyLeading: false,
@@ -17,6 +17,15 @@ class LayoutAppBar extends AppBar {
               )),
           title: Text("FLUTTER_ADMIN"),
           actions: <Widget>[
+            Tooltip(
+              message: '设置',
+              child: IconButton(
+                icon: Icon(Icons.settings),
+                onPressed: () {
+                  openSetting();
+                },
+              ),
+            ),
             Tooltip(
               message: type == 1 ? '无路由模式' : '路由模式',
               child: IconButton(
