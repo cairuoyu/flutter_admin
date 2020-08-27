@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
@@ -52,6 +51,10 @@ class _LoginState extends State<Login> {
             height: 20.0,
           ),
           _buildLoginForm(),
+          Column(children: [
+            Text('管理员：admin/admin'),
+            Text('注册其它用户可体验菜单权限'),
+          ],)
         ],
       ),
     );
@@ -103,6 +106,7 @@ class _LoginState extends State<Login> {
                       Container(
                         padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
                         child: TextFormField(
+                          obscureText: true,
                           initialValue: user.password,
                           style: TextStyle(color: Colors.black),
                           decoration: InputDecoration(

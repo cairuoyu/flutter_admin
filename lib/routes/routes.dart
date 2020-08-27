@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/pages/common/page401.dart';
 import 'package:flutter_admin/pages/common/page404.dart';
 import 'package:flutter_admin/pages/dash/dashboard.dart';
 import 'package:flutter_admin/pages/layout/layout.dart';
@@ -32,6 +33,7 @@ Map<String, Widget> routesData = {
   '/layoutNoRoutes': layoutNoRoutes.Layout(),
   '/register': Register(),
   '/myTest': MyTest(),
+  '/401': Page404(),
   '/404': Page404(),
   '/login': Login(),
   '/test': RoleList(),

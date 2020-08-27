@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/components/cryRoot.dart';
 import 'package:flutter_admin/models/menu.dart';
+import 'package:flutter_admin/pages/common/page401.dart';
 import 'package:flutter_admin/pages/layout/layoutAppBar.dart';
 import 'package:flutter_admin/pages/layout/layoutMenu.dart';
 import 'package:flutter_admin/pages/layout/layoutSetting.dart';
@@ -45,11 +46,12 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
       TreeVO<Menu> treeVO = StoreUtil.treeVOList.firstWhere((v) {
         return v.data.url == url;
       }, orElse: () => null);
-      if (treeVO != null) {
-        StoreUtil.treeVOOpened.add(treeVO);
-        tabController = TabController(vsync: this, length: StoreUtil.treeVOOpened.length);
-        tabController.index = StoreUtil.treeVOOpened.length - 1;
+      if (treeVO == null) {
+        return Page401();
       }
+      StoreUtil.treeVOOpened.add(treeVO);
+      tabController = TabController(vsync: this, length: StoreUtil.treeVOOpened.length);
+      tabController.index = StoreUtil.treeVOOpened.length - 1;
     }
     Color themeColor = CryRootScope.of(context).state.themeColor;
     TabBar tabBar = TabBar(

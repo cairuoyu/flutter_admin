@@ -7,7 +7,7 @@ class Page404 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text('404'),
+        child: Text('你访问的页面不存在'),
       ),
     );
   }
