@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/RoleUserApi.dart';
+import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/cryTransfer.dart';
 import 'package:flutter_admin/models/page.dart';
 import 'package:flutter_admin/models/role.dart';
@@ -30,7 +31,7 @@ class _RoleUserSelectState extends State<RoleUserSelect> {
   Widget build(BuildContext context) {
     var table1 = RoleUserSelectList(key: tableKey1, title: '未选择人员', role: widget.role);
     var table2 = RoleUserSelectList(key: tableKey2, title: '已选择人员', role: widget.role, isSelected: true);
-    var result = CryTransfer(
+    var transfer = CryTransfer(
       left: table1,
       right: table2,
       toRight: () async {
@@ -60,7 +61,26 @@ class _RoleUserSelectState extends State<RoleUserSelect> {
         tableKey2.currentState.query();
       },
     );
+    var result = Expanded(
+        child: Column(
+      children: [
+        transfer,
+        ButtonBar(
+          alignment: MainAxisAlignment.center,
+          children: [
+            CryButton(
+              label: '关闭',
+              iconData: Icons.close,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
+          ],
+        )
+      ],
+    ));
 
     return result;
+    // return transfer;
   }
 }

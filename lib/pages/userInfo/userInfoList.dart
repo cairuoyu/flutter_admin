@@ -54,14 +54,13 @@ class _UserInfoListState extends State<UserInfoList> {
             },
           ),
           CrySelect(
-            width: 400,
-            label: '部门',
-            value: userInfo.deptId,
-            dataList: Intl.defaultLocale == 'en' ? deptIdList_en : deptIdList,
-            onSaved: (v) {
-              userInfo.deptId = v;
-            }
-          ),
+              width: 400,
+              label: '部门',
+              value: userInfo.deptId,
+              dataList: Intl.defaultLocale == 'en' ? deptIdList_en : deptIdList,
+              onSaved: (v) {
+                userInfo.deptId = v;
+              }),
         ],
       ),
     );
@@ -79,31 +78,31 @@ class _UserInfoListState extends State<UserInfoList> {
         ),
         DataColumn(
           label: Container(child: Text('名称')),
-          onSort: (int columnIndex, bool ascending) => _sort('name', ascending)
+          onSort: (int columnIndex, bool ascending) => _sort('name'),
         ),
         DataColumn(
           label: Text(S.of(context).personNickname),
-          onSort: (int columnIndex, bool ascending) => _sort('nick_name', ascending),
+          onSort: (int columnIndex, bool ascending) => _sort('nick_name'),
         ),
         DataColumn(
           label: Text(S.of(context).personGender),
-          onSort: (int columnIndex, bool ascending) => _sort('gender', ascending),
+          onSort: (int columnIndex, bool ascending) => _sort('gender'),
         ),
         DataColumn(
           label: Text(S.of(context).personBirthday),
-          onSort: (int columnIndex, bool ascending) => _sort('birthday', ascending),
+          onSort: (int columnIndex, bool ascending) => _sort('birthday'),
         ),
         DataColumn(
           label: Text(S.of(context).personDepartment),
-          onSort: (int columnIndex, bool ascending) => _sort('dept_id', ascending),
+          onSort: (int columnIndex, bool ascending) => _sort('dept_id'),
         ),
         DataColumn(
           label: Text(S.of(context).creationTime),
-          onSort: (int columnIndex, bool ascending) => _sort('create_time', ascending),
+          onSort: (int columnIndex, bool ascending) => _sort('create_time'),
         ),
         DataColumn(
           label: Text(S.of(context).updateTime),
-          onSort: (int columnIndex, bool ascending) => _sort('update_time', ascending),
+          onSort: (int columnIndex, bool ascending) => _sort('update_time'),
         ),
       ],
       getCells: (Map m) {
@@ -175,7 +174,7 @@ class _UserInfoListState extends State<UserInfoList> {
       body: UserInfoEdit(),
     ).then((v) {
       if (v != null) {
-        _query();
+        _sort('create_time', ascending: false);
       }
     });
   }
@@ -189,7 +188,7 @@ class _UserInfoListState extends State<UserInfoList> {
       ),
     ).then((v) {
       if (v != null) {
-        _query();
+        _sort('update_time', ascending: false);
       }
     });
   }
@@ -214,9 +213,9 @@ class _UserInfoListState extends State<UserInfoList> {
     setState(() {});
   }
 
-  _sort(column, ascending) {
+  _sort(column, {ascending}) {
     page.orders[0].column = column;
-    page.orders[0].asc = !page.orders[0].asc;
+    page.orders[0].asc = ascending ?? !page.orders[0].asc;
     _query();
   }
 

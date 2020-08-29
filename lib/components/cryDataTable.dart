@@ -10,8 +10,10 @@ class CryDataTable extends StatefulWidget {
     this.getCells,
     this.onPageChanged,
     this.onSelectChanged,
+    this.availableRowsPerPage,
   }) : super(key: key);
   final String title;
+  final List<int> availableRowsPerPage;
   final List<DataColumn> columns;
   final Function getCells;
   final Function onPageChanged;
@@ -43,6 +45,7 @@ class CryDataTableState extends State<CryDataTable> {
         PaginatedDataTable(
           header: Text(widget.title),
           rowsPerPage: page.size,
+          availableRowsPerPage: widget.availableRowsPerPage ?? [5, 10, 20, 50],
           onPageChanged: (firstRowIndex) {
             int current = (firstRowIndex / page.size + 1) as int;
             return widget.onPageChanged(page.size, current);

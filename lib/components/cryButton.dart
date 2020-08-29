@@ -5,7 +5,8 @@ class CryButton extends StatelessWidget {
   final VoidCallback onPressed;
   final IconData iconData;
   final String tip;
-  CryButton({this.label, this.iconData, this.onPressed, this.tip});
+  final EdgeInsets padding;
+  CryButton({this.label, this.iconData, this.onPressed, this.tip, this.padding});
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,10 @@ class CryButton extends StatelessWidget {
         onPressed: onPressed,
       );
     }
+    if (this.padding != null) {
+      result = Container(padding: this.padding, child: result);
+    }
+
     if (tip != null) {
       result = Tooltip(
         child: result,

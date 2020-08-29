@@ -39,6 +39,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
             label: S.of(context).personName,
             value: userInfo.name,
             onSaved: (v) => {userInfo.name = v},
+            validator: (v) => v.isEmpty ? '必填' : null,
           ),
           CryInput(
             label: S.of(context).personNickname,
@@ -73,6 +74,9 @@ class _UserInfoEditState extends State<UserInfoEdit> {
           label: S.of(context).save,
           onPressed: () {
             FormState form = formKey.currentState;
+            if (!form.validate()) {
+              return;
+            }
             form.save();
             UserInfoApi.saveOrUpdate(userInfo.toJson()).then((ResponeBodyApi res) {
               if (!res.success) {

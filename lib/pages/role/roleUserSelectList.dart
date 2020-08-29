@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/roleApi.dart';
+import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/cryDataTable.dart';
+import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/models/orderItem.dart';
 import 'package:flutter_admin/models/page.dart';
 import 'package:flutter_admin/models/requestBodyApi.dart';
@@ -25,7 +27,9 @@ class RoleUserSelectList extends StatefulWidget {
 
 class RoleUserSelectListState extends State<RoleUserSelectList> {
   final GlobalKey<CryDataTableState> tableKey = GlobalKey<CryDataTableState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   PageModel page;
+  UserInfo userInfo = UserInfo();
 
   @override
   void initState() {
@@ -39,6 +43,41 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
 
   @override
   Widget build(BuildContext context) {
+    var form = Form(
+      key: formKey,
+      child: Wrap(
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: <Widget>[
+          CryInput(
+            width: 400,
+            label: '用户名称',
+            value: userInfo.name,
+            onSaved: (v) {
+              userInfo.name = v;
+            },
+          ),
+          CryButton(
+            label: '查询',
+            iconData: Icons.search,
+            padding: EdgeInsets.only(left: 20),
+            onPressed: () {
+              formKey.currentState.save();
+              this.query();
+            },
+          ),
+          CryButton(
+            label: '重置',
+            iconData: Icons.refresh,
+            padding: EdgeInsets.only(left: 20),
+            onPressed: () {
+              this.userInfo.name = null;
+              this.query();
+            },
+          )
+        ],
+      ),
+    );
+
     CryDataTable table = CryDataTable(
       key: tableKey,
       title: widget.title,
@@ -49,21 +88,25 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
       },
       columns: [
         DataColumn(
-          label: Container(
-            child: Text('名称'),
-            width: 800,
-          ),
+          label: Container(child: Text('名称'), width: 100),
+          onSort: (int columnIndex, bool ascending) => _sort('name'),
         ),
       ],
       getCells: (Map m) {
         UserInfo userInfo = UserInfo.fromJson(m);
         return [
-          DataCell(Container(width: 800, child: Text(userInfo.name ?? '--'))),
+          DataCell(Container(width: 100, child: Text(userInfo.name ?? '--'))),
         ];
       },
     );
     var result = Expanded(
-      child: table,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          form,
+          Expanded(child: table),
+        ],
+      ),
     );
     return result;
   }
@@ -75,9 +118,10 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
   }
 
   query() async {
+    Map params = {'roleId': widget.role.id, 'userName': this.userInfo.name};
     RequestBodyApi requestBodyApi = RequestBodyApi();
     requestBodyApi.page = page;
-    requestBodyApi.params = widget.role.toJson();
+    requestBodyApi.params = params;
     ResponeBodyApi responeBodyApi;
     if (widget.isSelected) {
       responeBodyApi = await RoleApi.getSelectedUserInfo(requestBodyApi);
@@ -87,6 +131,12 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
     page = PageModel.fromJson(responeBodyApi.data);
 
     setState(() {});
+  }
+
+  _sort(column, {ascending}) {
+    page.orders[0].column = column;
+    page.orders[0].asc = ascending ?? !page.orders[0].asc;
+    query();
   }
 
   _onPageChanged(int size, int current) {

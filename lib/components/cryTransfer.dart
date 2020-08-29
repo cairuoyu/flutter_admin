@@ -19,8 +19,8 @@ class _CryTransferState extends State<CryTransfer> {
       width: 60,
       child: ButtonBar(
         children: [
-          CryButton(iconData: Icons.arrow_right, onPressed: widget.toRight),
-          CryButton(iconData: Icons.arrow_left, onPressed: widget.toLeft),
+          CryButton(iconData: Icons.arrow_forward, onPressed: widget.toRight),
+          CryButton(iconData: Icons.arrow_back, onPressed: widget.toLeft),
         ],
       ),
     );
