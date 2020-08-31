@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/pages/common/page401.dart';
 import 'package:flutter_admin/pages/common/page404.dart';
 import 'package:flutter_admin/pages/dash/dashboard.dart';
 import 'package:flutter_admin/pages/layout/layout.dart';
@@ -18,7 +17,6 @@ import '../pages/menu/menuDemoList.dart';
 import '../pages/video/videoUpload.dart';
 
 Map<String, Widget> layoutRoutesData = {
-  '/': Dashboard(),
   '/dashboard': Dashboard(),
   '/roleList': RoleList(),
   '/personList': PersonList(),
@@ -27,6 +25,7 @@ Map<String, Widget> layoutRoutesData = {
   '/imageUpload': ImageUpload(),
   '/videoUpload': VideoUpload(),
   '/layout404': Page404(),
+  '/layoutTest': MyTest(),
 };
 
 Map<String, Widget> routesData = {
@@ -35,6 +34,7 @@ Map<String, Widget> routesData = {
   '/myTest': MyTest(),
   '/401': Page404(),
   '/404': Page404(),
+  '/': Layout(path: '/',),
   '/login': Login(),
   '/test': RoleList(),
 };
@@ -45,22 +45,16 @@ Map<String, WidgetBuilder> routes = routesData.map((key, value) {
 })
   ..addAll(layoutRoutesData.map((key, value) => MapEntry(
         key,
-        (context) => Layout(content: value),
+        (context) => Layout(content: value, path: key),
       )));
 
 class Routes {
   static onGenerateRoute(RouteSettings settings) {
     String name = settings.name;
     if (!routes.containsKey(name)) {
-      if (Utils.isLogin()) {
-        name = '/layout404';
-      } else {
-        name = '/404';
-      }
+      name = '/404';
     } else if (!Utils.isLogin() && !whiteRouters.contains(name)) {
       name = '/login';
-    } else if (name == '/login') {
-      name = '/dashbooad';
     }
     return MaterialPageRoute(builder: routes[name], settings: settings);
   }

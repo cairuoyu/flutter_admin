@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/components/cryRoot.dart';
 import 'package:flutter_admin/models/menu.dart';
@@ -12,8 +10,9 @@ import 'package:flutter_admin/vo/treeVO.dart';
 import 'package:intl/intl.dart';
 
 class Layout extends StatefulWidget {
+  final String path;
   final Widget content;
-  Layout({this.content});
+  Layout({this.content, this.path});
   @override
   _LayoutState createState() => _LayoutState();
 }
@@ -21,38 +20,48 @@ class Layout extends StatefulWidget {
 class _LayoutState extends State<Layout> with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
   TabController tabController;
+  Widget content;
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(vsync: this, length: StoreUtil.treeVOOpened.length);
+    content = widget.content;
+    handleRoute();
+  }
+
+  handleRoute() {
+    String path = widget.path;
+    int index = StoreUtil.treeVOOpened.indexWhere((v) => v.data.url == path);
+    if (index > -1) {
+    } else if (StoreUtil.treeVOList == null) {
+      StoreUtil.loadMenuData().then((res) {
+        setState(() {
+          handleRoute();
+        });
+      });
+    } else if (path == '/') {
+      StoreUtil.treeVOOpened = [];
+      if (StoreUtil.treeVOList.length == 0) {
+        this.content = Page401();
+      }
+    } else {
+      TreeVO<Menu> treeVO = StoreUtil.treeVOList.firstWhere((v) {
+        return v.data.url == path;
+      }, orElse: () => null);
+      if (treeVO == null) {
+        StoreUtil.treeVOOpened = [];
+        this.content = Page401();
+      } else {
+        StoreUtil.treeVOOpened.add(treeVO);
+      }
+    }
+    int length = StoreUtil.treeVOOpened.length;
+    tabController = TabController(vsync: this, length: length);
+    tabController.index = index > -1 ? index : (length > 0 ? length - 1 : 0);
   }
 
   @override
   Widget build(BuildContext context) {
-    String url = ModalRoute.of(context).settings.name;
-    int index = StoreUtil.treeVOOpened.indexWhere((v) => v.data.url == url);
-
-    if (index > -1) {
-      tabController.index = index;
-    } else {
-      if (StoreUtil.treeVOList == null) {
-        StoreUtil.loadMenuData().then((res) {
-          setState(() {});
-        });
-        return Container();
-      }
-
-      TreeVO<Menu> treeVO = StoreUtil.treeVOList.firstWhere((v) {
-        return v.data.url == url;
-      }, orElse: () => null);
-      if (treeVO == null) {
-        return Page401();
-      }
-      StoreUtil.treeVOOpened.add(treeVO);
-      tabController = TabController(vsync: this, length: StoreUtil.treeVOOpened.length);
-      tabController.index = StoreUtil.treeVOOpened.length - 1;
-    }
     Color themeColor = CryRootScope.of(context).state.themeColor;
     TabBar tabBar = TabBar(
       onTap: (index) => _openPage(StoreUtil.treeVOOpened[index]),
@@ -108,7 +117,7 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
               ),
               Container(
                 child: Expanded(
-                  child: widget.content ?? Container(),
+                  child: content ?? Container(),
                 ),
               ),
             ],

@@ -199,11 +199,7 @@ class _LoginState extends State<Login> {
       }
       LocalStorageUtil.set(Constant.KEY_TOKEN, responeBodyApi.data);
       await StoreUtil.loadMenuData();
-      String defaultPage = '/layout';
-      if (StoreUtil.treeVOList.length > 0) {
-        defaultPage = StoreUtil.treeVOList.first.data.url;
-      }
-      Navigator.pushNamed(context, defaultPage);
+      Navigator.pushNamed(context, '/');
     });
   }
 }
