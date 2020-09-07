@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
 
-class CryTreeTableColumnData {
-  CryTreeTableColumnData(this.label, this.getData, {this.width = 200});
-  Function getData;
-  String label;
-  double width;
-}
-
 class CryTreeTable<T extends TreeData> extends StatefulWidget {
   final List<CryTreeTableColumnData> columnData;
   final List<TreeVO<T>> data;
@@ -16,6 +9,7 @@ class CryTreeTable<T extends TreeData> extends StatefulWidget {
   final Function onSelected;
   final double width;
   final double tableWidth;
+  final CryTreeTableSelectType selectType;
 
   CryTreeTable({
     Key key,
@@ -26,6 +20,7 @@ class CryTreeTable<T extends TreeData> extends StatefulWidget {
     this.onSelected,
     this.width = 1000,
     this.tableWidth = 1000,
+    this.selectType,
   }) : super(key: key);
 
   @override
@@ -33,6 +28,8 @@ class CryTreeTable<T extends TreeData> extends StatefulWidget {
 }
 
 class CryTreeTableState<T extends TreeData> extends State<CryTreeTable<T>> {
+  bool checkAll = false;
+
   @override
   void initState() {
     super.initState();
@@ -74,11 +71,10 @@ class CryTreeTableState<T extends TreeData> extends State<CryTreeTable<T>> {
 
   Widget _getTableHeader() {
     var leading = Checkbox(
-        value: false,
+        value: this.checkAll,
         onChanged: (v) {
-          setState(() {
-            // checkChildren(vo, v);
-          });
+          this._checkAll(v);
+          widget.onSelected(null);
         });
     List<Widget> list = [];
     widget.columnData.forEach((element) {
@@ -132,16 +128,26 @@ class CryTreeTableState<T extends TreeData> extends State<CryTreeTable<T>> {
 
       var title = Row(children: columnList);
       var leading = Checkbox(
-          value: vo.checked,
-          onChanged: (v) {
-            setState(() {
-              vo.checked = v;
-              if (widget.onSelected != null) {
-                widget.onSelected(vo);
+        value: vo.checked,
+        onChanged: (v) {
+          vo.checked = v;
+          switch (widget.selectType) {
+            case CryTreeTableSelectType.childrenCascade:
+              {
+                _checkChildren(vo, v);
+                break;
               }
-              // _checkChildren(vo, v);
-            });
-          });
+            case CryTreeTableSelectType.parentCascadeTrue:
+              {
+                _checkParent(vo, v);
+                break;
+              }
+          }
+          if (widget.onSelected != null) {
+            widget.onSelected(vo);
+          }
+        },
+      );
       Widget d;
       if (vo.children != null && vo.children.length > 0) {
         d = Container(
@@ -186,13 +192,40 @@ class CryTreeTableState<T extends TreeData> extends State<CryTreeTable<T>> {
       width: width,
     );
   }
-  // _checkChildren(TreeVO vo, bool v) {
-  //   vo.checked = v;
-  //   if (vo.children != null) {
-  //     vo.children.forEach((c) {
-  //       c.checked = v;
-  //       _checkChildren(c, v);
-  //     });
-  //   }
-  // }
+
+  _checkAll(bool v) {
+    widget.data.forEach((element) {
+      this._checkChildren(element, v);
+    });
+    this.checkAll = v;
+  }
+
+  _checkParent(TreeVO vo, bool v) {
+    if (v) {
+      vo.parent?.checked = v;
+    }
+  }
+
+  _checkChildren(TreeVO vo, bool v) {
+    vo.checked = v;
+    if (vo.children != null) {
+      vo.children.forEach((c) {
+        c.checked = v;
+        _checkChildren(c, v);
+      });
+    }
+  }
+}
+
+enum CryTreeTableSelectType {
+  parentCascadeTrue,
+  childrenCascade,
+}
+
+class CryTreeTableColumnData {
+  CryTreeTableColumnData(this.label, this.getData, {this.width = 200});
+
+  Function getData;
+  String label;
+  double width;
 }

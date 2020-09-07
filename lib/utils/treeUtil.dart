@@ -2,21 +2,23 @@ import 'package:flutter_admin/vo/treeVO.dart';
 
 class TreeUtil {
   static findChildren<T extends TreeData>(List<TreeVO<T>> list, TreeVO<T> treeVO) {
-    for (var v in list) {
+    for (TreeVO<T> v in list) {
       if (v.data.pid == treeVO.data.id) {
         treeVO.children.add(v);
-      }
-      if (v.children.length > 0) {
-        findChildren(v.children, treeVO);
+        v.parent = treeVO;
       }
     }
   }
 
   static findParent<T extends TreeData>(List<TreeVO<T>> list, TreeVO<T> treeVO) {
-    for (var v in list) {
+    for (TreeVO<T> v in list) {
       if (v.data.id == treeVO.data.pid) {
         v.children.add(treeVO);
+        treeVO.parent = v;
         return;
+      }
+      if (v.children.length > 0) {
+        findParent(v.children, treeVO);
       }
     }
   }

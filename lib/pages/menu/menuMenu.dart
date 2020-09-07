@@ -13,7 +13,9 @@ class MenuMenu extends StatefulWidget {
   final Function onEdit;
   final VoidCallback reloadData;
   final List<TreeVO<Menu>> treeVOList;
+
   MenuMenu({this.expand = true, this.onEdit, this.treeVOList, this.reloadData});
+
   @override
   _MenuMenuState createState() => _MenuMenuState();
 }
@@ -41,6 +43,7 @@ class _MenuMenuState extends State<MenuMenu> {
       getRowOper: (TreeVO<Menu> v, TreeVO<Menu> parent) => _getRowOper(v, parent),
       tableWidth: 1300,
       width: widget.expand ? 1300 : 400,
+      selectType: CryTreeTableSelectType.childrenCascade,
     );
     return result;
   }
