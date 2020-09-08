@@ -62,6 +62,9 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    if (StoreUtil.treeVOOpened.length != tabController.length) {
+      return Container();
+    }
     Color themeColor = CryRootScope.of(context).state.themeColor;
     TabBar tabBar = TabBar(
       onTap: (index) => _openPage(StoreUtil.treeVOOpened[index]),
@@ -77,9 +80,7 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
               InkWell(
                 child: Icon(Icons.close, size: 10),
                 onTap: () {
-                  if (StoreUtil.treeVOOpened.length > 1) {
-                    _closePage(treeVO);
-                  }
+                  _closePage(treeVO);
                 },
               ),
             ],
@@ -157,16 +158,14 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
     if (index == -1) {
       StoreUtil.treeVOOpened.add(treeVO);
     }
-    dispose();
-    Navigator.pushNamed(context, treeVO.data.url);
+    Navigator.popAndPushNamed(context, treeVO.data.url);
   }
 
   _closePage(TreeVO<Menu> treeVO) {
     int index = StoreUtil.treeVOOpened.indexWhere((note) => note.data.id == treeVO.data.id);
     StoreUtil.treeVOOpened.remove(treeVO);
     if (StoreUtil.treeVOOpened.length == 0) {
-      dispose();
-      Navigator.pushNamed(context, '/dashboard');
+      Navigator.popAndPushNamed(context, '/');
       return;
     }
     if (index == tabController.index) {
@@ -176,11 +175,5 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
     }
     tabController = TabController(vsync: this, length: StoreUtil.treeVOOpened.length);
     setState(() {});
-  }
-
-  @override
-  void dispose() async {
-    tabController.dispose();
-    super.dispose();
   }
 }
