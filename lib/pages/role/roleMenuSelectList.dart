@@ -56,7 +56,7 @@ class RoleMenuSelectListState extends State<RoleMenuSelectList> {
         ),
       ],
       getCells: (Map m) {
-        Menu menu = Menu.fromJson(m);
+        Menu menu = Menu.fromMap(m);
         return [
           DataCell(Container(width: 800, child: Text(menu.name ?? '--'))),
         ];
@@ -70,7 +70,7 @@ class RoleMenuSelectListState extends State<RoleMenuSelectList> {
 
   List<Menu> getSelectedList() {
     List<Menu> selectedList =
-        tableKey?.currentState?.getSelectedList(page)?.map<Menu>((e) => Menu.fromJson(e))?.toList() ?? [];
+        tableKey?.currentState?.getSelectedList(page)?.map<Menu>((e) => Menu.fromMap(e))?.toList() ?? [];
     return selectedList;
   }
 

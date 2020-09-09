@@ -1,65 +1,100 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/api/RoleMenuApi.dart';
-import 'package:flutter_admin/components/cryTransfer.dart';
+import 'package:flutter_admin/api/roleApi.dart';
+import 'package:flutter_admin/api/roleMenuApi.dart';
+import 'package:flutter_admin/components/cryButton.dart';
+import 'package:flutter_admin/components/cryTreeTable.dart';
 import 'package:flutter_admin/models/menu.dart';
-import 'package:flutter_admin/models/page.dart';
+import 'package:flutter_admin/models/requestBodyApi.dart';
+import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/models/roleMenu.dart';
-import 'package:flutter_admin/pages/role/roleMenuSelectList.dart';
+import 'package:flutter_admin/utils/treeUtil.dart';
 import 'package:flutter_admin/utils/utils.dart';
+import 'package:flutter_admin/vo/treeVO.dart';
 
 class RoleMenuSelect extends StatefulWidget {
-  RoleMenuSelect({Key key, this.role}) : super(key: key);
+  final bool expand;
+  final Function onEdit;
+  final VoidCallback reloadData;
+  final List<TreeVO<Menu>> treeVOList;
   final Role role;
+
+  RoleMenuSelect({
+    this.expand = true,
+    this.onEdit,
+    this.treeVOList,
+    this.reloadData,
+    @required this.role,
+  });
 
   @override
   _RoleMenuSelectState createState() => _RoleMenuSelectState();
 }
 
 class _RoleMenuSelectState extends State<RoleMenuSelect> {
-  final GlobalKey<RoleMenuSelectListState> tableKey1 = GlobalKey<RoleMenuSelectListState>();
-  final GlobalKey<RoleMenuSelectListState> tableKey2 = GlobalKey<RoleMenuSelectListState>();
-  PageModel page;
+  List<TreeVO<Menu>> data;
+  final GlobalKey<CryTreeTableState> treeTableKey = GlobalKey<CryTreeTableState>();
 
   @override
   void initState() {
     super.initState();
+    this._loadData();
   }
 
   @override
   Widget build(BuildContext context) {
-    Page a;
-    var table1 = RoleMenuSelectList(key: tableKey1, title: '未选择菜单', role: widget.role);
-    var table2 = RoleMenuSelectList(key: tableKey2, title: '已选择菜单', role: widget.role, isSelected: true);
-    var result = CryTransfer(
-      left: table1,
-      right: table2,
-      toRight: () async {
-        List<Menu> selectedList = tableKey1.currentState.getSelectedList();
-        if (selectedList.isEmpty) {
-          Utils.message('请选择【未选择菜单】');
-          return;
-        }
-        List roleMenuList = selectedList.map((e) => RoleMenu(roleId: widget.role.id, menuId: e.id).toMap()).toList();
-        await RoleMenuApi.saveBatch(roleMenuList);
-        Utils.message('保存成功');
-        tableKey1.currentState.query();
-        tableKey2.currentState.query();
-      },
-      toLeft: () async {
-        List<Menu> selectedList = tableKey2.currentState.getSelectedList();
-        if (selectedList.isEmpty) {
-          Utils.message('请选择【已选择菜单】');
-          return;
-        }
-        List roleMenuList = selectedList.map((e) => RoleMenu(roleId: widget.role.id, menuId: e.id).toMap()).toList();
-        await RoleMenuApi.removeBatch(roleMenuList);
-        Utils.message('保存成功');
-        tableKey1.currentState.query();
-        tableKey2.currentState.query();
-      },
+    List<CryTreeTableColumnData> columnData = [
+      CryTreeTableColumnData('名称', (Menu v) => v.name),
+      CryTreeTableColumnData('英文名', (Menu v) => v.nameEn),
+      CryTreeTableColumnData('URL', (Menu v) => v.url),
+      CryTreeTableColumnData('顺序号', (Menu v) => v.orderBy?.toString(), width: 80),
+      CryTreeTableColumnData('备注', (Menu v) => v.remark, width: 300)
+    ];
+    var toolbars = ButtonBar(
+      alignment: MainAxisAlignment.start,
+      children: <Widget>[
+        CryButton(
+          iconData: Icons.save,
+          label: '保存',
+          onPressed: () => save(),
+        ),
+        CryButton(
+          iconData: Icons.close,
+          label: '关闭',
+          onPressed: () => Navigator.pop(context),
+        ),
+      ],
     );
+    var result = CryTreeTable<Menu>(
+      key: treeTableKey,
+      columnData: columnData,
+      data: data,
+      onSelected: (v) => _onSelected(v),
+      toolbars: toolbars,
+      tableWidth: 1300,
+      width: widget.expand ? 1300 : 400,
+      selectType: CryTreeTableSelectType.parentCascadeTrue,
+    );
+    return Expanded(child: result);
+  }
 
-    return result;
+  save() async {
+    List<Menu> selectedList = treeTableKey.currentState.getSelectedData();
+    List roleMenuList = selectedList.map((e) => RoleMenu(roleId: widget.role.id, menuId: e.id).toMap()).toList();
+    await RoleMenuApi.saveBatch(roleMenuList);
+    Utils.message('保存成功');
+    Navigator.pop(context);
+  }
+
+  _loadData() async {
+    ResponeBodyApi responeBodyApi = await RoleApi.getMenu(RequestBodyApi(params: widget.role.toJson()));
+    var data = responeBodyApi.data;
+    List<Menu> list = List.from(data).map((e) => Menu.fromMap(e)).toList();
+    this.data = TreeUtil.toTreeVOList(list);
+    this.setState(() {});
+  }
+
+  _onSelected(TreeVO<Menu> v) {
+    setState(() {});
   }
 }

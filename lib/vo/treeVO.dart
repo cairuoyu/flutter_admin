@@ -13,6 +13,7 @@ class TreeVO<T extends TreeData> {
 
 class TreeData {
   TreeData(this.id, this.pid);
+  bool checked;
   String id;
   String pid;
 }

@@ -10,21 +10,27 @@ class TreeUtil {
     }
   }
 
-  static findParent<T extends TreeData>(List<TreeVO<T>> list, TreeVO<T> treeVO) {
+  static bool findParent<T extends TreeData>(List<TreeVO<T>> list, TreeVO<T> treeVO) {
     for (TreeVO<T> v in list) {
       if (v.data.id == treeVO.data.pid) {
         v.children.add(treeVO);
         treeVO.parent = v;
-        return;
+        return true;
       }
       if (v.children.length > 0) {
-        findParent(v.children, treeVO);
+        if (findParent(v.children, treeVO)) {
+          return true;
+        }
       }
     }
+    return false;
   }
 
   static addTreeData<T extends TreeData>(List<TreeVO<T>> list, T treeData) {
     TreeVO<T> treeVO = TreeVO<T>(data: treeData);
+    if (treeData.checked != null) {
+      treeVO.checked = treeData.checked;
+    }
     findChildren(list, treeVO);
     findParent(list, treeVO);
     list.add(treeVO);

@@ -201,8 +201,11 @@ class CryTreeTableState<T extends TreeData> extends State<CryTreeTable<T>> {
   }
 
   _checkParent(TreeVO vo, bool v) {
-    if (v) {
-      vo.parent?.checked = v;
+    if (v && vo.parent != null) {
+      vo.parent.checked = v;
+      if (vo.parent.parent != null) {
+        this._checkParent(vo.parent, v);
+      }
     }
   }
 
@@ -214,6 +217,23 @@ class CryTreeTableState<T extends TreeData> extends State<CryTreeTable<T>> {
         _checkChildren(c, v);
       });
     }
+  }
+
+  List<T> getSelectedData() {
+    List<T> result = [];
+    return this._getSelectedData(result, widget.data);
+  }
+
+  List<T> _getSelectedData(List<T> result, List<TreeVO<T>> data) {
+    data.forEach((element) {
+      if (element.checked) {
+        result.add(element.data);
+      }
+      if (element.children.length > 0) {
+        this._getSelectedData(result, element.children);
+      }
+    });
+    return result;
   }
 }
 

@@ -10,8 +10,8 @@ class StoreUtil {
 
   static loadMenuData() async {
     ResponeBodyApi responeBodyApi = await MenuApi.list(null);
-    var data = responeBodyApi.data;
-    List<Menu> list = List.from(data).map((e) => Menu.fromJson(e)).toList();
+    List data = responeBodyApi.data;
+    List<Menu> list = List.from(data).map((e) => Menu.fromMap(e)).toList();
     treeVOList = TreeUtil.toTreeVOList(list);
   }
 }

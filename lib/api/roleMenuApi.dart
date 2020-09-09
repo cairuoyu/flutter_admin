@@ -1,6 +1,9 @@
 import 'package:flutter_admin/utils/httpUtil.dart';
 
 class RoleMenuApi {
+  static save(data){
+    return HttpUtil.post('/roleMenu/save', data: data);
+  }
   static saveBatch(data){
     return HttpUtil.post('/roleMenu/saveBatch', data: data);
   }

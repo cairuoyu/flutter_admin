@@ -67,7 +67,7 @@ class _MenuDemoListState extends State<MenuDemoList> {
   _loadData() async {
     ResponeBodyApi responeBodyApi = await MenuDemoApi.list(null);
     var data = responeBodyApi.data;
-    List<Menu> list = List.from(data).map((e) => Menu.fromJson(e)).toList();
+    List<Menu> list = List.from(data).map((e) => Menu.fromMap(e)).toList();
     this.treeVOList = TreeUtil.toTreeVOList(list);
     this.setState(() {});
   }
