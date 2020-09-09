@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/components/cryRoot.dart';
+import 'package:flutter_admin/models/configuration.dart';
 import 'package:flutter_admin/pages/layout/layoutAppBar.dart';
 import 'package:flutter_admin/routes/routes.dart';
 import 'package:flutter_admin/models/menu.dart';
@@ -39,7 +40,7 @@ class _LayoutState extends State with TickerProviderStateMixin {
       return Container();
     }
 
-    Color themeColor = CryRootScope.of(context).state.themeColor;
+    Color themeColor = CryRootScope.of(context).state.configuration.themeColor;
     TabBar tabBar = TabBar(
       onTap: (index) => _openPage(treeVOOpened[index]),
       controller: tabController,
@@ -49,7 +50,7 @@ class _LayoutState extends State with TickerProviderStateMixin {
         return Tab(
           child: Row(
             children: <Widget>[
-              Text(Intl.defaultLocale == 'en' ? treeVO.data.nameEn ?? '' : treeVO.data.name ?? ''),
+              Text(Configuration.of(context).locale == 'en' ? treeVO.data.nameEn ?? '' : treeVO.data.name ?? ''),
               SizedBox(width: 3),
               InkWell(
                 child: Icon(Icons.close, size: 10),

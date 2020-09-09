@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/models/configuration.dart';
 import 'package:flutter_admin/utils/adaptiveUtil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_admin/charts/SimpleSeriesLegend.dart';
@@ -34,7 +35,7 @@ class Dashboard extends StatelessWidget {
               ? Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    _getAList(Intl.defaultLocale == 'en' ? todoList_en : todoList,
+                    _getAList(Configuration.of(context).locale == 'en' ? todoList_en : todoList,
                         flex: 3, title: S.of(context).dashToDoList),
                     SizedBox(width: 16),
                     _getAList(linkList, flex: 1, title: S.of(context).dashTopLinks),
@@ -45,7 +46,7 @@ class Dashboard extends StatelessWidget {
                   height: 850,
                   child: Column(
                     children: <Widget>[
-                      _getAList(Intl.defaultLocale == 'en' ? todoList_en : todoList,
+                      _getAList(Configuration.of(context).locale == 'en' ? todoList_en : todoList,
                           flex: 1, title: S.of(context).dashToDoList),
                       _getAList(linkList, flex: 1, title: S.of(context).dashTopLinks),
                     ],

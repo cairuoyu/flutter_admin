@@ -7,9 +7,9 @@ import 'package:flutter_admin/components/form2/crySelectDate.dart';
 import 'package:flutter_admin/components/form2/crySelect.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/data/data1.dart';
+import 'package:flutter_admin/models/configuration.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/models/userInfo.dart';
-import 'package:intl/intl.dart';
 import '../../generated/l10n.dart';
 
 class UserInfoEdit extends StatefulWidget {
@@ -54,13 +54,13 @@ class _UserInfoEditState extends State<UserInfoEdit> {
           ),
           CrySelect(
             label: S.of(context).personGender,
-            dataList: Intl.defaultLocale == 'en' ? genderList_en : genderList,
+            dataList: Configuration.of(context).locale == 'en' ? genderList_en : genderList,
             value: userInfo.gender,
             onSaved: (v) => {userInfo.gender = v},
           ),
           CrySelect(
               label: S.of(context).personDepartment,
-              dataList: Intl.defaultLocale == 'en' ? deptIdList_en : deptIdList,
+              dataList: Configuration.of(context).locale == 'en' ? deptIdList_en : deptIdList,
               value: userInfo.deptId,
               onSaved: (v) => {userInfo.deptId = v}),
           // CryInput(label: '籍贯'),

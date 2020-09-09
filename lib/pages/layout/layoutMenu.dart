@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/models/configuration.dart';
 import 'package:flutter_admin/utils/storeUtil.dart';
-import 'package:intl/intl.dart';
 
 import '../../models/menu.dart';
 import '../../utils/adaptiveUtil.dart';
@@ -54,7 +54,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
     }
     List<Widget> listTileList = data.map<Widget>((TreeVO<Menu> treeVO) {
       IconData iconData = Utils.toIconData(treeVO.data.icon);
-      String name = Intl.defaultLocale == 'en' ? treeVO.data.nameEn ?? '' : treeVO.data.name ?? '';
+      String name = Configuration.of(context).locale == 'en' ? treeVO.data.nameEn ?? '' : treeVO.data.name ?? '';
       Text title = Text(expandMenu ? name : '');
       if (treeVO.children != null && treeVO.children.length > 0) {
         return ExpansionTile(

@@ -7,6 +7,7 @@ import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/components/form2/crySelect.dart';
 import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/generated/l10n.dart';
+import 'package:flutter_admin/models/configuration.dart';
 import 'package:flutter_admin/models/orderItem.dart';
 import 'package:flutter_admin/models/page.dart';
 import 'package:flutter_admin/models/requestBodyApi.dart';
@@ -57,7 +58,7 @@ class _UserInfoListState extends State<UserInfoList> {
               width: 400,
               label: '部门',
               value: userInfo.deptId,
-              dataList: Intl.defaultLocale == 'en' ? deptIdList_en : deptIdList,
+              dataList: Configuration.of(context).locale == 'en' ? deptIdList_en : deptIdList,
               onSaved: (v) {
                 userInfo.deptId = v;
               }),
@@ -77,7 +78,7 @@ class _UserInfoListState extends State<UserInfoList> {
           label: Text(S.of(context).operating),
         ),
         DataColumn(
-          label: Container(child: Text('名称')),
+          label: Text(S.of(context).name),
           onSort: (int columnIndex, bool ascending) => _sort('name'),
         ),
         DataColumn(
@@ -123,14 +124,14 @@ class _UserInfoListState extends State<UserInfoList> {
           DataCell(Text(
             DictUtil.getDictName(
               userInfo.gender,
-              Intl.defaultLocale == 'en' ? genderList_en : genderList,
+              Configuration.of(context).locale == 'en' ? genderList_en : genderList,
             ),
           )),
           DataCell(Text(userInfo.birthday ?? '--')),
           DataCell(Text(
             DictUtil.getDictName(
               userInfo.deptId,
-              Intl.defaultLocale == 'en' ? deptIdList_en : deptIdList,
+              Configuration.of(context).locale == 'en' ? deptIdList_en : deptIdList,
               defaultValue: '--',
             ),
           )),

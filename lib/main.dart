@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
                 GlobalWidgetsLocalizations.delegate,
               ],
               supportedLocales: S.delegate.supportedLocales,
-              locale: Locale(CryRootScope.of(context).state.locale),
+              locale: Locale(CryRootScope.of(context).state.configuration.locale),
               onGenerateRoute: (settings) => Routes.onGenerateRoute(settings),
             );
           },

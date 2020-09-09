@@ -6,6 +6,7 @@ import 'package:flutter_admin/components/cryDialog.dart';
 import 'package:flutter_admin/components/form1/cryInput.dart';
 import 'package:flutter_admin/components/form1/crySelect.dart';
 import 'package:flutter_admin/data/data1.dart';
+import 'package:flutter_admin/models/configuration.dart';
 import 'package:flutter_admin/models/orderItem.dart';
 import 'package:flutter_admin/models/page.dart';
 import 'package:flutter_admin/models/person.dart';
@@ -85,7 +86,7 @@ class PersonListState extends State {
           CrySelect(
             label: S.of(context).personDepartment,
             value: formData.deptId,
-            dataList: Intl.defaultLocale == 'en' ? deptIdList_en : deptIdList,
+            dataList: Configuration.of(context).locale == 'en' ? deptIdList_en : deptIdList,
             onSaved: (v) {
               formData.deptId = v;
             },
@@ -258,9 +259,9 @@ class MyDS extends DataTableSource {
       cells: <DataCell>[
         DataCell(Text(person.name ?? '--')),
         DataCell(Text(person.nickName ?? '--')),
-        DataCell(Text(DictUtil.getDictName(person.gender, Intl.defaultLocale == 'en' ? genderList_en : genderList))),
+        DataCell(Text(DictUtil.getDictName(person.gender, Configuration.of(context).locale == 'en' ? genderList_en : genderList))),
         DataCell(Text(person.birthday ?? '--')),
-        DataCell(Text(DictUtil.getDictName(person.deptId, Intl.defaultLocale == 'en' ? deptIdList_en : deptIdList,
+        DataCell(Text(DictUtil.getDictName(person.deptId, Configuration.of(context).locale == 'en' ? deptIdList_en : deptIdList,
             defaultValue: '--'))),
         DataCell(Text(person.createTime ?? '--')),
         DataCell(Text(person.updateTime ?? '--')),

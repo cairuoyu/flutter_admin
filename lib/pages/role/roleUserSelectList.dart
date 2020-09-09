@@ -43,6 +43,29 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
 
   @override
   Widget build(BuildContext context) {
+    var buttonBar = ButtonBar(
+      children: [
+        CryButton(
+          label: '查询',
+          iconData: Icons.search,
+          padding: EdgeInsets.only(left: 20),
+          onPressed: () {
+            formKey.currentState.save();
+            this.query();
+          },
+        ),
+        CryButton(
+          label: '重置',
+          iconData: Icons.refresh,
+          padding: EdgeInsets.only(left: 20),
+          onPressed: () {
+            this.userInfo.name = null;
+            this.query();
+          },
+        ),
+      ],
+      alignment: MainAxisAlignment.start,
+    );
     var form = Form(
       key: formKey,
       child: Wrap(
@@ -56,24 +79,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
               userInfo.name = v;
             },
           ),
-          CryButton(
-            label: '查询',
-            iconData: Icons.search,
-            padding: EdgeInsets.only(left: 20),
-            onPressed: () {
-              formKey.currentState.save();
-              this.query();
-            },
-          ),
-          CryButton(
-            label: '重置',
-            iconData: Icons.refresh,
-            padding: EdgeInsets.only(left: 20),
-            onPressed: () {
-              this.userInfo.name = null;
-              this.query();
-            },
-          )
+          SizedBox(child: buttonBar, width: 250),
         ],
       ),
     );
@@ -112,8 +118,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
   }
 
   List<UserInfo> getSelectedList() {
-    List<UserInfo> selectedList =
-        tableKey?.currentState?.getSelectedList(page)?.map<UserInfo>((e) => UserInfo.fromJson(e))?.toList() ?? [];
+    List<UserInfo> selectedList = tableKey?.currentState?.getSelectedList(page)?.map<UserInfo>((e) => UserInfo.fromJson(e))?.toList() ?? [];
     return selectedList;
   }
 
