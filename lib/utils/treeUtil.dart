@@ -37,6 +37,7 @@ class TreeUtil {
   }
 
   static List<TreeVO<T>> toTreeVOList<T extends TreeData>(List<T> data) {
+    data ??= [];
     List<TreeVO<T>> result = [];
     data.forEach((element) {
       addTreeData(result, element);

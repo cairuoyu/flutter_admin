@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/models/configuration.dart';
 import 'package:flutter_admin/utils/storeUtil.dart';
+import 'package:flutter_admin/utils/treeUtil.dart';
 
 import '../../models/menu.dart';
 import '../../utils/adaptiveUtil.dart';
@@ -34,7 +35,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
         setState(() {});
       },
     );
-    List<Widget> menuBody = _getMenuListTile(StoreUtil.treeVOList);
+    List<Widget> menuBody = _getMenuListTile(TreeUtil.toTreeVOList(StoreUtil.menuTree));
     ListView menu = ListView(children: [menuHeader, ...menuBody]);
     return SizedBox(
       width: expandMenu ? 300 : 60,
@@ -68,7 +69,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
           leading: Icon(iconData),
           title: title,
           onTap: () {
-            if (widget.onClick != null) widget.onClick(treeVO);
+            if (widget.onClick != null) widget.onClick(treeVO.data);
           },
         );
       }

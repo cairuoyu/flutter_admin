@@ -3,14 +3,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/components/cryRoot.dart';
 import 'package:flutter_admin/models/configuration.dart';
+import 'package:flutter_admin/pages/common/page404.dart';
 import 'package:flutter_admin/pages/layout/layoutAppBar.dart';
 import 'package:flutter_admin/routes/routes.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/pages/layout/layoutMenu.dart';
 import 'package:flutter_admin/pages/layout/layoutSetting.dart';
 import 'package:flutter_admin/utils/storeUtil.dart';
-import 'package:flutter_admin/vo/treeVO.dart';
-import 'package:intl/intl.dart';
 
 class Layout extends StatefulWidget {
   @override
@@ -19,7 +18,7 @@ class Layout extends StatefulWidget {
 
 class _LayoutState extends State with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
-  List<TreeVO<Menu>> treeVOOpened = [];
+  List<Menu> menuOpened = [];
   TabController tabController;
   Container content = Container();
   int length = 0;
@@ -33,7 +32,7 @@ class _LayoutState extends State with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (StoreUtil.treeVOList == null) {
+    if (StoreUtil.menuTree == null) {
       StoreUtil.loadMenuData().then((res) {
         setState(() {});
       });
@@ -42,19 +41,19 @@ class _LayoutState extends State with TickerProviderStateMixin {
 
     Color themeColor = CryRootScope.of(context).state.configuration.themeColor;
     TabBar tabBar = TabBar(
-      onTap: (index) => _openPage(treeVOOpened[index]),
+      onTap: (index) => _openPage(menuOpened[index]),
       controller: tabController,
       isScrollable: true,
       indicator: const UnderlineTabIndicator(),
-      tabs: treeVOOpened.map<Tab>((TreeVO<Menu> treeVO) {
+      tabs: menuOpened.map<Tab>((Menu menu) {
         return Tab(
           child: Row(
             children: <Widget>[
-              Text(Configuration.of(context).locale == 'en' ? treeVO.data.nameEn ?? '' : treeVO.data.name ?? ''),
+              Text(Configuration.of(context).locale == 'en' ? menu.nameEn ?? '' : menu.name ?? ''),
               SizedBox(width: 3),
               InkWell(
                 child: Icon(Icons.close, size: 10),
-                onTap: () => _closePage(treeVO),
+                onTap: () => _closePage(menu),
               ),
             ],
           ),
@@ -122,38 +121,36 @@ class _LayoutState extends State with TickerProviderStateMixin {
     );
   }
 
-  _closePage(treeVO) {
-    treeVOOpened.remove(treeVO);
+  _closePage(menu) {
+    menuOpened.remove(menu);
     --length;
     tabController = TabController(vsync: this, length: length);
     var openPage;
     if (length > 0) {
       tabController.index = length - 1;
-      openPage = treeVOOpened[0];
+      openPage = menuOpened[0];
     }
     _openPage(openPage);
     setState(() {});
   }
 
-  _openPage(TreeVO<Menu> treeVO) {
-    if (treeVO == null) {
+  _openPage(Menu menu) {
+    if (menu == null) {
       content = Container();
       return;
     }
-    Widget body = treeVO.data.url != null && layoutRoutesData[treeVO.data.url] != null
-        ? layoutRoutesData[treeVO.data.url]
-        : Center(child: Text('404'));
+    Widget body = menu.url != null && layoutRoutesData[menu.url] != null ? layoutRoutesData[menu.url] : Page404();
     content = Container(
       child: Expanded(
         child: body,
       ),
     );
 
-    int index = treeVOOpened.indexWhere((note) => note.data.id == treeVO.data.id);
+    int index = menuOpened.indexWhere((note) => note.id == menu.id);
     if (index > -1) {
       tabController.index = index;
     } else {
-      treeVOOpened.add(treeVO);
+      menuOpened.add(menu);
       tabController = TabController(vsync: this, length: ++length);
       tabController.index = length - 1;
     }

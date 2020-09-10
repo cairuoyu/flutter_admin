@@ -7,13 +7,13 @@ import 'package:flutter_admin/pages/layout/layoutAppBar.dart';
 import 'package:flutter_admin/pages/layout/layoutMenu.dart';
 import 'package:flutter_admin/pages/layout/layoutSetting.dart';
 import 'package:flutter_admin/utils/storeUtil.dart';
-import 'package:flutter_admin/vo/treeVO.dart';
-import 'package:intl/intl.dart';
 
 class Layout extends StatefulWidget {
   final String path;
   final Widget content;
+
   Layout({this.content, this.path});
+
   @override
   _LayoutState createState() => _LayoutState();
 }
@@ -32,56 +32,52 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
 
   handleRoute() {
     String path = widget.path;
-    int index = StoreUtil.treeVOOpened.indexWhere((v) => v.data.url == path);
-    if (index > -1) {
-    } else if (StoreUtil.treeVOList == null) {
+    int index = StoreUtil.menuOpened.indexWhere((v) => v.url == path);
+    if (StoreUtil.menuTree == null) {
       StoreUtil.loadMenuData().then((res) {
         setState(() {
           handleRoute();
         });
       });
-    } else if (path == '/') {
-      StoreUtil.treeVOOpened = [];
-      if (StoreUtil.treeVOList.length == 0) {
-        this.content = Page401();
-      }
-    } else {
-      TreeVO<Menu> treeVO = StoreUtil.treeVOList.firstWhere((v) {
-        return v.data.url == path;
-      }, orElse: () => null);
-      if (treeVO == null) {
-        StoreUtil.treeVOOpened = [];
+    } else if (index < 0) {
+      Menu menu = StoreUtil.menuList.firstWhere((v) {
+        return v.url == path;
+      }, orElse: () {
+        return null;
+      });
+      if (menu == null) {
+        StoreUtil.menuOpened = [StoreUtil.menu401];
         this.content = Page401();
       } else {
-        StoreUtil.treeVOOpened.add(treeVO);
+        StoreUtil.menuOpened.add(menu);
       }
     }
-    int length = StoreUtil.treeVOOpened.length;
+    int length = StoreUtil.menuOpened.length;
     tabController = TabController(vsync: this, length: length);
     tabController.index = index > -1 ? index : (length > 0 ? length - 1 : 0);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (StoreUtil.treeVOOpened.length != tabController.length) {
+    if (StoreUtil.menuOpened.length != tabController.length) {
       return Container();
     }
     Color themeColor = CryRootScope.of(context).state.configuration.themeColor;
     TabBar tabBar = TabBar(
-      onTap: (index) => _openPage(StoreUtil.treeVOOpened[index]),
+      onTap: (index) => _openPage(StoreUtil.menuOpened[index]),
       controller: tabController,
       isScrollable: true,
       indicator: const UnderlineTabIndicator(),
-      tabs: StoreUtil.treeVOOpened.map<Tab>((TreeVO<Menu> treeVO) {
+      tabs: StoreUtil.menuOpened.map<Tab>((Menu menu) {
         return Tab(
           child: Row(
             children: <Widget>[
-              Text(Configuration.of(context).locale == 'en' ? treeVO.data.nameEn ?? '' : treeVO.data.name ?? ''),
+              Text(Configuration.of(context).locale == 'en' ? menu.nameEn ?? '' : menu.name ?? ''),
               SizedBox(width: 3),
               InkWell(
                 child: Icon(Icons.close, size: 10),
                 onTap: () {
-                  _closePage(treeVO);
+                  _closePage(menu);
                 },
               ),
             ],
@@ -154,27 +150,23 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
     );
   }
 
-  _openPage(TreeVO<Menu> treeVO) {
-    int index = StoreUtil.treeVOOpened.indexWhere((note) => note.data.id == treeVO.data.id);
-    if (index == -1) {
-      StoreUtil.treeVOOpened.add(treeVO);
-    }
-    Navigator.popAndPushNamed(context, treeVO.data.url);
+  _openPage(Menu menu) {
+    Navigator.popAndPushNamed(context, menu.url);
   }
 
-  _closePage(TreeVO<Menu> treeVO) {
-    int index = StoreUtil.treeVOOpened.indexWhere((note) => note.data.id == treeVO.data.id);
-    StoreUtil.treeVOOpened.remove(treeVO);
-    if (StoreUtil.treeVOOpened.length == 0) {
+  _closePage(Menu menu) {
+    int index = StoreUtil.menuOpened.indexWhere((note) => note.id == menu.id);
+    StoreUtil.menuOpened.remove(menu);
+    if (StoreUtil.menuOpened.length == 0) {
       Navigator.popAndPushNamed(context, '/');
       return;
     }
     if (index == tabController.index) {
-      TreeVO<Menu> openPage = StoreUtil.treeVOOpened[0];
+      Menu openPage = StoreUtil.menuOpened[0];
       _openPage(openPage);
       return;
     }
-    tabController = TabController(vsync: this, length: StoreUtil.treeVOOpened.length);
+    tabController = TabController(vsync: this, length: StoreUtil.menuOpened.length);
     setState(() {});
   }
 }

@@ -45,6 +45,15 @@ class LayoutAppBar extends AppBar {
               ),
             ),
             Tooltip(
+              message: '我的信息',
+              child: IconButton(
+                icon: Icon(Icons.person),
+                onPressed: () {
+                  Navigator.popAndPushNamed(context, '/userInfoMine');
+                },
+              ),
+            ),
+            Tooltip(
               message: 'Logout',
               child: IconButton(
                 icon: Icon(Icons.exit_to_app),

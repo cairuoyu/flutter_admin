@@ -18,8 +18,7 @@ class Utils {
 
   static logout() {
     LocalStorageUtil.set(Constant.KEY_TOKEN, null);
-    StoreUtil.treeVOList = null;
-    StoreUtil.treeVOOpened = [];
+    StoreUtil.resetMenu();
   }
 
   static launchURL(url) async {
