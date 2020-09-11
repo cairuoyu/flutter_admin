@@ -27,13 +27,16 @@ class CrySelectDate extends CryFormField {
                 }
               },
               onTap: () async {
+                DateTime valueDt = DateTime.parse(value);
                 final DateTime picked = await showDatePicker(
                   context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(2015, 8),
-                  lastDate: DateTime(2101),
+                  initialDate: valueDt,
+                  firstDate: DateTime(1900, 1),
+                  lastDate: DateTime(2021, 12),
                 );
-                value = DateFormat("yyyy-MM-dd").format(picked);
+                if (picked != null) {
+                  value = DateFormat("yyyy-MM-dd").format(picked);
+                }
                 state.didChange();
               },
               onSaved: onSaved,
