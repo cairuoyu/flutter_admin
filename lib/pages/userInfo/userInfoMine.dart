@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/userInfoApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
+import 'package:flutter_admin/components/cryImageUpload.dart';
 import 'package:flutter_admin/components/form2/crySelectDate.dart';
 import 'package:flutter_admin/components/form2/crySelect.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
@@ -38,6 +39,16 @@ class _UserInfoMineState extends State<UserInfoMine> {
       key: formKey,
       child: Wrap(
         children: <Widget>[
+          SizedBox(
+            child: CryImageUpload(
+              size: 200,
+              fileList: [this.userInfo?.avatarUrl],
+              onUpload: (v) {
+                this.userInfo.avatarUrl = v;
+              },
+            ),
+          ),
+
           CryInput(
             label: S.of(context).personName,
             value: userInfo.name,
@@ -81,7 +92,7 @@ class _UserInfoMineState extends State<UserInfoMine> {
               return;
             }
             form.save();
-            UserInfoApi.saveOrUpdate(userInfo.toJson()).then((ResponeBodyApi res) {
+            UserInfoApi.saveOrUpdate(this.userInfo.toJson()).then((ResponeBodyApi res) {
               if (!res.success) {
                 return;
               }
