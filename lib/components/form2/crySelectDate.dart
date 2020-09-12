@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:quiver/strings.dart';
 
 import 'cryFormField.dart';
 
@@ -27,7 +28,7 @@ class CrySelectDate extends CryFormField {
                 }
               },
               onTap: () async {
-                DateTime valueDt = DateTime.parse(value);
+                DateTime valueDt = isBlank(value) ? DateTime.now() : DateTime.parse(value);
                 final DateTime picked = await showDatePicker(
                   context: context,
                   initialDate: valueDt,

@@ -41,7 +41,8 @@ class _UserInfoMineState extends State<UserInfoMine> {
         children: <Widget>[
           SizedBox(
             child: CryImageUpload(
-              size: 200,
+              updateAreaSize: 200,
+              updateAreaDefault: Icon(Icons.person, size: 200),
               fileList: [this.userInfo?.avatarUrl],
               onUpload: (v) {
                 this.userInfo.avatarUrl = v;
