@@ -11,6 +11,7 @@ import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/models/configuration.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/models/userInfo.dart';
+import 'package:flutter_admin/utils/adaptiveUtil.dart';
 import '../../generated/l10n.dart';
 
 class UserInfoMine extends StatefulWidget {
@@ -35,53 +36,49 @@ class _UserInfoMineState extends State<UserInfoMine> {
 
   @override
   Widget build(BuildContext context) {
-    var form = Form(
-      key: formKey,
-      child: Wrap(
-        children: <Widget>[
-          SizedBox(
-            child: CryImageUpload(
-              updateAreaSize: 200,
-              updateAreaDefault: Icon(Icons.person, size: 200),
-              fileList: [this.userInfo?.avatarUrl],
-              onUpload: (v) {
-                this.userInfo.avatarUrl = v;
-              },
-            ),
-          ),
-
-          CryInput(
-            label: S.of(context).personName,
-            value: userInfo.name,
-            onSaved: (v) => {userInfo.name = v},
-            validator: (v) => v.isEmpty ? '必填' : null,
-          ),
-          CryInput(
-            label: S.of(context).personNickname,
-            value: userInfo.nickName,
-            onSaved: (v) => {userInfo.nickName = v},
-          ),
-          CrySelectDate(
-            label: S.of(context).personBirthday,
-            context: context,
-            value: userInfo.birthday,
-            onSaved: (v) => {userInfo.birthday = v},
-          ),
-          CrySelect(
-            label: S.of(context).personGender,
-            dataList: Configuration.of(context).locale == 'en' ? genderList_en : genderList,
-            value: userInfo.gender,
-            onSaved: (v) => {userInfo.gender = v},
-          ),
-          CrySelect(
-              label: S.of(context).personDepartment,
-              dataList: Configuration.of(context).locale == 'en' ? deptIdList_en : deptIdList,
-              value: userInfo.deptId,
-              onSaved: (v) => {userInfo.deptId = v}),
-          // CryInput(label: '籍贯'),
-        ],
+    Widget avatar = SizedBox(
+      child: CryImageUpload(
+        updateAreaSize: 200,
+        updateAreaDefault: Icon(Icons.person, size: 200),
+        fileList: [this.userInfo?.avatarUrl],
+        onUpload: (v) {
+          this.userInfo.avatarUrl = v;
+        },
       ),
     );
+    List<Widget> propList = <Widget>[
+      CryInput(
+        label: S.of(context).personName,
+        value: userInfo.name,
+        onSaved: (v) => {userInfo.name = v},
+        validator: (v) => v.isEmpty ? '必填' : null,
+      ),
+      CryInput(
+        label: S.of(context).personNickname,
+        value: userInfo.nickName,
+        onSaved: (v) => {userInfo.nickName = v},
+      ),
+      CrySelectDate(
+        label: S.of(context).personBirthday,
+        context: context,
+        value: userInfo.birthday,
+        onSaved: (v) => {userInfo.birthday = v},
+      ),
+      CrySelect(
+        label: S.of(context).personGender,
+        dataList: Configuration.of(context).locale == 'en' ? genderList_en : genderList,
+        value: userInfo.gender,
+        onSaved: (v) => {userInfo.gender = v},
+      ),
+      CrySelect(
+        label: S.of(context).personDepartment,
+        dataList: Configuration.of(context).locale == 'en' ? deptIdList_en : deptIdList,
+        value: userInfo.deptId,
+        onSaved: (v) => {userInfo.deptId = v},
+      ),
+//       CryInput(label: '籍贯'),
+    ];
+    var form = _getForm(avatar, propList);
     var buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -112,5 +109,50 @@ class _UserInfoMineState extends State<UserInfoMine> {
       ],
     );
     return result;
+  }
+
+  _getForm(Widget avatar, List<Widget> propList) {
+    var form;
+    if (isDisplayDesktop(context)) {
+      propList = propList.map((e) => Expanded(child: e,)).toList();
+      form = Form(
+        key: formKey,
+        child: Row(
+          children: [
+            avatar,
+            Expanded(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      propList[0],
+                      propList[1],
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      propList[2],
+                      propList[3],
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      propList[4],
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      form = Form(
+        key: formKey,
+        child: Column(children: propList),
+//        child: Column(children: [avatar] + propList.map((e) => Expanded(child: e,)).toList()),
+      );
+    }
+    return form;
   }
 }
