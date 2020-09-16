@@ -15,7 +15,6 @@ import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/models/userInfo.dart';
 import 'package:flutter_admin/pages/userInfo/userInfoEdit.dart';
 import 'package:flutter_admin/utils/dictUtil.dart';
-import 'package:intl/intl.dart';
 
 class UserInfoList extends StatefulWidget {
   UserInfoList({Key key}) : super(key: key);

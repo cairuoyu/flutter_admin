@@ -13,7 +13,6 @@ import 'package:flutter_admin/models/person.dart';
 import 'package:flutter_admin/models/requestBodyApi.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/utils/dictUtil.dart';
-import 'package:intl/intl.dart';
 import '../../generated/l10n.dart';
 import 'personEdit.dart';
 

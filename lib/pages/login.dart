@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
@@ -51,10 +52,12 @@ class _LoginState extends State<Login> {
             height: 20.0,
           ),
           _buildLoginForm(),
-          Column(children: [
-            Text('管理员：admin/admin'),
-            Text('注册其它用户可体验菜单权限'),
-          ],)
+          Column(
+            children: [
+              Text('管理员：admin/admin'),
+              Text('注册其它用户可体验菜单权限'),
+            ],
+          )
         ],
       ),
     );
@@ -193,13 +196,17 @@ class _LoginState extends State<Login> {
       return;
     }
     form.save();
+    BotToast.showLoading();
     UserApi.login(user.toJson()).then((ResponeBodyApi responeBodyApi) async {
+      BotToast.closeAllLoading();
       if (!responeBodyApi.success) {
         return;
       }
       LocalStorageUtil.set(Constant.KEY_TOKEN, responeBodyApi.data);
       await StoreUtil.loadMenuData();
       Navigator.pushNamed(context, '/');
+    }).catchError((e) {
+      BotToast.closeAllLoading();
     });
   }
 }

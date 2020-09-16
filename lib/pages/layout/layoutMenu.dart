@@ -18,16 +18,16 @@ class LayoutMenu extends StatefulWidget {
 }
 
 class _LayoutMenuState extends State<LayoutMenu> {
-  bool expandMenu = true;
+  bool expandMenu;
 
   @override
   void initState() {
     super.initState();
-    this.expandMenu = isDisplayDesktopInit();
   }
 
   @override
   Widget build(BuildContext context) {
+    this.expandMenu??=isDisplayDesktop(context);
     ListTile menuHeader = ListTile(
       title: Icon(Icons.menu),
       onTap: () {

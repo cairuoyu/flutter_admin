@@ -5,7 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_admin/charts/SimpleSeriesLegend.dart';
 import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/vo/listTileVO.dart';
-import 'package:intl/intl.dart';
 import '../../generated/l10n.dart';
 
 class Dashboard extends StatelessWidget {

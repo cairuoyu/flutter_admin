@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/roleApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
+import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/models/role.dart';
 
 class RoleEdit extends StatefulWidget {
@@ -48,8 +49,10 @@ class _RoleEditState extends State<RoleEdit> {
                     return;
                   }
                   form.save();
-                  await RoleApi.saveOrUpdate(_role);
-                  Navigator.pop(context, true);
+                  ResponeBodyApi responeBodyApi = await RoleApi.saveOrUpdate(_role);
+                  if (responeBodyApi.success) {
+                    Navigator.pop(context, true);
+                  }
                 },
               ),
               CryButton(
