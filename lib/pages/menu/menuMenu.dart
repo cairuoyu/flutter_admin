@@ -9,12 +9,17 @@ import 'package:flutter_admin/utils/treeUtil.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
 
 class MenuMenu extends StatefulWidget {
-  final bool expand;
+  final double width;
   final Function onEdit;
   final VoidCallback reloadData;
   final List<TreeVO<Menu>> treeVOList;
 
-  MenuMenu({this.expand = true, this.onEdit, this.treeVOList, this.reloadData});
+  MenuMenu({
+    this.width,
+    this.onEdit,
+    this.treeVOList,
+    this.reloadData,
+  });
 
   @override
   _MenuMenuState createState() => _MenuMenuState();
@@ -42,7 +47,7 @@ class _MenuMenuState extends State<MenuMenu> {
       onSelected: (v) => _onSelected(v),
       getRowOper: (TreeVO<Menu> v, TreeVO<Menu> parent) => _getRowOper(v, parent),
       tableWidth: 1300,
-      width: widget.expand ? 1300 : 400,
+      width: widget.width,
       selectType: CryTreeTableSelectType.childrenCascade,
     );
     return result;

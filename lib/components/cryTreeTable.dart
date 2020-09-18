@@ -18,7 +18,7 @@ class CryTreeTable<T extends TreeData> extends StatefulWidget {
     this.toolbars,
     this.getRowOper,
     this.onSelected,
-    this.width = 1000,
+    this.width,
     this.tableWidth = 1000,
     this.selectType,
   }) : super(key: key);
@@ -52,13 +52,18 @@ class CryTreeTableState<T extends TreeData> extends State<CryTreeTable<T>> {
       ),
     );
 
-    return Container(
-      child: ListView(
-        children: [s],
-      ),
-      width: widget.width,
-      decoration: _getBoxDecoration(),
+    var result = LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return Container(
+          child: ListView(
+            children: [s],
+          ),
+          width: widget.width ?? constraints.maxWidth,
+          decoration: _getBoxDecoration(),
+        );
+      },
     );
+    return result;
   }
 
   _getToolbars() {
@@ -178,7 +183,11 @@ class CryTreeTableState<T extends TreeData> extends State<CryTreeTable<T>> {
       boxShadow: [
         BoxShadow(color: Colors.black26, offset: Offset(2.0, 2.0), blurRadius: 4.0),
       ],
-      color: header ? Colors.white60 : odd ? Colors.white : Colors.white38,
+      color: header
+          ? Colors.white60
+          : odd
+              ? Colors.white
+              : Colors.white38,
       border: Border(bottom: BorderSide(color: Colors.black12)),
     );
     return bd;

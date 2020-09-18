@@ -46,7 +46,7 @@ class _MenuDemoListState extends State<MenuDemoList> {
       return menuForm;
     }
     MenuMenu menuMenu = MenuMenu(
-      expand: !isEdit,
+      width: isEdit ? 400 : null,
       onEdit: (v) => _onEdit(v),
       reloadData: () {
         setState(() {

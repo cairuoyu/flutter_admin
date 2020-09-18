@@ -13,14 +13,12 @@ import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_admin/vo/treeVO.dart';
 
 class RoleMenuSelect extends StatefulWidget {
-  final bool expand;
   final Function onEdit;
   final VoidCallback reloadData;
   final List<TreeVO<Menu>> treeVOList;
   final Role role;
 
   RoleMenuSelect({
-    this.expand = true,
     this.onEdit,
     this.treeVOList,
     this.reloadData,
@@ -72,7 +70,6 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
       onSelected: (v) => _onSelected(v),
       toolbars: toolbars,
       tableWidth: 1300,
-      width: widget.expand ? 1300 : 400,
       selectType: CryTreeTableSelectType.parentCascadeTrue,
     );
     return Expanded(child: result);
