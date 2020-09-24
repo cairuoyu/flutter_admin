@@ -97,13 +97,22 @@ class _UserInfoEditState extends State<UserInfoEdit> {
         )
       ],
     );
-    var result = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        form,
-        buttonBar,
-      ],
+    var result = Scaffold(
+      appBar: AppBar(
+        title: Text(widget.userInfo == null ? S.of(context).increase : S.of(context).modify),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [form],
+        ),
+      ),
+      bottomNavigationBar: buttonBar,
     );
-    return result;
+    return SizedBox(
+      width: 650,
+      height: 580,
+      child: result,
+    );
+    // return result;
   }
 }

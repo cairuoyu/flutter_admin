@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/userInfoApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/cryDataTable.dart';
-import 'package:flutter_admin/components/cryDialog.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/components/form2/crySelect.dart';
 import 'package:flutter_admin/data/data1.dart';
@@ -168,13 +167,12 @@ class _UserInfoListState extends State<UserInfoList> {
   }
 
   _edit(UserInfo userInfo) {
-    cryDialog(
-      width: 650,
-      height: 580,
+    showDialog(
       context: context,
-      title: userInfo == null ? S.of(context).increase : S.of(context).modify,
-      body: UserInfoEdit(
-        userInfo: userInfo,
+      builder: (BuildContext context) => Dialog(
+        child: UserInfoEdit(
+          userInfo: userInfo,
+        ),
       ),
     ).then((v) {
       if (v != null) {

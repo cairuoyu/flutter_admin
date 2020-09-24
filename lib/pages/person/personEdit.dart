@@ -9,6 +9,7 @@ import 'package:flutter_admin/components/form1/crySelectDate.dart';
 import 'package:flutter_admin/data/data1.dart';
 import 'package:flutter_admin/models/configuration.dart';
 import 'package:flutter_admin/models/person.dart';
+import 'package:flutter_admin/utils/adaptiveUtil.dart';
 import '../../generated/l10n.dart';
 
 class PersonEdit extends StatefulWidget {
@@ -107,18 +108,24 @@ class PersonEditState extends State<PersonEdit> {
         )
       ],
     );
-    DecoratedBox footer = DecoratedBox(
-      decoration: BoxDecoration(color: Colors.white),
-      child: buttonBar,
+    var result = Scaffold(
+      appBar: AppBar(
+        title: Text(widget.person == null ? S.of(context).increase : S.of(context).modify),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 20),
+            form,
+          ],
+        ),
+      ),
+      bottomNavigationBar: buttonBar,
     );
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        SizedBox(height: 20),
-        form,
-        SizedBox(height: 20),
-        footer,
-      ],
+    return SizedBox(
+      width: 650,
+      height: isDisplayDesktop(context) ? 350 : 500,
+      child: result,
     );
   }
 }

@@ -12,7 +12,6 @@ import 'package:flutter_admin/models/page.dart';
 import 'package:flutter_admin/models/person.dart';
 import 'package:flutter_admin/models/requestBodyApi.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
-import 'package:flutter_admin/utils/adaptiveUtil.dart';
 import 'package:flutter_admin/utils/dictUtil.dart';
 import '../../generated/l10n.dart';
 import 'personEdit.dart';
@@ -44,12 +43,13 @@ class PersonListState extends State {
   }
 
   _edit({Person person}) {
-    cryDialog(
-      width: 650,
-      height: isDisplayDesktop(context) ? 350 : 500,
+    showDialog(
       context: context,
-      title: person == null ? S.of(context).increase : S.of(context).modify,
-      body: PersonEdit(person: person),
+      builder: (BuildContext context) => Dialog(
+        child: PersonEdit(
+          person: person,
+        ),
+      ),
     ).then((v) {
       if (v != null) {
         _query();

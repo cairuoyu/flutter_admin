@@ -125,11 +125,12 @@ class _RoleListState extends State<RoleList> {
   }
 
   _selectMenu(Role role) {
-    cryDialog(
+    showDialog(
       context: context,
-      title: '关联菜单',
-      body: RoleMenuSelect(
-        role: role,
+      builder: (BuildContext context) => Dialog(
+        child: RoleMenuSelect(
+          role: role,
+        ),
       ),
     ).then((v) {
       if (v != null) {
@@ -139,11 +140,12 @@ class _RoleListState extends State<RoleList> {
   }
 
   _selectUser(Role role) {
-    cryDialog(
+    showDialog(
       context: context,
-      title: '关联人员',
-      body: RoleUserSelect(
-        role: role,
+      builder: (BuildContext context) => Dialog(
+        child: RoleUserSelect(
+          role: role,
+        ),
       ),
     ).then((v) {
       if (v != null) {
@@ -153,13 +155,12 @@ class _RoleListState extends State<RoleList> {
   }
 
   _edit(Role role) {
-    cryDialog(
-      width: 500,
-      height: 220,
+    showDialog(
       context: context,
-      title: role == null ? S.of(context).increase : S.of(context).modify,
-      body: RoleEdit(
-        role: role,
+      builder: (BuildContext context) => Dialog(
+        child: RoleEdit(
+          role: role,
+        ),
       ),
     ).then((v) {
       if (v != null) {

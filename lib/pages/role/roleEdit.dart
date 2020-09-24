@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/roleApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/models/role.dart';
 
@@ -24,6 +25,33 @@ class _RoleEditState extends State<RoleEdit> {
 
   @override
   Widget build(BuildContext context) {
+    var buttonBar = ButtonBar(
+      alignment: MainAxisAlignment.center,
+      children: [
+        CryButton(
+          iconData: Icons.save,
+          label: '保存',
+          onPressed: () async {
+            var form = formKey.currentState;
+            if (!form.validate()) {
+              return;
+            }
+            form.save();
+            ResponeBodyApi responeBodyApi = await RoleApi.saveOrUpdate(_role);
+            if (responeBodyApi.success) {
+              Navigator.pop(context, true);
+            }
+          },
+        ),
+        CryButton(
+          iconData: Icons.cancel,
+          label: '取消',
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ],
+    );
     var form = Form(
       key: formKey,
       child: Column(
@@ -38,36 +66,24 @@ class _RoleEditState extends State<RoleEdit> {
               return v.isEmpty ? '请填写名称' : null;
             },
           ),
-          ButtonBar(
-            alignment: MainAxisAlignment.center,
-            children: [
-              CryButton(
-                iconData: Icons.save,
-                label: '保存',
-                onPressed: () async {
-                  var form = formKey.currentState;
-                  if (!form.validate()) {
-                    return;
-                  }
-                  form.save();
-                  ResponeBodyApi responeBodyApi = await RoleApi.saveOrUpdate(_role);
-                  if (responeBodyApi.success) {
-                    Navigator.pop(context, true);
-                  }
-                },
-              ),
-              CryButton(
-                iconData: Icons.cancel,
-                label: '取消',
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
         ],
       ),
     );
-    return form;
+    var result = Scaffold(
+      appBar: AppBar(
+        title: Text(widget.role == null ? S.of(context).increase : S.of(context).modify),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [form],
+        ),
+      ),
+      bottomNavigationBar: buttonBar,
+    );
+    return SizedBox(
+      width: 500,
+      height: 220,
+      child: result,
+    );
   }
 }
