@@ -39,25 +39,20 @@ class CryDataTableState extends State<CryDataTable> {
     PageModel page = widget.page ?? PageModel();
     _ds._page = page;
     _ds.reload();
-    var result = ListView(
-      padding: const EdgeInsets.all(10.0),
-      children: <Widget>[
-        PaginatedDataTable(
-          header: Text(widget.title),
-          rowsPerPage: page.size,
-          availableRowsPerPage: widget.availableRowsPerPage ?? [5, 10, 20, 50],
-          onPageChanged: (firstRowIndex) {
-            int current = (firstRowIndex / page.size + 1) as int;
-            return widget.onPageChanged(page.size, current);
-          },
-          onRowsPerPageChanged: (int value) {
-            return widget.onPageChanged(value, 1);
-          },
-          columns: widget.columns ?? [DataColumn(label: Text(''))],
-          source: _ds,
-          showCheckboxColumn: true,
-        )
-      ],
+    var result = PaginatedDataTable(
+      header: Text(widget.title),
+      rowsPerPage: page.size,
+      availableRowsPerPage: widget.availableRowsPerPage ?? [5, 10, 20, 50],
+      onPageChanged: (firstRowIndex) {
+        int current = (firstRowIndex / page.size + 1) as int;
+        return widget.onPageChanged(page.size, current);
+      },
+      onRowsPerPageChanged: (int value) {
+        return widget.onPageChanged(value, 1);
+      },
+      columns: widget.columns ?? [DataColumn(label: Text(''))],
+      source: _ds,
+      showCheckboxColumn: true,
     );
     return result;
   }

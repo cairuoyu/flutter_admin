@@ -117,8 +117,11 @@ class _MenuFormState extends State<MenuForm> {
         )
       ],
     );
-    return Expanded(
-      child: form,
+    var result = Expanded(
+      child: SingleChildScrollView(
+        child: form,
+      ),
     );
+    return result;
   }
 }

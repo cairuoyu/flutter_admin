@@ -102,7 +102,6 @@ class _UserInfoEditState extends State<UserInfoEdit> {
       children: <Widget>[
         form,
         buttonBar,
-        SizedBox(height: 20),
       ],
     );
     return result;

@@ -94,7 +94,7 @@ class _RoleListState extends State<RoleList> {
         CryButton(
           label: '增加',
           onPressed: () {
-            _add();
+            _edit(null);
           },
         ),
         CryButton(
@@ -152,20 +152,10 @@ class _RoleListState extends State<RoleList> {
     });
   }
 
-  _add() {
-    cryDialog(
-      context: context,
-      title: S.of(context).increase,
-      body: RoleEdit(),
-    ).then((v) {
-      if (v != null) {
-        _query();
-      }
-    });
-  }
-
   _edit(Role role) {
     cryDialog(
+      width: 500,
+      height: 220,
       context: context,
       title: role == null ? S.of(context).increase : S.of(context).modify,
       body: RoleEdit(

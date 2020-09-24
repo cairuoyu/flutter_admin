@@ -7,7 +7,6 @@ class CryTreeTable<T extends TreeData> extends StatefulWidget {
   final Widget toolbars;
   final Function getRowOper;
   final Function onSelected;
-  final double width;
   final double tableWidth;
   final CryTreeTableSelectType selectType;
 
@@ -18,7 +17,6 @@ class CryTreeTable<T extends TreeData> extends StatefulWidget {
     this.toolbars,
     this.getRowOper,
     this.onSelected,
-    this.width,
     this.tableWidth = 1000,
     this.selectType,
   }) : super(key: key);
@@ -44,7 +42,7 @@ class CryTreeTableState<T extends TreeData> extends State<CryTreeTable<T>> {
         _getTableBody(),
       ],
     );
-    var s = SingleChildScrollView(
+    var result = SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Container(
         width: widget.tableWidth,
@@ -52,17 +50,6 @@ class CryTreeTableState<T extends TreeData> extends State<CryTreeTable<T>> {
       ),
     );
 
-    var result = LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        return Container(
-          child: ListView(
-            children: [s],
-          ),
-          width: widget.width ?? constraints.maxWidth,
-          decoration: _getBoxDecoration(),
-        );
-      },
-    );
     return result;
   }
 

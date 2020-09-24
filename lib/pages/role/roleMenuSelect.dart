@@ -72,7 +72,7 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
       tableWidth: 1300,
       selectType: CryTreeTableSelectType.parentCascadeTrue,
     );
-    return Expanded(child: result);
+    return result;
   }
 
   save() async {

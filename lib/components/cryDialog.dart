@@ -60,19 +60,25 @@ cryDialog({
   AppBar header = AppBar(
     title: Text(title),
   );
+  var result = Container(
+      width: width ?? double.infinity,
+      height: height ?? double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          header,
+          Expanded(
+            child: SingleChildScrollView(
+              child: body,
+            ),
+          ),
+        ],
+      ));
   return showDialog(
     context: context,
     builder: (BuildContext context) => Dialog(
-      child: Container(
-        width: width ?? double.infinity,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            header,
-            body,
-          ],
-        ),
-      ),
+      child: result,
     ),
   );
 }

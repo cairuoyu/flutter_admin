@@ -47,10 +47,9 @@ class _MenuMenuState extends State<MenuMenu> {
       onSelected: (v) => _onSelected(v),
       getRowOper: (TreeVO<Menu> v, TreeVO<Menu> parent) => _getRowOper(v, parent),
       tableWidth: 1300,
-      width: widget.width,
       selectType: CryTreeTableSelectType.childrenCascade,
     );
-    return result;
+    return SizedBox(width: widget.width ?? double.infinity, child: result);
   }
 
   _getToolbars() {

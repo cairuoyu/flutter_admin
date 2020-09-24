@@ -39,6 +39,7 @@ class _RoleEditState extends State<RoleEdit> {
             },
           ),
           ButtonBar(
+            alignment: MainAxisAlignment.center,
             children: [
               CryButton(
                 iconData: Icons.save,

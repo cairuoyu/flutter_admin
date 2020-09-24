@@ -94,7 +94,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
       },
       columns: [
         DataColumn(
-          label: Container(child: Text('名称'), width: 100),
+          label: Container(child: Text('名称')),
           onSort: (int columnIndex, bool ascending) => _sort('name'),
         ),
       ],
@@ -110,7 +110,11 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           form,
-          Expanded(child: table),
+          Row(children: [
+            Expanded(
+              child: table,
+            )
+          ]),
         ],
       ),
     );
@@ -118,7 +122,8 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
   }
 
   List<UserInfo> getSelectedList() {
-    List<UserInfo> selectedList = tableKey?.currentState?.getSelectedList(page)?.map<UserInfo>((e) => UserInfo.fromJson(e))?.toList() ?? [];
+    List<UserInfo> selectedList =
+        tableKey?.currentState?.getSelectedList(page)?.map<UserInfo>((e) => UserInfo.fromJson(e))?.toList() ?? [];
     return selectedList;
   }
 

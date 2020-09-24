@@ -61,26 +61,23 @@ class _RoleUserSelectState extends State<RoleUserSelect> {
         tableKey2.currentState.query();
       },
     );
-    var result = Expanded(
-        child: Column(
-      children: [
-        transfer,
-        ButtonBar(
-          alignment: MainAxisAlignment.center,
-          children: [
-            CryButton(
-              label: '关闭',
-              iconData: Icons.close,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            )
-          ],
-        )
-      ],
-    ));
-
+    var result = Column(
+        children: [
+          transfer,
+          ButtonBar(
+            alignment: MainAxisAlignment.center,
+            children: [
+              CryButton(
+                label: '关闭',
+                iconData: Icons.close,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          ),
+        ],
+    );
     return result;
-    // return transfer;
   }
 }

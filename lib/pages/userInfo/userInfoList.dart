@@ -146,7 +146,7 @@ class _UserInfoListState extends State<UserInfoList> {
       children: <Widget>[
         CryButton(label: '查询', onPressed: () => _query()),
         CryButton(label: '重置', onPressed: () => _reset()),
-        CryButton(label: '增加', onPressed: () => _add()),
+        CryButton(label: '增加', onPressed: () => _edit(null)),
         CryButton(label: '编辑', onPressed: selectedList.length != 1 ? null : () => _edit(selectedList[0])),
       ],
     );
@@ -167,20 +167,10 @@ class _UserInfoListState extends State<UserInfoList> {
     return result;
   }
 
-  _add() {
-    cryDialog(
-      context: context,
-      title: S.of(context).increase,
-      body: UserInfoEdit(),
-    ).then((v) {
-      if (v != null) {
-        _sort('create_time', ascending: false);
-      }
-    });
-  }
-
   _edit(UserInfo userInfo) {
     cryDialog(
+      width: 650,
+      height: 580,
       context: context,
       title: userInfo == null ? S.of(context).increase : S.of(context).modify,
       body: UserInfoEdit(
@@ -188,7 +178,7 @@ class _UserInfoListState extends State<UserInfoList> {
       ),
     ).then((v) {
       if (v != null) {
-        _sort('update_time', ascending: false);
+        userInfo == null ? _sort('create_time', ascending: false) : _sort('update_time', ascending: false);
       }
     });
   }

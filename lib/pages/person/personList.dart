@@ -12,6 +12,7 @@ import 'package:flutter_admin/models/page.dart';
 import 'package:flutter_admin/models/person.dart';
 import 'package:flutter_admin/models/requestBodyApi.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
+import 'package:flutter_admin/utils/adaptiveUtil.dart';
 import 'package:flutter_admin/utils/dictUtil.dart';
 import '../../generated/l10n.dart';
 import 'personEdit.dart';
@@ -45,6 +46,7 @@ class PersonListState extends State {
   _edit({Person person}) {
     cryDialog(
       width: 650,
+      height: isDisplayDesktop(context) ? 350 : 500,
       context: context,
       title: person == null ? S.of(context).increase : S.of(context).modify,
       body: PersonEdit(person: person),
@@ -258,9 +260,11 @@ class MyDS extends DataTableSource {
       cells: <DataCell>[
         DataCell(Text(person.name ?? '--')),
         DataCell(Text(person.nickName ?? '--')),
-        DataCell(Text(DictUtil.getDictName(person.gender, Configuration.of(context).locale == 'en' ? genderList_en : genderList))),
+        DataCell(Text(DictUtil.getDictName(
+            person.gender, Configuration.of(context).locale == 'en' ? genderList_en : genderList))),
         DataCell(Text(person.birthday ?? '--')),
-        DataCell(Text(DictUtil.getDictName(person.deptId, Configuration.of(context).locale == 'en' ? deptIdList_en : deptIdList,
+        DataCell(Text(DictUtil.getDictName(
+            person.deptId, Configuration.of(context).locale == 'en' ? deptIdList_en : deptIdList,
             defaultValue: '--'))),
         DataCell(Text(person.createTime ?? '--')),
         DataCell(Text(person.updateTime ?? '--')),

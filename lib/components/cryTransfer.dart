@@ -24,14 +24,12 @@ class _CryTransferState extends State<CryTransfer> {
         ],
       ),
     );
-    var result = Expanded(
-      child: Row(
-        children: [
-          widget.left,
-          buttonBar,
-          widget.right,
-        ],
-      ),
+    var result = Row(
+      children: [
+        widget.left,
+        buttonBar,
+        widget.right,
+      ],
     );
     return result;
   }
