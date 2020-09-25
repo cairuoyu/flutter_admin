@@ -29,39 +29,39 @@ class _MenuFormState extends State<MenuForm> {
   @override
   Widget build(BuildContext context) {
     menu = widget.menu ?? Menu();
+    var buttonBar = ButtonBar(
+      alignment: MainAxisAlignment.start,
+      children: <Widget>[
+        CryButton(
+          label: '保存',
+          onPressed: () {
+            FormState form = formKey.currentState;
+            if (!form.validate()) {
+              return;
+            }
+            form.save();
+            MenuDemoApi.saveOrUpdate(menu.toJson()).then((res) {
+              BotToast.showText(text: S.of(context).saved);
+              if (widget.onSave != null) {
+                widget.onSave();
+              }
+            });
+          },
+          iconData: Icons.save,
+        ),
+        CryButton(
+            label: '取消',
+            iconData: Icons.cancel,
+            onPressed: () {
+              if (widget.onClose != null) {
+                widget.onClose();
+              }
+            }),
+      ],
+    );
     var form = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        ButtonBar(
-          alignment: MainAxisAlignment.start,
-          children: <Widget>[
-            CryButton(
-              label: '保存',
-              onPressed: () {
-                FormState form = formKey.currentState;
-                if (!form.validate()) {
-                  return;
-                }
-                form.save();
-                MenuDemoApi.saveOrUpdate(menu.toJson()).then((res) {
-                  BotToast.showText(text: S.of(context).saved);
-                  if (widget.onSave != null) {
-                    widget.onSave();
-                  }
-                });
-              },
-              iconData: Icons.save,
-            ),
-            CryButton(
-                label: '取消',
-                iconData: Icons.cancel,
-                onPressed: () {
-                  if (widget.onClose != null) {
-                    widget.onClose();
-                  }
-                }),
-          ],
-        ),
         Form(
           key: formKey,
           child: Wrap(
@@ -118,8 +118,17 @@ class _MenuFormState extends State<MenuForm> {
       ],
     );
     var result = Expanded(
-      child: SingleChildScrollView(
-        child: form,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.white,
+          title: buttonBar,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [form],
+          ),
+        ),
       ),
     );
     return result;

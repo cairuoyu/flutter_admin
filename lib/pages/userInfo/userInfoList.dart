@@ -158,7 +158,10 @@ class _UserInfoListState extends State<UserInfoList> {
           form,
           buttonBar,
           Expanded(
-            child: table,
+            child: ListView(
+              padding: const EdgeInsets.all(10.0),
+              children: <Widget>[table],
+            ),
           ),
         ],
       ),

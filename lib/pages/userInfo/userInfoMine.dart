@@ -101,12 +101,21 @@ class _UserInfoMineState extends State<UserInfoMine> {
         ),
       ],
     );
-    var result = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        buttonBar,
-        form,
-      ],
+    var result = Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height: 10),
+          buttonBar,
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(10.0),
+              children: <Widget>[form],
+            ),
+          ),
+        ],
+      ),
     );
     return result;
   }
@@ -114,7 +123,11 @@ class _UserInfoMineState extends State<UserInfoMine> {
   _getForm(Widget avatar, List<Widget> propList) {
     var form;
     if (isDisplayDesktop(context)) {
-      propList = propList.map((e) => Expanded(child: e,)).toList();
+      propList = propList
+          .map((e) => Expanded(
+                child: e,
+              ))
+          .toList();
       form = Form(
         key: formKey,
         child: Row(
@@ -149,8 +162,7 @@ class _UserInfoMineState extends State<UserInfoMine> {
     } else {
       form = Form(
         key: formKey,
-        child: Column(children: propList),
-//        child: Column(children: [avatar] + propList.map((e) => Expanded(child: e,)).toList()),
+        child: Column(children: [avatar] + propList),
       );
     }
     return form;

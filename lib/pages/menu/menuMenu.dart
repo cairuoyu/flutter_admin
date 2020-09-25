@@ -40,14 +40,25 @@ class _MenuMenuState extends State<MenuMenu> {
       CryTreeTableColumnData('顺序号', (Menu v) => v.orderBy?.toString(), width: 80),
       CryTreeTableColumnData('备注', (Menu v) => v.remark, width: 300),
     ];
-    var result = CryTreeTable(
+    var treeTable = CryTreeTable(
       columnData: columnData,
       data: widget.treeVOList,
-      toolbars: _getToolbars(),
       onSelected: (v) => _onSelected(v),
       getRowOper: (TreeVO<Menu> v, TreeVO<Menu> parent) => _getRowOper(v, parent),
       tableWidth: 1300,
       selectType: CryTreeTableSelectType.childrenCascade,
+    );
+    var result = Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        title: _getToolbars(),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [treeTable],
+        ),
+      ),
     );
     return SizedBox(width: widget.width ?? double.infinity, child: result);
   }

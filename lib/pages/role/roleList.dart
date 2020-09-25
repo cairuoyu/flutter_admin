@@ -113,10 +113,12 @@ class _RoleListState extends State<RoleList> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(height: 10),
-          // form,
           buttonBar,
           Expanded(
-            child: table,
+            child: ListView(
+              padding: const EdgeInsets.all(10.0),
+              children: <Widget>[table],
+            ),
           ),
         ],
       ),
