@@ -18,7 +18,7 @@ class Utils {
 
   static logout() {
     LocalStorageUtil.set(Constant.KEY_TOKEN, null);
-    StoreUtil.resetMenu();
+    StoreUtil.instance.clean();
   }
 
   static launchURL(url) async {

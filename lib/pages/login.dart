@@ -4,7 +4,6 @@ import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/pages/common/langSwitch.dart';
 import 'package:flutter_admin/pages/register.dart';
-import 'package:flutter_admin/utils/storeUtil.dart';
 import 'package:flutter_admin/utils/localStorageUtil.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_admin/api/userApi.dart';
@@ -197,13 +196,12 @@ class _LoginState extends State<Login> {
     }
     form.save();
     BotToast.showLoading();
-    UserApi.login(user.toJson()).then((ResponeBodyApi responeBodyApi) async {
+    UserApi.login(user.toJson()).then((ResponeBodyApi responeBodyApi) {
       BotToast.closeAllLoading();
       if (!responeBodyApi.success) {
         return;
       }
       LocalStorageUtil.set(Constant.KEY_TOKEN, responeBodyApi.data);
-      await StoreUtil.loadMenuData();
       Navigator.pushNamed(context, '/');
     }).catchError((e) {
       BotToast.closeAllLoading();

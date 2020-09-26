@@ -27,7 +27,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
 
   @override
   Widget build(BuildContext context) {
-    this.expandMenu??=isDisplayDesktop(context);
+    this.expandMenu ??= isDisplayDesktop(context);
     ListTile menuHeader = ListTile(
       title: Icon(Icons.menu),
       onTap: () {
@@ -35,7 +35,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
         setState(() {});
       },
     );
-    List<Widget> menuBody = _getMenuListTile(TreeUtil.toTreeVOList(StoreUtil.menuTree));
+    List<Widget> menuBody = _getMenuListTile(TreeUtil.toTreeVOList(StoreUtil.instance.menuTree));
     ListView menu = ListView(children: [menuHeader, ...menuBody]);
     return SizedBox(
       width: expandMenu ? 300 : 60,

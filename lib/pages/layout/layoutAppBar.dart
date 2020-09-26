@@ -3,7 +3,7 @@ import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
 class LayoutAppBar extends AppBar {
-  LayoutAppBar(BuildContext context, {Key key, int type, openSetting})
+  LayoutAppBar(BuildContext context, {Key key, int type, openSetting, dispose})
       : super(
           key: key,
           automaticallyImplyLeading: false,
@@ -58,6 +58,7 @@ class LayoutAppBar extends AppBar {
               child: IconButton(
                 icon: Icon(Icons.exit_to_app),
                 onPressed: () {
+                  dispose();
                   Utils.logout();
                   Navigator.push(
                     context,

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/components/cryRoot.dart';
 import 'package:flutter_admin/models/configuration.dart';
@@ -26,16 +27,24 @@ class _LayoutState extends State with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
     tabController = TabController(vsync: this, length: length);
+    init();
+  }
+
+  init() async {
+    if (!StoreUtil.instance.inited) {
+      StoreUtil.instance.init().then((res) {
+        setState(() {
+          BotToast.closeAllLoading();
+        });
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (StoreUtil.menuTree == null) {
-      StoreUtil.loadMenuData().then((res) {
-        setState(() {});
-      });
+    if (!StoreUtil.instance.inited) {
+      BotToast.showLoading();
       return Container();
     }
 
