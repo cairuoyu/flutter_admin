@@ -1,7 +1,6 @@
 //todo
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/vo/listTileVO.dart';
-import 'package:flutter_admin/vo/selectOptionVO.dart';
 
 Map<String, IconData> iconMap = {
   'menu': Icons.menu,
@@ -13,25 +12,6 @@ Map<String, IconData> iconMap = {
   'video': Icons.video_call,
 };
 
-List<SelectOptionVO> deptIdList = [
-  SelectOptionVO(value: '1', label: '技术部门'),
-  SelectOptionVO(value: '2', label: '产品部'),
-  SelectOptionVO(value: '3', label: '销售部'),
-];
-List<SelectOptionVO> genderList = [
-  SelectOptionVO(value: '1', label: '男'),
-  SelectOptionVO(value: '2', label: '女'),
-];
-
-List<SelectOptionVO> deptIdList_en = [
-  SelectOptionVO(value: '1', label: 'Technical Department'),
-  SelectOptionVO(value: '2', label: 'Product Department'),
-  SelectOptionVO(value: '3', label: 'Sales'),
-];
-List<SelectOptionVO> genderList_en = [
-  SelectOptionVO(value: '1', label: 'Male'),
-  SelectOptionVO(value: '2', label: 'Female'),
-];
 
 List<ListTileVO> todoList = [
   ListTileVO(title: '江西：清理“影子药师” 整治“挂证”乱象', trailing: '2020-01-11'),

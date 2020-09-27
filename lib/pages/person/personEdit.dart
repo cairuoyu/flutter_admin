@@ -6,10 +6,10 @@ import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/form1/cryInput.dart';
 import 'package:flutter_admin/components/form1/crySelect.dart';
 import 'package:flutter_admin/components/form1/crySelectDate.dart';
-import 'package:flutter_admin/data/data1.dart';
-import 'package:flutter_admin/models/configuration.dart';
+import 'package:flutter_admin/constants/constantDict.dart';
 import 'package:flutter_admin/models/person.dart';
 import 'package:flutter_admin/utils/adaptiveUtil.dart';
+import 'package:flutter_admin/utils/dictUtil.dart';
 import '../../generated/l10n.dart';
 
 class PersonEdit extends StatefulWidget {
@@ -58,7 +58,7 @@ class PersonEditState extends State<PersonEdit> {
           CrySelect(
             label: S.of(context).personGender,
             value: formData.gender,
-            dataList: Configuration.of(context).locale == 'en' ? genderList_en : genderList,
+            dataList: DictUtil.getDictSelectOptionList(ConstantDict.ID_GENDER),
             onSaved: (v) {
               formData.gender = v;
             },
@@ -74,7 +74,7 @@ class PersonEditState extends State<PersonEdit> {
           CrySelect(
             label: S.of(context).personDepartment,
             value: formData.deptId,
-            dataList: Configuration.of(context).locale == 'en' ? deptIdList_en : deptIdList,
+            dataList: DictUtil.getDictSelectOptionList(ConstantDict.ID_DEPT),
             onSaved: (v) {
               formData.deptId = v;
             },

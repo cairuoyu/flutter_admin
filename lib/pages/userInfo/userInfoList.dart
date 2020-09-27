@@ -4,9 +4,8 @@ import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/cryDataTable.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/components/form2/crySelect.dart';
-import 'package:flutter_admin/data/data1.dart';
+import 'package:flutter_admin/constants/constantDict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
-import 'package:flutter_admin/models/configuration.dart';
 import 'package:flutter_admin/models/orderItem.dart';
 import 'package:flutter_admin/models/page.dart';
 import 'package:flutter_admin/models/requestBodyApi.dart';
@@ -56,7 +55,7 @@ class _UserInfoListState extends State<UserInfoList> {
               width: 400,
               label: '部门',
               value: userInfo.deptId,
-              dataList: Configuration.of(context).locale == 'en' ? deptIdList_en : deptIdList,
+              dataList: DictUtil.getDictSelectOptionList(ConstantDict.ID_DEPT),
               onSaved: (v) {
                 userInfo.deptId = v;
               }),
@@ -122,14 +121,14 @@ class _UserInfoListState extends State<UserInfoList> {
           DataCell(Text(
             DictUtil.getDictName(
               userInfo.gender,
-              Configuration.of(context).locale == 'en' ? genderList_en : genderList,
+              DictUtil.getDictSelectOptionList(ConstantDict.ID_GENDER),
             ),
           )),
           DataCell(Text(userInfo.birthday ?? '--')),
           DataCell(Text(
             DictUtil.getDictName(
               userInfo.deptId,
-              Configuration.of(context).locale == 'en' ? deptIdList_en : deptIdList,
+              DictUtil.getDictSelectOptionList(ConstantDict.ID_DEPT),
               defaultValue: '--',
             ),
           )),

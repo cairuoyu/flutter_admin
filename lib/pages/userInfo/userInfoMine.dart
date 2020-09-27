@@ -7,11 +7,11 @@ import 'package:flutter_admin/components/cryImageUpload.dart';
 import 'package:flutter_admin/components/form2/crySelectDate.dart';
 import 'package:flutter_admin/components/form2/crySelect.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
-import 'package:flutter_admin/data/data1.dart';
-import 'package:flutter_admin/models/configuration.dart';
+import 'package:flutter_admin/constants/constantDict.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
 import 'package:flutter_admin/models/userInfo.dart';
 import 'package:flutter_admin/utils/adaptiveUtil.dart';
+import 'package:flutter_admin/utils/dictUtil.dart';
 import '../../generated/l10n.dart';
 
 class UserInfoMine extends StatefulWidget {
@@ -66,13 +66,13 @@ class _UserInfoMineState extends State<UserInfoMine> {
       ),
       CrySelect(
         label: S.of(context).personGender,
-        dataList: Configuration.of(context).locale == 'en' ? genderList_en : genderList,
+            dataList: DictUtil.getDictSelectOptionList(ConstantDict.ID_GENDER),
         value: userInfo.gender,
         onSaved: (v) => {userInfo.gender = v},
       ),
       CrySelect(
         label: S.of(context).personDepartment,
-        dataList: Configuration.of(context).locale == 'en' ? deptIdList_en : deptIdList,
+            dataList: DictUtil.getDictSelectOptionList(ConstantDict.ID_DEPT),
         value: userInfo.deptId,
         onSaved: (v) => {userInfo.deptId = v},
       ),

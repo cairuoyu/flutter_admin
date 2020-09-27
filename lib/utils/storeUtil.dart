@@ -3,6 +3,7 @@ import 'package:flutter_admin/api/menuApi.dart';
 import 'package:flutter_admin/models/dictItem.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/models/responeBodyApi.dart';
+import 'package:flutter_admin/vo/selectOptionVO.dart';
 
 class StoreUtil {
   StoreUtil._();
@@ -20,6 +21,7 @@ class StoreUtil {
   final Menu menuOthers = Menu(url: '/userInfoMine', name: '我的信息', nameEn: 'My Info');
   bool inited = false;
   Map<String, List<DictItem>> dictItemMap;
+  Map<String, List<SelectOptionVO>> dictSelectMap;
 
   List<Menu> menuList;
   List<Menu> menuTree;
@@ -42,10 +44,15 @@ class StoreUtil {
     ResponeBodyApi all = await DictItemApi.all();
     List<DictItem> dictItemList = List.from(all.data).map((e) => DictItem.fromMap(e)).toList();
     this.dictItemMap = Map();
+    this.dictSelectMap = Map();
     dictItemList.forEach((v) {
-      List<DictItem> list = this.dictItemMap[v.dictId] ?? [];
-      list.add(v);
-      this.dictItemMap[v.dictId] = list;
+      List<DictItem> dictItemList = this.dictItemMap[v.dictId] ?? [];
+      dictItemList.add(v);
+      this.dictItemMap[v.dictId] = dictItemList;
+
+      List<SelectOptionVO> selectOptionVOList = this.dictSelectMap[v.dictId] ?? [];
+      selectOptionVOList.add(SelectOptionVO(value: v.code,label:v.name));
+      this.dictSelectMap[v.dictId] = selectOptionVOList;
     });
   }
 
@@ -55,9 +62,5 @@ class StoreUtil {
     menuOpened = [];
     dictItemMap = null;
     inited = false;
-  }
-
-  List<DictItem> getDictItem(String dictCode) {
-    return this.dictItemMap[dictCode];
   }
 }
