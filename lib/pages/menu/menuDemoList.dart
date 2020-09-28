@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/menuDemoApi.dart';
 import 'package:flutter_admin/models/menu.dart';
-import 'package:flutter_admin/models/responeBodyApi.dart';
+import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/pages/menu/menuForm.dart';
 import 'package:flutter_admin/pages/menu/menuMenu.dart';
 import 'package:flutter_admin/utils/adaptiveUtil.dart';
@@ -65,8 +65,8 @@ class _MenuDemoListState extends State<MenuDemoList> {
   }
 
   _loadData() async {
-    ResponeBodyApi responeBodyApi = await MenuDemoApi.list(null);
-    var data = responeBodyApi.data;
+    ResponseBodyApi responseBodyApi = await MenuDemoApi.list(null);
+    var data = responseBodyApi.data;
     List<Menu> list = List.from(data).map((e) => Menu.fromMap(e)).toList();
     this.treeVOList = TreeUtil.toTreeVOList(list);
     this.setState(() {});

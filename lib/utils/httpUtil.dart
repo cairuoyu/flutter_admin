@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_admin/constants/constant.dart';
-import 'package:flutter_admin/models/responeBodyApi.dart';
+import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/utils/localStorageUtil.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
@@ -17,15 +17,15 @@ class HttpUtil {
   static const String POST = 'post';
   static const String GET = 'get';
 
-  static Future<ResponeBodyApi> get(String url, {data, requestToken = true}) async {
+  static Future<ResponseBodyApi> get(String url, {data, requestToken = true}) async {
     return await request(url, data: data, requestToken: requestToken, method: GET);
   }
 
-  static Future<ResponeBodyApi> post(String url, {data, requestToken = true}) async {
+  static Future<ResponseBodyApi> post(String url, {data, requestToken = true}) async {
     return await request(url, data: data, requestToken: requestToken);
   }
 
-  static Future<ResponeBodyApi> request(String url, {data, method, requestToken = true}) async {
+  static Future<ResponseBodyApi> request(String url, {data, method, requestToken = true}) async {
     data = data ?? {};
     method = method ?? POST;
 
@@ -33,9 +33,9 @@ class HttpUtil {
     dio.options.method = method;
 
     Response res = await dio.request(url, data: data);
-    ResponeBodyApi responeBodyApi = res.data;
+    ResponseBodyApi responseBodyApi = res.data;
 
-    return responeBodyApi;
+    return responseBodyApi;
   }
 
   static Dio createInstance() {
@@ -70,11 +70,11 @@ class CryDioInterceptors extends InterceptorsWrapper {
   @override
   Future onResponse(Response response) {
     // print("RESPONSE[${response?.statusCode}] => PATH: ${response?.request?.path}");
-    ResponeBodyApi responeBodyApi = ResponeBodyApi.fromJson(response.data);
-    if (!responeBodyApi.success) {
-      Utils.message(responeBodyApi.message);
+    ResponseBodyApi responseBodyApi = ResponseBodyApi.fromJson(response.data);
+    if (!responseBodyApi.success) {
+      Utils.message(responseBodyApi.message);
     }
-    response.data = responeBodyApi;
+    response.data = responseBodyApi;
     return super.onResponse(response);
   }
 

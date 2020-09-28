@@ -8,7 +8,7 @@ import 'package:flutter_admin/components/form2/crySelectDate.dart';
 import 'package:flutter_admin/components/form2/crySelect.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/constants/constantDict.dart';
-import 'package:flutter_admin/models/responeBodyApi.dart';
+import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/models/userInfo.dart';
 import 'package:flutter_admin/utils/adaptiveUtil.dart';
 import 'package:flutter_admin/utils/dictUtil.dart';
@@ -90,7 +90,7 @@ class _UserInfoMineState extends State<UserInfoMine> {
               return;
             }
             form.save();
-            UserInfoApi.saveOrUpdate(this.userInfo.toJson()).then((ResponeBodyApi res) {
+            UserInfoApi.saveOrUpdate(this.userInfo.toJson()).then((ResponseBodyApi res) {
               if (!res.success) {
                 return;
               }

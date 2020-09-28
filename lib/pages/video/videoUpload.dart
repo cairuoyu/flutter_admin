@@ -5,7 +5,7 @@ import 'package:flutter_admin/api/videoApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/cryDialog.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
-import 'package:flutter_admin/models/responeBodyApi.dart';
+import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/models/video.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:http_parser/http_parser.dart';
@@ -138,8 +138,8 @@ class VideoUploadState extends State<VideoUpload> {
     map['file'] = file;
     FormData formData = FormData.fromMap(map);
 
-    ResponeBodyApi responeBodyApi = await VideoApi.upload(formData);
-    if (responeBodyApi.success) {
+    ResponseBodyApi responseBodyApi = await VideoApi.upload(formData);
+    if (responseBodyApi.success) {
       Utils.toPortal(context, '保存成功！', '前往门户查看视频', "http://www.cairuoyu.com/flutter_portal");
       setState(() {
 //        this.disposeController();

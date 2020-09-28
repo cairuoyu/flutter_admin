@@ -10,7 +10,7 @@ import 'package:flutter_admin/models/orderItem.dart';
 import 'package:flutter_admin/models/page.dart';
 import 'package:flutter_admin/models/person.dart';
 import 'package:flutter_admin/models/requestBodyApi.dart';
-import 'package:flutter_admin/models/responeBodyApi.dart';
+import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/utils/dictUtil.dart';
 import '../../generated/l10n.dart';
 import 'personEdit.dart';
@@ -222,8 +222,8 @@ class MyDS extends DataTableSource {
 
   loadData() async {
     requestBodyApi.page = page;
-    ResponeBodyApi responeBodyApi = await PersonApi.page(requestBodyApi);
-    page = PageModel.fromJson(responeBodyApi.data);
+    ResponseBodyApi responseBodyApi = await PersonApi.page(requestBodyApi);
+    page = PageModel.fromJson(responseBodyApi.data);
 
     dataList = page.records.map<Person>((v) {
       Person person = Person.fromJson(v);

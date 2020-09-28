@@ -7,7 +7,7 @@ import 'package:flutter_admin/components/form2/crySelectDate.dart';
 import 'package:flutter_admin/components/form2/crySelect.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/constants/constantDict.dart';
-import 'package:flutter_admin/models/responeBodyApi.dart';
+import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/models/userInfo.dart';
 import 'package:flutter_admin/utils/dictUtil.dart';
 import '../../generated/l10n.dart';
@@ -78,7 +78,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
               return;
             }
             form.save();
-            UserInfoApi.saveOrUpdate(userInfo.toJson()).then((ResponeBodyApi res) {
+            UserInfoApi.saveOrUpdate(userInfo.toJson()).then((ResponseBodyApi res) {
               if (!res.success) {
                 return;
               }

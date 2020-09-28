@@ -9,7 +9,7 @@ import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/orderItem.dart';
 import 'package:flutter_admin/models/page.dart';
 import 'package:flutter_admin/models/requestBodyApi.dart';
-import 'package:flutter_admin/models/responeBodyApi.dart';
+import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/models/userInfo.dart';
 import 'package:flutter_admin/pages/userInfo/userInfoEdit.dart';
 import 'package:flutter_admin/utils/dictUtil.dart';
@@ -197,8 +197,8 @@ class _UserInfoListState extends State<UserInfoList> {
     RequestBodyApi requestBodyApi = RequestBodyApi();
     requestBodyApi.params = userInfo.toJson();
     requestBodyApi.page = page;
-    ResponeBodyApi responeBodyApi = await UserInfoApi.page(requestBodyApi);
-    page = PageModel.fromJson(responeBodyApi.data);
+    ResponseBodyApi responseBodyApi = await UserInfoApi.page(requestBodyApi);
+    page = PageModel.fromJson(responseBodyApi.data);
 
     setState(() {});
   }

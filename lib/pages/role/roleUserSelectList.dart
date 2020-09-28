@@ -6,7 +6,7 @@ import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/models/orderItem.dart';
 import 'package:flutter_admin/models/page.dart';
 import 'package:flutter_admin/models/requestBodyApi.dart';
-import 'package:flutter_admin/models/responeBodyApi.dart';
+import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/models/userInfo.dart';
 
@@ -132,13 +132,13 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
     RequestBodyApi requestBodyApi = RequestBodyApi();
     requestBodyApi.page = page;
     requestBodyApi.params = params;
-    ResponeBodyApi responeBodyApi;
+    ResponseBodyApi responseBodyApi;
     if (widget.isSelected) {
-      responeBodyApi = await RoleApi.getSelectedUserInfo(requestBodyApi);
+      responseBodyApi = await RoleApi.getSelectedUserInfo(requestBodyApi);
     } else {
-      responeBodyApi = await RoleApi.getUnSelectedUserInfo(requestBodyApi);
+      responseBodyApi = await RoleApi.getUnSelectedUserInfo(requestBodyApi);
     }
-    page = PageModel.fromJson(responeBodyApi.data);
+    page = PageModel.fromJson(responseBodyApi.data);
 
     setState(() {});
   }

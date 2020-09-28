@@ -7,7 +7,7 @@ import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/orderItem.dart';
 import 'package:flutter_admin/models/page.dart';
 import 'package:flutter_admin/models/requestBodyApi.dart';
-import 'package:flutter_admin/models/responeBodyApi.dart';
+import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/pages/role/roleEdit.dart';
 import 'package:flutter_admin/pages/role/roleMenuSelect.dart';
@@ -185,8 +185,8 @@ class _RoleListState extends State<RoleList> {
   _query() async {
     RequestBodyApi requestBodyApi = RequestBodyApi();
     requestBodyApi.page = page;
-    ResponeBodyApi responeBodyApi = await RoleApi.page(requestBodyApi);
-    page = PageModel.fromJson(responeBodyApi.data);
+    ResponseBodyApi responseBodyApi = await RoleApi.page(requestBodyApi);
+    page = PageModel.fromJson(responseBodyApi.data);
 
     setState(() {});
   }

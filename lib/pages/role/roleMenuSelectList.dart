@@ -4,7 +4,7 @@ import 'package:flutter_admin/components/cryDataTable.dart';
 import 'package:flutter_admin/models/orderItem.dart';
 import 'package:flutter_admin/models/page.dart';
 import 'package:flutter_admin/models/requestBodyApi.dart';
-import 'package:flutter_admin/models/responeBodyApi.dart';
+import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/models/menu.dart';
 
@@ -78,13 +78,13 @@ class RoleMenuSelectListState extends State<RoleMenuSelectList> {
     RequestBodyApi requestBodyApi = RequestBodyApi();
     requestBodyApi.page = page;
     requestBodyApi.params = widget.role.toJson();
-    ResponeBodyApi responeBodyApi;
+    ResponseBodyApi responseBodyApi;
     if (widget.isSelected) {
-      responeBodyApi = await RoleApi.getSelectedMenu(requestBodyApi);
+      responseBodyApi = await RoleApi.getSelectedMenu(requestBodyApi);
     } else {
-      responeBodyApi = await RoleApi.getUnSelectedMenu(requestBodyApi);
+      responseBodyApi = await RoleApi.getUnSelectedMenu(requestBodyApi);
     }
-    page = PageModel.fromJson(responeBodyApi.data);
+    page = PageModel.fromJson(responseBodyApi.data);
 
     setState(() {});
   }

@@ -1,12 +1,12 @@
-import 'package:flutter_admin/models/responeBodyApi.dart';
+import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/utils/httpUtil.dart';
 
 class UserInfoApi {
-  static Future<ResponeBodyApi> page(data) {
+  static Future<ResponseBodyApi> page(data) {
     return HttpUtil.post('/userInfo/page', data: data);
   }
 
-  static Future<ResponeBodyApi> getCurrentUserInfo() {
+  static Future<ResponseBodyApi> getCurrentUserInfo() {
     return HttpUtil.post('/userInfo/getCurrentUserInfo');
   }
 

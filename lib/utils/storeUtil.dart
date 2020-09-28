@@ -2,7 +2,7 @@ import 'package:flutter_admin/api/dictItemApi.dart';
 import 'package:flutter_admin/api/menuApi.dart';
 import 'package:flutter_admin/models/dictItem.dart';
 import 'package:flutter_admin/models/menu.dart';
-import 'package:flutter_admin/models/responeBodyApi.dart';
+import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/vo/selectOptionVO.dart';
 
 class StoreUtil {
@@ -34,14 +34,14 @@ class StoreUtil {
   }
 
   _loadMenuData() async {
-    ResponeBodyApi responeBodyApi = await MenuApi.list(null);
-    List data = responeBodyApi.data;
+    ResponseBodyApi responseBodyApi = await MenuApi.list(null);
+    List data = responseBodyApi.data;
     menuTree = List.from(data).map((e) => Menu.fromMap(e)).toList();
     menuList = menuTree + [menuMain, menuOthers];
   }
 
   _initDict() async {
-    ResponeBodyApi all = await DictItemApi.all();
+    ResponseBodyApi all = await DictItemApi.all();
     List<DictItem> dictItemList = List.from(all.data).map((e) => DictItem.fromMap(e)).toList();
     this.dictItemMap = Map();
     this.dictSelectMap = Map();

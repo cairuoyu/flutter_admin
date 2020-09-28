@@ -5,7 +5,7 @@ import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/cryTreeTable.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/models/requestBodyApi.dart';
-import 'package:flutter_admin/models/responeBodyApi.dart';
+import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/models/roleMenu.dart';
 import 'package:flutter_admin/utils/treeUtil.dart';
@@ -94,8 +94,8 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
   }
 
   _loadData() async {
-    ResponeBodyApi responeBodyApi = await RoleApi.getMenu(RequestBodyApi(params: widget.role.toJson()));
-    var data = responeBodyApi.data;
+    ResponseBodyApi responseBodyApi = await RoleApi.getMenu(RequestBodyApi(params: widget.role.toJson()));
+    var data = responseBodyApi.data;
     List<Menu> list = List.from(data).map((e) => Menu.fromMap(e)).toList();
     this.data = TreeUtil.toTreeVOList(list);
     this.setState(() {});

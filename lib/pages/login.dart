@@ -1,7 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/constants/constant.dart';
-import 'package:flutter_admin/models/responeBodyApi.dart';
+import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/pages/common/langSwitch.dart';
 import 'package:flutter_admin/pages/register.dart';
 import 'package:flutter_admin/utils/localStorageUtil.dart';
@@ -196,12 +196,12 @@ class _LoginState extends State<Login> {
     }
     form.save();
     BotToast.showLoading();
-    UserApi.login(user.toJson()).then((ResponeBodyApi responeBodyApi) {
+    UserApi.login(user.toJson()).then((ResponseBodyApi responseBodyApi) {
       BotToast.closeAllLoading();
-      if (!responeBodyApi.success) {
+      if (!responseBodyApi.success) {
         return;
       }
-      LocalStorageUtil.set(Constant.KEY_TOKEN, responeBodyApi.data);
+      LocalStorageUtil.set(Constant.KEY_TOKEN, responseBodyApi.data);
       Navigator.pushNamed(context, '/');
     }).catchError((e) {
       BotToast.closeAllLoading();
