@@ -24,17 +24,13 @@ class UserInfoList extends StatefulWidget {
 class _UserInfoListState extends State<UserInfoList> {
   final GlobalKey<CryDataTableState> tableKey = GlobalKey<CryDataTableState>();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  PageModel page;
+  PageModel page = PageModel(orders: [OrderItem(column: 'update_time')]);
   UserInfo userInfo = UserInfo();
 
   @override
   void initState() {
     super.initState();
-    page = PageModel(orders: [OrderItem(column: 'update_time')]);
-
-    WidgetsBinding.instance.addPostFrameCallback((c) {
-      _query();
-    });
+    _query();
   }
 
   @override
@@ -137,8 +133,7 @@ class _UserInfoListState extends State<UserInfoList> {
         ];
       },
     );
-    List<UserInfo> selectedList =
-        tableKey?.currentState?.getSelectedList(page)?.map<UserInfo>((e) => UserInfo.fromJson(e))?.toList() ?? [];
+    List<UserInfo> selectedList = tableKey?.currentState?.getSelectedList(page)?.map<UserInfo>((e) => UserInfo.fromJson(e))?.toList() ?? [];
     ButtonBar buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -189,15 +184,12 @@ class _UserInfoListState extends State<UserInfoList> {
   }
 
   _query() {
-    formKey.currentState.save();
+    formKey.currentState?.save();
     _loadData();
   }
 
   _loadData() async {
-    RequestBodyApi requestBodyApi = RequestBodyApi();
-    requestBodyApi.params = userInfo.toJson();
-    requestBodyApi.page = page;
-    ResponseBodyApi responseBodyApi = await UserInfoApi.page(requestBodyApi);
+    ResponseBodyApi responseBodyApi = await UserInfoApi.page(RequestBodyApi(page: page, params: userInfo.toJson()));
     page = PageModel.fromJson(responseBodyApi.data);
 
     setState(() {});

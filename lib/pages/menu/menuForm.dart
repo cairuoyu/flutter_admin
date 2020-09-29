@@ -7,6 +7,7 @@ import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/components/form2/cryInputNum.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
+import 'package:flutter_admin/models/responseBodyApi.dart';
 
 class MenuForm extends StatefulWidget {
   MenuForm({Key key, this.menu, this.onSave, this.onClose}) : super(key: key);
@@ -40,7 +41,10 @@ class _MenuFormState extends State<MenuForm> {
               return;
             }
             form.save();
-            MenuDemoApi.saveOrUpdate(menu.toJson()).then((res) {
+            MenuDemoApi.saveOrUpdate(menu.toJson()).then((ResponseBodyApi res) {
+              if(!res.success){
+                return ;
+              }
               BotToast.showText(text: S.of(context).saved);
               if (widget.onSave != null) {
                 widget.onSave();
