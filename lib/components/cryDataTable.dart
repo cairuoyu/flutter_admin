@@ -32,6 +32,7 @@ class CryDataTableState extends State<CryDataTable> {
     super.initState();
     _ds._getCells = widget.getCells;
     _ds._onSelectChanged = widget.onSelectChanged;
+    _ds.tableState = this;
   }
 
   @override
@@ -66,6 +67,7 @@ class _DS extends DataTableSource {
   PageModel _page = PageModel();
   Function _getCells;
   Function _onSelectChanged;
+  CryDataTableState tableState;
 
   reload() {
     notifyListeners();
@@ -88,7 +90,11 @@ class _DS extends DataTableSource {
       selected: selected,
       onSelectChanged: (v) {
         m['selected'] = v;
-        _onSelectChanged(m);
+        if (_onSelectChanged != null) {
+          _onSelectChanged(m);
+        } else {
+          tableState.setState(() {});
+        }
       },
     );
   }

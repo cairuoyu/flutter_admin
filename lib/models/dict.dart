@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 class Dict {
+  String id;
   String code;
 
   String name;
@@ -12,6 +13,7 @@ class Dict {
   String createrId;
 
   Dict({
+    this.id,
     this.code,
     this.name,
     this.createTime,
@@ -20,6 +22,7 @@ class Dict {
   });
 
   Dict copyWith({
+    String id,
     String code,
     String name,
     String createTime,
@@ -27,6 +30,7 @@ class Dict {
     String createrId,
   }) {
     return Dict(
+      id: id ?? this.id,
       code: code ?? this.code,
       name: name ?? this.name,
       createTime: createTime ?? this.createTime,
@@ -37,6 +41,7 @@ class Dict {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'code': code,
       'name': name,
       'createTime': createTime,
@@ -49,6 +54,7 @@ class Dict {
     if (map == null) return null;
 
     return Dict(
+      id: map['id'],
       code: map['code'],
       name: map['name'],
       createTime: map['createTime'],
@@ -63,7 +69,7 @@ class Dict {
 
   @override
   String toString() {
-    return 'Dict(code: $code, name: $name, createTime: $createTime, updateTime: $updateTime, createrId: $createrId)';
+    return 'Dict(id: $id, code: $code, name: $name, createTime: $createTime, updateTime: $updateTime, createrId: $createrId)';
   }
 
   @override
@@ -71,6 +77,7 @@ class Dict {
     if (identical(this, o)) return true;
 
     return o is Dict &&
+        o.id == id &&
         o.code == code &&
         o.name == name &&
         o.createTime == createTime &&
@@ -80,6 +87,6 @@ class Dict {
 
   @override
   int get hashCode {
-    return code.hashCode ^ name.hashCode ^ createTime.hashCode ^ updateTime.hashCode ^ createrId.hashCode;
+    return id.hashCode ^ code.hashCode ^ name.hashCode ^ createTime.hashCode ^ updateTime.hashCode ^ createrId.hashCode;
   }
 }

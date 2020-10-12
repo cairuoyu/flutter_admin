@@ -2,7 +2,15 @@ import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/utils/httpUtil.dart';
 
 class DictApi {
-  static Future<ResponseBodyApi> page(data) async {
-    return await HttpUtil.post('/dict/page',data: data);
+  static page(data) {
+    return HttpUtil.post('/dict/page', data: data);
+  }
+
+  static Future<ResponseBodyApi> saveOrUpdate(data) {
+    return HttpUtil.post('/dict/saveOrUpdate', data: data);
+  }
+
+  static removeByIds(data) {
+    return HttpUtil.post('/dict/removeByIds', data: data);
   }
 }
