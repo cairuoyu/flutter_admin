@@ -86,7 +86,7 @@ class PersonListState extends State {
           CrySelect(
             label: S.of(context).personDepartment,
             value: formData.deptId,
-            dataList: DictUtil.getDictSelectOptionList(ConstantDict.ID_DEPT),
+            dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT),
             onSaved: (v) {
               formData.deptId = v;
             },
@@ -208,12 +208,14 @@ class PersonListState extends State {
 
 class MyDS extends DataTableSource {
   MyDS();
+
   PersonListState state;
   BuildContext context;
   List<Person> dataList;
   int selectedCount = 0;
   RequestBodyApi requestBodyApi = RequestBodyApi();
   PageModel page = PageModel(orders: [OrderItem(column: 'create_time', asc: false)]);
+
   sort(column, ascending) {
     page.orders[0].column = column;
     page.orders[0].asc = !page.orders[0].asc;
@@ -259,14 +261,14 @@ class MyDS extends DataTableSource {
       cells: <DataCell>[
         DataCell(Text(person.name ?? '--')),
         DataCell(Text(person.nickName ?? '--')),
-        DataCell(Text(DictUtil.getDictName(
+        DataCell(Text(DictUtil.getDictItemName(
           person.gender,
-          DictUtil.getDictSelectOptionList(ConstantDict.ID_GENDER),
+          ConstantDict.CODE_GENDER,
         ))),
         DataCell(Text(person.birthday ?? '--')),
-        DataCell(Text(DictUtil.getDictName(
+        DataCell(Text(DictUtil.getDictItemName(
           person.deptId,
-          DictUtil.getDictSelectOptionList(ConstantDict.ID_DEPT),
+          ConstantDict.CODE_DEPT,
           defaultValue: '--',
         ))),
         DataCell(Text(person.createTime ?? '--')),

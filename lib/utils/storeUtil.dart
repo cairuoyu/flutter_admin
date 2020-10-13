@@ -7,8 +7,11 @@ import 'package:flutter_admin/vo/selectOptionVO.dart';
 
 class StoreUtil {
   StoreUtil._();
+
   static StoreUtil _instance;
+
   static StoreUtil get instance => _getInstance();
+
   static StoreUtil _getInstance() {
     if (_instance == null) {
       _instance = StoreUtil._();
@@ -41,18 +44,12 @@ class StoreUtil {
   }
 
   _initDict() async {
-    ResponseBodyApi all = await DictItemApi.all();
-    List<DictItem> dictItemList = List.from(all.data).map((e) => DictItem.fromMap(e)).toList();
-    this.dictItemMap = Map();
+    ResponseBodyApi map = await DictItemApi.map();
     this.dictSelectMap = Map();
-    dictItemList.forEach((v) {
-      List<DictItem> dictItemList = this.dictItemMap[v.dictId] ?? [];
-      dictItemList.add(v);
-      this.dictItemMap[v.dictId] = dictItemList;
-
-      List<SelectOptionVO> selectOptionVOList = this.dictSelectMap[v.dictId] ?? [];
-      selectOptionVOList.add(SelectOptionVO(value: v.code,label:v.name));
-      this.dictSelectMap[v.dictId] = selectOptionVOList;
+    this.dictItemMap = Map.from(map.data).map<String, List<DictItem>>((key, value) {
+      List<DictItem> list = (value as List).map((e) => DictItem.fromMap(e)).toList();
+      this.dictSelectMap[key] = list.map((e) => SelectOptionVO(value: e.code, label: e.name)).toList();
+      return MapEntry(key, list);
     });
   }
 

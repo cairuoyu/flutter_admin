@@ -1,3 +1,4 @@
+import 'package:flutter_admin/models/dictItem.dart';
 import 'package:flutter_admin/utils/storeUtil.dart';
 import 'package:flutter_admin/vo/selectOptionVO.dart';
 
@@ -6,18 +7,19 @@ class DictUtil {
     return StoreUtil.instance.dictSelectMap[dictCode];
   }
 
-  static getDictName(String value, List<SelectOptionVO> list, {defaultValue = ''}) {
-    if (value == null) {
+  static getDictItemName(String code, String dictCode, {defaultValue = ''}) {
+    if (code == null) {
       return defaultValue;
     }
-    SelectOptionVO result = list.firstWhere((v) {
-      return v.value == value;
+    List<DictItem> list = StoreUtil.instance.dictItemMap[dictCode];
+    DictItem result = list.firstWhere((v) {
+      return v.code == code;
     }, orElse: () {
       return null;
     });
     if (result == null) {
-      return value;
+      return code;
     }
-    return result.label;
+    return result.name;
   }
 }

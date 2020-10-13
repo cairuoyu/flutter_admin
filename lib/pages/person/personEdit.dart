@@ -58,7 +58,7 @@ class PersonEditState extends State<PersonEdit> {
           CrySelect(
             label: S.of(context).personGender,
             value: formData.gender,
-            dataList: DictUtil.getDictSelectOptionList(ConstantDict.ID_GENDER),
+            dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_GENDER),
             onSaved: (v) {
               formData.gender = v;
             },
@@ -74,7 +74,7 @@ class PersonEditState extends State<PersonEdit> {
           CrySelect(
             label: S.of(context).personDepartment,
             value: formData.deptId,
-            dataList: DictUtil.getDictSelectOptionList(ConstantDict.ID_DEPT),
+            dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT),
             onSaved: (v) {
               formData.deptId = v;
             },

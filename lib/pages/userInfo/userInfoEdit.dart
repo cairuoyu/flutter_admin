@@ -54,13 +54,13 @@ class _UserInfoEditState extends State<UserInfoEdit> {
           ),
           CrySelect(
             label: S.of(context).personGender,
-            dataList: DictUtil.getDictSelectOptionList(ConstantDict.ID_GENDER),
+            dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_GENDER),
             value: userInfo.gender,
             onSaved: (v) => {userInfo.gender = v},
           ),
           CrySelect(
               label: S.of(context).personDepartment,
-            dataList: DictUtil.getDictSelectOptionList(ConstantDict.ID_DEPT),
+            dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT),
               value: userInfo.deptId,
               onSaved: (v) => {userInfo.deptId = v}),
           // CryInput(label: '籍贯'),

@@ -1,4 +1,4 @@
 class ConstantDict {
-  static const ID_GENDER = '1';
-  static const ID_DEPT= '2';
+  static const CODE_GENDER = '1';
+  static const CODE_DEPT= '2';
 }

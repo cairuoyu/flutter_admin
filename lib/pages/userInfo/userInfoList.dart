@@ -51,7 +51,7 @@ class _UserInfoListState extends State<UserInfoList> {
               width: 400,
               label: '部门',
               value: userInfo.deptId,
-              dataList: DictUtil.getDictSelectOptionList(ConstantDict.ID_DEPT),
+              dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT),
               onSaved: (v) {
                 userInfo.deptId = v;
               }),
@@ -114,20 +114,16 @@ class _UserInfoListState extends State<UserInfoList> {
           ),
           DataCell(Text(userInfo.name ?? '--')),
           DataCell(Text(userInfo.nickName ?? '--')),
-          DataCell(Text(
-            DictUtil.getDictName(
-              userInfo.gender,
-              DictUtil.getDictSelectOptionList(ConstantDict.ID_GENDER),
-            ),
-          )),
+          DataCell(Text(DictUtil.getDictItemName(
+            userInfo.gender,
+            ConstantDict.CODE_GENDER,
+          ))),
           DataCell(Text(userInfo.birthday ?? '--')),
-          DataCell(Text(
-            DictUtil.getDictName(
-              userInfo.deptId,
-              DictUtil.getDictSelectOptionList(ConstantDict.ID_DEPT),
-              defaultValue: '--',
-            ),
-          )),
+          DataCell(Text(DictUtil.getDictItemName(
+            userInfo.deptId,
+            ConstantDict.CODE_DEPT,
+            defaultValue: '--',
+          ))),
           DataCell(Text(userInfo.createTime ?? '--')),
           DataCell(Text(userInfo.updateTime ?? '--')),
         ];
