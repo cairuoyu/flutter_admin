@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/dictApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/cryDataTable.dart';
+import 'package:flutter_admin/components/cryDialog.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
+import 'package:flutter_admin/constants/constantDict.dart';
 import 'package:flutter_admin/models/dict.dart';
 import 'package:flutter_admin/models/page.dart';
 import 'package:flutter_admin/models/requestBodyApi.dart';
 import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/pages/dict/dictEdit.dart';
+import 'package:flutter_admin/utils/dictUtil.dart';
 
 class DictList extends StatefulWidget {
   DictList({Key key}) : super(key: key);
@@ -19,6 +22,7 @@ class DictList extends StatefulWidget {
 class _DictList extends State<DictList> {
   PageModel page = PageModel();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<CryDataTableState> tableKey = GlobalKey<CryDataTableState>();
   Dict dict = Dict();
 
   @override
@@ -52,32 +56,46 @@ class _DictList extends State<DictList> {
         ],
       ),
     );
+    List<Dict> selectedList = tableKey?.currentState?.getSelectedList(page)?.map<Dict>((e) => Dict.fromMap(e))?.toList() ?? [];
     var buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: [
         CryButton(label: '查询', onPressed: _query),
         CryButton(label: '重置', onPressed: () => _reset()),
         CryButton(label: '新增', onPressed: () => _edit(null)),
+        CryButton(label: '删除', onPressed: selectedList.isEmpty ? null : () => _delete(selectedList)),
       ],
     );
     var table = Expanded(
       child: SingleChildScrollView(
         child: CryDataTable(
+          key: tableKey,
           title: '数据字典',
           page: page,
+          selectable: (Map m) {
+            return Dict.fromMap(m).state != ConstantDict.CODE_YESNO_YES;
+          },
+          onSelectChanged: (v) {
+            this.setState(() {});
+          },
           columns: [
             DataColumn(label: Text("操作")),
             DataColumn(label: Text("代码")),
             DataColumn(label: Text("名称")),
+            DataColumn(label: Text("启用")),
           ],
           getCells: (Map m) {
             Dict dict = Dict.fromMap(m);
             return [
               DataCell(ButtonBar(
-                children: [CryButton(iconData: Icons.edit, onPressed: () => _edit(dict))],
+                children: dict.state == ConstantDict.CODE_YESNO_YES ? [] : [CryButton(iconData: Icons.edit, onPressed: () => _edit(dict))],
               )),
               DataCell(Text(dict.code)),
               DataCell(Text(dict.name)),
+              DataCell(Text(
+                DictUtil.getDictItemName(dict.state, ConstantDict.CODE_YESNO),
+                style: dict.state == ConstantDict.CODE_YESNO_YES ? TextStyle(color: Colors.red) : null,
+              )),
             ];
           },
         ),
@@ -104,6 +122,14 @@ class _DictList extends State<DictList> {
   _reset() {
     this.dict = Dict();
     this._loadData();
+  }
+
+  _delete(List<Dict> dictList) {
+    cryConfirm(context, '确定删除？', () async {
+      await DictApi.removeByIds(dictList.map((e) => e.id).toList());
+      Navigator.of(context).pop();
+      this._loadData();
+    });
   }
 
   _edit(Dict dict) {

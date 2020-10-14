@@ -11,6 +11,7 @@ class CryDataTable extends StatefulWidget {
     this.onPageChanged,
     this.onSelectChanged,
     this.availableRowsPerPage,
+    this.selectable,
   }) : super(key: key);
   final String title;
   final List<int> availableRowsPerPage;
@@ -18,6 +19,7 @@ class CryDataTable extends StatefulWidget {
   final Function getCells;
   final Function onPageChanged;
   final Function onSelectChanged;
+  final Function selectable;
   final PageModel page;
 
   @override
@@ -32,6 +34,7 @@ class CryDataTableState extends State<CryDataTable> {
     super.initState();
     _ds._getCells = widget.getCells;
     _ds._onSelectChanged = widget.onSelectChanged;
+    _ds._selectable = widget.selectable;
     _ds.tableState = this;
   }
 
@@ -67,6 +70,7 @@ class _DS extends DataTableSource {
   PageModel _page = PageModel();
   Function _getCells;
   Function _onSelectChanged;
+  Function _selectable;
   CryDataTableState tableState;
 
   reload() {
@@ -88,14 +92,16 @@ class _DS extends DataTableSource {
       index: index,
       cells: cells,
       selected: selected,
-      onSelectChanged: (v) {
-        m['selected'] = v;
-        if (_onSelectChanged != null) {
-          _onSelectChanged(m);
-        } else {
-          tableState.setState(() {});
-        }
-      },
+      onSelectChanged: (this._selectable == null ? true : this._selectable(m))
+          ? (v) {
+              m['selected'] = v;
+              if (_onSelectChanged != null) {
+                _onSelectChanged(m);
+              } else {
+                tableState.setState(() {});
+              }
+            }
+          : null,
     );
   }
 
