@@ -35,7 +35,9 @@ class CryDataTableState extends State<CryDataTable> {
     _ds._getCells = widget.getCells;
     _ds._onSelectChanged = widget.onSelectChanged;
     _ds._selectable = widget.selectable;
-    _ds.tableState = this;
+    _ds.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -71,7 +73,6 @@ class _DS extends DataTableSource {
   Function _getCells;
   Function _onSelectChanged;
   Function _selectable;
-  CryDataTableState tableState;
 
   reload() {
     notifyListeners();
@@ -98,7 +99,7 @@ class _DS extends DataTableSource {
               if (_onSelectChanged != null) {
                 _onSelectChanged(m);
               } else {
-                tableState.setState(() {});
+                notifyListeners();
               }
             }
           : null,

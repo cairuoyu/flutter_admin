@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/pages/common/page401.dart';
 import 'package:flutter_admin/pages/common/page404.dart';
 import 'package:flutter_admin/pages/dash/dashboard.dart';
+import 'package:flutter_admin/pages/dict/dictList.dart';
 import 'package:flutter_admin/pages/layout/layout.dart';
 import 'package:flutter_admin/pages/layout/layoutNoRoutes.dart' as layoutNoRoutes;
 import 'package:flutter_admin/pages/login.dart';
@@ -30,6 +31,7 @@ Map<String, Widget> layoutRoutesData = {
   '/layout401': Page401(),
   '/layout404': Page404(),
   '/layoutTest': MyTest(),
+  '/dictList': DictList(),
 };
 
 Map<String, Widget> routesData = {
