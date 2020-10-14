@@ -71,6 +71,10 @@ class _UserInfoListState extends State<UserInfoList> {
           label: Text(S.of(context).operating),
         ),
         DataColumn(
+          label: Text('账号'),
+          onSort: (int columnIndex, bool ascending) => _sort('user_name'),
+        ),
+        DataColumn(
           label: Text(S.of(context).name),
           onSort: (int columnIndex, bool ascending) => _sort('name'),
         ),
@@ -100,7 +104,7 @@ class _UserInfoListState extends State<UserInfoList> {
         ),
       ],
       getCells: (Map m) {
-        UserInfo userInfo = UserInfo.fromJson(m);
+        UserInfo userInfo = UserInfo.fromMap(m);
         return [
           DataCell(
             Container(
@@ -112,6 +116,7 @@ class _UserInfoListState extends State<UserInfoList> {
               ),
             ),
           ),
+          DataCell(Text(userInfo.userName ?? '--')),
           DataCell(Text(userInfo.name ?? '--')),
           DataCell(Text(userInfo.nickName ?? '--')),
           DataCell(Text(DictUtil.getDictItemName(
@@ -129,7 +134,7 @@ class _UserInfoListState extends State<UserInfoList> {
         ];
       },
     );
-    List<UserInfo> selectedList = tableKey?.currentState?.getSelectedList(page)?.map<UserInfo>((e) => UserInfo.fromJson(e))?.toList() ?? [];
+    List<UserInfo> selectedList = tableKey?.currentState?.getSelectedList(page)?.map<UserInfo>((e) => UserInfo.fromMap(e))?.toList() ?? [];
     ButtonBar buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -185,7 +190,7 @@ class _UserInfoListState extends State<UserInfoList> {
   }
 
   _loadData() async {
-    ResponseBodyApi responseBodyApi = await UserInfoApi.page(RequestBodyApi(page: page, params: userInfo.toJson()));
+    ResponseBodyApi responseBodyApi = await UserInfoApi.page(RequestBodyApi(page: page, params: userInfo.toMap()));
     page = PageModel.fromJson(responseBodyApi.data);
 
     setState(() {});

@@ -28,7 +28,7 @@ class _UserInfoMineState extends State<UserInfoMine> {
   @override
   void initState() {
     UserInfoApi.getCurrentUserInfo().then((res) {
-      this.userInfo = UserInfo.fromJson(res.data);
+      this.userInfo = UserInfo.fromMap(res.data);
       this.setState(() {});
     });
     super.initState();
@@ -90,7 +90,7 @@ class _UserInfoMineState extends State<UserInfoMine> {
               return;
             }
             form.save();
-            UserInfoApi.saveOrUpdate(this.userInfo.toJson()).then((ResponseBodyApi res) {
+            UserInfoApi.saveOrUpdate(this.userInfo.toMap()).then((ResponseBodyApi res) {
               if (!res.success) {
                 return;
               }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
 class LayoutAppBar extends AppBar {
@@ -60,10 +59,7 @@ class LayoutAppBar extends AppBar {
                 onPressed: () {
                   dispose();
                   Utils.logout();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (BuildContext context) => Login()),
-                  );
+                  Navigator.popAndPushNamed(context, '/login');
                 },
               ),
             ),

@@ -62,7 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "saved" : MessageLookupByLibrary.simpleMessage("保存成功"),
     "updateTime" : MessageLookupByLibrary.simpleMessage("修改时间"),
     "userList" : MessageLookupByLibrary.simpleMessage("用户列表"),
-    "username" : MessageLookupByLibrary.simpleMessage("用户名"),
-    "usernameRequired" : MessageLookupByLibrary.simpleMessage("用户名必填")
+    "username" : MessageLookupByLibrary.simpleMessage("账号"),
+    "usernameRequired" : MessageLookupByLibrary.simpleMessage("账号必填")
   };
 }

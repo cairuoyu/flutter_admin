@@ -1,6 +1,6 @@
 {
-    "username": "用户名",
-    "usernameRequired": "用户名必填",
+    "username": "账号",
+    "usernameRequired": "账号必填",
     "password": "密码",
     "passwordRequired": "密码必填",
     "registerNewAccount": "注册新账号",

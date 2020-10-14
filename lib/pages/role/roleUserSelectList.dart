@@ -99,7 +99,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
         ),
       ],
       getCells: (Map m) {
-        UserInfo userInfo = UserInfo.fromJson(m);
+        UserInfo userInfo = UserInfo.fromMap(m);
         return [
           DataCell(Container(width: 100, child: Text(userInfo.name ?? '--'))),
         ];
@@ -123,7 +123,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
 
   List<UserInfo> getSelectedList() {
     List<UserInfo> selectedList =
-        tableKey?.currentState?.getSelectedList(page)?.map<UserInfo>((e) => UserInfo.fromJson(e))?.toList() ?? [];
+        tableKey?.currentState?.getSelectedList(page)?.map<UserInfo>((e) => UserInfo.fromMap(e))?.toList() ?? [];
     return selectedList;
   }
 

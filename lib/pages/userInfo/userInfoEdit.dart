@@ -14,19 +14,24 @@ import '../../generated/l10n.dart';
 
 class UserInfoEdit extends StatefulWidget {
   UserInfoEdit({this.userInfo});
+
   final UserInfo userInfo;
+
   @override
   _UserInfoEditState createState() => _UserInfoEditState();
 }
 
 class _UserInfoEditState extends State<UserInfoEdit> {
   UserInfo userInfo;
+  bool isAdd;
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-    userInfo = widget.userInfo ?? UserInfo();
+    this.isAdd = widget.userInfo == null;
+    this.userInfo = widget.userInfo ?? UserInfo();
   }
 
   @override
@@ -36,10 +41,16 @@ class _UserInfoEditState extends State<UserInfoEdit> {
       child: Wrap(
         children: <Widget>[
           CryInput(
+            label: '账号',
+            value: userInfo.userName,
+            onSaved: (v) => {userInfo.userName = v},
+            validator: (v) => this.isAdd && v.isEmpty ? '必填' : null,
+            enable: this.isAdd,
+          ),
+          CryInput(
             label: S.of(context).personName,
             value: userInfo.name,
             onSaved: (v) => {userInfo.name = v},
-            validator: (v) => v.isEmpty ? '必填' : null,
           ),
           CryInput(
             label: S.of(context).personNickname,
@@ -60,7 +71,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
           ),
           CrySelect(
               label: S.of(context).personDepartment,
-            dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT),
+              dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT),
               value: userInfo.deptId,
               onSaved: (v) => {userInfo.deptId = v}),
           // CryInput(label: '籍贯'),
@@ -78,7 +89,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
               return;
             }
             form.save();
-            UserInfoApi.saveOrUpdate(userInfo.toJson()).then((ResponseBodyApi res) {
+            UserInfoApi.saveOrUpdate(userInfo.toMap()).then((ResponseBodyApi res) {
               if (!res.success) {
                 return;
               }
@@ -99,7 +110,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
     );
     var result = Scaffold(
       appBar: AppBar(
-        title: Text(widget.userInfo == null ? S.of(context).increase : S.of(context).modify),
+        title: Text(this.isAdd ? S.of(context).increase : S.of(context).modify),
       ),
       body: SingleChildScrollView(
         child: Column(
