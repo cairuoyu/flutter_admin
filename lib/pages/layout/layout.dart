@@ -8,6 +8,7 @@ import 'package:flutter_admin/pages/layout/layoutAppBar.dart';
 import 'package:flutter_admin/pages/layout/layoutMenu.dart';
 import 'package:flutter_admin/pages/layout/layoutSetting.dart';
 import 'package:flutter_admin/utils/storeUtil.dart';
+import 'package:flutter_admin/utils/utils.dart';
 
 class Layout extends StatefulWidget {
   final String path;
@@ -131,14 +132,7 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
       // ),
     );
     return Theme(
-      data: ThemeData(
-        primaryColor: themeColor,
-        iconTheme: IconThemeData(color: themeColor),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: themeColor,
-        ),
-        buttonTheme: ButtonThemeData(buttonColor: themeColor),
-      ),
+      data: Utils.getThemeData(context),
       child: subWidget,
     );
   }

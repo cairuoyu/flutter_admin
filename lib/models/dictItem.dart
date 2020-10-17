@@ -1,17 +1,17 @@
 import 'dart:convert';
 
 class DictItem {
-  final String dictId;
+   String dictId;
 
-  final String code;
+   String code;
 
-  final String name;
+   String name;
 
-  final String createTime;
+   String createTime;
 
-  final String updateTime;
+   String updateTime;
 
-  final String createrId;
+   String createrId;
   DictItem({
     this.dictId,
     this.code,
