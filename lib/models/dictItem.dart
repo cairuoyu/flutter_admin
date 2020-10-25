@@ -1,18 +1,21 @@
 import 'dart:convert';
 
 class DictItem {
-   String dictId;
+  String id;
+  String dictId;
 
-   String code;
+  String code;
 
-   String name;
+  String name;
 
-   String createTime;
+  String createTime;
 
-   String updateTime;
+  String updateTime;
 
-   String createrId;
+  String createrId;
+
   DictItem({
+    this.id,
     this.dictId,
     this.code,
     this.name,
@@ -22,6 +25,7 @@ class DictItem {
   });
 
   DictItem copyWith({
+    String id,
     String dictId,
     String code,
     String name,
@@ -30,6 +34,7 @@ class DictItem {
     String createrId,
   }) {
     return DictItem(
+      id: id ?? this.id,
       dictId: dictId ?? this.dictId,
       code: code ?? this.code,
       name: name ?? this.name,
@@ -41,6 +46,7 @@ class DictItem {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'dictId': dictId,
       'code': code,
       'name': name,
@@ -52,8 +58,9 @@ class DictItem {
 
   factory DictItem.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-
+  
     return DictItem(
+      id: map['id'],
       dictId: map['dictId'],
       code: map['code'],
       name: map['name'],
@@ -69,29 +76,31 @@ class DictItem {
 
   @override
   String toString() {
-    return 'DictItem(dictId: $dictId, code: $code, name: $name, createTime: $createTime, updateTime: $updateTime, createrId: $createrId)';
+    return 'DictItem(id: $id, dictId: $dictId, code: $code, name: $name, createTime: $createTime, updateTime: $updateTime, createrId: $createrId)';
   }
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
-
+  
     return o is DictItem &&
-        o.dictId == dictId &&
-        o.code == code &&
-        o.name == name &&
-        o.createTime == createTime &&
-        o.updateTime == updateTime &&
-        o.createrId == createrId;
+      o.id == id &&
+      o.dictId == dictId &&
+      o.code == code &&
+      o.name == name &&
+      o.createTime == createTime &&
+      o.updateTime == updateTime &&
+      o.createrId == createrId;
   }
 
   @override
   int get hashCode {
-    return dictId.hashCode ^
-        code.hashCode ^
-        name.hashCode ^
-        createTime.hashCode ^
-        updateTime.hashCode ^
-        createrId.hashCode;
+    return id.hashCode ^
+      dictId.hashCode ^
+      code.hashCode ^
+      name.hashCode ^
+      createTime.hashCode ^
+      updateTime.hashCode ^
+      createrId.hashCode;
   }
 }

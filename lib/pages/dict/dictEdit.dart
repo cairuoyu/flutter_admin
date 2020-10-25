@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_admin/api/dictApi.dart';
+import 'package:flutter_admin/api/dictItemApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/models/dict.dart';
@@ -20,15 +21,21 @@ class DictEdit extends StatefulWidget {
 
 class _DictEditState extends State<DictEdit> {
   Dict dict;
-  List<DictItem> dictItemList;
+  List<DictItem> dictItemList = [];
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> tableFormKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
+    init();
+  }
+
+  void init() async {
     dict = widget.dict ?? Dict();
-    dictItemList = [DictItem()];
+    ResponseBodyApi responseBodyApi = await DictItemApi.list(DictItem(dictId: dict.id).toMap());
+    dictItemList = List.from(responseBodyApi.data).map((e) => DictItem.fromMap(e)).toList();
+    this.setState(() {});
   }
 
   @override
@@ -72,14 +79,26 @@ class _DictEditState extends State<DictEdit> {
     var table = DataTable(
       columns: [
         DataColumn(label: Text('#')),
+        DataColumn(label: Text('操作')),
         DataColumn(label: Text('字典项代码')),
         DataColumn(label: Text('字典项名称')),
       ],
       rows: this.dictItemList.map((e) {
         DictItem dictItem = this.dictItemList[i];
-        return DataRow(
+        int rowIndex = i + 1;
+        var result = DataRow(
           cells: [
-            DataCell(Text((i++).toString())),
+            DataCell(Text((rowIndex).toString())),
+            DataCell(ButtonBar(
+              children: [
+                CryButton(
+                    iconData: Icons.delete,
+                    onPressed: () {
+                      this.dictItemList.remove(e);
+                      this.setState(() {});
+                    }),
+              ],
+            )),
             DataCell(CryInput(
               width: 200,
               padding: 0,
@@ -100,6 +119,8 @@ class _DictEditState extends State<DictEdit> {
             )),
           ],
         );
+        i++;
+        return result;
       }).toList(),
     );
     var tableForm = Form(
@@ -132,16 +153,12 @@ class _DictEditState extends State<DictEdit> {
 
   _add() {
     this.tableFormKey.currentState.save();
-    this.dictItemList.add(DictItem());
+    this.dictItemList.add(DictItem(dictId: dict.id));
     this.setState(() {});
   }
 
   _save() async {
     this.tableFormKey.currentState.save();
-    this.dictItemList.forEach((element) {
-      print(element.code);
-      print(element.name);
-    });
     if (this.dictItemList.firstWhere((element) => isEmpty(element.name) || isEmpty(element.code), orElse: () {
           return null;
         }) !=
@@ -153,7 +170,12 @@ class _DictEditState extends State<DictEdit> {
     if (!this.formKey.currentState.validate()) {
       return;
     }
-    ResponseBodyApi res = await DictApi.saveOrUpdate(this.dict.toMap());
+
+    var dict = this.dict.toMap();
+    var dictItemList = this.dictItemList.map((e) => e.toMap()).toList();
+    var params = {"dict": dict, "dictItemList": dictItemList};
+
+    ResponseBodyApi res = await DictApi.saveOrUpdate(params);
     if (!res.success) {
       return;
     }

@@ -1,4 +1,4 @@
-import 'package:flutter_admin/api/dictItemApi.dart';
+import 'package:flutter_admin/api/dictApi.dart';
 import 'package:flutter_admin/api/menuApi.dart';
 import 'package:flutter_admin/models/dictItem.dart';
 import 'package:flutter_admin/models/menu.dart';
@@ -44,7 +44,7 @@ class StoreUtil {
   }
 
   _initDict() async {
-    ResponseBodyApi map = await DictItemApi.map();
+    ResponseBodyApi map = await DictApi.map();
     this.dictSelectMap = Map();
     this.dictItemMap = Map.from(map.data).map<String, List<DictItem>>((key, value) {
       List<DictItem> list = (value as List).map((e) => DictItem.fromMap(e)).toList();

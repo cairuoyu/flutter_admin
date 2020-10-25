@@ -2,10 +2,10 @@ import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/utils/httpUtil.dart';
 
 class DictItemApi {
-  static Future<ResponseBodyApi> map() async {
-    return await HttpUtil.get('/dictItem/map');
+  static all() {
+    return HttpUtil.get('/dictItem/all');
   }
-  static Future<ResponseBodyApi> all() async {
-    return await HttpUtil.get('/dictItem/all');
+  static list(data){
+    return HttpUtil.post('/dictItem/list',data: data);
   }
 }
