@@ -7,6 +7,7 @@ import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/models/dict.dart';
 import 'package:flutter_admin/models/dictItem.dart';
 import 'package:flutter_admin/models/responseBodyApi.dart';
+import 'package:flutter_admin/pages/dict/dictItemListEdit.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:quiver/strings.dart';
 
@@ -23,7 +24,7 @@ class _DictEditState extends State<DictEdit> {
   Dict dict;
   List<DictItem> dictItemList = [];
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> tableFormKey = GlobalKey<FormState>();
+  final GlobalKey<DictItemListEditState> dictItemListEditKey = GlobalKey<DictItemListEditState>();
 
   @override
   void initState() {
@@ -33,9 +34,6 @@ class _DictEditState extends State<DictEdit> {
 
   void init() async {
     dict = widget.dict ?? Dict();
-    ResponseBodyApi responseBodyApi = await DictItemApi.list(DictItem(dictId: dict.id).toMap());
-    dictItemList = List.from(responseBodyApi.data).map((e) => DictItem.fromMap(e)).toList();
-    this.setState(() {});
   }
 
   @override
@@ -65,67 +63,13 @@ class _DictEditState extends State<DictEdit> {
         ],
       ),
     );
-    var buttonBar = ButtonBar(
-      alignment: MainAxisAlignment.start,
-      children: [
-        CryButton(
-          label: '增加一行',
-          iconData: Icons.add,
-          onPressed: () => this._add(),
-        )
-      ],
-    );
-    int i = 0;
-    var table = DataTable(
-      columns: [
-        DataColumn(label: Text('#')),
-        DataColumn(label: Text('操作')),
-        DataColumn(label: Text('字典项代码')),
-        DataColumn(label: Text('字典项名称')),
-      ],
-      rows: this.dictItemList.map((e) {
-        DictItem dictItem = this.dictItemList[i];
-        int rowIndex = i + 1;
-        var result = DataRow(
-          cells: [
-            DataCell(Text((rowIndex).toString())),
-            DataCell(ButtonBar(
-              children: [
-                CryButton(
-                    iconData: Icons.delete,
-                    onPressed: () {
-                      this.dictItemList.remove(e);
-                      this.setState(() {});
-                    }),
-              ],
-            )),
-            DataCell(CryInput(
-              width: 200,
-              padding: 0,
-              contentPadding: 0,
-              value: dictItem.code,
-              onSaved: (v) {
-                dictItem.code = v;
-              },
-            )),
-            DataCell(CryInput(
-              width: 200,
-              padding: 0,
-              contentPadding: 0,
-              value: dictItem.name,
-              onSaved: (v) {
-                dictItem.name = v;
-              },
-            )),
-          ],
-        );
-        i++;
-        return result;
-      }).toList(),
-    );
-    var tableForm = Form(
-      key: tableFormKey,
-      child: table,
+
+    var dictItemListEdit = DictItemListEdit(
+      this.dict,
+      key: this.dictItemListEditKey,
+      onSave: (v) {
+        this.dictItemList = v;
+      },
     );
     var result = Scaffold(
       appBar: AppBar(
@@ -140,8 +84,14 @@ class _DictEditState extends State<DictEdit> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           form,
-          buttonBar,
-          tableForm,
+          Expanded(
+            child: SingleChildScrollView(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: dictItemListEdit,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -151,25 +101,15 @@ class _DictEditState extends State<DictEdit> {
     );
   }
 
-  _add() {
-    this.tableFormKey.currentState.save();
-    this.dictItemList.add(DictItem(dictId: dict.id));
-    this.setState(() {});
-  }
-
   _save() async {
-    this.tableFormKey.currentState.save();
-    if (this.dictItemList.firstWhere((element) => isEmpty(element.name) || isEmpty(element.code), orElse: () {
-          return null;
-        }) !=
-        null) {
-      Utils.message('请完善表格数据');
-      return;
-    }
-    this.formKey.currentState.save();
     if (!this.formKey.currentState.validate()) {
       return;
     }
+    if (!this.dictItemListEditKey.currentState.validate()) {
+      return;
+    }
+    this.formKey.currentState.save();
+    this.dictItemListEditKey.currentState.save();
 
     var dict = this.dict.toMap();
     var dictItemList = this.dictItemList.map((e) => e.toMap()).toList();

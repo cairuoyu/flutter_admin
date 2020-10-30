@@ -6,6 +6,7 @@ import 'package:flutter_admin/components/cryDialog.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/constants/constantDict.dart';
 import 'package:flutter_admin/models/dict.dart';
+import 'package:flutter_admin/models/orderItem.dart';
 import 'package:flutter_admin/models/page.dart';
 import 'package:flutter_admin/models/requestBodyApi.dart';
 import 'package:flutter_admin/models/responseBodyApi.dart';
@@ -20,7 +21,7 @@ class DictList extends StatefulWidget {
 }
 
 class _DictList extends State<DictList> {
-  PageModel page = PageModel();
+  PageModel page = PageModel(orders: [OrderItem(column: 'create_time')]);
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<CryDataTableState> tableKey = GlobalKey<CryDataTableState>();
   Dict dict = Dict();
@@ -72,6 +73,7 @@ class _DictList extends State<DictList> {
           key: tableKey,
           title: '数据字典',
           page: page,
+          onPageChanged: _onPageChanged,
           selectable: (Map m) {
             return Dict.fromMap(m).state != ConstantDict.CODE_YESNO_YES;
           },
@@ -148,5 +150,11 @@ class _DictList extends State<DictList> {
     ResponseBodyApi responseBodyApi = await DictApi.page(RequestBodyApi(page: page, params: this.dict.toMap()));
     page = PageModel.fromJson(responseBodyApi.data);
     setState(() {});
+  }
+
+  _onPageChanged(int size, int current) {
+    page.size = size;
+    page.current = current;
+    this._loadData();
   }
 }
