@@ -1,8 +1,8 @@
+import 'package:cry/form/cry_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_admin/api/dictItemApi.dart';
 import 'package:cry/cry_button.dart';
-import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/models/dict.dart';
 import 'package:flutter_admin/models/dictItem.dart';
 import 'package:flutter_admin/models/responseBodyApi.dart';

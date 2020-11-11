@@ -1,11 +1,11 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cry/form1/cry_input.dart';
+import 'package:cry/form1/cry_select.dart';
+import 'package:cry/form1/cry_select_date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/personApi.dart';
 import 'package:cry/cry_button.dart';
-import 'package:flutter_admin/components/form1/cryInput.dart';
-import 'package:flutter_admin/components/form1/crySelect.dart';
-import 'package:flutter_admin/components/form1/crySelectDate.dart';
 import 'package:flutter_admin/constants/constantDict.dart';
 import 'package:flutter_admin/models/person.dart';
 import 'package:flutter_admin/utils/adaptiveUtil.dart';

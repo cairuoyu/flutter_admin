@@ -1,6 +1,6 @@
+import 'package:cry/vo/select_option_vo.dart';
 import 'package:flutter_admin/models/dictItem.dart';
 import 'package:flutter_admin/utils/storeUtil.dart';
-import 'package:flutter_admin/vo/selectOptionVO.dart';
 
 class DictUtil {
   static List<SelectOptionVO> getDictSelectOptionList(String dictCode) {
