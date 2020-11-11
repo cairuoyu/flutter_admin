@@ -3,7 +3,7 @@ import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/menuDemoApi.dart';
 import 'package:cry/cry_button.dart';
-import 'package:flutter_admin/components/cryDialog.dart';
+import 'package:cry/cry_dialog.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/utils/treeUtil.dart';

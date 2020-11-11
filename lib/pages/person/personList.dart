@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/personApi.dart';
 import 'package:cry/cry_button.dart';
-import 'package:flutter_admin/components/cryDialog.dart';
+import 'package:cry/cry_dialog.dart';
 import 'package:flutter_admin/constants/constantDict.dart';
 import 'package:flutter_admin/models/orderItem.dart';
 import 'package:flutter_admin/models/page.dart';
