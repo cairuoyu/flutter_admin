@@ -1,3 +1,4 @@
+import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/models/configuration.dart';
 import 'package:flutter_admin/utils/storeUtil.dart';
@@ -6,12 +7,13 @@ import 'package:flutter_admin/utils/treeUtil.dart';
 import '../../models/menu.dart';
 import '../../utils/adaptiveUtil.dart';
 import '../../utils/utils.dart';
-import '../../vo/treeVO.dart';
 
 class LayoutMenu extends StatefulWidget {
-  LayoutMenu({Key key, this.onClick, this.data}) : super(key: key);
+  LayoutMenu({
+    Key key,
+    this.onClick,
+  }) : super(key: key);
   final Function onClick;
-  final List<TreeVO<Menu>> data;
 
   @override
   _LayoutMenuState createState() => _LayoutMenuState();

@@ -1,9 +1,10 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cry/cry_image_upload.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/api/fileApi.dart';
 import 'package:flutter_admin/api/userInfoApi.dart';
 import 'package:flutter_admin/components/cryButton.dart';
-import 'package:flutter_admin/components/cryImageUpload.dart';
 import 'package:flutter_admin/components/form2/crySelectDate.dart';
 import 'package:flutter_admin/components/form2/crySelect.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
@@ -12,6 +13,10 @@ import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/models/userInfo.dart';
 import 'package:flutter_admin/utils/adaptiveUtil.dart';
 import 'package:flutter_admin/utils/dictUtil.dart';
+import 'package:mime_type/mime_type.dart';
+import 'package:path/path.dart' as Path;
+import 'package:http_parser/http_parser.dart';
+
 import '../../generated/l10n.dart';
 
 class UserInfoMine extends StatefulWidget {
@@ -41,8 +46,16 @@ class _UserInfoMineState extends State<UserInfoMine> {
         updateAreaSize: 200,
         updateAreaDefault: Icon(Icons.person, size: 200),
         fileList: [this.userInfo?.avatarUrl],
-        onUpload: (v) {
-          this.userInfo.avatarUrl = v;
+        onUpload: (imageBytes) {
+          String filename = "test.png"; //todo
+          String mimeType = mime(Path.basename(filename));
+          var mediaType = MediaType.parse(mimeType);
+          MultipartFile file = MultipartFile.fromBytes(imageBytes, contentType: mediaType, filename: filename);
+          FormData formData = FormData.fromMap({"file": file});
+          FileApi.upload(formData).then((res) {
+            this.userInfo.avatarUrl = res.data;
+            setState(() {});
+          });
         },
       ),
     );
@@ -66,13 +79,13 @@ class _UserInfoMineState extends State<UserInfoMine> {
       ),
       CrySelect(
         label: S.of(context).personGender,
-            dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_GENDER),
+        dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_GENDER),
         value: userInfo.gender,
         onSaved: (v) => {userInfo.gender = v},
       ),
       CrySelect(
         label: S.of(context).personDepartment,
-            dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT),
+        dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT),
         value: userInfo.deptId,
         onSaved: (v) => {userInfo.deptId = v},
       ),

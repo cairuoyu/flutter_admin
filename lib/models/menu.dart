@@ -1,21 +1,22 @@
 import 'dart:convert';
 
-import 'package:flutter_admin/vo/treeVO.dart';
+import 'package:cry/vo/tree_vo.dart';
 
 class Menu extends TreeData {
-   String id;
-   String pid;
-   bool checked;
-   String name;
-   String nameEn;
-   String icon;
-   String url;
-   String pname;
-   int orderBy;
-   String module;
-   String remark;
-   String createTime;
-   String updateTime;
+  String id;
+  String pid;
+  bool checked;
+  String name;
+  String nameEn;
+  String icon;
+  String url;
+  String pname;
+  int orderBy;
+  String module;
+  String remark;
+  String createTime;
+  String updateTime;
+
   Menu({
     this.id,
     this.pid,

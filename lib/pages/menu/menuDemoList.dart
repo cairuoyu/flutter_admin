@@ -1,3 +1,4 @@
+import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/menuDemoApi.dart';
 import 'package:flutter_admin/models/menu.dart';
@@ -6,7 +7,6 @@ import 'package:flutter_admin/pages/menu/menuForm.dart';
 import 'package:flutter_admin/pages/menu/menuMenu.dart';
 import 'package:flutter_admin/utils/adaptiveUtil.dart';
 import 'package:flutter_admin/utils/treeUtil.dart';
-import 'package:flutter_admin/vo/treeVO.dart';
 
 class MenuDemoList extends StatefulWidget {
   MenuDemoList({Key key}) : super(key: key);
