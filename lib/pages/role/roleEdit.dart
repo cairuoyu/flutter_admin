@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/roleApi.dart';
-import 'package:flutter_admin/components/cryButton.dart';
+import 'package:cry/cry_button.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/responseBodyApi.dart';

@@ -1,5 +1,5 @@
+import 'package:cry/model/configuration_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/models/configuration.dart';
 import 'package:flutter_admin/utils/adaptiveUtil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_admin/charts/SimpleSeriesLegend.dart';

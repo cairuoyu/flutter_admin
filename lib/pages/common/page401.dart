@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/components/cryButton.dart';
+import 'package:cry/cry_button.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
 class Page401 extends StatelessWidget {

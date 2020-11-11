@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/components/cryButton.dart';
+import 'package:cry/cry_button.dart';
 
 class Page404 extends StatelessWidget {
   const Page404({Key key}) : super(key: key);

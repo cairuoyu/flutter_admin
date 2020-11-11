@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/imageApi.dart';
-import 'package:flutter_admin/components/cryButton.dart';
+import 'package:cry/cry_button.dart';
 import 'package:flutter_admin/components/cryDialog.dart';
 import 'package:flutter_admin/components/form2/cryInput.dart';
 import 'package:flutter_admin/models/image.dart' as model;

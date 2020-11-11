@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/components/cryButton.dart';
+import 'package:cry/cry_button.dart';
 
 class IconList extends StatefulWidget {
   IconList({Key key}) : super(key: key);

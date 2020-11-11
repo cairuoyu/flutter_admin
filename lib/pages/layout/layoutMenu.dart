@@ -1,6 +1,6 @@
+import 'package:cry/model/configuration_model.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/models/configuration.dart';
 import 'package:flutter_admin/utils/storeUtil.dart';
 import 'package:flutter_admin/utils/treeUtil.dart';
 

@@ -1,8 +1,8 @@
+import 'package:cry/cry_root.dart';
+import 'package:cry/cry_toggle_buttons.dart';
+import 'package:cry/model/configuration_model.dart';
+import 'package:cry/vo/select_option_vo.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_admin/components/cryRoot.dart';
-import 'package:flutter_admin/components/cryToggleButtons.dart';
-import 'package:flutter_admin/models/configuration.dart';
-import 'package:flutter_admin/vo/selectOptionVO.dart';
 
 class LangSwitch extends StatefulWidget {
   LangSwitch({Key key}) : super(key: key);

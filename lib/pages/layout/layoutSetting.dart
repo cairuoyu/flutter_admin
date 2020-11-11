@@ -1,8 +1,8 @@
+import 'package:cry/cry_root.dart';
+import 'package:cry/model/configuration_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_admin/components/cryRoot.dart';
 import 'package:flutter_admin/generated/l10n.dart';
-import 'package:flutter_admin/models/configuration.dart';
 import 'package:flutter_admin/pages/common/langSwitch.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 

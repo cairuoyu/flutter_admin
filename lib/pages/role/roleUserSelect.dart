@@ -1,7 +1,7 @@
+import 'package:cry/cry_transfer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/RoleUserApi.dart';
-import 'package:flutter_admin/components/cryButton.dart';
-import 'package:flutter_admin/components/cryTransfer.dart';
+import 'package:cry/cry_button.dart';
 import 'package:flutter_admin/models/page.dart';
 import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/models/roleUser.dart';

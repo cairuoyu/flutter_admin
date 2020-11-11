@@ -1,6 +1,6 @@
+import 'package:cry/cry_root.dart';
 import 'package:flutter/material.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter_admin/components/cryRoot.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'routes/routes.dart';
 import 'generated/l10n.dart';

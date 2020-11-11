@@ -1,7 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cry/cry_root.dart';
+import 'package:cry/model/configuration_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/components/cryRoot.dart';
-import 'package:flutter_admin/models/configuration.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/pages/common/page401.dart';
 import 'package:flutter_admin/pages/layout/layoutAppBar.dart';
