@@ -1,10 +1,10 @@
 import 'package:cry/form/cry_input.dart';
+import 'package:cry/model/order_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/roleApi.dart';
 import 'package:cry/cry_button.dart';
-import 'package:flutter_admin/components/cryDataTable.dart';
-import 'package:flutter_admin/models/orderItem.dart';
-import 'package:flutter_admin/models/page.dart';
+import 'package:cry/cry_data_table.dart';
+import 'package:cry/model/page_model.dart';
 import 'package:flutter_admin/models/requestBodyApi.dart';
 import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/models/role.dart';
@@ -34,7 +34,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
   @override
   void initState() {
     super.initState();
-    page = PageModel(orders: [OrderItem(column: 'name')]);
+    page = PageModel(orders: [OrderItemModel(column: 'name')]);
 
     WidgetsBinding.instance.addPostFrameCallback((c) {
       query();
@@ -134,11 +134,11 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
     requestBodyApi.params = params;
     ResponseBodyApi responseBodyApi;
     if (widget.isSelected) {
-      responseBodyApi = await RoleApi.getSelectedUserInfo(requestBodyApi);
+      responseBodyApi = await RoleApi.getSelectedUserInfo(requestBodyApi.toMap());
     } else {
-      responseBodyApi = await RoleApi.getUnSelectedUserInfo(requestBodyApi);
+      responseBodyApi = await RoleApi.getUnSelectedUserInfo(requestBodyApi.toMap());
     }
-    page = PageModel.fromJson(responseBodyApi.data);
+    page = PageModel.fromMap(responseBodyApi.data);
 
     setState(() {});
   }

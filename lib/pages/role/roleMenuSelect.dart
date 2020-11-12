@@ -94,7 +94,7 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
   }
 
   _loadData() async {
-    ResponseBodyApi responseBodyApi = await RoleApi.getMenu(RequestBodyApi(params: widget.role.toJson()));
+    ResponseBodyApi responseBodyApi = await RoleApi.getMenu(RequestBodyApi(params: widget.role.toJson()).toMap());
     var data = responseBodyApi.data;
     List<Menu> list = List.from(data).map((e) => Menu.fromMap(e)).toList();
     this.data = TreeUtil.toTreeVOList(list);

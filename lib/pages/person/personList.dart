@@ -1,13 +1,13 @@
 import 'package:cry/form1/cry_input.dart';
 import 'package:cry/form1/cry_select.dart';
+import 'package:cry/model/order_item_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/personApi.dart';
 import 'package:cry/cry_button.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:flutter_admin/constants/constantDict.dart';
-import 'package:flutter_admin/models/orderItem.dart';
-import 'package:flutter_admin/models/page.dart';
+import 'package:cry/model/page_model.dart';
 import 'package:flutter_admin/models/person.dart';
 import 'package:flutter_admin/models/requestBodyApi.dart';
 import 'package:flutter_admin/models/responseBodyApi.dart';
@@ -214,7 +214,7 @@ class MyDS extends DataTableSource {
   List<Person> dataList;
   int selectedCount = 0;
   RequestBodyApi requestBodyApi = RequestBodyApi();
-  PageModel page = PageModel(orders: [OrderItem(column: 'create_time', asc: false)]);
+  PageModel page = PageModel(orders: [OrderItemModel(column: 'create_time', asc: false)]);
 
   sort(column, ascending) {
     page.orders[0].column = column;
@@ -224,8 +224,8 @@ class MyDS extends DataTableSource {
 
   loadData() async {
     requestBodyApi.page = page;
-    ResponseBodyApi responseBodyApi = await PersonApi.page(requestBodyApi);
-    page = PageModel.fromJson(responseBodyApi.data);
+    ResponseBodyApi responseBodyApi = await PersonApi.page(requestBodyApi.toMap());
+    page = PageModel.fromMap(responseBodyApi.data);
 
     dataList = page.records.map<Person>((v) {
       Person person = Person.fromJson(v);

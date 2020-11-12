@@ -1,13 +1,13 @@
+import 'package:cry/cry_data_table.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:cry/form/cry_input.dart';
+import 'package:cry/model/order_item_model.dart';
+import 'package:cry/model/page_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/dictApi.dart';
 import 'package:cry/cry_button.dart';
-import 'package:flutter_admin/components/cryDataTable.dart';
 import 'package:flutter_admin/constants/constantDict.dart';
 import 'package:flutter_admin/models/dict.dart';
-import 'package:flutter_admin/models/orderItem.dart';
-import 'package:flutter_admin/models/page.dart';
 import 'package:flutter_admin/models/requestBodyApi.dart';
 import 'package:flutter_admin/models/responseBodyApi.dart';
 import 'package:flutter_admin/pages/dict/dictEdit.dart';
@@ -21,7 +21,7 @@ class DictList extends StatefulWidget {
 }
 
 class _DictList extends State<DictList> {
-  PageModel page = PageModel(orders: [OrderItem(column: 'create_time')]);
+  PageModel page = PageModel(orders: [OrderItemModel(column: 'create_time')]);
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<CryDataTableState> tableKey = GlobalKey<CryDataTableState>();
   Dict dict = Dict();
@@ -147,8 +147,8 @@ class _DictList extends State<DictList> {
   }
 
   _loadData() async {
-    ResponseBodyApi responseBodyApi = await DictApi.page(RequestBodyApi(page: page, params: this.dict.toMap()));
-    page = PageModel.fromJson(responseBodyApi.data);
+    ResponseBodyApi responseBodyApi = await DictApi.page(RequestBodyApi(page: page, params: this.dict.toMap()).toMap());
+    page = PageModel.fromMap(responseBodyApi.data);
     setState(() {});
   }
 
