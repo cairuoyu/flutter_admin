@@ -73,6 +73,7 @@ class _DictEditState extends State<DictEdit> {
       appBar: AppBar(
         actions: [
           CryButton(
+            label: '保存',
             iconData: Icons.save,
             onPressed: () => _save(),
           )

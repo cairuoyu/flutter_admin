@@ -5,7 +5,7 @@ import 'package:flutter_admin/vo/listTileVO.dart';
 Map<String, IconData> iconMap = {
   'menu': Icons.menu,
   'dashboard': Icons.dashboard,
-  'role': Icons.rowing_outlined,
+  'role': Icons.group_work,
   'info': Icons.info,
   'person': Icons.person,
   'image': Icons.image,
