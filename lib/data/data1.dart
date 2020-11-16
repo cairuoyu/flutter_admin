@@ -1,6 +1,6 @@
 //todo
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/vo/listTileVO.dart';
+import 'package:flutter_admin/vo/list_tile_vo.dart';
 
 Map<String, IconData> iconMap = {
   'menu': Icons.menu,

@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/pages/common/page401.dart';
-import 'package:flutter_admin/pages/common/page404.dart';
+import 'package:flutter_admin/pages/common/page_401.dart';
+import 'package:flutter_admin/pages/common/page_404.dart';
 import 'package:flutter_admin/pages/dash/dashboard.dart';
-import 'package:flutter_admin/pages/dict/dictList.dart';
+import 'package:flutter_admin/pages/dict/dict_list.dart';
 import 'package:flutter_admin/pages/layout/layout.dart';
-import 'package:flutter_admin/pages/layout/layoutNoRoutes.dart' as layoutNoRoutes;
+import 'package:flutter_admin/pages/layout/layout_no_routes.dart' as layoutNoRoutes;
 import 'package:flutter_admin/pages/login.dart';
-import 'package:flutter_admin/pages/menu/menuDemoList.dart';
-import 'package:flutter_admin/pages/myTest.dart';
-import 'package:flutter_admin/pages/person/personList.dart';
+import 'package:flutter_admin/pages/menu/menu_demo_list.dart';
+import 'package:flutter_admin/pages/my_test.dart';
+import 'package:flutter_admin/pages/person/person_list.dart';
 import 'package:flutter_admin/pages/register.dart';
-import 'package:flutter_admin/pages/role/roleList.dart';
-import 'package:flutter_admin/pages/userInfo/userInfoList.dart';
-import 'package:flutter_admin/pages/userInfo/userInfoMine.dart';
+import 'package:flutter_admin/pages/role/role_list.dart';
+import 'package:flutter_admin/pages/userInfo/user_info_list.dart';
+import 'package:flutter_admin/pages/userInfo/user_info_mine.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
-import '../pages/image/imageUpload.dart';
-import '../pages/menu/menuDemoList.dart';
-import '../pages/video/videoUpload.dart';
+import '../pages/image/image_upload.dart';
+import '../pages/menu/menu_demo_list.dart';
+import '../pages/video/video_upload.dart';
 
 Map<String, Widget> layoutRoutesData = {
   '/': Dashboard(),

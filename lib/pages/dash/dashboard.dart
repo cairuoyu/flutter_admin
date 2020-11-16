@@ -1,10 +1,10 @@
 import 'package:cry/model/configuration_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/utils/adaptiveUtil.dart';
+import 'package:flutter_admin/utils/adaptive_util.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_admin/charts/SimpleSeriesLegend.dart';
+import 'package:flutter_admin/charts/simple_series_legend.dart';
 import 'package:flutter_admin/data/data1.dart';
-import 'package:flutter_admin/vo/listTileVO.dart';
+import 'package:flutter_admin/vo/list_tile_vo.dart';
 import '../../generated/l10n.dart';
 
 class Dashboard extends StatelessWidget {

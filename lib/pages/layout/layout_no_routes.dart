@@ -1,35 +1,34 @@
+import 'dart:ui';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/cry_root.dart';
 import 'package:cry/model/configuration_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/models/menu.dart';
-import 'package:flutter_admin/pages/common/page_401.dart';
+import 'package:flutter_admin/pages/common/page_404.dart';
 import 'package:flutter_admin/pages/layout/layout_app_bar.dart';
+import 'package:flutter_admin/routes/routes.dart';
+import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/pages/layout/layout_menu.dart';
 import 'package:flutter_admin/pages/layout/layout_setting.dart';
 import 'package:flutter_admin/utils/store_util.dart';
-import 'package:flutter_admin/utils/utils.dart';
 
 class Layout extends StatefulWidget {
-  final String path;
-  final Widget content;
-
-  Layout({this.content, this.path});
-
   @override
   _LayoutState createState() => _LayoutState();
 }
 
-class _LayoutState extends State<Layout> with TickerProviderStateMixin {
+class _LayoutState extends State with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
+  List<Menu> menuOpened = [];
   TabController tabController;
-  Widget content;
+  Container content = Container();
+  int length = 0;
 
   @override
   void initState() {
     super.initState();
+    tabController = TabController(vsync: this, length: length);
     init();
-    content = widget.content;
   }
 
   init() async {
@@ -48,14 +47,14 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
       BotToast.showLoading();
       return Container();
     }
-    this.handleRoute();
+
     Color themeColor = CryRootScope.of(context).state.configuration.themeColor;
     TabBar tabBar = TabBar(
-      onTap: (index) => _openPage(StoreUtil.instance.menuOpened[index]),
+      onTap: (index) => _openPage(menuOpened[index]),
       controller: tabController,
       isScrollable: true,
       indicator: const UnderlineTabIndicator(),
-      tabs: StoreUtil.instance.menuOpened.map<Tab>((Menu menu) {
+      tabs: menuOpened.map<Tab>((Menu menu) {
         return Tab(
           child: Row(
             children: <Widget>[
@@ -63,9 +62,7 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
               SizedBox(width: 3),
               InkWell(
                 child: Icon(Icons.close, size: 10),
-                onTap: () {
-                  _closePage(menu);
-                },
+                onTap: () => _closePage(menu),
               ),
             ],
           ),
@@ -100,11 +97,7 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
                   ),
                 ],
               ),
-              Container(
-                child: Expanded(
-                  child: content ?? Container(),
-                ),
-              ),
+              content,
             ],
           ),
         ),
@@ -113,17 +106,10 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
     Scaffold subWidget = Scaffold(
       key: scaffoldStateKey,
       endDrawer: LayoutSetting(),
-      appBar: LayoutAppBar(
-        context,
-        type: 1,
-        openSetting: () {
-          scaffoldStateKey.currentState.openEndDrawer();
-        },
-        dispose: () {
-          this.dispose();
-        },
-      ),
       body: body,
+      appBar: LayoutAppBar(context, type: 2, openSetting: () {
+        scaffoldStateKey.currentState.openEndDrawer();
+      }),
       // floatingActionButton: FloatingActionButton(
       //   child: Icon(Icons.settings),
       //   onPressed: () {
@@ -132,54 +118,51 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
       // ),
     );
     return Theme(
-      data: Utils.getThemeData(context),
+      data: ThemeData(
+        primaryColor: themeColor,
+        iconTheme: IconThemeData(color: themeColor),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: themeColor,
+        ),
+        buttonTheme: ButtonThemeData(buttonColor: themeColor),
+      ),
       child: subWidget,
     );
   }
 
-  handleRoute() {
-    String path = widget.path;
-    int index = StoreUtil.instance.menuOpened.indexWhere((v) => v.url == path);
-    if (index < 0) {
-      Menu menu = StoreUtil.instance.menuList.firstWhere((v) {
-        return v.url == path;
-      }, orElse: () {
-        return null;
-      });
-      if (menu == null) {
-        StoreUtil.instance.menuOpened = [StoreUtil.instance.menu401];
-        this.content = Page401();
-      } else {
-        StoreUtil.instance.menuOpened.add(menu);
-      }
-    }
-    int length = StoreUtil.instance.menuOpened.length;
+  _closePage(menu) {
+    menuOpened.remove(menu);
+    --length;
     tabController = TabController(vsync: this, length: length);
-    tabController.index = index > -1 ? index : (length > 0 ? length - 1 : 0);
-  }
-
-  _openPage(Menu menu) {
-    Navigator.popAndPushNamed(context, menu.url);
-  }
-
-  _closePage(Menu menu) {
-    int index = StoreUtil.instance.menuOpened.indexWhere((note) => note.id == menu.id);
-    StoreUtil.instance.menuOpened.remove(menu);
-    if (StoreUtil.instance.menuOpened.length == 0) {
-      Navigator.popAndPushNamed(context, '/');
-      return;
+    var openPage;
+    if (length > 0) {
+      tabController.index = length - 1;
+      openPage = menuOpened[0];
     }
-    if (index == tabController.index) {
-      Menu openPage = StoreUtil.instance.menuOpened[0];
-      _openPage(openPage);
-      return;
-    }
-    tabController = TabController(vsync: this, length: StoreUtil.instance.menuOpened.length);
+    _openPage(openPage);
     setState(() {});
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  _openPage(Menu menu) {
+    if (menu == null) {
+      content = Container();
+      return;
+    }
+    Widget body = menu.url != null && layoutRoutesData[menu.url] != null ? layoutRoutesData[menu.url] : Page404();
+    content = Container(
+      child: Expanded(
+        child: body,
+      ),
+    );
+
+    int index = menuOpened.indexWhere((note) => note.id == menu.id);
+    if (index > -1) {
+      tabController.index = index;
+    } else {
+      menuOpened.add(menu);
+      tabController = TabController(vsync: this, length: ++length);
+      tabController.index = length - 1;
+    }
+    setState(() {});
   }
 }
