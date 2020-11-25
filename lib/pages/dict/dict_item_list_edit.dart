@@ -133,7 +133,7 @@ class DictItemListEditState extends State<DictItemListEdit> {
     return true;
   }
 
-  List<DictItem> save() {
+  save() {
     widget.onSave(this.dictItemList);
   }
 }

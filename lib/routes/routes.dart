@@ -7,6 +7,7 @@ import 'package:flutter_admin/pages/layout/layout.dart';
 import 'package:flutter_admin/pages/layout/layout_no_routes.dart' as layoutNoRoutes;
 import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/pages/menu/menu_demo_list.dart';
+import 'package:flutter_admin/pages/message/message.dart';
 import 'package:flutter_admin/pages/my_test.dart';
 import 'package:flutter_admin/pages/person/person_list.dart';
 import 'package:flutter_admin/pages/register.dart';
@@ -32,6 +33,7 @@ Map<String, Widget> layoutRoutesData = {
   '/layout404': Page404(),
   '/layoutTest': MyTest(),
   '/dictList': DictList(),
+  '/message': Message(),
 };
 
 Map<String, Widget> routesData = {
