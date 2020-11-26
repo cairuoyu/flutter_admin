@@ -1,5 +1,6 @@
 name: flutter_admin
 description: 一个基于flutter的后台管理系统 - A management system based on flutter
+publish_to: 'none'
 version: 1.0.0+1
 
 environment:
@@ -15,7 +16,7 @@ dependencies:
   cached_network_image: ^2.0.0-rc
   font_awesome_flutter: ^8.5.0
   json_annotation: ^2.2.0
-  bot_toast: ^2.2.1
+  bot_toast: ^3.0.5
   flutter_colorpicker: any
   flutter_localizations:
     sdk: flutter

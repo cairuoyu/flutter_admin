@@ -11,27 +11,26 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CryRoot(
-      BotToastInit(
-        child: Builder(
-          builder: (context) {
-            return MaterialApp(
-              title: 'FLUTTER_ADMIN',
-              navigatorObservers: [BotToastNavigatorObserver()],
-              theme: ThemeData(
-                primarySwatch: Colors.blue,
-              ),
-              localizationsDelegates: [
-                S.delegate,
-                GlobalCupertinoLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-              ],
-              supportedLocales: S.delegate.supportedLocales,
-              locale: Locale(CryRootScope.of(context).state.configuration.locale),
-              onGenerateRoute: (settings) => Routes.onGenerateRoute(settings),
-            );
-          },
-        ),
+      Builder(
+        builder: (context) {
+          return MaterialApp(
+            title: 'FLUTTER_ADMIN',
+            builder: BotToastInit(),
+            navigatorObservers: [BotToastNavigatorObserver()],
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            localizationsDelegates: [
+              S.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+            locale: Locale(CryRootScope.of(context).state.configuration.locale),
+            onGenerateRoute: (settings) => Routes.onGenerateRoute(settings),
+          );
+        },
       ),
     );
   }
