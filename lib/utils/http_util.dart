@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_admin/constants/constant.dart';
-import 'package:flutter_admin/models/response_body_api.dart';
+import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/utils/local_storage_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
@@ -70,7 +70,7 @@ class CryDioInterceptors extends InterceptorsWrapper {
   @override
   Future onResponse(Response response) {
     // print("RESPONSE[${response?.statusCode}] => PATH: ${response?.request?.path}");
-    ResponseBodyApi responseBodyApi = ResponseBodyApi.fromJson(response.data);
+    ResponseBodyApi responseBodyApi = ResponseBodyApi.fromMap(response.data);
     if (!responseBodyApi.success) {
       Utils.message(responseBodyApi.message);
     }
@@ -81,6 +81,7 @@ class CryDioInterceptors extends InterceptorsWrapper {
   @override
   Future onError(DioError err) {
     print("ERROR[${err?.response?.statusCode}] => PATH: ${err?.request?.path}");
+    print(err.toString());
     Utils.message('请求出错：' + err.toString());
     return super.onError(err);
   }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/role_api.dart';
 import 'package:cry/cry_button.dart';
 import 'package:flutter_admin/generated/l10n.dart';
-import 'package:flutter_admin/models/response_body_api.dart';
+import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/models/role.dart';
 
 class RoleEdit extends StatefulWidget {

@@ -8,7 +8,7 @@ import 'package:flutter_admin/api/image_api.dart';
 import 'package:cry/cry_button.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:flutter_admin/models/image.dart' as model;
-import 'package:flutter_admin/models/response_body_api.dart';
+import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';

@@ -5,7 +5,7 @@ import 'package:flutter_admin/api/dict_item_api.dart';
 import 'package:cry/cry_button.dart';
 import 'package:flutter_admin/models/dict.dart';
 import 'package:flutter_admin/models/dict_item.dart';
-import 'package:flutter_admin/models/response_body_api.dart';
+import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:quiver/strings.dart';
 

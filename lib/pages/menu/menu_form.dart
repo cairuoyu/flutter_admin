@@ -7,7 +7,7 @@ import 'package:flutter_admin/api/menu_demo_api.dart';
 import 'package:cry/cry_button.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
-import 'package:flutter_admin/models/response_body_api.dart';
+import 'package:cry/model/response_body_api.dart';
 
 class MenuForm extends StatefulWidget {
   MenuForm({Key key, this.menu, this.onSave, this.onClose}) : super(key: key);

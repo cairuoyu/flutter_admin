@@ -4,8 +4,8 @@ import 'package:cry/model/page_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/message_api.dart';
 import 'package:flutter_admin/models/message.dart';
-import 'package:flutter_admin/models/request_body_api.dart';
-import 'package:flutter_admin/models/response_body_api.dart';
+import 'package:cry/model/request_body_api.dart';
+import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/message/message_view.dart';
 
 class MessageList extends StatefulWidget {

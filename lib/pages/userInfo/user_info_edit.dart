@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/user_info_api.dart';
 import 'package:cry/cry_button.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
-import 'package:flutter_admin/models/response_body_api.dart';
+import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 import '../../generated/l10n.dart';
