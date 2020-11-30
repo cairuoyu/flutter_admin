@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/utils/adaptive_util.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_admin/charts/simple_series_legend.dart';
-import 'package:flutter_admin/data/data1.dart';
-import 'package:flutter_admin/vo/list_tile_vo.dart';
+import 'package:flutter_admin/data/data_dashboard.dart';
 import '../../generated/l10n.dart';
 
 class Dashboard extends StatelessWidget {
@@ -23,7 +22,7 @@ class Dashboard extends StatelessWidget {
               S.of(context).dashTotal,
               child: Container(
                 height: 200,
-                child: SimpleSeriesLegend.withSampleData(),
+                child: SimpleSeriesLegend.withSampleData(context),
               ),
             ),
           ),
@@ -34,10 +33,9 @@ class Dashboard extends StatelessWidget {
               ? Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    _getAList(Configuration.of(context).locale == 'en' ? todoList_en : todoList,
-                        flex: 3, title: S.of(context).dashToDoList),
+                    _getAList(context, todoList, flex: 3, title: S.of(context).dashToDoList),
                     SizedBox(width: 16),
-                    _getAList(linkList, flex: 1, title: S.of(context).dashTopLinks),
+                    _getAList(context, linkList, flex: 1, title: S.of(context).dashTopLinks),
                   ],
                 )
               : Container(
@@ -45,9 +43,8 @@ class Dashboard extends StatelessWidget {
                   height: 850,
                   child: Column(
                     children: <Widget>[
-                      _getAList(Configuration.of(context).locale == 'en' ? todoList_en : todoList,
-                          flex: 1, title: S.of(context).dashToDoList),
-                      _getAList(linkList, flex: 1, title: S.of(context).dashTopLinks),
+                      _getAList(context, todoList, flex: 1, title: S.of(context).dashToDoList),
+                      _getAList(context, linkList, flex: 1, title: S.of(context).dashTopLinks),
                     ],
                   ),
                 ),
@@ -128,7 +125,7 @@ class Dashboard extends StatelessWidget {
     );
   }
 
-  _getAList(List<ListTileVO> list, {title, flex = 1}) {
+  _getAList(BuildContext context, List list, {title, flex = 1}) {
     var header = Container(
       decoration: BoxDecoration(
         boxShadow: [
@@ -157,7 +154,7 @@ class Dashboard extends StatelessWidget {
         ),
         child: ListTile(
           dense: true,
-          title: Text(v.title),
+          title: Text(Configuration.of(context).locale == 'en' ? (v.titleEn ?? v.title) : v.title),
           trailing: v.trailing == null ? null : Text(v.trailing),
         ),
       );

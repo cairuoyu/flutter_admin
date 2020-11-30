@@ -21,7 +21,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "PageConfirm" : MessageLookupByLibrary.simpleMessage("Confirm"),
+    "pageConfirm" : MessageLookupByLibrary.simpleMessage("Confirm"),
     "cancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
     "confirm" : MessageLookupByLibrary.simpleMessage("Confirm"),
     "confirmDelete" : MessageLookupByLibrary.simpleMessage("Are you sure?"),

@@ -27,10 +27,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  String get PageConfirm {
+  String get pageConfirm {
     return Intl.message(
       'Confirm',
-      name: 'PageConfirm',
+      name: 'pageConfirm',
       desc: '',
       args: [],
     );

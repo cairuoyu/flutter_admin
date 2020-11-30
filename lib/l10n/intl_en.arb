@@ -1,5 +1,5 @@
 {
-    "PageConfirm": "Confirm",
+    "pageConfirm": "Confirm",
     "username": "Username",
     "usernameRequired": "Username is required",
     "password": "Password",
