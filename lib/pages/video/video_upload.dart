@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -138,8 +139,10 @@ class VideoUploadState extends State<VideoUpload> {
     map['file'] = file;
     FormData formData = FormData.fromMap(map);
 
+    BotToast.showLoading();
     ResponseBodyApi responseBodyApi = await VideoApi.upload(formData);
     if (responseBodyApi.success) {
+      BotToast.closeAllLoading();
       Utils.toPortal(context, '保存成功！', '前往门户查看视频', "http://www.cairuoyu.com/flutter_portal");
       setState(() {
 //        this.disposeController();

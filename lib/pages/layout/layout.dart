@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/cry_root.dart';
 import 'package:cry/model/configuration_model.dart';
 import 'package:flutter/material.dart';
@@ -34,18 +33,14 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
 
   init() async {
     if (!StoreUtil.instance.inited) {
-      StoreUtil.instance.init().then((res) {
-        setState(() {
-          BotToast.closeAllLoading();
-        });
-      });
+      await StoreUtil.instance.init();
+      setState(() {});
     }
   }
 
   @override
   Widget build(BuildContext context) {
     if (!StoreUtil.instance.inited) {
-      BotToast.showLoading();
       return Container();
     }
     this.handleRoute();

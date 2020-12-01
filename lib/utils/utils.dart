@@ -9,7 +9,7 @@ import 'package:flutter_admin/utils/store_util.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
-  static getThemeData(context){
+  static getThemeData(context) {
     Color themeColor = CryRootScope.of(context).state.configuration.themeColor;
     return ThemeData(
       primaryColor: themeColor,
@@ -20,8 +20,9 @@ class Utils {
       buttonTheme: ButtonThemeData(buttonColor: themeColor),
     );
   }
-  static message(text) {
-    BotToast.showText(text: text);
+
+  static message(text, {durationSeconds = 3}) {
+    BotToast.showText(text: text, duration: Duration(seconds: durationSeconds));
   }
 
   static isLogin() {

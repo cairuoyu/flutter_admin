@@ -9,7 +9,7 @@ import 'package:flutter_admin/utils/utils.dart';
 class HttpUtil {
   static Dio dio;
 
-//   static const String API_PREFIX = 'http://localhost:9094/';
+//  static const String API_PREFIX = 'http://localhost:9094/';
   static const String API_PREFIX = 'http://www.cairuoyu.com/api/p4/';
   static const int CONNECT_TIMEOUT = 10000;
   static const int RECEIVE_TIMEOUT = 3000;
@@ -32,8 +32,13 @@ class HttpUtil {
     Dio dio = createInstance();
     dio.options.method = method;
 
-    Response res = await dio.request(url, data: data);
-    ResponseBodyApi responseBodyApi = res.data;
+    ResponseBodyApi responseBodyApi;
+    try {
+      Response res = await dio.request(url, data: data);
+      responseBodyApi = res.data;
+    } catch (e) {
+      responseBodyApi = ResponseBodyApi(success: false, message: '请求出错了：' + e.toString());
+    }
 
     return responseBodyApi;
   }
@@ -82,7 +87,8 @@ class CryDioInterceptors extends InterceptorsWrapper {
   Future onError(DioError err) {
     print("ERROR[${err?.response?.statusCode}] => PATH: ${err?.request?.path}");
     print(err.toString());
-    Utils.message('请求出错：' + err.toString());
+    String message = '请求出错：' + err.toString();
+    Utils.message(message);
     return super.onError(err);
   }
 }

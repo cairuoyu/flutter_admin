@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:cry/vo/select_option_vo.dart';
 import 'package:flutter_admin/api/dict_api.dart';
@@ -31,26 +32,32 @@ class StoreUtil {
   List<Menu> menuOpened = [];
 
   init() async {
-    await _initDict();
-    await _loadMenuData();
-    this.inited = true;
+    BotToast.showLoading();
+    this.inited = await _initDict() && await _loadMenuData();
+    BotToast.closeAllLoading();
   }
 
-  _loadMenuData() async {
+  Future<bool> _loadMenuData() async {
     ResponseBodyApi responseBodyApi = await MenuApi.list(null);
-    List data = responseBodyApi.data;
-    menuTree = List.from(data).map((e) => Menu.fromMap(e)).toList();
-    menuList = menuTree + [menuMain, menuOthers];
+    if (responseBodyApi.success) {
+      List data = responseBodyApi.data;
+      menuTree = List.from(data).map((e) => Menu.fromMap(e)).toList();
+      menuList = menuTree + [menuMain, menuOthers];
+    }
+    return responseBodyApi.success;
   }
 
-  _initDict() async {
-    ResponseBodyApi map = await DictApi.map();
-    this.dictSelectMap = Map();
-    this.dictItemMap = Map.from(map.data).map<String, List<DictItem>>((key, value) {
-      List<DictItem> list = (value as List).map((e) => DictItem.fromMap(e)).toList();
-      this.dictSelectMap[key] = list.map((e) => SelectOptionVO(value: e.code, label: e.name)).toList();
-      return MapEntry(key, list);
-    });
+  Future<bool> _initDict() async {
+    ResponseBodyApi responseBodyApi = await DictApi.map();
+    if (responseBodyApi.success) {
+      this.dictSelectMap = Map();
+      this.dictItemMap = Map.from(responseBodyApi.data).map<String, List<DictItem>>((key, value) {
+        List<DictItem> list = (value as List).map((e) => DictItem.fromMap(e)).toList();
+        this.dictSelectMap[key] = list.map((e) => SelectOptionVO(value: e.code, label: e.name)).toList();
+        return MapEntry(key, list);
+      });
+    }
+    return responseBodyApi.success;
   }
 
   clean() {

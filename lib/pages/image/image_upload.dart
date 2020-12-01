@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -66,8 +67,10 @@ class ImageUploadState extends State<ImageUpload> {
     map['file'] = file;
     FormData formData = FormData.fromMap(map);
 
+    BotToast.showLoading();
     ResponseBodyApi responseBodyApi = await ImageApi.upload(formData);
     if (responseBodyApi.success) {
+      BotToast.closeAllLoading();
       Utils.toPortal(context, '保存成功！', '前往门户查看图片', "http://www.cairuoyu.com/flutter_portal");
       setState(() {
         this.pickedFile = null;
