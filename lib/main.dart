@@ -1,11 +1,24 @@
+import 'package:cry/common/application_context.dart';
+import 'package:cry/constants/constant.dart';
 import 'package:cry/cry_root.dart';
 import 'package:flutter/material.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter_admin/common/cry_dio_interceptors.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'routes/routes.dart';
 import 'generated/l10n.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await ApplicationContext.instance.init();
+  loadBean();
+
+  runApp(MyApp());
+}
+
+loadBean() {
+  ApplicationContext.instance.addBean(Constant.KEY_DIO_INTERCEPTORS, [CryDioInterceptors()]);
+}
 
 class MyApp extends StatelessWidget {
   @override

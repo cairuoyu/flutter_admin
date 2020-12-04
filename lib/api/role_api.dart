@@ -1,4 +1,4 @@
-import 'package:flutter_admin/utils/http_util.dart';
+import 'package:cry/utils/http_util.dart';
 
 class RoleApi {
   static getMenu(data) {
