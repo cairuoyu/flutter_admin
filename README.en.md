@@ -1,35 +1,35 @@
 # FLUTTER_ADMIN
 
-> 使用flutter实现的一个后台管理系统
+> A Background Management System Implemented Using Flutter
 
 ---
-## 功能技术
-* 用户注册
-* 登录登出
-* 功能菜单
+## Functional technology
+* User Registration
+* Login And Logout
+* Function Menu
 * Dashboard
-* 角色管理
-* 用户管理
-* 菜单管理
-* 图片上传
-* 视频上传
-* 人员管理
-* 数据字典管理
-* 留言
-* 我的信息
-* 国际化
-* 语言切换
-* 主题切换
-* 组件封装
+* Role Management
+* User Management
+* Menu Management
+* upload Picture
+* Video Upload
+* Personnel Management
+* Data Dictionary Management
+* Message
+* My Information
+* Globalization
+* Language Switch
+* Theme Switching
+* Component Encapsulation
 * JWT
 
-## 安装
+## installation
 ```bash
 flutter packages get
 flutter create .
 ```
 
-## 运行
+## run
 ```bash
 flutter run -d chrome
 ```
