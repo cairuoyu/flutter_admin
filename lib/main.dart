@@ -1,5 +1,5 @@
 import 'package:cry/common/application_context.dart';
-import 'package:cry/constants/constant.dart';
+import 'package:cry/constants/cry_constant.dart';
 import 'package:cry/cry_root.dart';
 import 'package:flutter/material.dart';
 import 'package:bot_toast/bot_toast.dart';
@@ -17,7 +17,7 @@ void main() async {
 }
 
 loadBean() {
-  ApplicationContext.instance.addBean(Constant.KEY_DIO_INTERCEPTORS, [CryDioInterceptors()]);
+  ApplicationContext.instance.addBean(CryConstant.KEY_DIO_INTERCEPTORS, [CryDioInterceptors()]);
 }
 
 class MyApp extends StatelessWidget {
