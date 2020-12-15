@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/pages/common/only_text.dart';
 import 'package:flutter_admin/pages/common/page_401.dart';
 import 'package:flutter_admin/pages/common/page_404.dart';
 import 'package:flutter_admin/pages/dash/dashboard.dart';
 import 'package:flutter_admin/pages/dict/dict_list.dart';
+import 'package:flutter_admin/pages/image/image_upload.dart';
 import 'package:flutter_admin/pages/layout/layout.dart';
 import 'package:flutter_admin/pages/layout/layout_no_routes.dart' as layoutNoRoutes;
 import 'package:flutter_admin/pages/login.dart';
@@ -14,11 +16,8 @@ import 'package:flutter_admin/pages/register.dart';
 import 'package:flutter_admin/pages/role/role_list.dart';
 import 'package:flutter_admin/pages/userInfo/user_info_list.dart';
 import 'package:flutter_admin/pages/userInfo/user_info_mine.dart';
+import 'package:flutter_admin/pages/video/video_upload.dart';
 import 'package:flutter_admin/utils/utils.dart';
-
-import '../pages/image/image_upload.dart';
-import '../pages/menu/menu_demo_list.dart';
-import '../pages/video/video_upload.dart';
 
 Map<String, Widget> layoutRoutesData = {
   '/': Dashboard(),
@@ -34,6 +33,8 @@ Map<String, Widget> layoutRoutesData = {
   '/layoutTest': MyTest(),
   '/dictList': DictList(),
   '/message': Message(),
+  '/secondLevel':OnlyText('二级菜单页面'),
+  '/threeLevel':OnlyText('三级菜单页面'),
 };
 
 Map<String, Widget> routesData = {
