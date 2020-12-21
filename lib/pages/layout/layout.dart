@@ -1,6 +1,7 @@
-import 'package:cry/cry_root.dart';
-import 'package:cry/model/configuration_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/common/cry_root.dart';
+import 'package:flutter_admin/enum/MenuDisplayType.dart';
+import 'package:flutter_admin/models/configuration_model.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/pages/common/page_401.dart';
 import 'package:flutter_admin/pages/layout/layout_app_bar.dart';
@@ -44,7 +45,8 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
       return Container();
     }
     this.handleRoute();
-    Color themeColor = CryRootScope.of(context).state.configuration.themeColor;
+    var configuration = CryRootScope.of(context).state.configuration;
+    Color themeColor = configuration.themeColor;
     TabBar tabBar = TabBar(
       onTap: (index) => _openPage(StoreUtil.instance.menuOpened[index]),
       controller: tabController,
@@ -68,10 +70,11 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
       }).toList(),
     );
 
+    var layoutMenu = LayoutMenu(onClick: _openPage);
     Row body = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        LayoutMenu(onClick: _openPage),
+        configuration.menuDisplayType == MenuDisplayType.side ? layoutMenu : Container(),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,9 +111,13 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
     Scaffold subWidget = Scaffold(
       key: scaffoldStateKey,
       endDrawer: LayoutSetting(),
+      drawer: layoutMenu ,
       appBar: LayoutAppBar(
         context,
         type: 1,
+        openMenu: () {
+          scaffoldStateKey.currentState.openDrawer();
+        },
         openSetting: () {
           scaffoldStateKey.currentState.openEndDrawer();
         },

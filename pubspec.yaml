@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cry: ^0.1.4
+  cry: 0.1.5
   dio: 3.0.7
   cupertino_icons: ^0.1.2
   charts_flutter: ^0.8.0

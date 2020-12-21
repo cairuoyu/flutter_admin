@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/common/cry_root.dart';
+import 'package:flutter_admin/enum/MenuDisplayType.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
 class LayoutAppBar extends AppBar {
-  LayoutAppBar(BuildContext context, {Key key, int type, openSetting, dispose})
+  LayoutAppBar(BuildContext context, {Key key, int type, openSetting, openMenu, dispose})
       : super(
           key: key,
           automaticallyImplyLeading: false,
-          leading: Tooltip(
-              message: 'Home',
-              child: IconButton(
-                icon: Icon(Icons.home),
-                onPressed: () {
-                  Utils.launchURL('http://www.cairuoyu.com');
-                },
-              )),
+          leading: CryRootScope.of(context).state.configuration.menuDisplayType == MenuDisplayType.side
+              ? Tooltip(
+                  message: 'Home',
+                  child: IconButton(
+                    icon: Icon(Icons.home),
+                    onPressed: () {
+                      Utils.launchURL('http://www.cairuoyu.com');
+                    },
+                  ))
+              : Tooltip(
+                  message: 'Menu',
+                  child: IconButton(
+                    icon: Icon(Icons.menu),
+                    onPressed: () {
+                      openMenu();
+                    },
+                  )),
           title: Text("FLUTTER_ADMIN"),
           actions: <Widget>[
             Tooltip(

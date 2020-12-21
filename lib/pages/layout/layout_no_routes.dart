@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import 'package:cry/cry_root.dart';
-import 'package:cry/model/configuration_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/common/cry_root.dart';
 import 'package:flutter_admin/common/routes.dart';
+import 'package:flutter_admin/models/configuration_model.dart';
 import 'package:flutter_admin/pages/common/page_404.dart';
 import 'package:flutter_admin/pages/layout/layout_app_bar.dart';
 import 'package:flutter_admin/models/menu.dart';

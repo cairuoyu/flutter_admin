@@ -1,0 +1,1 @@
+enum MenuDisplayType { drawer, side }

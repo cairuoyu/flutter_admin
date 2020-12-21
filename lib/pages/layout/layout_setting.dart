@@ -1,8 +1,11 @@
-import 'package:cry/cry_root.dart';
-import 'package:cry/model/configuration_model.dart';
+import 'package:cry/cry_toggle_buttons.dart';
+import 'package:cry/vo/select_option_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_admin/common/cry_root.dart';
+import 'package:flutter_admin/enum/MenuDisplayType.dart';
 import 'package:flutter_admin/generated/l10n.dart';
+import 'package:flutter_admin/models/configuration_model.dart';
 import 'package:flutter_admin/pages/common/lang_switch.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
@@ -15,6 +18,17 @@ class LayoutSetting extends StatelessWidget {
       pickerColor: CryRootScope.of(context).state.configuration.themeColor,
       onColorChanged: (v) {
         Configuration configuration = Configuration.of(context).copyWith(themeColor: v);
+        CryRootScope.updateConfiguration(context, configuration);
+      },
+    );
+    var menuDisplayType = CryToggleButtons(
+      [
+        SelectOptionVO(value: MenuDisplayType.drawer, label: '抽屉'),
+        SelectOptionVO(value: MenuDisplayType.side, label: '侧边'),
+      ],
+      defaultValue: CryRootScope.of(context).state.configuration.menuDisplayType,
+      afterOnPress: (Object v) {
+        Configuration configuration = Configuration.of(context).copyWith(menuDisplayType: v);
         CryRootScope.updateConfiguration(context, configuration);
       },
     );
@@ -34,7 +48,15 @@ class LayoutSetting extends StatelessWidget {
               border: Border(bottom: BorderSide(color: Colors.black12)),
             ),
             padding: EdgeInsets.all(10),
-            child: LangSwitch(),
+            child: Row(children: [Text('菜单显示模式：'), menuDisplayType]),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(bottom: BorderSide(color: Colors.black12)),
+            ),
+            padding: EdgeInsets.all(10),
+            child: Row(children: [Text('语言切换：'), LangSwitch()]),
           ),
           Container(
             decoration: BoxDecoration(

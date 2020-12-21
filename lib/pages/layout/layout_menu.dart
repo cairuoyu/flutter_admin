@@ -1,6 +1,8 @@
-import 'package:cry/model/configuration_model.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/common/cry_root.dart';
+import 'package:flutter_admin/enum/MenuDisplayType.dart';
+import 'package:flutter_admin/models/configuration_model.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
 
@@ -38,7 +40,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
       },
     );
     List<Widget> menuBody = _getMenuListTile(TreeUtil.toTreeVOList(StoreUtil.instance.menuTree));
-    ListView menu = ListView(children: [menuHeader, ...menuBody]);
+    ListView menu = ListView(children: CryRootScope.of(context).state.configuration.menuDisplayType == MenuDisplayType.drawer ? menuBody : [menuHeader, ...menuBody]);
     return SizedBox(
       width: expandMenu ? 300 : 60,
       child: Container(
