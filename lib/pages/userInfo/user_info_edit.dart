@@ -58,8 +58,8 @@ class _UserInfoEditState extends State<UserInfoEdit> {
             onSaved: (v) => {userInfo.nickName = v},
           ),
           CrySelectDate(
+            context,
             label: S.of(context).personBirthday,
-            context: context,
             value: userInfo.birthday,
             onSaved: (v) => {userInfo.birthday = v},
           ),

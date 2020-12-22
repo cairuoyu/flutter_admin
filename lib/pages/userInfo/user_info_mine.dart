@@ -72,8 +72,8 @@ class _UserInfoMineState extends State<UserInfoMine> {
         onSaved: (v) => {userInfo.nickName = v},
       ),
       CrySelectDate(
+        context,
         label: S.of(context).personBirthday,
-        context: context,
         value: userInfo.birthday,
         onSaved: (v) => {userInfo.birthday = v},
       ),

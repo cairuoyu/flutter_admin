@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cry: 0.1.5
+  cry: 0.1.6
   dio: 3.0.7
   cupertino_icons: ^0.1.2
   charts_flutter: ^0.8.0
@@ -20,8 +20,6 @@ dependencies:
   flutter_colorpicker: any
   flutter_localizations:
     sdk: flutter
-  intl_translation: null
-  intl: null
   url_launcher: ^5.4.1
   universal_html: ^1.2.2
   mime_type: ^0.3.1
