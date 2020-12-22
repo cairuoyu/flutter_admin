@@ -30,6 +30,7 @@ class StoreUtil {
   List<Menu> menuList;
   List<Menu> menuTree;
   List<Menu> menuOpened = [];
+  String currentOpenedMenuId;
 
   init() async {
     BotToast.showLoading();

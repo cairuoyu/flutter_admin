@@ -51,6 +51,16 @@ class _LayoutMenuState extends State<LayoutMenu> {
     );
   }
 
+  bool isCurrentOpenedMenu(List<TreeVO<Menu>> data) {
+    for (var treeVO in data) {
+      if (treeVO.children != null && treeVO.children.length > 0) {
+        return isCurrentOpenedMenu(treeVO.children);
+      }
+      return StoreUtil.instance.currentOpenedMenuId == treeVO.data.id;
+    }
+    return false;
+  }
+
   List<Widget> _getMenuListTile(List<TreeVO<Menu>> data) {
     if (data == null) {
       return [];
@@ -61,6 +71,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
       Text title = Text(expandMenu ? name : '');
       if (treeVO.children != null && treeVO.children.length > 0) {
         return ExpansionTile(
+          initiallyExpanded: isCurrentOpenedMenu(treeVO.children),
           leading: Icon(expandMenu ? treeVO.icon : null),
           backgroundColor: Theme.of(context).accentColor.withOpacity(0.025),
           children: _getMenuListTile(treeVO.children),
@@ -68,6 +79,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
         );
       } else {
         return ListTile(
+          tileColor: StoreUtil.instance.currentOpenedMenuId == treeVO.data.id ? Colors.blue.shade100 : Colors.white,
           leading: Icon(iconData),
           title: title,
           onTap: () {

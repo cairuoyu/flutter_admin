@@ -111,7 +111,7 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
     Scaffold subWidget = Scaffold(
       key: scaffoldStateKey,
       endDrawer: LayoutSetting(),
-      drawer: layoutMenu ,
+      drawer: layoutMenu,
       appBar: LayoutAppBar(
         context,
         type: 1,
@@ -142,8 +142,9 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
   handleRoute() {
     String path = widget.path;
     int index = StoreUtil.instance.menuOpened.indexWhere((v) => v.url == path);
+    Menu menu;
     if (index < 0) {
-      Menu menu = StoreUtil.instance.menuList.firstWhere((v) {
+      menu = StoreUtil.instance.menuList.firstWhere((v) {
         return v.url == path;
       }, orElse: () {
         return null;
@@ -154,7 +155,10 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
       } else {
         StoreUtil.instance.menuOpened.add(menu);
       }
+    } else {
+      menu = StoreUtil.instance.menuOpened[index];
     }
+    StoreUtil.instance.currentOpenedMenuId = menu?.id;
     int length = StoreUtil.instance.menuOpened.length;
     tabController = TabController(vsync: this, length: length);
     tabController.index = index > -1 ? index : (length > 0 ? length - 1 : 0);
