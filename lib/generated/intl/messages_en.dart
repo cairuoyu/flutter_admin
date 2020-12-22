@@ -21,7 +21,6 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "pageConfirm" : MessageLookupByLibrary.simpleMessage("Confirm"),
     "cancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
     "confirm" : MessageLookupByLibrary.simpleMessage("Confirm"),
     "confirmDelete" : MessageLookupByLibrary.simpleMessage("Are you sure?"),
@@ -37,7 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "delete" : MessageLookupByLibrary.simpleMessage("Delete"),
     "forgetPassword" : MessageLookupByLibrary.simpleMessage("Clear Password"),
     "haveAccountLogin" : MessageLookupByLibrary.simpleMessage("Login with existing account"),
-    "increase" : MessageLookupByLibrary.simpleMessage("Add"),
+    "increase" : MessageLookupByLibrary.simpleMessage("Add User"),
     "information" : MessageLookupByLibrary.simpleMessage("Information"),
     "inquire" : MessageLookupByLibrary.simpleMessage("Filter"),
     "login" : MessageLookupByLibrary.simpleMessage("login"),
@@ -45,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "mySettings" : MessageLookupByLibrary.simpleMessage("My Settings"),
     "name" : MessageLookupByLibrary.simpleMessage("Name"),
     "operating" : MessageLookupByLibrary.simpleMessage("Operating"),
+    "pageConfirm" : MessageLookupByLibrary.simpleMessage("Confirm"),
     "password" : MessageLookupByLibrary.simpleMessage("Password"),
     "passwordMismatch" : MessageLookupByLibrary.simpleMessage("Passwords must be the same"),
     "passwordRequired" : MessageLookupByLibrary.simpleMessage("Password is required"),

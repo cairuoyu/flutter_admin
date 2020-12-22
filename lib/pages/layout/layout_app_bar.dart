@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/common/cry_root.dart';
-import 'package:flutter_admin/enum/MenuDisplayType.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
 class LayoutAppBar extends AppBar {
@@ -8,7 +6,7 @@ class LayoutAppBar extends AppBar {
       : super(
           key: key,
           automaticallyImplyLeading: false,
-          leading: CryRootScope.of(context).state.configuration.menuDisplayType == MenuDisplayType.side
+          leading: !Utils.isMenuDisplayTypeDrawer(context)
               ? Tooltip(
                   message: 'Home',
                   child: IconButton(

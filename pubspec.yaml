@@ -9,17 +9,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   cry: 0.1.6
-  dio: 3.0.7
   cupertino_icons: ^0.1.2
   charts_flutter: ^0.8.0
   flutter_custom_clippers: ^1.1.0
   font_awesome_flutter: ^8.5.0
-  json_annotation: ^2.2.0
   bot_toast: ^3.0.5
   flutter_colorpicker: any
-  flutter_localizations:
-    sdk: flutter
   url_launcher: ^5.4.1
   universal_html: ^1.2.2
   mime_type: ^0.3.1
@@ -33,13 +31,12 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  json_model: #latest version
-    null
-  json_serializable: ^2.0.0
   build_runner: ^1.0.0
+
 flutter:
   uses-material-design: true
   assets:
     - config/
+
 flutter_intl:
   enabled: true

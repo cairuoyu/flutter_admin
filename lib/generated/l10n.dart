@@ -8,18 +8,26 @@ import 'intl/messages_all.dart';
 // Made by Localizely
 // **************************************************************************
 
+// ignore_for_file: non_constant_identifier_names, lines_longer_than_80_chars
+// ignore_for_file: join_return_with_assignment, prefer_final_in_for_each
+// ignore_for_file: avoid_redundant_argument_values
+
 class S {
   S();
+  
+  static S current;
   
   static const AppLocalizationDelegate delegate =
     AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final String name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
-    final String localeName = Intl.canonicalizedLocale(name);
+    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
+    final localeName = Intl.canonicalizedLocale(name); 
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
-      return S();
+      S.current = S();
+      
+      return S.current;
     });
   } 
 
@@ -27,6 +35,7 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Confirm`
   String get pageConfirm {
     return Intl.message(
       'Confirm',
@@ -36,6 +45,7 @@ class S {
     );
   }
 
+  /// `Username`
   String get username {
     return Intl.message(
       'Username',
@@ -45,6 +55,7 @@ class S {
     );
   }
 
+  /// `Username is required`
   String get usernameRequired {
     return Intl.message(
       'Username is required',
@@ -54,6 +65,7 @@ class S {
     );
   }
 
+  /// `Password`
   String get password {
     return Intl.message(
       'Password',
@@ -63,6 +75,7 @@ class S {
     );
   }
 
+  /// `Password is required`
   String get passwordRequired {
     return Intl.message(
       'Password is required',
@@ -72,6 +85,7 @@ class S {
     );
   }
 
+  /// `Register`
   String get register {
     return Intl.message(
       'Register',
@@ -81,6 +95,7 @@ class S {
     );
   }
 
+  /// `Register a new account`
   String get registerNewAccount {
     return Intl.message(
       'Register a new account',
@@ -90,6 +105,7 @@ class S {
     );
   }
 
+  /// `Registration Successful`
   String get registerSuccess {
     return Intl.message(
       'Registration Successful',
@@ -99,6 +115,7 @@ class S {
     );
   }
 
+  /// `Clear Password`
   String get forgetPassword {
     return Intl.message(
       'Clear Password',
@@ -108,6 +125,7 @@ class S {
     );
   }
 
+  /// `login`
   String get login {
     return Intl.message(
       'login',
@@ -117,6 +135,7 @@ class S {
     );
   }
 
+  /// `Confirm Password`
   String get confirmPassword {
     return Intl.message(
       'Confirm Password',
@@ -126,6 +145,7 @@ class S {
     );
   }
 
+  /// `Passwords must be the same`
   String get passwordMismatch {
     return Intl.message(
       'Passwords must be the same',
@@ -135,6 +155,7 @@ class S {
     );
   }
 
+  /// `Login with existing account`
   String get haveAccountLogin {
     return Intl.message(
       'Login with existing account',
@@ -144,6 +165,7 @@ class S {
     );
   }
 
+  /// `My Settings`
   String get mySettings {
     return Intl.message(
       'My Settings',
@@ -153,6 +175,7 @@ class S {
     );
   }
 
+  /// `Information`
   String get information {
     return Intl.message(
       'Information',
@@ -162,6 +185,7 @@ class S {
     );
   }
 
+  /// `Cancel`
   String get cancel {
     return Intl.message(
       'Cancel',
@@ -171,6 +195,7 @@ class S {
     );
   }
 
+  /// `Confirm`
   String get confirm {
     return Intl.message(
       'Confirm',
@@ -180,6 +205,7 @@ class S {
     );
   }
 
+  /// `Upcoming`
   String get dashUpcoming {
     return Intl.message(
       'Upcoming',
@@ -189,6 +215,7 @@ class S {
     );
   }
 
+  /// `In Progress`
   String get dashInProgress {
     return Intl.message(
       'In Progress',
@@ -198,6 +225,7 @@ class S {
     );
   }
 
+  /// `Completed`
   String get dashDone {
     return Intl.message(
       'Completed',
@@ -207,6 +235,7 @@ class S {
     );
   }
 
+  /// `Finished`
   String get dashFinish {
     return Intl.message(
       'Finished',
@@ -216,6 +245,7 @@ class S {
     );
   }
 
+  /// `Total Sales`
   String get dashTotal {
     return Intl.message(
       'Total Sales',
@@ -225,6 +255,7 @@ class S {
     );
   }
 
+  /// `To Do's`
   String get dashToDoList {
     return Intl.message(
       'To Do\'s',
@@ -234,6 +265,7 @@ class S {
     );
   }
 
+  /// `Popular Links`
   String get dashTopLinks {
     return Intl.message(
       'Popular Links',
@@ -243,6 +275,7 @@ class S {
     );
   }
 
+  /// `Request Error`
   String get requestError {
     return Intl.message(
       'Request Error',
@@ -252,6 +285,7 @@ class S {
     );
   }
 
+  /// `Personnel Name`
   String get personName {
     return Intl.message(
       'Personnel Name',
@@ -261,6 +295,7 @@ class S {
     );
   }
 
+  /// `Name Required`
   String get personRequired {
     return Intl.message(
       'Name Required',
@@ -270,6 +305,7 @@ class S {
     );
   }
 
+  /// `Nickname`
   String get personNickname {
     return Intl.message(
       'Nickname',
@@ -279,6 +315,7 @@ class S {
     );
   }
 
+  /// `Gender`
   String get personGender {
     return Intl.message(
       'Gender',
@@ -288,6 +325,7 @@ class S {
     );
   }
 
+  /// `Birthday`
   String get personBirthday {
     return Intl.message(
       'Birthday',
@@ -297,6 +335,7 @@ class S {
     );
   }
 
+  /// `Department`
   String get personDepartment {
     return Intl.message(
       'Department',
@@ -306,6 +345,7 @@ class S {
     );
   }
 
+  /// `Save`
   String get save {
     return Intl.message(
       'Save',
@@ -315,6 +355,7 @@ class S {
     );
   }
 
+  /// `Saved Successfully`
   String get saved {
     return Intl.message(
       'Saved Successfully',
@@ -324,6 +365,7 @@ class S {
     );
   }
 
+  /// `Filter`
   String get inquire {
     return Intl.message(
       'Filter',
@@ -333,6 +375,7 @@ class S {
     );
   }
 
+  /// `Reset`
   String get reset {
     return Intl.message(
       'Reset',
@@ -342,15 +385,17 @@ class S {
     );
   }
 
+  /// `Add User`
   String get increase {
     return Intl.message(
-      'Add',
+      'Add User',
       name: 'increase',
       desc: '',
       args: [],
     );
   }
 
+  /// `Modify`
   String get modify {
     return Intl.message(
       'Modify',
@@ -360,6 +405,7 @@ class S {
     );
   }
 
+  /// `Delete`
   String get delete {
     return Intl.message(
       'Delete',
@@ -369,6 +415,7 @@ class S {
     );
   }
 
+  /// `Are you sure?`
   String get confirmDelete {
     return Intl.message(
       'Are you sure?',
@@ -378,6 +425,7 @@ class S {
     );
   }
 
+  /// `User List`
   String get userList {
     return Intl.message(
       'User List',
@@ -387,6 +435,7 @@ class S {
     );
   }
 
+  /// `Name`
   String get name {
     return Intl.message(
       'Name',
@@ -396,6 +445,7 @@ class S {
     );
   }
 
+  /// `Operating`
   String get operating {
     return Intl.message(
       'Operating',
@@ -405,6 +455,7 @@ class S {
     );
   }
 
+  /// `Creation Time`
   String get creationTime {
     return Intl.message(
       'Creation Time',
@@ -414,6 +465,7 @@ class S {
     );
   }
 
+  /// `Update Time`
   String get updateTime {
     return Intl.message(
       'Update Time',
@@ -429,7 +481,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
-      Locale.fromSubtags(languageCode: 'en'), Locale.fromSubtags(languageCode: 'zh'),
+      Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'zh'),
     ];
   }
 
@@ -442,7 +495,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   bool _isSupported(Locale locale) {
     if (locale != null) {
-      for (Locale supportedLocale in supportedLocales) {
+      for (var supportedLocale in supportedLocales) {
         if (supportedLocale.languageCode == locale.languageCode) {
           return true;
         }
