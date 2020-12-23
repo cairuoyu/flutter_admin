@@ -48,21 +48,7 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
       CryTreeTableColumnData('顺序号', (Menu v) => v.orderBy?.toString(), width: 80),
       CryTreeTableColumnData('备注', (Menu v) => v.remark, width: 300)
     ];
-    var buttonBar = ButtonBar(
-      alignment: MainAxisAlignment.center,
-      children: <Widget>[
-        CryButton(
-          iconData: Icons.save,
-          label: '保存',
-          onPressed: () => save(),
-        ),
-        CryButton(
-          iconData: Icons.close,
-          label: '关闭',
-          onPressed: () => Navigator.pop(context),
-        ),
-      ],
-    );
+
     var treeTable = CryTreeTable<Menu>(
       key: treeTableKey,
       columnData: columnData,
@@ -74,15 +60,24 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
     var result = Scaffold(
       appBar: AppBar(
         title: Text('关联菜单'),
+        actions: [
+          CryButton(
+            iconData: Icons.save,
+            label: '保存',
+            onPressed: () => save(),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [treeTable],
         ),
       ),
-      bottomNavigationBar: buttonBar,
     );
-    return result;
+    return Theme(
+      data: Utils.getThemeData(context),
+      child: result,
+    );
   }
 
   save() async {

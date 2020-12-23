@@ -1,7 +1,6 @@
 import 'package:cry/cry_transfer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/role_user_api.dart';
-import 'package:cry/cry_button.dart';
 import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/models/role_user.dart';
 import 'package:flutter_admin/models/user_info.dart';
@@ -38,8 +37,7 @@ class _RoleUserSelectState extends State<RoleUserSelect> {
           Utils.message('请选择【未选择人员】');
           return;
         }
-        List roleUserList =
-            selectedList.map((e) => RoleUser(userId: e.userId, roleId: widget.role.id).toMap()).toList();
+        List roleUserList = selectedList.map((e) => RoleUser(userId: e.userId, roleId: widget.role.id).toMap()).toList();
         await RoleUserApi.saveBatch(roleUserList);
         Utils.message('保存成功');
         tableKey1.currentState.query();
@@ -51,25 +49,12 @@ class _RoleUserSelectState extends State<RoleUserSelect> {
           Utils.message('请选择【已选择人员】');
           return;
         }
-        List roleUserList =
-            selectedList.map((e) => RoleUser(roleId: widget.role.id, userId: e.userId).toMap()).toList();
+        List roleUserList = selectedList.map((e) => RoleUser(roleId: widget.role.id, userId: e.userId).toMap()).toList();
         await RoleUserApi.removeBatch(roleUserList);
         Utils.message('保存成功');
         tableKey1.currentState.query();
         tableKey2.currentState.query();
       },
-    );
-    var buttonBar = ButtonBar(
-      alignment: MainAxisAlignment.center,
-      children: [
-        CryButton(
-          label: '关闭',
-          iconData: Icons.close,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        )
-      ],
     );
 
     var result = Scaffold(
@@ -81,8 +66,10 @@ class _RoleUserSelectState extends State<RoleUserSelect> {
           children: [transfer],
         ),
       ),
-      bottomNavigationBar: buttonBar,
     );
-    return result;
+    return Theme(
+      data: Utils.getThemeData(context),
+      child: result,
+    );
   }
 }

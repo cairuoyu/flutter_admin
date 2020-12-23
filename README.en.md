@@ -4,7 +4,6 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/cairuoyu/flutter_admin?color=yellow)
 ![Flutter version](https://img.shields.io/badge/flutter-1.24.0--10.2.pre-green)
 
-
 > [简体中文](./README.md) | English
 
 > A Background Management System Implemented Using Flutter
@@ -57,3 +56,6 @@ http://www.cairuoyu.com/flutter_admin
 
 ### QQ
 851796663
+
+## Donate
+![image](http://cairuoyu.com/screenshots/pay.png)

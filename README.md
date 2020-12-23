@@ -1,14 +1,11 @@
 
-
 # FLUTTER_ADMIN
 ![GitHub](https://img.shields.io/github/license/cairuoyu/flutter_admin)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/cairuoyu/flutter_admin)
 ![GitHub repo size](https://img.shields.io/github/repo-size/cairuoyu/flutter_admin?color=yellow)
 ![Flutter version](https://img.shields.io/badge/flutter-1.25.0--8.1.pre-green)
 
-
->  简体中文 | [English](./README.en.md) 
-
+>  简体中文 | [English](./README.en.md)
 
 > 使用flutter实现的一个后台管理系统
 
@@ -61,6 +58,7 @@ http://www.cairuoyu.com/flutter_admin
 ### QQ
 851796663
 
-
+## 赞助
+![image](http://cairuoyu.com/screenshots/pay.png)
 
 

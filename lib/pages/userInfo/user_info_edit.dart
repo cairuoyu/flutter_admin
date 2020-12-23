@@ -121,7 +121,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
     );
     return SizedBox(
       width: 650,
-      height: 580,
+      height: 650,
       child: result,
     );
     // return result;

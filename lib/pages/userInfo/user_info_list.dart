@@ -138,10 +138,10 @@ class _UserInfoListState extends State<UserInfoList> {
     ButtonBar buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[
-        CryButton(label: '查询', onPressed: () => _query()),
-        CryButton(label: '重置', onPressed: () => _reset()),
-        CryButton(label: '增加', onPressed: () => _edit(null)),
-        CryButton(label: '编辑', onPressed: selectedList.length != 1 ? null : () => _edit(selectedList[0])),
+        CryButton(label: '查询', iconData: Icons.search, onPressed: () => _query()),
+        CryButton(label: '重置', iconData: Icons.refresh, onPressed: () => _reset()),
+        CryButton(label: '增加', iconData: Icons.add, onPressed: () => _edit(null)),
+        CryButton(label: '编辑', iconData: Icons.edit, onPressed: selectedList.length != 1 ? null : () => _edit(selectedList[0])),
       ],
     );
     var result = Scaffold(

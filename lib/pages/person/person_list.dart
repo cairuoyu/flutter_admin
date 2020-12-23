@@ -98,11 +98,12 @@ class PersonListState extends State {
     ButtonBar buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[
-        CryButton(label: S.of(context).inquire, onPressed: () => _query()),
-        CryButton(label: S.of(context).reset, onPressed: () => _reset()),
-        CryButton(label: S.of(context).increase, onPressed: () => _edit()),
+        CryButton(label: S.of(context).inquire,iconData: Icons.search, onPressed: () => _query()),
+        CryButton(label: S.of(context).reset,iconData: Icons.refresh, onPressed: () => _reset()),
+        CryButton(label: S.of(context).increase,iconData: Icons.add, onPressed: () => _edit()),
         CryButton(
           label: S.of(context).modify,
+          iconData: Icons.edit,
           onPressed: myDS.selectedCount != 1
               ? null
               : () {
@@ -117,6 +118,7 @@ class PersonListState extends State {
         ),
         CryButton(
           label: S.of(context).delete,
+          iconData: Icons.delete,
           onPressed: myDS.selectedCount < 1
               ? null
               : () {

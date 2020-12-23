@@ -87,6 +87,7 @@ class PersonEditState extends State<PersonEdit> {
       children: <Widget>[
         CryButton(
           label: S.of(context).save,
+          iconData: Icons.save,
           onPressed: () {
             FormState form = formKey.currentState;
             if (!form.validate()) {
@@ -102,6 +103,7 @@ class PersonEditState extends State<PersonEdit> {
         ),
         CryButton(
           label: S.of(context).cancel,
+          iconData: Icons.cancel,
           onPressed: () {
             Navigator.pop(context);
           },

@@ -80,25 +80,27 @@ class _RoleListState extends State<RoleList> {
         ];
       },
     );
-    List<Role> selectedList =
-        tableKey?.currentState?.getSelectedList(page)?.map<Role>((e) => Role.fromJson(e))?.toList() ?? [];
+    List<Role> selectedList = tableKey?.currentState?.getSelectedList(page)?.map<Role>((e) => Role.fromJson(e))?.toList() ?? [];
     ButtonBar buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[
         CryButton(
           label: '查询',
+          iconData: Icons.search,
           onPressed: () {
             _query();
           },
         ),
         CryButton(
           label: '增加',
+          iconData: Icons.add,
           onPressed: () {
             _edit(null);
           },
         ),
         CryButton(
           label: '删除',
+          iconData: Icons.delete,
           onPressed: selectedList.length == 0
               ? null
               : () {
@@ -127,33 +129,27 @@ class _RoleListState extends State<RoleList> {
   }
 
   _selectMenu(Role role) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => Dialog(
-        child: RoleMenuSelect(
+    Navigator.push<void>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RoleMenuSelect(
           role: role,
         ),
+        fullscreenDialog: true,
       ),
-    ).then((v) {
-      if (v != null) {
-        _query();
-      }
-    });
+    );
   }
 
   _selectUser(Role role) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => Dialog(
-        child: RoleUserSelect(
+    Navigator.push<void>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RoleUserSelect(
           role: role,
         ),
+        fullscreenDialog: true,
       ),
-    ).then((v) {
-      if (v != null) {
-        _query();
-      }
-    });
+    );
   }
 
   _edit(Role role) {

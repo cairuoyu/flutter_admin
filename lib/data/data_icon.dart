@@ -8,5 +8,7 @@ Map<String, IconData> iconMap = {
   'person': Icons.person,
   'image': Icons.image,
   'video': Icons.video_call,
+  'message': Icons.message,
+  'dict': Icons.dialpad_outlined,
 };
 
