@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
   cry: 0.1.6
   cupertino_icons: ^0.1.2
-  charts_flutter: ^0.8.0
+  charts_flutter: ^0.9.0
   flutter_custom_clippers: ^1.1.0
   font_awesome_flutter: ^8.5.0
   bot_toast: ^3.0.5
@@ -32,6 +32,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^1.0.0
+
+dependency_overrides:
+  intl: 0.17.0-nullsafety.2
 
 flutter:
   uses-material-design: true
