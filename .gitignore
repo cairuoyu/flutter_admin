@@ -6,6 +6,8 @@
 /android/
 /ios/
 /web/
+/test/
+/integration_test/
 
 *.iml
 .metadata
