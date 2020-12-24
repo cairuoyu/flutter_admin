@@ -1,6 +1,6 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/form/cry_select.dart';
-import 'package:cry/model/order_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/user_info_api.dart';
 import 'package:cry/cry_button.dart';
@@ -24,7 +24,7 @@ class UserInfoList extends StatefulWidget {
 class _UserInfoListState extends State<UserInfoList> {
   final GlobalKey<CryDataTableState> tableKey = GlobalKey<CryDataTableState>();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  PageModel page = PageModel(orders: [OrderItemModel(column: 'update_time')]);
+  PageModel page = PageModel();
   UserInfo userInfo = UserInfo();
 
   @override
@@ -190,8 +190,10 @@ class _UserInfoListState extends State<UserInfoList> {
   }
 
   _loadData() async {
+    BotToast.showLoading();
     ResponseBodyApi responseBodyApi = await UserInfoApi.page(RequestBodyApi(page: page, params: userInfo.toMap()).toMap());
-    page = PageModel.fromMap(responseBodyApi.data);
+    BotToast.closeAllLoading();
+    page = responseBodyApi.data != null ? PageModel.fromMap(responseBodyApi.data) : PageModel();
 
     setState(() {});
   }

@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/form1/cry_input.dart';
 import 'package:cry/form1/cry_select.dart';
 import 'package:cry/model/order_item_model.dart';
@@ -225,9 +226,11 @@ class MyDS extends DataTableSource {
   }
 
   loadData() async {
+    BotToast.showLoading();
     requestBodyApi.page = page;
     ResponseBodyApi responseBodyApi = await PersonApi.page(requestBodyApi.toMap());
     page = PageModel.fromMap(responseBodyApi.data);
+    BotToast.closeAllLoading();
 
     dataList = page.records.map<Person>((v) {
       Person person = Person.fromJson(v);

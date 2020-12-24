@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/cry_data_table.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:cry/model/order_item_model.dart';
@@ -181,8 +182,10 @@ class _RoleListState extends State<RoleList> {
   _query() async {
     RequestBodyApi requestBodyApi = RequestBodyApi();
     requestBodyApi.page = page;
+    BotToast.showLoading();
     ResponseBodyApi responseBodyApi = await RoleApi.page(requestBodyApi.toMap());
-    page = PageModel.fromMap(responseBodyApi.data);
+    BotToast.closeAllLoading();
+    page = responseBodyApi.data != null ? PageModel.fromMap(responseBodyApi.data) : PageModel();
 
     setState(() {});
   }
