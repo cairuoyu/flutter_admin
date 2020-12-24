@@ -7,6 +7,7 @@ import 'package:cry/cry_data_table.dart';
 import 'package:cry/model/page_model.dart';
 import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/models/user_info.dart';
 
@@ -46,7 +47,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
     var buttonBar = ButtonBar(
       children: [
         CryButton(
-          label: '查询',
+          label: S.of(context).query,
           iconData: Icons.search,
           padding: EdgeInsets.only(left: 20),
           onPressed: () {
@@ -55,7 +56,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
           },
         ),
         CryButton(
-          label: '重置',
+          label: S.of(context).reset,
           iconData: Icons.refresh,
           padding: EdgeInsets.only(left: 20),
           onPressed: () {
@@ -73,13 +74,13 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
         children: <Widget>[
           CryInput(
             width: 400,
-            label: '用户名称',
+            label: S.of(context).username,
             value: userInfo.name,
             onSaved: (v) {
               userInfo.name = v;
             },
           ),
-          SizedBox(child: buttonBar, width: 250),
+          SizedBox(child: buttonBar, width: 260),
         ],
       ),
     );
@@ -94,7 +95,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
       },
       columns: [
         DataColumn(
-          label: Container(child: Text('名称')),
+          label: Container(child: Text(S.of(context).name)),
           onSort: (int columnIndex, bool ascending) => _sort('name'),
         ),
       ],

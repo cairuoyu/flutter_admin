@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
 class LayoutAppBar extends AppBar {
@@ -26,7 +27,7 @@ class LayoutAppBar extends AppBar {
           title: Text("FLUTTER_ADMIN"),
           actions: <Widget>[
             Tooltip(
-              message: '设置',
+              message: 'Setting',
               child: IconButton(
                 icon: Icon(Icons.settings),
                 onPressed: () {
@@ -35,7 +36,7 @@ class LayoutAppBar extends AppBar {
               ),
             ),
             Tooltip(
-              message: type == 1 ? '无路由模式' : '路由模式',
+              message: type == 1 ? S.of(context).noRoutingMode : S.of(context).routingMode,
               child: IconButton(
                 icon: Icon(Icons.link),
                 onPressed: () {
@@ -53,7 +54,7 @@ class LayoutAppBar extends AppBar {
               ),
             ),
             Tooltip(
-              message: '我的信息',
+              message: S.of(context).myInformation,
               child: IconButton(
                 icon: Icon(Icons.person),
                 onPressed: () {

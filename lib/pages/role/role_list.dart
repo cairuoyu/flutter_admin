@@ -39,7 +39,6 @@ class _RoleListState extends State<RoleList> {
   Widget build(BuildContext context) {
     CryDataTable table = CryDataTable(
       key: tableKey,
-      title: '角色管理',
       page: page,
       onPageChanged: _onPageChanged,
       onSelectChanged: (Map selected) {
@@ -49,13 +48,13 @@ class _RoleListState extends State<RoleList> {
         DataColumn(
           label: Container(
             alignment: Alignment.center,
-            child: Text('操作'),
+            child: Text(S.of(context).operating),
             width: 240,
           ),
         ),
         DataColumn(
           label: Container(
-            child: Text('名称'),
+            child: Text(S.of(context).name),
             width: 800,
           ),
           onSort: (int columnIndex, bool ascending) => _sort('name', ascending),
@@ -69,10 +68,10 @@ class _RoleListState extends State<RoleList> {
               width: 240,
               child: ButtonBar(
                 children: [
-                  CryButton(iconData: Icons.edit, tip: '编辑', onPressed: () => _edit(role)),
-                  CryButton(iconData: Icons.delete, tip: '删除', onPressed: () => _delete([role])),
-                  CryButton(iconData: Icons.person, tip: '关联人员', onPressed: () => _selectUser(role)),
-                  CryButton(iconData: Icons.menu, tip: '关联菜单', onPressed: () => _selectMenu(role)),
+                  CryButton(iconData: Icons.edit, tip: S.of(context).modify, onPressed: () => _edit(role)),
+                  CryButton(iconData: Icons.delete, tip: S.of(context).delete, onPressed: () => _delete([role])),
+                  CryButton(iconData: Icons.person, tip: S.of(context).selectUsers, onPressed: () => _selectUser(role)),
+                  CryButton(iconData: Icons.menu, tip: S.of(context).selectMenus, onPressed: () => _selectMenu(role)),
                 ],
               ),
             ),
@@ -86,21 +85,21 @@ class _RoleListState extends State<RoleList> {
       alignment: MainAxisAlignment.start,
       children: <Widget>[
         CryButton(
-          label: '查询',
+          label: S.of(context).query,
           iconData: Icons.search,
           onPressed: () {
             _query();
           },
         ),
         CryButton(
-          label: '增加',
+          label: S.of(context).add,
           iconData: Icons.add,
           onPressed: () {
             _edit(null);
           },
         ),
         CryButton(
-          label: '删除',
+          label: S.of(context).delete,
           iconData: Icons.delete,
           onPressed: selectedList.length == 0
               ? null

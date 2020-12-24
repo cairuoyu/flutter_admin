@@ -30,7 +30,7 @@ class _RoleEditState extends State<RoleEdit> {
       children: [
         CryButton(
           iconData: Icons.save,
-          label: '保存',
+          label: S.of(context).save,
           onPressed: () async {
             var form = formKey.currentState;
             if (!form.validate()) {
@@ -45,7 +45,7 @@ class _RoleEditState extends State<RoleEdit> {
         ),
         CryButton(
           iconData: Icons.cancel,
-          label: '取消',
+          label: S.of(context).cancel,
           onPressed: () {
             Navigator.pop(context);
           },
@@ -58,12 +58,12 @@ class _RoleEditState extends State<RoleEdit> {
         children: [
           CryInput(
             value: _role.name,
-            label: '名称',
+            label: S.of(context).name,
             onSaved: (v) {
               _role.name = v;
             },
             validator: (v) {
-              return v.isEmpty ? '请填写名称' : null;
+              return v.isEmpty ? S.of(context).required : null;
             },
           ),
         ],
@@ -71,7 +71,7 @@ class _RoleEditState extends State<RoleEdit> {
     );
     var result = Scaffold(
       appBar: AppBar(
-        title: Text(widget.role == null ? S.of(context).increase : S.of(context).modify),
+        title: Text(widget.role == null ? S.of(context).add : S.of(context).modify),
       ),
       body: SingleChildScrollView(
         child: Column(

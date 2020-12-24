@@ -110,7 +110,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
     );
     var result = Scaffold(
       appBar: AppBar(
-        title: Text(this.isAdd ? S.of(context).increase : S.of(context).modify),
+        title: Text(this.isAdd ? S.of(context).add : S.of(context).modify),
       ),
       body: SingleChildScrollView(
         child: Column(

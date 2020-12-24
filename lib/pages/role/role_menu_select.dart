@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/role_api.dart';
 import 'package:flutter_admin/api/role_menu_api.dart';
 import 'package:cry/cry_button.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
@@ -42,11 +43,11 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
   @override
   Widget build(BuildContext context) {
     List<CryTreeTableColumnData> columnData = [
-      CryTreeTableColumnData('名称', (Menu v) => v.name),
-      CryTreeTableColumnData('英文名', (Menu v) => v.nameEn),
+      CryTreeTableColumnData(S.of(context).name, (Menu v) => v.name),
+      CryTreeTableColumnData(S.of(context).englishName, (Menu v) => v.nameEn),
       CryTreeTableColumnData('URL', (Menu v) => v.url),
-      CryTreeTableColumnData('顺序号', (Menu v) => v.orderBy?.toString(), width: 80),
-      CryTreeTableColumnData('备注', (Menu v) => v.remark, width: 300)
+      CryTreeTableColumnData(S.of(context).sequenceNumber, (Menu v) => v.orderBy?.toString(), width: 180),
+      CryTreeTableColumnData(S.of(context).remarks, (Menu v) => v.remark, width: 300)
     ];
 
     var treeTable = CryTreeTable<Menu>(
@@ -59,11 +60,11 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
     );
     var result = Scaffold(
       appBar: AppBar(
-        title: Text('关联菜单'),
+        title: Text(S.of(context).selectMenus),
         actions: [
           CryButton(
             iconData: Icons.save,
-            label: '保存',
+            label: S.of(context).save,
             onPressed: () => save(),
           ),
         ],
@@ -84,7 +85,7 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
     List<Menu> selectedList = treeTableKey.currentState.getSelectedData();
     List roleMenuList = selectedList.map((e) => RoleMenu(roleId: widget.role.id, menuId: e.id).toMap()).toList();
     await RoleMenuApi.saveBatch(roleMenuList);
-    Utils.message('保存成功');
+    Utils.message(S.of(context).saved);
     Navigator.pop(context);
   }
 

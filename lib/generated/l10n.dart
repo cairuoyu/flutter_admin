@@ -295,11 +295,11 @@ class S {
     );
   }
 
-  /// `Name Required`
-  String get personRequired {
+  /// `Required`
+  String get required {
     return Intl.message(
-      'Name Required',
-      name: 'personRequired',
+      'Required',
+      name: 'required',
       desc: '',
       args: [],
     );
@@ -366,10 +366,10 @@ class S {
   }
 
   /// `Filter`
-  String get inquire {
+  String get query {
     return Intl.message(
       'Filter',
-      name: 'inquire',
+      name: 'query',
       desc: '',
       args: [],
     );
@@ -385,11 +385,11 @@ class S {
     );
   }
 
-  /// `Add User`
-  String get increase {
+  /// `Add`
+  String get add {
     return Intl.message(
-      'Add User',
-      name: 'increase',
+      'Add',
+      name: 'add',
       desc: '',
       args: [],
     );
@@ -435,6 +435,26 @@ class S {
     );
   }
 
+  /// `Role List`
+  String get roleList {
+    return Intl.message(
+      'Role List',
+      name: 'roleList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dict List`
+  String get dictList {
+    return Intl.message(
+      'Dict List',
+      name: 'dictList',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Name`
   String get name {
     return Intl.message(
@@ -470,6 +490,166 @@ class S {
     return Intl.message(
       'Update Time',
       name: 'updateTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Drawer`
+  String get drawer {
+    return Intl.message(
+      'Drawer',
+      name: 'drawer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Side`
+  String get side {
+    return Intl.message(
+      'Side',
+      name: 'side',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Menu Display`
+  String get menuDisplay {
+    return Intl.message(
+      'Menu Display',
+      name: 'menuDisplay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Routing Mode`
+  String get noRoutingMode {
+    return Intl.message(
+      'No Routing Mode',
+      name: 'noRoutingMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Routing Mode`
+  String get routingMode {
+    return Intl.message(
+      'Routing Mode',
+      name: 'routingMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Information`
+  String get myInformation {
+    return Intl.message(
+      'My Information',
+      name: 'myInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Menus`
+  String get selectMenus {
+    return Intl.message(
+      'Select Menus',
+      name: 'selectMenus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Users`
+  String get selectUsers {
+    return Intl.message(
+      'Select Users',
+      name: 'selectUsers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unselected Users`
+  String get unselectedUsers {
+    return Intl.message(
+      'Unselected Users',
+      name: 'unselectedUsers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Selected Users`
+  String get selectedUsers {
+    return Intl.message(
+      'Selected Users',
+      name: 'selectedUsers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select [UnSelected Users]`
+  String get selectUnselectedUsers {
+    return Intl.message(
+      'Please select [UnSelected Users]',
+      name: 'selectUnselectedUsers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select [Selected Users]`
+  String get selectSelectedUsers {
+    return Intl.message(
+      'Please select [Selected Users]',
+      name: 'selectSelectedUsers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English Name`
+  String get englishName {
+    return Intl.message(
+      'English Name',
+      name: 'englishName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sequence Number`
+  String get sequenceNumber {
+    return Intl.message(
+      'Sequence Number',
+      name: 'sequenceNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remarks`
+  String get remarks {
+    return Intl.message(
+      'Remarks',
+      name: 'remarks',
       desc: '',
       args: [],
     );

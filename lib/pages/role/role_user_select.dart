@@ -1,6 +1,7 @@
 import 'package:cry/cry_transfer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/role_user_api.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/models/role_user.dart';
 import 'package:flutter_admin/models/user_info.dart';
@@ -26,32 +27,32 @@ class _RoleUserSelectState extends State<RoleUserSelect> {
 
   @override
   Widget build(BuildContext context) {
-    var table1 = RoleUserSelectList(key: tableKey1, title: '未选择人员', role: widget.role);
-    var table2 = RoleUserSelectList(key: tableKey2, title: '已选择人员', role: widget.role, isSelected: true);
+    var table1 = RoleUserSelectList(key: tableKey1, title: S.of(context).unselectedUsers, role: widget.role);
+    var table2 = RoleUserSelectList(key: tableKey2, title: S.of(context).selectedUsers, role: widget.role, isSelected: true);
     var transfer = CryTransfer(
       left: table1,
       right: table2,
       toRight: () async {
         List<UserInfo> selectedList = tableKey1.currentState.getSelectedList();
         if (selectedList.isEmpty) {
-          Utils.message('请选择【未选择人员】');
+          Utils.message(S.of(context).selectUnselectedUsers);
           return;
         }
         List roleUserList = selectedList.map((e) => RoleUser(userId: e.userId, roleId: widget.role.id).toMap()).toList();
         await RoleUserApi.saveBatch(roleUserList);
-        Utils.message('保存成功');
+        Utils.message(S.of(context).saved);
         tableKey1.currentState.query();
         tableKey2.currentState.query();
       },
       toLeft: () async {
         List<UserInfo> selectedList = tableKey2.currentState.getSelectedList();
         if (selectedList.isEmpty) {
-          Utils.message('请选择【已选择人员】');
+          Utils.message(S.of(context).selectSelectedUsers);
           return;
         }
         List roleUserList = selectedList.map((e) => RoleUser(roleId: widget.role.id, userId: e.userId).toMap()).toList();
         await RoleUserApi.removeBatch(roleUserList);
-        Utils.message('保存成功');
+        Utils.message(S.of(context).saved);
         tableKey1.currentState.query();
         tableKey2.currentState.query();
       },
@@ -59,7 +60,7 @@ class _RoleUserSelectState extends State<RoleUserSelect> {
 
     var result = Scaffold(
       appBar: AppBar(
-        title: Text('关联人员'),
+        title: Text(S.of(context).selectUsers),
       ),
       body: SingleChildScrollView(
         child: Column(

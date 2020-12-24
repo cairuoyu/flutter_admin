@@ -45,7 +45,7 @@ class PersonEditState extends State<PersonEdit> {
               formData.name = v;
             },
             validator: (v) {
-              return v.isEmpty ? S.of(context).personRequired : null;
+              return v.isEmpty ? S.of(context).required: null;
             },
           ),
           CryInput(
@@ -112,7 +112,7 @@ class PersonEditState extends State<PersonEdit> {
     );
     var result = Scaffold(
       appBar: AppBar(
-        title: Text(widget.person == null ? S.of(context).increase : S.of(context).modify),
+        title: Text(widget.person == null ? S.of(context).add : S.of(context).modify),
       ),
       body: SingleChildScrollView(
         child: Column(

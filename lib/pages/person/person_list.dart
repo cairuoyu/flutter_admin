@@ -99,9 +99,9 @@ class PersonListState extends State {
     ButtonBar buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[
-        CryButton(label: S.of(context).inquire,iconData: Icons.search, onPressed: () => _query()),
+        CryButton(label: S.of(context).query,iconData: Icons.search, onPressed: () => _query()),
         CryButton(label: S.of(context).reset,iconData: Icons.refresh, onPressed: () => _reset()),
-        CryButton(label: S.of(context).increase,iconData: Icons.add, onPressed: () => _edit()),
+        CryButton(label: S.of(context).add,iconData: Icons.add, onPressed: () => _edit()),
         CryButton(
           label: S.of(context).modify,
           iconData: Icons.edit,

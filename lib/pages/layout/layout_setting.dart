@@ -23,8 +23,8 @@ class LayoutSetting extends StatelessWidget {
     );
     var menuDisplayType = CryToggleButtons(
       [
-        SelectOptionVO(value: MenuDisplayType.drawer, label: '抽屉'),
-        SelectOptionVO(value: MenuDisplayType.side, label: '侧边'),
+        SelectOptionVO(value: MenuDisplayType.drawer, label: S.of(context).drawer),
+        SelectOptionVO(value: MenuDisplayType.side, label: S.of(context).side),
       ],
       defaultValue: CryRootScope.of(context).state.configuration.menuDisplayType,
       afterOnPress: (Object v) {
@@ -48,7 +48,10 @@ class LayoutSetting extends StatelessWidget {
               border: Border(bottom: BorderSide(color: Colors.black12)),
             ),
             padding: EdgeInsets.all(10),
-            child: Row(children: [Text('菜单显示模式：'), menuDisplayType]),
+            child: Row(children: [
+              SizedBox(width: 100, child: Text(S.of(context).menuDisplay)),
+              menuDisplayType,
+            ]),
           ),
           Container(
             decoration: BoxDecoration(
@@ -56,7 +59,10 @@ class LayoutSetting extends StatelessWidget {
               border: Border(bottom: BorderSide(color: Colors.black12)),
             ),
             padding: EdgeInsets.all(10),
-            child: Row(children: [Text('语言切换：'), LangSwitch()]),
+            child: Row(children: [
+              SizedBox(width: 100, child: Text(S.of(context).language)),
+              LangSwitch(),
+            ]),
           ),
           Container(
             decoration: BoxDecoration(
