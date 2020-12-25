@@ -8,6 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'common/cry_root.dart';
 import 'common/routes.dart';
 import 'generated/l10n.dart';
+import 'models/configuration_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,8 +42,12 @@ class MyApp extends StatelessWidget {
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
             ],
+            locale: CryRootScope.of(context).state.configuration.locale,
+            localeResolutionCallback: (locale, supportedLocales) {
+              deviceLocale = locale;
+              return locale;
+            },
             supportedLocales: S.delegate.supportedLocales,
-            locale: Locale(CryRootScope.of(context).state.configuration.locale),
             onGenerateRoute: (settings) => Routes.onGenerateRoute(settings),
           );
         },

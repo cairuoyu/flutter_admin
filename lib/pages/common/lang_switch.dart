@@ -19,9 +19,9 @@ class LangSwitchState extends State<LangSwitch> {
         SelectOptionVO(value: 'en', label: 'english'),
         SelectOptionVO(value: 'zh', label: '中文'),
       ],
-      defaultValue: Configuration.of(context).locale,
+      defaultValue: Configuration.of(context).locale.languageCode,
       afterOnPress: (v) {
-        Configuration configuration = Configuration.of(context).copyWith(locale: v);
+        Configuration configuration = Configuration.of(context).copyWith(locale: Locale(v));
         CryRootScope.updateConfiguration(context, configuration);
       },
     );

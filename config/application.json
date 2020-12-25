@@ -1,5 +1,5 @@
 {
-  "baseUrl": "https://www.cairuoyu.com/api/p4/",
+  "baseUrl": "http://www.cairuoyu.com/api/p4/",
   "baseUrl2": "http://localhost:9094/",
   "connectTimeout": 10000,
   "receiveTimeout": 3000

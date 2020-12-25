@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/models/configuration_model.dart';
 import 'package:flutter_admin/utils/adaptive_util.dart';
+import 'package:flutter_admin/utils/utils.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_admin/charts/simple_series_legend.dart';
 import 'package:flutter_admin/data/data_dashboard.dart';
@@ -154,7 +154,7 @@ class Dashboard extends StatelessWidget {
         ),
         child: ListTile(
           dense: true,
-          title: Text(Configuration.of(context).locale == 'en' ? (v.titleEn ?? v.title) : v.title),
+          title: Text(Utils.isLocalEn(context) ? (v.titleEn ?? v.title) : v.title),
           trailing: v.trailing == null ? null : Text(v.trailing),
         ),
       );

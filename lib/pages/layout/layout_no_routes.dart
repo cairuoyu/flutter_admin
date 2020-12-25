@@ -3,13 +3,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/common/cry_root.dart';
 import 'package:flutter_admin/common/routes.dart';
-import 'package:flutter_admin/models/configuration_model.dart';
 import 'package:flutter_admin/pages/common/page_404.dart';
 import 'package:flutter_admin/pages/layout/layout_app_bar.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/pages/layout/layout_menu.dart';
 import 'package:flutter_admin/pages/layout/layout_setting.dart';
 import 'package:flutter_admin/utils/store_util.dart';
+import 'package:flutter_admin/utils/utils.dart';
 
 class Layout extends StatefulWidget {
   @override
@@ -53,7 +53,7 @@ class _LayoutState extends State with TickerProviderStateMixin {
         return Tab(
           child: Row(
             children: <Widget>[
-              Text(Configuration.of(context).locale == 'en' ? menu.nameEn ?? '' : menu.name ?? ''),
+              Text(Utils.isLocalEn(context) ? menu.nameEn ?? '' : menu.name ?? ''),
               SizedBox(width: 3),
               InkWell(
                 child: Icon(Icons.close, size: 10),

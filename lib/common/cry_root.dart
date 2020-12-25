@@ -8,7 +8,6 @@ class CryRoot extends StatefulWidget {
     this.child, {
     Key key,
     this.configuration = const Configuration(
-      locale: 'zh',
       themeColor: Colors.blue,
       menuDisplayType: MenuDisplayType.side,
     ),

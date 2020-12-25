@@ -5,23 +5,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/common/cry_root.dart';
 import 'package:flutter_admin/enum/MenuDisplayType.dart';
 
+Locale _deviceLocale;
+
+Locale get deviceLocale => _deviceLocale;
+
+set deviceLocale(Locale locale) {
+  _deviceLocale ??= locale;
+}
+
 class Configuration {
-  final String locale;
+  final Locale _locale;
   final Color themeColor;
   final MenuDisplayType menuDisplayType;
 
   const Configuration({
-    this.locale,
+    locale,
     this.themeColor,
     this.menuDisplayType,
-  });
+  }) : _locale = locale;
+
+  Locale get locale => _locale ?? deviceLocale;
 
   static Configuration of(BuildContext context) {
     return CryRootScope.of(context).state.configuration;
   }
 
   Configuration copyWith({
-    String locale,
+    Locale locale,
     Color themeColor,
     MenuDisplayType menuDisplayType,
   }) {
