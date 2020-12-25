@@ -1,7 +1,8 @@
-import 'package:cry/cry_button.dart';
+import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/message_api.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/message.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
@@ -19,11 +20,7 @@ class _MessageEditState extends State<MessageEdit> {
     var buttonBar = ButtonBar(
       alignment: MainAxisAlignment.center,
       children: [
-        CryButton(
-          label: '提交',
-          iconData: Icons.save,
-          onPressed: save,
-        ),
+        CryButtons.commit(context, save),
       ],
     );
     var form = Form(
@@ -31,14 +28,14 @@ class _MessageEditState extends State<MessageEdit> {
       child: Column(
         children: [
           CryInput(
-            label: '标题',
+            label: S.of(context).title,
             required: true,
             onSaved: (v) {
               this._message.title = v;
             },
           ),
           CryInput(
-            label: '内容',
+            label: S.of(context).content,
             required: true,
             maxLines: 12,
             onSaved: (v) {
@@ -65,7 +62,7 @@ class _MessageEditState extends State<MessageEdit> {
     }
     this.formKey.currentState.save();
     await MessageApi.save(this._message.toMap());
-    Utils.message('提交成功');
+    Utils.message(S.of(context).saved);
     this.setState(() {});
   }
 }

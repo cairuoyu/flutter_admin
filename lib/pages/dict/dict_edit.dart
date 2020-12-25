@@ -1,8 +1,9 @@
+import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_admin/api/dict_api.dart';
-import 'package:cry/cry_button.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dict.dart';
 import 'package:flutter_admin/models/dict_item.dart';
 import 'package:cry/model/response_body_api.dart';
@@ -41,7 +42,7 @@ class _DictEditState extends State<DictEdit> {
       child: Wrap(
         children: [
           CryInput(
-            label: '字典代码',
+            label: S.of(context).code,
             value: dict.code,
             width: 400,
             required: true,
@@ -50,7 +51,7 @@ class _DictEditState extends State<DictEdit> {
             },
           ),
           CryInput(
-            label: '字典名称',
+            label: S.of(context).name,
             value: dict.name,
             width: 400,
             required: true,
@@ -71,13 +72,7 @@ class _DictEditState extends State<DictEdit> {
     );
     var result = Scaffold(
       appBar: AppBar(
-        actions: [
-          CryButton(
-            label: '保存',
-            iconData: Icons.save,
-            onPressed: () => _save(),
-          )
-        ],
+        actions: [CryButtons.save(context, () => _save())],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

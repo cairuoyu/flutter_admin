@@ -1,6 +1,7 @@
 import 'package:cry/cry_toggle_buttons.dart';
 import 'package:cry/vo/select_option_vo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/pages/message/message_edit.dart';
 
 import 'message_list.dart';
@@ -17,8 +18,8 @@ class _MessageState extends State<Message> {
   Widget build(BuildContext context) {
     var toggleButtons = CryToggleButtons(
       [
-        SelectOptionVO(value: 'add', label: '给我留言'),
-        SelectOptionVO(value: 'list', label: '所有留言'),
+        SelectOptionVO(value: 'add', label: S.of(context).leaveMessage),
+        SelectOptionVO(value: 'list', label: S.of(context).allMessage),
       ],
       defaultValue: 'add',
       afterOnPress: (v) {

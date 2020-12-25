@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/form/cry_select.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class _UserInfoListState extends State<UserInfoList> {
         children: <Widget>[
           CryInput(
             width: 400,
-            label: '用户名称',
+            label: S.of(context).username,
             value: userInfo.name,
             onSaved: (v) {
               userInfo.name = v;
@@ -49,7 +50,7 @@ class _UserInfoListState extends State<UserInfoList> {
           ),
           CrySelect(
               width: 400,
-              label: '部门',
+              label: S.of(context).personDepartment,
               value: userInfo.deptId,
               dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT),
               onSaved: (v) {
@@ -60,7 +61,7 @@ class _UserInfoListState extends State<UserInfoList> {
     );
     CryDataTable table = CryDataTable(
       key: tableKey,
-      title: '用户管理',
+      title: S.of(context).userList,
       page: page,
       onPageChanged: _onPageChanged,
       onSelectChanged: (Map selected) {
@@ -71,7 +72,7 @@ class _UserInfoListState extends State<UserInfoList> {
           label: Text(S.of(context).operating),
         ),
         DataColumn(
-          label: Text('账号'),
+          label: Text(S.of(context).username),
           onSort: (int columnIndex, bool ascending) => _sort('user_name'),
         ),
         DataColumn(
@@ -111,7 +112,7 @@ class _UserInfoListState extends State<UserInfoList> {
               width: 60,
               child: ButtonBar(
                 children: [
-                  CryButton(iconData: Icons.edit, tip: '编辑', onPressed: () => _edit(userInfo)),
+                  CryButton(iconData: Icons.edit, tip: S.of(context).modify, onPressed: () => _edit(userInfo)),
                 ],
               ),
             ),
@@ -138,10 +139,10 @@ class _UserInfoListState extends State<UserInfoList> {
     ButtonBar buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[
-        CryButton(label: '查询', iconData: Icons.search, onPressed: () => _query()),
-        CryButton(label: '重置', iconData: Icons.refresh, onPressed: () => _reset()),
-        CryButton(label: '增加', iconData: Icons.add, onPressed: () => _edit(null)),
-        CryButton(label: '编辑', iconData: Icons.edit, onPressed: selectedList.length != 1 ? null : () => _edit(selectedList[0])),
+        CryButtons.query(context, () => _query()),
+        CryButtons.reset(context, () => _reset()),
+        CryButtons.add(context, () => _edit(null)),
+        CryButtons.edit(context, selectedList.length != 1 ? null : () => _edit(selectedList[0])),
       ],
     );
     var result = Scaffold(

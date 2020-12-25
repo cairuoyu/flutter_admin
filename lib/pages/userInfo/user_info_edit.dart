@@ -41,10 +41,10 @@ class _UserInfoEditState extends State<UserInfoEdit> {
       child: Wrap(
         children: <Widget>[
           CryInput(
-            label: '账号',
+            label: S.of(context).username,
             value: userInfo.userName,
             onSaved: (v) => {userInfo.userName = v},
-            validator: (v) => this.isAdd && v.isEmpty ? '必填' : null,
+            validator: (v) => this.isAdd && v.isEmpty ? S.of(context).required : null,
             enable: this.isAdd,
           ),
           CryInput(

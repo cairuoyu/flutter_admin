@@ -654,6 +654,206 @@ class S {
       args: [],
     );
   }
+
+  /// `Parent Menu`
+  String get parentMenu {
+    return Intl.message(
+      'Parent Menu',
+      name: 'parentMenu',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Root`
+  String get root {
+    return Intl.message(
+      'Root',
+      name: 'root',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image Title`
+  String get imageTitle {
+    return Intl.message(
+      'Image Title',
+      name: 'imageTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image Memo`
+  String get imageMemo {
+    return Intl.message(
+      'Image Memo',
+      name: 'imageMemo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Image`
+  String get selectImage {
+    return Intl.message(
+      'Select Image',
+      name: 'selectImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Video Title`
+  String get videoTitle {
+    return Intl.message(
+      'Video Title',
+      name: 'videoTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Video Memo`
+  String get videoMemo {
+    return Intl.message(
+      'Video Memo',
+      name: 'videoMemo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Video`
+  String get selectVideo {
+    return Intl.message(
+      'Select Video',
+      name: 'selectVideo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The size cannot exceed 10M`
+  String get sizeLimit {
+    return Intl.message(
+      'The size cannot exceed 10M',
+      name: 'sizeLimit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go to the Portal`
+  String get goToThePortal {
+    return Intl.message(
+      'Go to the Portal',
+      name: 'goToThePortal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code`
+  String get code {
+    return Intl.message(
+      'Code',
+      name: 'code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable`
+  String get enable {
+    return Intl.message(
+      'Enable',
+      name: 'enable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `DictItem Code`
+  String get dictItemCode {
+    return Intl.message(
+      'DictItem Code',
+      name: 'dictItemCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `DictItem Name`
+  String get dictItemName {
+    return Intl.message(
+      'DictItem Name',
+      name: 'dictItemName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please complete the table data`
+  String get completeTheTableData {
+    return Intl.message(
+      'Please complete the table data',
+      name: 'completeTheTableData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Leave me a message`
+  String get leaveMessage {
+    return Intl.message(
+      'Leave me a message',
+      name: 'leaveMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Leave me a message`
+  String get allMessage {
+    return Intl.message(
+      'Leave me a message',
+      name: 'allMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Title`
+  String get title {
+    return Intl.message(
+      'Title',
+      name: 'title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Content`
+  String get content {
+    return Intl.message(
+      'Content',
+      name: 'content',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View`
+  String get view {
+    return Intl.message(
+      'View',
+      name: 'view',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

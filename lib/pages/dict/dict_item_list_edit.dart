@@ -1,8 +1,10 @@
+import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_admin/api/dict_item_api.dart';
 import 'package:cry/cry_button.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dict.dart';
 import 'package:flutter_admin/models/dict_item.dart';
 import 'package:cry/model/response_body_api.dart';
@@ -43,21 +45,15 @@ class DictItemListEditState extends State<DictItemListEdit> {
   Widget build(BuildContext context) {
     var buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
-      children: [
-        CryButton(
-          label: '增加一行',
-          iconData: Icons.add,
-          onPressed: () => this._add(),
-        )
-      ],
+      children: [CryButtons.add(context, () => this._add())],
     );
     int i = 0;
     var table = DataTable(
       columns: [
         DataColumn(label: Text('#')),
-        DataColumn(label: Text('操作')),
-        DataColumn(label: Text('字典项代码')),
-        DataColumn(label: Text('字典项名称')),
+        DataColumn(label: Text(S.of(context).operating)),
+        DataColumn(label: Text(S.of(context).dictItemCode)),
+        DataColumn(label: Text(S.of(context).dictItemName)),
       ],
       rows: this.dictItemList.map((dictItem) {
         int rowIndex = i + 1;
@@ -127,7 +123,7 @@ class DictItemListEditState extends State<DictItemListEdit> {
           return null;
         }) !=
         null) {
-      Utils.message('请完善表格数据');
+      Utils.message(S.of(context).completeTheTableData);
       return false;
     }
     return true;

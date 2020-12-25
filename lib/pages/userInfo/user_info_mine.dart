@@ -64,7 +64,7 @@ class _UserInfoMineState extends State<UserInfoMine> {
         label: S.of(context).personName,
         value: userInfo.name,
         onSaved: (v) => {userInfo.name = v},
-        validator: (v) => v.isEmpty ? '必填' : null,
+        validator: (v) => v.isEmpty ? S.of(context).required : null,
       ),
       CryInput(
         label: S.of(context).personNickname,

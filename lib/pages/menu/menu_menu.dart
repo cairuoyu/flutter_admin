@@ -1,8 +1,8 @@
+import 'package:cry/cry_buttons.dart';
 import 'package:cry/cry_tree_table.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/menu_demo_api.dart';
-import 'package:cry/cry_button.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
@@ -34,11 +34,11 @@ class _MenuMenuState extends State<MenuMenu> {
   @override
   Widget build(BuildContext context) {
     List<CryTreeTableColumnData> columnData = [
-      CryTreeTableColumnData('名称', (Menu v) => v.name),
-      CryTreeTableColumnData('英文名', (Menu v) => v.nameEn),
+      CryTreeTableColumnData(S.of(context).name, (Menu v) => v.name),
+      CryTreeTableColumnData(S.of(context).englishName, (Menu v) => v.nameEn),
       CryTreeTableColumnData('URL', (Menu v) => v.url),
-      CryTreeTableColumnData('顺序号', (Menu v) => v.orderBy?.toString(), width: 80),
-      CryTreeTableColumnData('备注', (Menu v) => v.remark, width: 300),
+      CryTreeTableColumnData(S.of(context).sequenceNumber, (Menu v) => v.orderBy?.toString(), width: 180),
+      CryTreeTableColumnData(S.of(context).remarks, (Menu v) => v.remark, width: 300)
     ];
     var treeTable = CryTreeTable(
       columnData: columnData,
@@ -68,15 +68,10 @@ class _MenuMenuState extends State<MenuMenu> {
     var result = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[
-        CryButton(
-          iconData: Icons.add,
-          label: '添加菜单',
-          onPressed: () => widget.onEdit(Menu()),
-        ),
-        CryButton(
-          iconData: Icons.delete,
-          label: '删除',
-          onPressed: selected.length >= 1
+        CryButtons.add(context, () => widget.onEdit(Menu())),
+        CryButtons.delete(
+          context,
+          selected.length >= 1
               ? () {
                   cryConfirm(context, S.of(context).confirmDelete, () async {
                     List ids = selected.map((e) => e.data.id).toList();

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/message.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
@@ -33,7 +34,7 @@ class _MessageViewState extends State<MessageView> {
     );
     var result = Scaffold(
       appBar: AppBar(
-        title: Text('查看'),
+        title: Text(S.of(context).view),
       ),
       body: SingleChildScrollView(child: body),
     );

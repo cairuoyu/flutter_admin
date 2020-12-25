@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_admin/api/video_api.dart';
 import 'package:cry/cry_button.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:cry/model/response_body_api.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/video.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:http_parser/http_parser.dart';
@@ -29,7 +31,6 @@ class VideoUploadState extends State<VideoUpload> {
   VideoPlayerController controller;
   Video video = Video();
   Uint8List videoBytes;
-  final limitMessage = '视频大小不能超过10M';
 
   @override
   void initState() {
@@ -43,15 +44,15 @@ class VideoUploadState extends State<VideoUpload> {
       child: Wrap(
         children: <Widget>[
           CryInput(
-            label: '视频标题',
+            label: S.of(context).videoTitle,
             value: video.title,
             onSaved: (v) => {video.title = v},
             validator: (v) {
-              return v.isEmpty ? '必填' : null;
+              return v.isEmpty ? S.of(context).required : null;
             },
           ),
           CryInput(
-            label: '视频描述',
+            label: S.of(context).videoMemo,
             value: video.memo,
             onSaved: (v) => {video.memo = v},
           ),
@@ -62,17 +63,13 @@ class VideoUploadState extends State<VideoUpload> {
       alignment: MainAxisAlignment.start,
       children: <Widget>[
         CryButton(
-          label: '选择视频',
+          label: S.of(context).selectVideo,
           onPressed: () => pickVideo(),
           iconData: Icons.video_library,
         ),
-        CryButton(
-          label: '保存',
-          onPressed: pickedFile == null ? null : () => save(),
-          iconData: Icons.save,
-        ),
+        CryButtons.save(context, pickedFile == null ? null : () => save()),
         Text(
-          limitMessage,
+          S.of(context).sizeLimit,
           style: TextStyle(color: Colors.red),
         ),
       ],
@@ -99,7 +96,7 @@ class VideoUploadState extends State<VideoUpload> {
     }
     videoBytes = await pickedFile.readAsBytes();
     if (videoBytes.length > 1000 * 1000 * 10) {
-      cryAlert(context, limitMessage);
+      cryAlert(context, S.of(context).sizeLimit);
       pickedFile = null;
       videoBytes = null;
       controller = null;
@@ -143,7 +140,7 @@ class VideoUploadState extends State<VideoUpload> {
     ResponseBodyApi responseBodyApi = await VideoApi.upload(formData);
     if (responseBodyApi.success) {
       BotToast.closeAllLoading();
-      Utils.toPortal(context, '保存成功！', '前往门户查看视频', "http://www.cairuoyu.com/flutter_portal");
+      Utils.toPortal(context, S.of(context).saved, S.of(context).goToThePortal, "http://www.cairuoyu.com/flutter_portal");
       setState(() {
 //        this.disposeController();
       });

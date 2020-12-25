@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/image_api.dart';
 import 'package:cry/cry_button.dart';
 import 'package:cry/cry_dialog.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/image.dart' as model;
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/utils/utils.dart';
@@ -28,7 +30,6 @@ class ImageUploadState extends State<ImageUpload> {
   final ImagePicker imagePicker = ImagePicker();
   model.Image image = model.Image();
   Uint8List imageBytes;
-  final limitMessage = '图片大小不能超过10M';
 
   @override
   void initState() {
@@ -39,7 +40,7 @@ class ImageUploadState extends State<ImageUpload> {
     pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
     imageBytes = await pickedFile.readAsBytes();
     if (imageBytes.length > 1000 * 1000 * 10) {
-      cryAlert(context, limitMessage);
+      cryAlert(context, S.of(context).sizeLimit);
       pickedFile = null;
       imageBytes = null;
       setState(() {});
@@ -71,7 +72,7 @@ class ImageUploadState extends State<ImageUpload> {
     ResponseBodyApi responseBodyApi = await ImageApi.upload(formData);
     if (responseBodyApi.success) {
       BotToast.closeAllLoading();
-      Utils.toPortal(context, '保存成功！', '前往门户查看图片', "http://www.cairuoyu.com/flutter_portal");
+      Utils.toPortal(context, S.of(context).saved, S.of(context).goToThePortal, "http://www.cairuoyu.com/flutter_portal");
       setState(() {
         this.pickedFile = null;
       });
@@ -97,15 +98,15 @@ class ImageUploadState extends State<ImageUpload> {
       child: Wrap(
         children: <Widget>[
           CryInput(
-            label: '图片标题',
+            label: S.of(context).imageTitle,
             value: image.title,
             onSaved: (v) => {image.title = v},
             validator: (v) {
-              return v.isEmpty ? '必填' : null;
+              return v.isEmpty ? S.of(context).required : null;
             },
           ),
           CryInput(
-            label: '图片描述',
+            label: S.of(context).imageMemo,
             value: image.memo,
             onSaved: (v) => {image.memo = v},
           ),
@@ -116,17 +117,13 @@ class ImageUploadState extends State<ImageUpload> {
       alignment: MainAxisAlignment.start,
       children: <Widget>[
         CryButton(
-          label: '选择图片',
+          label: S.of(context).selectImage,
           onPressed: () => pickImage(),
           iconData: Icons.photo_size_select_actual,
         ),
-        CryButton(
-          label: '保存',
-          onPressed: pickedFile == null ? null : () => save(),
-          iconData: Icons.save,
-        ),
+        CryButtons.save(context, pickedFile == null ? null : () => save()),
         Text(
-          limitMessage,
+          S.of(context).sizeLimit,
           style: TextStyle(color: Colors.red),
         ),
       ],
