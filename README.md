@@ -61,7 +61,4 @@ http://www.cairuoyu.com/flutter_admin
 ### QQ
 851796663
 
-## 赞助
-![image](http://cairuoyu.com/screenshots/pay.png)
-
 

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/common/cry_root.dart';
 import 'package:flutter_admin/common/routes.dart';
+import 'package:flutter_admin/enum/MenuDisplayType.dart';
 import 'package:flutter_admin/pages/common/page_404.dart';
 import 'package:flutter_admin/pages/layout/layout_app_bar.dart';
 import 'package:flutter_admin/models/menu.dart';
@@ -43,7 +44,8 @@ class _LayoutState extends State with TickerProviderStateMixin {
       return Container();
     }
 
-    Color themeColor = CryRootScope.of(context).state.configuration.themeColor;
+    var configuration = CryRootScope.of(context).state.configuration;
+    Color themeColor = configuration.themeColor;
     TabBar tabBar = TabBar(
       onTap: (index) => _openPage(menuOpened[index]),
       controller: tabController,
@@ -65,10 +67,11 @@ class _LayoutState extends State with TickerProviderStateMixin {
       }).toList(),
     );
 
+    var layoutMenu = LayoutMenu(onClick: _openPage);
     Row body = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        LayoutMenu(onClick: _openPage),
+        configuration.menuDisplayType == MenuDisplayType.side ? layoutMenu : Container(),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,11 +103,19 @@ class _LayoutState extends State with TickerProviderStateMixin {
     );
     Scaffold subWidget = Scaffold(
       key: scaffoldStateKey,
+      drawer: layoutMenu,
       endDrawer: LayoutSetting(),
       body: body,
-      appBar: LayoutAppBar(context, type: 2, openSetting: () {
-        scaffoldStateKey.currentState.openEndDrawer();
-      }),
+      appBar: LayoutAppBar(
+        context,
+        type: 2,
+        openMenu: () {
+          scaffoldStateKey.currentState.openDrawer();
+        },
+        openSetting: () {
+          scaffoldStateKey.currentState.openEndDrawer();
+        },
+      ),
       // floatingActionButton: FloatingActionButton(
       //   child: Icon(Icons.settings),
       //   onPressed: () {
