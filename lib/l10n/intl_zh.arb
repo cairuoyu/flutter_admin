@@ -80,5 +80,9 @@
   "allMessage": "所有留言",
   "title": "标题",
   "content": "内容",
-  "view": "查看"
+  "view": "查看",
+  "downloadTemplate": "模板下载",
+  "importExcel": "导入Excel",
+  "exportExcel": "导出Excel",
+  "success": "操作成功"
 }

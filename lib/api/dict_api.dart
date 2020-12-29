@@ -6,6 +6,14 @@ class DictApi {
     return HttpUtil.get('/dict/map');
   }
 
+  static importExcel(data) {
+    return HttpUtil.post('/dict/importExcel', data: data);
+  }
+
+  static exportExcel(data) {
+    return HttpUtil.post('/dict/exportExcel', data: data);
+  }
+
   static page(data) {
     return HttpUtil.post('/dict/page', data: data);
   }

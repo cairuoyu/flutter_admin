@@ -864,6 +864,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Download Template`
+  String get downloadTemplate {
+    return Intl.message(
+      'Download Template',
+      name: 'downloadTemplate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Import Excel`
+  String get importExcel {
+    return Intl.message(
+      'Import Excel',
+      name: 'importExcel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Export Excel`
+  String get exportExcel {
+    return Intl.message(
+      'Export Excel',
+      name: 'exportExcel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Success`
+  String get success {
+    return Intl.message(
+      'Success',
+      name: 'success',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

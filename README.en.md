@@ -28,6 +28,7 @@
 * Theme Switching
 * Component Encapsulation
 * JWT
+* Import or Export Excle
 
 ## installation
 ```bash

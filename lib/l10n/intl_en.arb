@@ -81,5 +81,9 @@
   "allMessage": "Leave me a message",
   "title": "Title",
   "content": "Content",
-  "view": "View"
+  "view": "View",
+  "downloadTemplate": "Download Template",
+  "importExcel": "Import Excel",
+  "exportExcel": "Export Excel",
+  "success": "Success"
 }

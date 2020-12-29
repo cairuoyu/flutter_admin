@@ -101,6 +101,9 @@ class ImageUploadState extends State<ImageUpload> {
 
   pickImage(ImageSource source) async {
     pickedFile = await imagePicker.getImage(source: source);
+    if (pickedFile == null) {
+      return;
+    }
     imageBytes = await pickedFile.readAsBytes();
     if (imageBytes.length > 1000 * 1000 * 10) {
       cryAlert(context, S.of(context).sizeLimit);
@@ -110,11 +113,9 @@ class ImageUploadState extends State<ImageUpload> {
       return;
     }
 
-    if (pickedFile != null) {
-      setState(() {
-        formKey.currentState.save();
-      });
-    }
+    setState(() {
+      formKey.currentState.save();
+    });
   }
 
   save() async {
@@ -153,5 +154,4 @@ class ImageUploadState extends State<ImageUpload> {
       return Container();
     }
   }
-
 }
