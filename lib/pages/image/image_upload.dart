@@ -36,8 +36,71 @@ class ImageUploadState extends State<ImageUpload> {
     super.initState();
   }
 
-  pickImage() async {
-    pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
+  @override
+  Widget build(BuildContext context) {
+    var form = Form(
+      key: formKey,
+      child: Wrap(
+        children: <Widget>[
+          CryInput(
+            label: S.of(context).imageTitle,
+            value: image.title,
+            onSaved: (v) => {image.title = v},
+            validator: (v) {
+              return v.isEmpty ? S.of(context).required : null;
+            },
+          ),
+          CryInput(
+            label: S.of(context).imageMemo,
+            value: image.memo,
+            onSaved: (v) => {image.memo = v},
+          ),
+        ],
+      ),
+    );
+    List buttons = <Widget>[
+      CryButton(
+        label: S.of(context).gallery,
+        iconData: Icons.photo,
+        onPressed: () => pickImage(ImageSource.gallery),
+      ),
+      CryButtons.save(context, pickedFile == null ? null : () => save()),
+      Text(
+        S.of(context).sizeLimit,
+        style: TextStyle(color: Colors.red),
+      ),
+    ];
+    if (!kIsWeb) {
+      buttons.insert(
+        0,
+        CryButton(
+          label: S.of(context).camera,
+          iconData: Icons.camera,
+          onPressed: () => pickImage(ImageSource.camera),
+        ),
+      );
+    }
+    var bb = ButtonBar(
+      alignment: MainAxisAlignment.start,
+      children: buttons,
+    );
+    var result = Scrollbar(
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            form,
+            bb,
+            previewImage(),
+          ],
+        ),
+      ),
+    );
+
+    return result;
+  }
+
+  pickImage(ImageSource source) async {
+    pickedFile = await imagePicker.getImage(source: source);
     imageBytes = await pickedFile.readAsBytes();
     if (imageBytes.length > 1000 * 1000 * 10) {
       cryAlert(context, S.of(context).sizeLimit);
@@ -91,55 +154,4 @@ class ImageUploadState extends State<ImageUpload> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    var form = Form(
-      key: formKey,
-      child: Wrap(
-        children: <Widget>[
-          CryInput(
-            label: S.of(context).imageTitle,
-            value: image.title,
-            onSaved: (v) => {image.title = v},
-            validator: (v) {
-              return v.isEmpty ? S.of(context).required : null;
-            },
-          ),
-          CryInput(
-            label: S.of(context).imageMemo,
-            value: image.memo,
-            onSaved: (v) => {image.memo = v},
-          ),
-        ],
-      ),
-    );
-    var bb = ButtonBar(
-      alignment: MainAxisAlignment.start,
-      children: <Widget>[
-        CryButton(
-          label: S.of(context).selectImage,
-          onPressed: () => pickImage(),
-          iconData: Icons.photo_size_select_actual,
-        ),
-        CryButtons.save(context, pickedFile == null ? null : () => save()),
-        Text(
-          S.of(context).sizeLimit,
-          style: TextStyle(color: Colors.red),
-        ),
-      ],
-    );
-    var result = Scrollbar(
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            form,
-            bb,
-            previewImage(),
-          ],
-        ),
-      ),
-    );
-
-    return result;
-  }
 }

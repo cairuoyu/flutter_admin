@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static _notInlinedMessages(_) => <String, Function> {
     "add" : MessageLookupByLibrary.simpleMessage("Add"),
     "allMessage" : MessageLookupByLibrary.simpleMessage("Leave me a message"),
+    "camera" : MessageLookupByLibrary.simpleMessage("Camera"),
     "cancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
     "code" : MessageLookupByLibrary.simpleMessage("Code"),
     "completeTheTableData" : MessageLookupByLibrary.simpleMessage("Please complete the table data"),
@@ -46,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "enable" : MessageLookupByLibrary.simpleMessage("Enable"),
     "englishName" : MessageLookupByLibrary.simpleMessage("English Name"),
     "forgetPassword" : MessageLookupByLibrary.simpleMessage("Clear Password"),
+    "gallery" : MessageLookupByLibrary.simpleMessage("Gallery"),
     "goToThePortal" : MessageLookupByLibrary.simpleMessage("Go to the Portal"),
     "haveAccountLogin" : MessageLookupByLibrary.simpleMessage("Login with existing account"),
     "imageMemo" : MessageLookupByLibrary.simpleMessage("Image Memo"),
@@ -84,7 +86,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "routingMode" : MessageLookupByLibrary.simpleMessage("Routing Mode"),
     "save" : MessageLookupByLibrary.simpleMessage("Save"),
     "saved" : MessageLookupByLibrary.simpleMessage("Saved Successfully"),
-    "selectImage" : MessageLookupByLibrary.simpleMessage("Select Image"),
     "selectMenus" : MessageLookupByLibrary.simpleMessage("Select Menus"),
     "selectSelectedUsers" : MessageLookupByLibrary.simpleMessage("Please select [Selected Users]"),
     "selectUnselectedUsers" : MessageLookupByLibrary.simpleMessage("Please select [UnSelected Users]"),

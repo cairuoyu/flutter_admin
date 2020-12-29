@@ -695,11 +695,21 @@ class S {
     );
   }
 
-  /// `Select Image`
-  String get selectImage {
+  /// `Gallery`
+  String get gallery {
     return Intl.message(
-      'Select Image',
-      name: 'selectImage',
+      'Gallery',
+      name: 'gallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Camera`
+  String get camera {
+    return Intl.message(
+      'Camera',
+      name: 'camera',
       desc: '',
       args: [],
     );

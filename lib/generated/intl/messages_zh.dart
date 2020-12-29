@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static _notInlinedMessages(_) => <String, Function> {
     "add" : MessageLookupByLibrary.simpleMessage("增加"),
     "allMessage" : MessageLookupByLibrary.simpleMessage("所有留言"),
+    "camera" : MessageLookupByLibrary.simpleMessage("相机"),
     "cancel" : MessageLookupByLibrary.simpleMessage("取消"),
     "code" : MessageLookupByLibrary.simpleMessage("代码"),
     "completeTheTableData" : MessageLookupByLibrary.simpleMessage("请完善表格数据"),
@@ -46,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "enable" : MessageLookupByLibrary.simpleMessage("启用"),
     "englishName" : MessageLookupByLibrary.simpleMessage("英文名"),
     "forgetPassword" : MessageLookupByLibrary.simpleMessage("忘记密码"),
+    "gallery" : MessageLookupByLibrary.simpleMessage("相册"),
     "goToThePortal" : MessageLookupByLibrary.simpleMessage("前往门户查看"),
     "haveAccountLogin" : MessageLookupByLibrary.simpleMessage("已有账号，登录"),
     "imageMemo" : MessageLookupByLibrary.simpleMessage("图片描述"),
@@ -83,7 +85,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "routingMode" : MessageLookupByLibrary.simpleMessage("路由模式"),
     "save" : MessageLookupByLibrary.simpleMessage("保存"),
     "saved" : MessageLookupByLibrary.simpleMessage("保存成功"),
-    "selectImage" : MessageLookupByLibrary.simpleMessage("选择图片"),
     "selectMenus" : MessageLookupByLibrary.simpleMessage("选择菜单"),
     "selectSelectedUsers" : MessageLookupByLibrary.simpleMessage("请选择【已选择人员】"),
     "selectUnselectedUsers" : MessageLookupByLibrary.simpleMessage("请选择【未选择人员】"),
