@@ -15,6 +15,7 @@ class MessageView extends StatefulWidget {
 class _MessageViewState extends State<MessageView> {
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     var body = Container(
       padding: EdgeInsets.all(20),
       child: Column(
@@ -22,12 +23,15 @@ class _MessageViewState extends State<MessageView> {
         children: [
           Text(
             widget.message.title,
-            style: Theme.of(context).textTheme.headline5.copyWith(
-                  color: Colors.black54,
-                  fontSize: 30,
-                ),
+            style: textTheme.headline3,
+          ),
+          SizedBox(height: 20),
+          Text(
+            widget.message.createTime,
+            style: textTheme.caption,
           ),
           Divider(thickness: 2),
+          SizedBox(height: 20),
           Text(widget.message.content),
         ],
       ),

@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:cry/cry_list_view.dart';
 import 'package:cry/model/order_item_model.dart';
 import 'package:cry/model/page_model.dart';
@@ -27,26 +28,43 @@ class MessageListState extends State<MessageList> {
 
   @override
   Widget build(BuildContext context) {
+    if (messageList.isEmpty) {
+      return Container();
+    }
     var listView = CryListView(
       count: messageList.length,
       getCell: (index) {
         Message message = messageList[index];
-        return InkWell(
-          child: Column(children: [
-            ListTile(
-              leading: Text((index + 1).toString()),
-              title: Text(message.title),
-              subtitle: Text(message.content),
-            ),
-            const Divider(thickness: 2),
-          ]),
-          onTap: () => view(message),
+        var openContainer = OpenContainer(
+          openBuilder: (context, action) {
+            return MessageView(
+              message: message,
+            );
+          },
+          closedBuilder: (context, action) {
+            var list =  Column(children: [
+              const Divider(thickness: 2),
+              ListTile(
+                leading: Text((index + 1).toString()),
+                title: Text(message.title),
+                subtitle: Text(message.content),
+              ),
+            ]);
+            return list;
+          },
         );
+        return openContainer;
       },
       loadMore: loadMore,
       onRefresh: reloadData,
     );
+//    var result = Navigator(
+//      onGenerateRoute: (settings) {
+//        return MaterialPageRoute(builder: (context) => listView);
+//      },
+//    );
     return listView;
+//    return result;
   }
 
   view(message) {
@@ -56,7 +74,7 @@ class MessageListState extends State<MessageList> {
         builder: (context) => MessageView(
           message: message,
         ),
-        fullscreenDialog: true,
+//        fullscreenDialog: true,
       ),
     );
   }

@@ -17,7 +17,6 @@ import 'package:flutter_admin/pages/dict/dict_edit.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:dio/dio.dart';
-import 'package:universal_html/html.dart';
 
 class DictList extends StatefulWidget {
   DictList({Key key}) : super(key: key);

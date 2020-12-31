@@ -21,7 +21,7 @@ class _MessageState extends State<Message> {
         SelectOptionVO(value: 'add', label: S.of(context).leaveMessage),
         SelectOptionVO(value: 'list', label: S.of(context).allMessage),
       ],
-      defaultValue: 'add',
+      defaultValue: visibleView,
       afterOnPress: (v) {
         setState(() {
           this.visibleView = v;
