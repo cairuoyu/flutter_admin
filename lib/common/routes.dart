@@ -14,6 +14,7 @@ import 'package:flutter_admin/pages/my_test.dart';
 import 'package:flutter_admin/pages/person/person_list.dart';
 import 'package:flutter_admin/pages/register.dart';
 import 'package:flutter_admin/pages/role/role_list.dart';
+import 'package:flutter_admin/pages/subsystem/subsystem_list.dart';
 import 'package:flutter_admin/pages/userInfo/user_info_list.dart';
 import 'package:flutter_admin/pages/userInfo/user_info_mine.dart';
 import 'package:flutter_admin/pages/video/video_upload.dart';
@@ -33,6 +34,7 @@ Map<String, Widget> layoutRoutesData = {
   '/layoutTest': MyTest(),
   '/dictList': DictList(),
   '/message': Message(),
+  '/subsystemList': SubsystemList(),
   '/secondLevel':OnlyText('二级菜单页面'),
   '/threeLevel':OnlyText('三级菜单页面'),
 };

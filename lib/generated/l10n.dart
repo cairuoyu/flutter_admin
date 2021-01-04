@@ -785,6 +785,16 @@ class S {
     );
   }
 
+  /// `Disable`
+  String get disable {
+    return Intl.message(
+      'Disable',
+      name: 'disable',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `DictItem Code`
   String get dictItemCode {
     return Intl.message(
@@ -900,6 +910,16 @@ class S {
     return Intl.message(
       'Success',
       name: 'success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sub System List`
+  String get subsystemList {
+    return Intl.message(
+      'Sub System List',
+      name: 'subsystemList',
       desc: '',
       args: [],
     );

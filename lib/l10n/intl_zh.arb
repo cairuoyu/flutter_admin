@@ -34,6 +34,7 @@
   "query": "查询",
   "reset": "重置",
   "add": "增加",
+  "edit": "修改",
   "modify": "修改",
   "delete": "删除",
   "confirmDelete": "确定删除",
@@ -73,6 +74,7 @@
   "goToThePortal": "前往门户查看",
   "code": "代码",
   "enable": "启用",
+  "disable": "禁用",
   "dictItemCode": "字典项代码",
   "dictItemName": "字典项名称",
   "completeTheTableData": "请完善表格数据",
@@ -84,5 +86,6 @@
   "downloadTemplate": "模板下载",
   "importExcel": "导入Excel",
   "exportExcel": "导出Excel",
-  "success": "操作成功"
+  "success": "操作成功",
+  "subsystemList": "子系统列表"
 }

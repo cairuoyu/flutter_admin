@@ -4,4 +4,5 @@ class ConstantDict {
   static const CODE_YESNO = 'yesno';
 
   static const CODE_YESNO_YES = '1';
+  static const CODE_YESNO_NO = '0';
 }

@@ -74,6 +74,7 @@
   "goToThePortal": "Go to the Portal",
   "code": "Code",
   "enable": "Enable",
+  "disable": "Disable",
   "dictItemCode": "DictItem Code",
   "dictItemName": "DictItem Name",
   "completeTheTableData": "Please complete the table data",
@@ -85,5 +86,6 @@
   "downloadTemplate": "Download Template",
   "importExcel": "Import Excel",
   "exportExcel": "Export Excel",
-  "success": "Success"
+  "success": "Success",
+  "subsystemList": "Sub System List"
 }
