@@ -27,6 +27,7 @@
 * Language Switch
 * Theme Switching
 * Component Encapsulation
+* Standalone configuration file
 * JWT
 * Import or Export Excle
 

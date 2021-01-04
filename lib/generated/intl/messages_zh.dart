@@ -102,7 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "unselectedUsers" : MessageLookupByLibrary.simpleMessage("未选择的人员"),
     "updateTime" : MessageLookupByLibrary.simpleMessage("修改时间"),
     "userList" : MessageLookupByLibrary.simpleMessage("用户列表"),
-    "username" : MessageLookupByLibrary.simpleMessage("用户名"),
+    "username" : MessageLookupByLibrary.simpleMessage("账号"),
     "usernameRequired" : MessageLookupByLibrary.simpleMessage("账号必填"),
     "videoMemo" : MessageLookupByLibrary.simpleMessage("视频描述"),
     "videoTitle" : MessageLookupByLibrary.simpleMessage("视频标题"),

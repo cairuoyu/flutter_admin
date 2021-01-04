@@ -95,6 +95,10 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
       },
       columns: [
         DataColumn(
+          label: Container(child: Text(S.of(context).username)),
+          onSort: (int columnIndex, bool ascending) => _sort('userName'),
+        ),
+        DataColumn(
           label: Container(child: Text(S.of(context).name)),
           onSort: (int columnIndex, bool ascending) => _sort('name'),
         ),
@@ -102,6 +106,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
       getCells: (Map m) {
         UserInfo userInfo = UserInfo.fromMap(m);
         return [
+          DataCell(Container(width: 100, child: Text(userInfo.userName ?? '--'))),
           DataCell(Container(width: 100, child: Text(userInfo.name ?? '--'))),
         ];
       },
@@ -123,8 +128,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
   }
 
   List<UserInfo> getSelectedList() {
-    List<UserInfo> selectedList =
-        tableKey?.currentState?.getSelectedList(page)?.map<UserInfo>((e) => UserInfo.fromMap(e))?.toList() ?? [];
+    List<UserInfo> selectedList = tableKey?.currentState?.getSelectedList(page)?.map<UserInfo>((e) => UserInfo.fromMap(e))?.toList() ?? [];
     return selectedList;
   }
 
