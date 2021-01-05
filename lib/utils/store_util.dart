@@ -67,5 +67,6 @@ class StoreUtil {
     menuOpened = [];
     dictItemMap = null;
     inited = false;
+    currentOpenedMenuId = null;
   }
 }

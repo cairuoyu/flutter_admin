@@ -19,7 +19,6 @@ class Layout extends StatefulWidget {
 
 class _LayoutState extends State with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
-  List<Menu> menuOpened = [];
   TabController tabController;
   Container content = Container();
   int length = 0;
@@ -27,14 +26,13 @@ class _LayoutState extends State with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    tabController = TabController(vsync: this, length: length);
     init();
   }
 
   init() async {
     if (!StoreUtil.instance.inited) {
       await StoreUtil.instance.init();
-      setState(() {});
+      _openPage(StoreUtil.instance.menuMain);
     }
   }
 
@@ -43,15 +41,17 @@ class _LayoutState extends State with TickerProviderStateMixin {
     if (!StoreUtil.instance.inited) {
       return Container();
     }
-
     var configuration = CryRootScope.of(context).state.configuration;
     Color themeColor = configuration.themeColor;
+
+    handleRoute();
+
     TabBar tabBar = TabBar(
-      onTap: (index) => _openPage(menuOpened[index]),
+      onTap: (index) => _openPage(StoreUtil.instance.menuOpened[index]),
       controller: tabController,
       isScrollable: true,
       indicator: const UnderlineTabIndicator(),
-      tabs: menuOpened.map<Tab>((Menu menu) {
+      tabs: StoreUtil.instance.menuOpened.map<Tab>((Menu menu) {
         return Tab(
           child: Row(
             children: <Widget>[
@@ -115,6 +115,9 @@ class _LayoutState extends State with TickerProviderStateMixin {
         openSetting: () {
           scaffoldStateKey.currentState.openEndDrawer();
         },
+        dispose: () {
+          this.dispose();
+        },
       ),
       // floatingActionButton: FloatingActionButton(
       //   child: Icon(Icons.settings),
@@ -136,22 +139,12 @@ class _LayoutState extends State with TickerProviderStateMixin {
     );
   }
 
-  _closePage(menu) {
-    menuOpened.remove(menu);
-    --length;
-    tabController = TabController(vsync: this, length: length);
-    var openPage;
-    if (length > 0) {
-      tabController.index = length - 1;
-      openPage = menuOpened[0];
-    }
-    _openPage(openPage);
-    setState(() {});
-  }
-
-  _openPage(Menu menu) {
+  handleRoute() {
+    int index = StoreUtil.instance.menuOpened.indexWhere((note) => note.id == StoreUtil.instance.currentOpenedMenuId);
+    Menu menu = index == -1 ? null : StoreUtil.instance.menuOpened[index];
     if (menu == null) {
       content = Container();
+      tabController = TabController(vsync: this, length: 0);
       return;
     }
     Widget body = menu.url != null && layoutRoutesData[menu.url] != null ? layoutRoutesData[menu.url] : Page404();
@@ -161,14 +154,23 @@ class _LayoutState extends State with TickerProviderStateMixin {
       ),
     );
 
-    int index = menuOpened.indexWhere((note) => note.id == menu.id);
-    if (index > -1) {
-      tabController.index = index;
-    } else {
-      menuOpened.add(menu);
-      tabController = TabController(vsync: this, length: ++length);
-      tabController.index = length - 1;
+    length = StoreUtil.instance.menuOpened.length;
+    tabController = TabController(vsync: this, length: length);
+    tabController.index = index;
+  }
+
+  _closePage(menu) {
+    StoreUtil.instance.menuOpened.remove(menu);
+    var length = StoreUtil.instance.menuOpened.length;
+    StoreUtil.instance.currentOpenedMenuId = length > 0 ? StoreUtil.instance.menuOpened[length - 1].id : null;
+    setState(() {});
+  }
+
+  _openPage(Menu menu) {
+    if (!StoreUtil.instance.menuOpened.contains(menu)) {
+      StoreUtil.instance.menuOpened.add(menu);
     }
+    StoreUtil.instance.currentOpenedMenuId = menu.id;
     setState(() {});
   }
 }
