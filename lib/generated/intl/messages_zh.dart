@@ -46,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "disable" : MessageLookupByLibrary.simpleMessage("禁用"),
     "downloadTemplate" : MessageLookupByLibrary.simpleMessage("模板下载"),
     "drawer" : MessageLookupByLibrary.simpleMessage("抽屉"),
+    "edit" : MessageLookupByLibrary.simpleMessage("修改"),
     "enable" : MessageLookupByLibrary.simpleMessage("启用"),
     "englishName" : MessageLookupByLibrary.simpleMessage("英文名"),
     "exportExcel" : MessageLookupByLibrary.simpleMessage("导出Excel"),

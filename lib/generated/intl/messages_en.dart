@@ -46,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "disable" : MessageLookupByLibrary.simpleMessage("Disable"),
     "downloadTemplate" : MessageLookupByLibrary.simpleMessage("Download Template"),
     "drawer" : MessageLookupByLibrary.simpleMessage("Drawer"),
+    "edit" : MessageLookupByLibrary.simpleMessage("Edit"),
     "enable" : MessageLookupByLibrary.simpleMessage("Enable"),
     "englishName" : MessageLookupByLibrary.simpleMessage("English Name"),
     "exportExcel" : MessageLookupByLibrary.simpleMessage("Export Excel"),

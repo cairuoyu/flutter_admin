@@ -35,6 +35,7 @@
   "query": "Filter",
   "reset": "Reset",
   "add": "Add",
+  "edit": "Edit",
   "modify": "Modify",
   "delete": "Delete",
   "confirmDelete": "Are you sure?",
