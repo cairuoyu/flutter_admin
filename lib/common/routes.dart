@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/pages/common/commonNavigator.dart';
 import 'package:flutter_admin/pages/common/only_text.dart';
 import 'package:flutter_admin/pages/common/page_401.dart';
 import 'package:flutter_admin/pages/common/page_404.dart';
@@ -34,9 +35,9 @@ Map<String, Widget> layoutRoutesData = {
   '/layoutTest': MyTest(),
   '/dictList': DictList(),
   '/message': Message(),
-  '/subsystemList': SubsystemList(),
-  '/secondLevel':OnlyText('二级菜单页面'),
-  '/threeLevel':OnlyText('三级菜单页面'),
+  '/subsystemList': CommonNavigator(SubsystemList()),
+  '/secondLevel': OnlyText('二级菜单页面'),
+  '/threeLevel': OnlyText('三级菜单页面'),
 };
 
 Map<String, Widget> routesData = {

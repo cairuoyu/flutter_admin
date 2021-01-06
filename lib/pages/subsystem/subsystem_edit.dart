@@ -96,9 +96,9 @@ class _SubsystemEditState extends State<SubsystemEdit> {
       ),
     );
     var result = Scaffold(
-      appBar: AppBar(
-        title: Text(widget.subsystem == null ? S.of(context).add : S.of(context).modify),
-      ),
+//      appBar: AppBar(
+//        title: Text(widget.subsystem == null ? S.of(context).add : S.of(context).modify),
+//      ),
       body: SingleChildScrollView(
         child: Column(
           children: [form],
@@ -106,11 +106,7 @@ class _SubsystemEditState extends State<SubsystemEdit> {
       ),
       bottomNavigationBar: buttonBar,
     );
-    return SizedBox(
-      width: 500,
-      height: 220,
-      child: result,
-    );
+    return result;
   }
 
   _save() async {
