@@ -1,6 +1,7 @@
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/cry_data_table.dart';
 import 'package:cry/cry_dialog.dart';
+import 'package:cry/form/cry_checkbox.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/model/order_item_model.dart';
 import 'package:cry/model/page_model.dart';
@@ -11,7 +12,9 @@ import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/subsystem.dart';
 import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
+import 'package:flutter_admin/models/subsystem_vo.dart';
 import 'package:flutter_admin/pages/subsystem/subsystem_edit.dart';
+import 'package:universal_html/html.dart';
 
 class SubsystemList extends StatefulWidget {
   SubsystemList({Key key}) : super(key: key);
@@ -24,7 +27,7 @@ class _SubsystemList extends State<SubsystemList> {
   PageModel page = PageModel(orders: [OrderItemModel(column: 'create_time')]);
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<CryDataTableState> tableKey = GlobalKey<CryDataTableState>();
-  Subsystem subsystem = Subsystem();
+  SubsystemVO subsystemVO = SubsystemVO();
 
   @override
   void initState() {
@@ -41,18 +44,26 @@ class _SubsystemList extends State<SubsystemList> {
           CryInput(
             label: S.of(context).code,
             width: 400,
-            value: subsystem.code,
+            value: subsystemVO.code,
             onSaved: (v) {
-              subsystem.code = v;
+              subsystemVO.code = v;
             },
           ),
           CryInput(
             label: S.of(context).name,
             width: 400,
-            value: subsystem.name,
+            value: subsystemVO.name,
             onSaved: (v) {
-              subsystem.name = v;
+              subsystemVO.name = v;
             },
+          ),
+          Wrap(
+            children: [
+              CryCheckbox(S.of(context).enable, subsystemVO.isEnable, (v) {
+                this.subsystemVO.isEnable = v;
+              }),
+              CryCheckbox(S.of(context).disable, subsystemVO.isDisable, (v) => this.subsystemVO.isDisable = v),
+            ],
           ),
         ],
       ),
@@ -132,7 +143,7 @@ class _SubsystemList extends State<SubsystemList> {
   }
 
   _reset() {
-    this.subsystem = Subsystem();
+    this.subsystemVO = SubsystemVO();
     this._loadData();
   }
 
@@ -157,7 +168,7 @@ class _SubsystemList extends State<SubsystemList> {
   }
 
   _loadData() async {
-    ResponseBodyApi responseBodyApi = await SubsystemApi.page(RequestBodyApi(page: page, params: this.subsystem.toMap()).toMap());
+    ResponseBodyApi responseBodyApi = await SubsystemApi.page(RequestBodyApi(page: page, params: this.subsystemVO.toMap()).toMap());
     page = PageModel.fromMap(responseBodyApi.data);
     setState(() {});
   }
