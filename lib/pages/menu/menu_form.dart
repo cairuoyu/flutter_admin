@@ -4,7 +4,7 @@ import 'package:cry/form/cry_input.dart';
 import 'package:cry/form/cry_input_num.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_admin/api/menu_demo_api.dart';
+import 'package:flutter_admin/api/menu_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:cry/model/response_body_api.dart';
@@ -42,7 +42,7 @@ class _MenuFormState extends State<MenuForm> {
               return;
             }
             form.save();
-            MenuDemoApi.saveOrUpdate(menu.toJson()).then((ResponseBodyApi res) {
+            MenuApi.saveOrUpdate(menu.toJson()).then((ResponseBodyApi res) {
               if (!res.success) {
                 return;
               }

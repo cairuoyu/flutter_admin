@@ -62,6 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "leaveMessage" : MessageLookupByLibrary.simpleMessage("给我留言"),
     "login" : MessageLookupByLibrary.simpleMessage("登录"),
     "menuDisplay" : MessageLookupByLibrary.simpleMessage("菜单显示"),
+    "menuManagement" : MessageLookupByLibrary.simpleMessage("菜单管理"),
     "modify" : MessageLookupByLibrary.simpleMessage("修改"),
     "myInformation" : MessageLookupByLibrary.simpleMessage("我的信息"),
     "mySettings" : MessageLookupByLibrary.simpleMessage("我的设置"),

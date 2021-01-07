@@ -87,5 +87,6 @@
   "importExcel": "导入Excel",
   "exportExcel": "导出Excel",
   "success": "操作成功",
-  "subsystemList": "子系统列表"
+  "subsystemList": "子系统列表",
+  "menuManagement" : "菜单管理"
 }

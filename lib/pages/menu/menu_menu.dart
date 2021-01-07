@@ -1,9 +1,10 @@
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/cry_tree_table.dart';
+import 'package:cry/model/response_body_api.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/api/menu_demo_api.dart';
 import 'package:cry/cry_dialog.dart';
+import 'package:flutter_admin/api/menu_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
@@ -13,12 +14,14 @@ class MenuMenu extends StatefulWidget {
   final Function onEdit;
   final VoidCallback reloadData;
   final List<TreeVO<Menu>> treeVOList;
+  final String subsystemId;
 
   MenuMenu({
     this.width,
     this.onEdit,
     this.treeVOList,
     this.reloadData,
+    this.subsystemId,
   });
 
   @override
@@ -68,16 +71,19 @@ class _MenuMenuState extends State<MenuMenu> {
     var result = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[
-        CryButtons.add(context, () => widget.onEdit(Menu())),
+        CryButtons.add(context, () => widget.onEdit(Menu(subsystemId: widget.subsystemId))),
         CryButtons.delete(
           context,
           selected.length >= 1
               ? () {
                   cryConfirm(context, S.of(context).confirmDelete, () async {
                     List ids = selected.map((e) => e.data.id).toList();
-                    await MenuDemoApi.removeByIds(ids);
-                    widget.reloadData();
+                    ResponseBodyApi responseBodyApi = await MenuApi.removeByIds(ids);
                     Navigator.of(context).pop();
+                    if (!responseBodyApi.success) {
+                      return;
+                    }
+                    widget.reloadData();
                   });
                 }
               : null,
@@ -93,7 +99,7 @@ class _MenuMenuState extends State<MenuMenu> {
     columnList.add(
       IconButton(
         icon: Icon(Icons.add),
-        onPressed: () => widget.onEdit(Menu(pname: vo.data.name, pid: vo.data.id)),
+        onPressed: () => widget.onEdit(Menu(pname: vo.data.name, pid: vo.data.id, subsystemId: widget.subsystemId)),
       ),
     );
     columnList.add(

@@ -88,5 +88,6 @@
   "importExcel": "Import Excel",
   "exportExcel": "Export Excel",
   "success": "Success",
-  "subsystemList": "Sub System List"
+  "subsystemList": "Sub System List",
+  "menuManagement" : "Menu Management"
 }

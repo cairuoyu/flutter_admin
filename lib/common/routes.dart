@@ -9,7 +9,7 @@ import 'package:flutter_admin/pages/image/image_upload.dart';
 import 'package:flutter_admin/pages/layout/layout.dart';
 import 'package:flutter_admin/pages/layout/layout_no_routes.dart' as layoutNoRoutes;
 import 'package:flutter_admin/pages/login.dart';
-import 'package:flutter_admin/pages/menu/menu_demo_list.dart';
+import 'package:flutter_admin/pages/menu/menu.dart';
 import 'package:flutter_admin/pages/message/message.dart';
 import 'package:flutter_admin/pages/my_test.dart';
 import 'package:flutter_admin/pages/person/person_list.dart';
@@ -25,7 +25,7 @@ Map<String, Widget> layoutRoutesData = {
   '/': Dashboard(),
   '/roleList': RoleList(),
   '/personList': PersonList(),
-  '/menuDemoList': MenuDemoList(),
+  '/menuDemoList': CommonNavigator(Menu()),
   '/userInfoList': UserInfoList(),
   '/imageUpload': ImageUpload(),
   '/videoUpload': VideoUpload(),

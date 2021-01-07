@@ -62,6 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "leaveMessage" : MessageLookupByLibrary.simpleMessage("Leave me a message"),
     "login" : MessageLookupByLibrary.simpleMessage("login"),
     "menuDisplay" : MessageLookupByLibrary.simpleMessage("Menu Display"),
+    "menuManagement" : MessageLookupByLibrary.simpleMessage("Menu Management"),
     "modify" : MessageLookupByLibrary.simpleMessage("Modify"),
     "myInformation" : MessageLookupByLibrary.simpleMessage("My Information"),
     "mySettings" : MessageLookupByLibrary.simpleMessage("My Settings"),

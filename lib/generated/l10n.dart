@@ -934,6 +934,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Menu Management`
+  String get menuManagement {
+    return Intl.message(
+      'Menu Management',
+      name: 'menuManagement',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
