@@ -171,7 +171,7 @@ class _RoleListState extends State<RoleList> {
     if (roleList == null || roleList.length == 0) {
       return;
     }
-    cryConfirm(context, S.of(context).confirmDelete, () async {
+    cryConfirm(context, S.of(context).confirmDelete, (context) async {
       await RoleApi.removeByIds(roleList.map((e) => e.id).toList());
       _query();
       Navigator.of(context).pop();

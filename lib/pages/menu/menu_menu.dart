@@ -76,7 +76,7 @@ class _MenuMenuState extends State<MenuMenu> {
           context,
           selected.length >= 1
               ? () {
-                  cryConfirm(context, S.of(context).confirmDelete, () async {
+                  cryConfirm(context, S.of(context).confirmDelete, (context) async {
                     List ids = selected.map((e) => e.data.id).toList();
                     ResponseBodyApi responseBodyApi = await MenuApi.removeByIds(ids);
                     Navigator.of(context).pop();

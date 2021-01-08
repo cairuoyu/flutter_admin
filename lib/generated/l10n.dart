@@ -944,6 +944,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Select the subsystem for menu management`
+  String get menuTile {
+    return Intl.message(
+      'Select the subsystem for menu management',
+      name: 'menuTile',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -63,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "login" : MessageLookupByLibrary.simpleMessage("login"),
     "menuDisplay" : MessageLookupByLibrary.simpleMessage("Menu Display"),
     "menuManagement" : MessageLookupByLibrary.simpleMessage("Menu Management"),
+    "menuTile" : MessageLookupByLibrary.simpleMessage("Select the subsystem for menu management"),
     "modify" : MessageLookupByLibrary.simpleMessage("Modify"),
     "myInformation" : MessageLookupByLibrary.simpleMessage("My Information"),
     "mySettings" : MessageLookupByLibrary.simpleMessage("My Settings"),

@@ -163,7 +163,7 @@ class _DictList extends State<DictList> {
   }
 
   _delete(List<Dict> dictList) {
-    cryConfirm(context, S.of(context).confirmDelete, () async {
+    cryConfirm(context, S.of(context).confirmDelete, (context) async {
       await DictApi.removeByIds(dictList.map((e) => e.id).toList());
       Navigator.of(context).pop();
       this._loadData();

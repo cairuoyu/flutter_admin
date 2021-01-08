@@ -88,5 +88,6 @@
   "exportExcel": "导出Excel",
   "success": "操作成功",
   "subsystemList": "子系统列表",
-  "menuManagement" : "菜单管理"
+  "menuManagement" : "菜单管理",
+  "menuTile" : "选择子系统进行菜单管理"
 }

@@ -32,6 +32,37 @@
 * JWT
 * 导入导出Excel
 
+## 代码结构
+```
+├─config    配置文件
+└─lib
+    ├─api   服务接口
+    ├─common    公共类
+    ├─constants     常量类
+    ├─data      数据类
+    ├─enum      枚举类
+    ├─generated     工具自动生成的国际化代码
+    │  └─intl
+    ├─l10n      国际化配置，修改后工具生成代码到generated文件夹下
+    ├─models    模型类
+    ├─pages     页面，各文件夹对应各功能
+    │  ├─common
+    │  ├─dash
+    │  ├─dict
+    │  ├─icon
+    │  ├─image
+    │  ├─layout
+    │  ├─menu
+    │  ├─message
+    │  ├─person
+    │  ├─role
+    │  ├─subsystem
+    │  ├─userInfo
+    │  └─video
+    └─utils     工具类
+
+```
+
 ## 安装
 ```bash
 flutter packages get

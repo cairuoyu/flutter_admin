@@ -89,5 +89,6 @@
   "exportExcel": "Export Excel",
   "success": "Success",
   "subsystemList": "Sub System List",
-  "menuManagement" : "Menu Management"
+  "menuManagement" : "Menu Management",
+  "menuTile" : "Select the subsystem for menu management"
 }

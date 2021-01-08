@@ -123,7 +123,7 @@ class PersonListState extends State {
           onPressed: myDS.selectedCount < 1
               ? null
               : () {
-                  cryConfirm(context, S.of(context).confirmDelete, () async {
+                  cryConfirm(context, S.of(context).confirmDelete, (context) async {
                     List ids = myDS.dataList.where((v) {
                       return v.selected;
                     }).map<String>((v) {
@@ -289,7 +289,7 @@ class MyDS extends DataTableSource {
             IconButton(
               icon: Icon(Icons.delete),
               onPressed: () {
-                cryConfirm(context, S.of(context).confirmDelete, () async {
+                cryConfirm(context, S.of(context).confirmDelete, (context) async {
                   await PersonApi.removeByIds([person.id]);
                   loadData();
                   Navigator.of(context).pop();
