@@ -14,7 +14,6 @@ import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/models/subsystem_vo.dart';
 import 'package:flutter_admin/pages/subsystem/subsystem_edit.dart';
-import 'package:universal_html/html.dart';
 
 class SubsystemList extends StatefulWidget {
   SubsystemList({Key key}) : super(key: key);
