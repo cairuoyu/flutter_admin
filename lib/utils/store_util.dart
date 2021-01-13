@@ -39,7 +39,7 @@ class StoreUtil {
   }
 
   Future<bool> _loadMenuData() async {
-    ResponseBodyApi responseBodyApi = await MenuApi.listFlutterAdmin();
+    ResponseBodyApi responseBodyApi = await MenuApi.listAuth();
     if (responseBodyApi.success) {
       List data = responseBodyApi.data;
       menuTree = List.from(data).map((e) => Menu.fromMap(e)).toList();

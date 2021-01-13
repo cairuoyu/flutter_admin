@@ -4,12 +4,6 @@ class RoleApi {
   static getMenu(data) {
     return HttpUtil.post('/role/getMenu', data: data);
   }
-  static getUnSelectedMenu(data) {
-    return HttpUtil.post('/role/getUnSelectedMenu', data: data);
-  }
-  static getSelectedMenu(data) {
-    return HttpUtil.post('/role/getSelectedMenu', data: data);
-  }
   static getUnSelectedUserInfo(data) {
     return HttpUtil.post('/role/getUnSelectedUserInfo', data: data);
   }

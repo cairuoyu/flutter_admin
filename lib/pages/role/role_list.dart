@@ -11,7 +11,7 @@ import 'package:cry/model/page_model.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/pages/role/role_edit.dart';
-import 'package:flutter_admin/pages/role/role_menu_select.dart';
+import 'package:flutter_admin/pages/role/role_subsystem_list.dart';
 import 'package:flutter_admin/pages/role/role_user_select.dart';
 
 class RoleList extends StatefulWidget {
@@ -132,7 +132,7 @@ class _RoleListState extends State<RoleList> {
     Navigator.push<void>(
       context,
       MaterialPageRoute(
-        builder: (context) => RoleMenuSelect(
+        builder: (context) => RoleSubsystemList(
           role: role,
         ),
         fullscreenDialog: true,

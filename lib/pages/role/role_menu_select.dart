@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/cry_tree_table.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/models/role_menu.dart';
+import 'package:flutter_admin/models/subsystem.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
@@ -18,8 +20,10 @@ class RoleMenuSelect extends StatefulWidget {
   final VoidCallback reloadData;
   final List<TreeVO<Menu>> treeVOList;
   final Role role;
+  final Subsystem subsystem;
 
   RoleMenuSelect({
+    this.subsystem,
     this.onEdit,
     this.treeVOList,
     this.reloadData,
@@ -82,15 +86,19 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
   }
 
   save() async {
+    BotToast.showLoading();
     List<Menu> selectedList = treeTableKey.currentState.getSelectedData();
     List roleMenuList = selectedList.map((e) => RoleMenu(roleId: widget.role.id, menuId: e.id).toMap()).toList();
-    await RoleMenuApi.saveBatch(roleMenuList);
-    Utils.message(S.of(context).saved);
-    Navigator.pop(context);
+    ResponseBodyApi res = await RoleMenuApi.saveBatch({'roleId': widget.role.id, 'subsystemId': widget.subsystem.id, 'roleMenuList': roleMenuList});
+    if (res.success) {
+      BotToast.closeAllLoading();
+      Utils.message(S.of(context).saved);
+      Navigator.pop(context);
+    }
   }
 
   _loadData() async {
-    ResponseBodyApi responseBodyApi = await RoleApi.getMenu(RequestBodyApi(params: widget.role.toJson()).toMap());
+    ResponseBodyApi responseBodyApi = await RoleApi.getMenu(RequestBodyApi(params: {'roleId': widget.role.id, 'subsystemId': widget.subsystem.id}).toMap());
     var data = responseBodyApi.data;
     List<Menu> list = List.from(data).map((e) => Menu.fromMap(e)).toList();
     this.data = TreeUtil.toTreeVOList(list);
