@@ -20,9 +20,9 @@ class StoreUtil {
     return _instance;
   }
 
-  final Menu menuMain = Menu(url: '/', name: 'Dashboard', nameEn: 'Dashboard');
-  final Menu menu401 = Menu(url: '/layout401', name: '401', nameEn: '401');
-  final Menu menuOthers = Menu(url: '/userInfoMine', name: '我的信息', nameEn: 'My Info');
+  final Menu menuMain = Menu(id: 'dashboard', url: '/', name: 'Dashboard', nameEn: 'Dashboard');
+  final Menu menu401 = Menu(id: 'layout401', url: '/layout401', name: '401', nameEn: '401');
+  final Menu menuUserInfoMine = Menu(id: 'userInfoMine', url: '/userInfoMine', name: '我的信息', nameEn: 'My Info');
   bool inited = false;
   Map<String, List<DictItem>> dictItemMap;
   Map<String, List<SelectOptionVO>> dictSelectMap;
@@ -43,7 +43,7 @@ class StoreUtil {
     if (responseBodyApi.success) {
       List data = responseBodyApi.data;
       menuTree = List.from(data).map((e) => Menu.fromMap(e)).toList();
-      menuList = menuTree + [menuMain, menuOthers];
+      menuList = menuTree + [menuMain, menuUserInfoMine];
     }
     return responseBodyApi.success;
   }

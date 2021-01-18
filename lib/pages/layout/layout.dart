@@ -123,6 +123,9 @@ class _LayoutState extends State<Layout> with TickerProviderStateMixin {
         dispose: () {
           this.dispose();
         },
+        openUserInfoMine: (menu){
+          _openPage(menu);
+        },
       ),
       body: body,
       // floatingActionButton: FloatingActionButton(

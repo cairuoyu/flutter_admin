@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/generated/l10n.dart';
+import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
 class LayoutAppBar extends AppBar {
-  LayoutAppBar(BuildContext context, {Key key, int type, openSetting, openMenu, dispose})
-      : super(
+  LayoutAppBar(
+    BuildContext context, {
+    Key key,
+    int type,
+    openSetting,
+    openMenu,
+    dispose,
+    openUserInfoMine,
+  }) : super(
           key: key,
           automaticallyImplyLeading: false,
           leading: !Utils.isMenuDisplayTypeDrawer(context)
@@ -58,7 +66,7 @@ class LayoutAppBar extends AppBar {
               child: IconButton(
                 icon: Icon(Icons.person),
                 onPressed: () {
-                  Navigator.popAndPushNamed(context, '/userInfoMine');
+                  openUserInfoMine(StoreUtil.instance.menuUserInfoMine);
                 },
               ),
             ),
