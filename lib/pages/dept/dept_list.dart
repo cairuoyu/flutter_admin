@@ -1,10 +1,15 @@
+import 'package:cry/cry_button.dart';
 import 'package:cry/cry_buttons.dart';
+import 'package:cry/cry_dialog.dart';
 import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/dept_api.dart';
+import 'package:flutter_admin/enum/MenuDisplayType.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dept.dart';
+import 'package:flutter_admin/pages/dept/dept_edit.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
 
@@ -29,12 +34,34 @@ class _DeptListState extends State<DeptList> {
       treeController: treeController,
       nodes: treeNodeList,
     );
+    var buttonBar = ButtonBar(
+      alignment: MainAxisAlignment.start,
+      children: [
+        CryButtons.add(context, () => toEdit(null)),
+        CryButton(
+          iconData: Icons.vertical_align_center,
+          label: '合并',
+          onPressed: () {
+            setState(() {
+              treeController.collapseAll();
+            });
+          },
+        ),
+        CryButton(
+          iconData: Icons.expand,
+          label: '展开',
+          onPressed: () {
+            setState(() {
+              treeController.expandAll();
+            });
+          },
+        ),
+      ],
+    );
     var result = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CryButtons.add(context, () {
-          setState(() {});
-        }),
+        buttonBar,
         treeView,
       ],
     );
@@ -54,26 +81,58 @@ class _DeptListState extends State<DeptList> {
     return treeVOList.map((treeVO) => toTreeNode(treeVO)).toList();
   }
 
+  delete(List ids) async {
+    await DeptApi.removeByIds(ids);
+    _loadData();
+  }
+
+  toEdit(Dept dept) {
+    Navigator.push<void>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DeptEdit(dept: dept),
+      ),
+    ).then((value) => _loadData());
+  }
+
   TreeNode toTreeNode(TreeVO<Dept> treeVO) {
     var key = ValueKey(treeVO.data.id);
     var content = Expanded(
       child: ListTile(
         title: Text(treeVO.data.name ?? '--'),
         trailing: PopupMenuButton(
-          onSelected: (v) {},
-          itemBuilder: (context) => <PopupMenuEntry<String>>[
-            PopupMenuItem<String>(
-              value: 'add',
+          onSelected: (v) {
+            if (v == OperationType.add) {
+              toEdit(Dept(pid: treeVO.data.id));
+            } else if (v == OperationType.edit) {
+              toEdit(treeVO.data);
+            } else if (v == OperationType.delete) {
+              cryConfirm(context, S.of(context).confirmDelete, (context) async {
+                delete([treeVO.data.id]);
+                Navigator.of(context).pop();
+              });
+            }
+          },
+          itemBuilder: (context) => <PopupMenuEntry<OperationType>>[
+            PopupMenuItem<OperationType>(
+              value: OperationType.add,
               child: ListTile(
                 leading: const Icon(Icons.add),
                 title: Text('add'),
               ),
             ),
-            PopupMenuItem<String>(
-              value: 'edit',
+            PopupMenuItem<OperationType>(
+              value: OperationType.edit,
               child: ListTile(
                 leading: const Icon(Icons.edit),
                 title: Text('edit'),
+              ),
+            ),
+            PopupMenuItem<OperationType>(
+              value: OperationType.delete,
+              child: ListTile(
+                leading: const Icon(Icons.delete),
+                title: Text('delete'),
               ),
             ),
           ],
