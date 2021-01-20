@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/message.dart';
-import 'package:flutter_admin/utils/utils.dart';
 
 class MessageView extends StatefulWidget {
   final Message message;
@@ -42,9 +41,6 @@ class _MessageViewState extends State<MessageView> {
       ),
       body: SingleChildScrollView(child: body),
     );
-    return Theme(
-      data: Utils.getThemeData(context),
-      child: result,
-    );
+    return result;
   }
 }

@@ -68,9 +68,6 @@ class _RoleUserSelectState extends State<RoleUserSelect> {
         ),
       ),
     );
-    return Theme(
-      data: Utils.getThemeData(context),
-      child: result,
-    );
+    return result;
   }
 }

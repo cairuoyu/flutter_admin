@@ -79,10 +79,7 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
         ),
       ),
     );
-    return Theme(
-      data: Utils.getThemeData(context),
-      child: result,
-    );
+    return result;
   }
 
   save() async {

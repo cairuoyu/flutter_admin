@@ -1,8 +1,8 @@
 import 'package:cry/cry_toggle_buttons.dart';
 import 'package:cry/vo/select_option_vo.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_admin/common/cry_root.dart';
-import 'package:flutter_admin/models/configuration_model.dart';
+import 'package:get/get.dart';
 
 class LangSwitch extends StatefulWidget {
   LangSwitch({Key key}) : super(key: key);
@@ -19,10 +19,9 @@ class LangSwitchState extends State<LangSwitch> {
         SelectOptionVO(value: 'en', label: 'english'),
         SelectOptionVO(value: 'zh', label: '中文'),
       ],
-      defaultValue: Configuration.of(context).locale.languageCode,
+      defaultValue: Get.deviceLocale.languageCode,
       afterOnPress: (v) {
-        Configuration configuration = Configuration.of(context).copyWith(locale: Locale(v));
-        CryRootScope.updateConfiguration(context, configuration);
+        Get.updateLocale(Locale(v));
       },
     );
   }

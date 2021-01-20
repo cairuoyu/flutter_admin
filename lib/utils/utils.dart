@@ -1,24 +1,23 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/common/cry_root.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/data/data_icon.dart';
-import 'package:flutter_admin/enum/MenuDisplayType.dart';
-import 'package:flutter_admin/models/configuration_model.dart';
 import 'package:flutter_admin/utils/local_storage_util.dart';
 import 'package:flutter_admin/utils/store_util.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
-  static isLocalEn(BuildContext context){
-    return Configuration.of(context).locale.languageCode == 'en';
+  static isLocalEn(BuildContext context) {
+    return Get.locale?.languageCode == 'en';
   }
-  static isMenuDisplayTypeDrawer(BuildContext context){
-    return CryRootScope.of(context).state.configuration.menuDisplayType == MenuDisplayType.drawer;
+
+  static isMenuDisplayTypeDrawer(BuildContext context) {
+    return false;
   }
-  static getThemeData(context) {
-    Color themeColor = CryRootScope.of(context).state.configuration.themeColor;
+
+  static getThemeData(Color themeColor) {
     return ThemeData(
       primaryColor: themeColor,
       iconTheme: IconThemeData(color: themeColor),

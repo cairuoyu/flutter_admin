@@ -4,11 +4,11 @@ import 'package:cry/generated/l10n.dart' as cryS;
 import 'package:flutter/material.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter_admin/common/cry_dio_interceptors.dart';
+import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'common/cry_root.dart';
+import 'package:get/get.dart';
 import 'common/routes.dart';
 import 'generated/l10n.dart';
-import 'models/configuration_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,33 +25,20 @@ loadBean() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CryRoot(
-      Builder(
-        builder: (context) {
-          return MaterialApp(
-            title: 'FLUTTER_ADMIN',
-            builder: BotToastInit(),
-            navigatorObservers: [BotToastNavigatorObserver()],
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
-            localizationsDelegates: [
-              S.delegate,
-              cryS.S.delegate,
-              GlobalCupertinoLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            locale: CryRootScope.of(context).state.configuration.locale,
-            localeResolutionCallback: (locale, supportedLocales) {
-              deviceLocale = locale;
-              return locale;
-            },
-            supportedLocales: S.delegate.supportedLocales,
-            onGenerateRoute: (settings) => Routes.onGenerateRoute(settings),
-          );
-        },
-      ),
+    return GetMaterialApp(
+      title: 'FLUTTER_ADMIN',
+      builder: BotToastInit(),
+      navigatorObservers: [BotToastNavigatorObserver()],
+      theme: Utils.getThemeData(Colors.blue),
+      localizationsDelegates: [
+        S.delegate,
+        cryS.S.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      onGenerateRoute: (settings) => Routes.onGenerateRoute(settings),
     );
   }
 }

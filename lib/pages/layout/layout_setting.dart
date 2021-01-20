@@ -2,23 +2,22 @@ import 'package:cry/cry_toggle_buttons.dart';
 import 'package:cry/vo/select_option_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_admin/common/cry_root.dart';
 import 'package:flutter_admin/enum/MenuDisplayType.dart';
 import 'package:flutter_admin/generated/l10n.dart';
-import 'package:flutter_admin/models/configuration_model.dart';
 import 'package:flutter_admin/pages/common/lang_switch.dart';
+import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:get/get.dart';
 
 class LayoutSetting extends StatelessWidget {
-  const LayoutSetting({Key key}) : super(key: key);
+  LayoutSetting({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var picker = BlockPicker(
-      pickerColor: CryRootScope.of(context).state.configuration.themeColor,
+      pickerColor: Get.theme.primaryColor,
       onColorChanged: (v) {
-        Configuration configuration = Configuration.of(context).copyWith(themeColor: v);
-        CryRootScope.updateConfiguration(context, configuration);
+        Get.changeTheme(Utils.getThemeData(v));
       },
     );
     var menuDisplayType = CryToggleButtons(
@@ -26,11 +25,8 @@ class LayoutSetting extends StatelessWidget {
         SelectOptionVO(value: MenuDisplayType.drawer, label: S.of(context).drawer),
         SelectOptionVO(value: MenuDisplayType.side, label: S.of(context).side),
       ],
-      defaultValue: CryRootScope.of(context).state.configuration.menuDisplayType,
-      afterOnPress: (Object v) {
-        Configuration configuration = Configuration.of(context).copyWith(menuDisplayType: v);
-        CryRootScope.updateConfiguration(context, configuration);
-      },
+      defaultValue: MenuDisplayType.side,
+      afterOnPress: (Object v) {},
     );
     return Drawer(
       child: ListView(

@@ -1,9 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/common/cry_root.dart';
 import 'package:flutter_admin/common/routes.dart';
-import 'package:flutter_admin/enum/MenuDisplayType.dart';
 import 'package:flutter_admin/pages/common/page_404.dart';
 import 'package:flutter_admin/pages/layout/layout_app_bar.dart';
 import 'package:flutter_admin/models/menu.dart';
@@ -11,6 +9,7 @@ import 'package:flutter_admin/pages/layout/layout_menu.dart';
 import 'package:flutter_admin/pages/layout/layout_setting.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
+import 'package:get/get.dart';
 
 class Layout extends StatefulWidget {
   @override
@@ -41,8 +40,6 @@ class _LayoutState extends State with TickerProviderStateMixin {
     if (!StoreUtil.instance.inited) {
       return Container();
     }
-    var configuration = CryRootScope.of(context).state.configuration;
-    Color themeColor = configuration.themeColor;
 
     handleRoute();
 
@@ -71,7 +68,7 @@ class _LayoutState extends State with TickerProviderStateMixin {
     Row body = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        configuration.menuDisplayType == MenuDisplayType.side ? layoutMenu : Container(),
+        layoutMenu,
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +79,7 @@ class _LayoutState extends State with TickerProviderStateMixin {
                     child: Container(
                       child: tabBar,
                       decoration: BoxDecoration(
-                        color: themeColor,
+                        color: Get.find().themeColor,
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black54,
@@ -118,7 +115,7 @@ class _LayoutState extends State with TickerProviderStateMixin {
         dispose: () {
           this.dispose();
         },
-        openUserInfoMine: (menu){
+        openUserInfoMine: (menu) {
           _openPage(menu);
         },
       ),
@@ -129,17 +126,7 @@ class _LayoutState extends State with TickerProviderStateMixin {
       //   },
       // ),
     );
-    return Theme(
-      data: ThemeData(
-        primaryColor: themeColor,
-        iconTheme: IconThemeData(color: themeColor),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: themeColor,
-        ),
-        buttonTheme: ButtonThemeData(buttonColor: themeColor),
-      ),
-      child: subWidget,
-    );
+    return subWidget;
   }
 
   handleRoute() {
