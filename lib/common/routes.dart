@@ -4,6 +4,7 @@ import 'package:flutter_admin/pages/common/only_text.dart';
 import 'package:flutter_admin/pages/common/page_401.dart';
 import 'package:flutter_admin/pages/common/page_404.dart';
 import 'package:flutter_admin/pages/dash/dashboard.dart';
+import 'package:flutter_admin/pages/dept/dept_main.dart';
 import 'package:flutter_admin/pages/dict/dict_list.dart';
 import 'package:flutter_admin/pages/image/image_upload.dart';
 import 'package:flutter_admin/pages/layout/layout.dart';
@@ -27,6 +28,7 @@ Map<String, Widget> layoutRoutesData = {
   '/personList': PersonList(),
   '/menuDemoList': CommonNavigator(MenuMain()),
   '/userInfoList': UserInfoList(),
+  '/deptMain': CommonNavigator(DeptMain()),
   '/imageUpload': ImageUpload(),
   '/videoUpload': VideoUpload(),
   '/userInfoMine': UserInfoMine(),

@@ -1,6 +1,7 @@
 import 'package:cry/cry_button.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/cry_dialog.dart';
+import 'package:cry/form/cry_input.dart';
 import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:cry/vo/tree_vo.dart';
@@ -21,6 +22,8 @@ class DeptList extends StatefulWidget {
 class _DeptListState extends State<DeptList> {
   List<TreeNode> treeNodeList = <TreeNode>[];
   TreeController treeController = TreeController(allNodesExpanded: true);
+  GlobalKey<FormState> queryFormKey = GlobalKey<FormState>();
+  Dept dept = Dept();
 
   @override
   void initState() {
@@ -30,6 +33,20 @@ class _DeptListState extends State<DeptList> {
 
   @override
   Widget build(BuildContext context) {
+    var queryForm = Form(
+      key: queryFormKey,
+      child: Wrap(
+        children: [
+          CryInput(
+            label: '部门名称',
+            value: dept.name,
+            onSaved: (v) {
+              dept.name = v;
+            },
+          ),
+        ],
+      ),
+    );
     var treeView = TreeView(
       treeController: treeController,
       nodes: treeNodeList,
@@ -37,6 +54,8 @@ class _DeptListState extends State<DeptList> {
     var buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: [
+        CryButtons.query(context, query),
+        CryButtons.reset(context, reset),
         CryButtons.add(context, () => toEdit(null)),
         CryButton(
           iconData: Icons.vertical_align_center,
@@ -61,6 +80,7 @@ class _DeptListState extends State<DeptList> {
     var result = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        queryForm,
         buttonBar,
         treeView,
       ],
@@ -68,8 +88,18 @@ class _DeptListState extends State<DeptList> {
     return result;
   }
 
+  reset() {
+    dept = Dept();
+    _loadData();
+  }
+
+  query() {
+    queryFormKey.currentState.save();
+    _loadData();
+  }
+
   _loadData() async {
-    ResponseBodyApi responseBodyApi = await DeptApi.list(RequestBodyApi(params: Dept().toMap()).toMap());
+    ResponseBodyApi responseBodyApi = await DeptApi.list(RequestBodyApi(params: dept.toMap()).toMap());
     var data = responseBodyApi.data;
     List<Dept> list = List.from(data).map((e) => Dept.fromMap(e)).toList();
     List<TreeVO<Dept>> treeVOList = TreeUtil.toTreeVOList(list);

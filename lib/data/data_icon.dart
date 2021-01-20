@@ -10,5 +10,6 @@ Map<String, IconData> iconMap = {
   'video': Icons.video_call,
   'message': Icons.message,
   'dict': Icons.dialpad_outlined,
-  'subsystem': Icons.home_work_outlined
+  'subsystem': Icons.home_work_outlined,
+  'dept':Icons.deck
 };
