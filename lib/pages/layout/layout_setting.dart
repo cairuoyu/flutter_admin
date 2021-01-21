@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_admin/enum/MenuDisplayType.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/pages/common/lang_switch.dart';
+import 'package:flutter_admin/pages/layout/layout_setting_controller.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
@@ -26,7 +27,10 @@ class LayoutSetting extends StatelessWidget {
         SelectOptionVO(value: MenuDisplayType.side, label: S.of(context).side),
       ],
       defaultValue: MenuDisplayType.side,
-      afterOnPress: (Object v) {},
+      afterOnPress: (Object v) {
+        LayoutSettingController layoutSettingController = Get.find();
+        layoutSettingController.updateMenuDisplayType(v);
+      },
     );
     return Drawer(
       child: ListView(

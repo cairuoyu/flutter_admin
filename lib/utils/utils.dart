@@ -3,6 +3,8 @@ import 'package:cry/cry_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/data/data_icon.dart';
+import 'package:flutter_admin/enum/MenuDisplayType.dart';
+import 'package:flutter_admin/pages/layout/layout_setting_controller.dart';
 import 'package:flutter_admin/utils/local_storage_util.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 import 'package:get/get.dart';
@@ -14,7 +16,8 @@ class Utils {
   }
 
   static isMenuDisplayTypeDrawer(BuildContext context) {
-    return false;
+    LayoutSettingController layoutSettingController = Get.find();
+    return layoutSettingController.menuDisplayType == MenuDisplayType.drawer;
   }
 
   static getThemeData(Color themeColor) {

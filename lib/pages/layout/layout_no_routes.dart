@@ -11,6 +11,8 @@ import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
 
+import 'layout_setting_controller.dart';
+
 class Layout extends StatefulWidget {
   @override
   _LayoutState createState() => _LayoutState();
@@ -36,7 +38,9 @@ class _LayoutState extends State with TickerProviderStateMixin {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => GetBuilder<LayoutSettingController>(builder: (_) => getBuild(context));
+
+  Widget getBuild(BuildContext context) {
     if (!StoreUtil.instance.inited) {
       return Container();
     }
@@ -68,7 +72,7 @@ class _LayoutState extends State with TickerProviderStateMixin {
     Row body = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        layoutMenu,
+        Utils.isMenuDisplayTypeDrawer(context) ? Container() : layoutMenu,
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +83,7 @@ class _LayoutState extends State with TickerProviderStateMixin {
                     child: Container(
                       child: tabBar,
                       decoration: BoxDecoration(
-                        color: Get.find().themeColor,
+                        color: context.theme.primaryColor,
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black54,
