@@ -14,6 +14,7 @@ import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/models/subsystem_vo.dart';
 import 'package:flutter_admin/pages/subsystem/subsystem_edit.dart';
+import 'package:get/get.dart';
 
 class SubsystemMain extends StatefulWidget {
   SubsystemMain({Key key}) : super(key: key);
@@ -157,16 +158,19 @@ class _SubsystemMain extends State<SubsystemMain> {
     });
   }
 
-  _edit(Subsystem subsystem) {
-    Navigator.push<void>(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SubsystemEdit(
-          subsystem: subsystem,
-        ),
-        fullscreenDialog: true,
-      ),
-    ).then((value) => this._loadData());
+  _edit(Subsystem subsystem) async {
+    var content = SubsystemEdit(subsystem: subsystem);
+    // showDialog(
+    //   context: context,
+    //   builder: (BuildContext context) => Dialog(
+    //     child: content,
+    //   ),
+    // );
+    await Get.defaultDialog(
+      title: subsystem == null ? S.of(context).add : S.of(context).modify,
+      content: content,
+    );
+    _loadData();
   }
 
   _loadData() async {

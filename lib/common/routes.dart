@@ -28,7 +28,7 @@ Map<String, Widget> layoutRoutesData = {
   '/personList': PersonList(),
   '/menuDemoList': CommonNavigator(MenuMain()),
   '/userInfoList': UserInfoList(),
-  '/deptMain': CommonNavigator(DeptMain()),
+  '/deptMain': DeptMain(),
   '/imageUpload': ImageUpload(),
   '/videoUpload': VideoUpload(),
   '/userInfoMine': UserInfoMine(),
@@ -37,7 +37,7 @@ Map<String, Widget> layoutRoutesData = {
   '/layoutTest': MyTest(),
   '/dictList': DictList(),
   '/message': Message(),
-  '/subsystemList': CommonNavigator(SubsystemMain()),
+  '/subsystemList': SubsystemMain(),
   '/secondLevel': OnlyText('二级菜单页面'),
   '/threeLevel': OnlyText('三级菜单页面'),
 };

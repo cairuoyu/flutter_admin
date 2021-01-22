@@ -5,6 +5,7 @@ import 'package:cry/form/cry_select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/dept_api.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dept.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 
@@ -88,11 +89,14 @@ class _DeptEditState extends State<DeptEdit> {
         CryButtons.cancel(context, () => close()),
       ],
     );
-    var result = Column(
-      children: [
-        buttonBar,
-        form,
-      ],
+    var result = Scaffold(
+      appBar: AppBar(title: Text(S.of(context).add)),
+      body: Column(
+        children: [
+          buttonBar,
+          form,
+        ],
+      ),
     );
     return result;
   }

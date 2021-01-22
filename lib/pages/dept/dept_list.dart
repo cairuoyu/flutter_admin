@@ -13,6 +13,7 @@ import 'package:flutter_admin/models/dept.dart';
 import 'package:flutter_admin/pages/dept/dept_edit.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
+import 'package:get/get.dart';
 
 class DeptList extends StatefulWidget {
   @override
@@ -116,13 +117,9 @@ class _DeptListState extends State<DeptList> {
     _loadData();
   }
 
-  toEdit(Dept dept) {
-    Navigator.push<void>(
-      context,
-      MaterialPageRoute(
-        builder: (context) => DeptEdit(dept: dept),
-      ),
-    ).then((value) => _loadData());
+  toEdit(Dept dept) async {
+    await Get.to(DeptEdit(dept: dept));
+    _loadData();
   }
 
   TreeNode toTreeNode(TreeVO<Dept> treeVO) {

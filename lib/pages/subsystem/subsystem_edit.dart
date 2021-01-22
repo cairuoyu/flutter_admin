@@ -106,7 +106,11 @@ class _SubsystemEditState extends State<SubsystemEdit> {
       ),
       bottomNavigationBar: buttonBar,
     );
-    return result;
+    return SizedBox(
+      width: 1500,
+      height: 580,
+      child: result,
+    );
   }
 
   _save() async {
