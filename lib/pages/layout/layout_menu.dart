@@ -82,7 +82,10 @@ class _LayoutMenuState extends State<LayoutMenu> {
           leading: Icon(iconData),
           title: title,
           onTap: () {
-            if (widget.onClick != null) widget.onClick(treeVO.data);
+            if (StoreUtil.instance.currentOpenedMenuId != treeVO.data.id && widget.onClick != null) {
+              widget.onClick(treeVO.data);
+              setState(() {});
+            }
           },
         );
       }

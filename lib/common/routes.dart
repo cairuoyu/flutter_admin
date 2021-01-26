@@ -8,7 +8,6 @@ import 'package:flutter_admin/pages/dept/dept_main.dart';
 import 'package:flutter_admin/pages/dict/dict_list.dart';
 import 'package:flutter_admin/pages/image/image_upload.dart';
 import 'package:flutter_admin/pages/layout/layout.dart';
-import 'package:flutter_admin/pages/layout/layout_no_routes.dart' as layoutNoRoutes;
 import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/pages/menu/menu_main.dart';
 import 'package:flutter_admin/pages/message/message.dart';
@@ -34,7 +33,7 @@ Map<String, Widget> layoutRoutesData = {
   '/userInfoMine': UserInfoMine(),
   '/layout401': Page401(),
   '/layout404': Page404(),
-  '/layoutTest': MyTest(),
+  '/layoutTest': MyTest(1),
   '/dictList': DictList(),
   '/message': Message(),
   '/subsystemList': SubsystemMain(),
@@ -43,24 +42,18 @@ Map<String, Widget> layoutRoutesData = {
 };
 
 Map<String, Widget> routesData = {
-  '/layoutNoRoutes': layoutNoRoutes.Layout(),
+  '/login': Login(),
   '/register': Register(),
-  '/myTest': MyTest(),
+  '/': Layout(),
   '/401': Page404(),
   '/404': Page404(),
-//  '/': Layout(path: '/',),
-  '/login': Login(),
-  '/test': RoleList(),
+  '/myTest': MyTest(1),
 };
-List<String> whiteRouters = ['/register'];
+List<String> whiteRouters = ['/register', '/myTest'];
 
 Map<String, WidgetBuilder> routes = routesData.map((key, value) {
   return MapEntry(key, (context) => value);
-})
-  ..addAll(layoutRoutesData.map((key, value) => MapEntry(
-        key,
-        (context) => Layout(content: value, path: key),
-      )));
+});
 
 class Routes {
   static onGenerateRoute(RouteSettings settings) {

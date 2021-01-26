@@ -43,15 +43,15 @@ class LayoutAppBar extends AppBar {
                 },
               ),
             ),
-            Tooltip(
-              message: type == 1 ? S.of(context).noRoutingMode : S.of(context).routingMode,
-              child: IconButton(
-                icon: Icon(Icons.link),
-                onPressed: () {
-                  Navigator.pushNamed(context, type == 1 ? '/layoutNoRoutes' : '/');
-                },
-              ),
-            ),
+            // Tooltip(
+            //   message: type == 1 ? S.of(context).noRoutingMode : S.of(context).routingMode,
+            //   child: IconButton(
+            //     icon: Icon(Icons.link),
+            //     onPressed: () {
+            //       Navigator.pushNamed(context, type == 1 ? '/layoutNoRoutes' : '/');
+            //     },
+            //   ),
+            // ),
             Tooltip(
               message: 'Code',
               child: IconButton(
