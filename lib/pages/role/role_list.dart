@@ -6,6 +6,7 @@ import 'package:cry/model/request_body_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/role_api.dart';
 import 'package:cry/cry_button.dart';
+import 'package:flutter_admin/common/base_state.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:cry/model/page_model.dart';
 import 'package:cry/model/response_body_api.dart';
@@ -21,7 +22,7 @@ class RoleList extends StatefulWidget {
   _RoleListState createState() => _RoleListState();
 }
 
-class _RoleListState extends State<RoleList> {
+class _RoleListState extends BaseState<RoleList> {
   final GlobalKey<CryDataTableState> tableKey = GlobalKey<CryDataTableState>();
   PageModel page;
 
@@ -37,6 +38,7 @@ class _RoleListState extends State<RoleList> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     CryDataTable table = CryDataTable(
       key: tableKey,
       page: page,

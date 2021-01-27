@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/common/base_state.dart';
 
 class MyTest extends StatefulWidget  {
   final int n;
@@ -9,7 +10,7 @@ class MyTest extends StatefulWidget  {
   _MyTestState createState() => _MyTestState();
 }
 
-class _MyTestState extends State<MyTest>  with AutomaticKeepAliveClientMixin{
+class _MyTestState extends BaseState<MyTest> {
   @override
   void initState() {
     print(widget.n.toString() + '--myTest--initState');
@@ -50,6 +51,4 @@ class _MyTestState extends State<MyTest>  with AutomaticKeepAliveClientMixin{
     super.didUpdateWidget(oldWidget);
   }
 
-  @override
-  bool get wantKeepAlive => true;
 }

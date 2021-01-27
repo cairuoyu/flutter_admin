@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'FLUTTER_ADMIN',
       builder: BotToastInit(),
+      enableLog: false,
       navigatorObservers: [BotToastNavigatorObserver()],
       theme: Utils.getThemeData(Colors.blue),
       localizationsDelegates: [

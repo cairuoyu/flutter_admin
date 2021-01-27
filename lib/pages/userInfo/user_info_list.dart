@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/user_info_api.dart';
 import 'package:cry/cry_button.dart';
 import 'package:cry/cry_data_table.dart';
+import 'package:flutter_admin/common/base_state.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:cry/model/page_model.dart';
@@ -22,7 +23,7 @@ class UserInfoList extends StatefulWidget {
   _UserInfoListState createState() => _UserInfoListState();
 }
 
-class _UserInfoListState extends State<UserInfoList> {
+class _UserInfoListState extends BaseState<UserInfoList> {
   final GlobalKey<CryDataTableState> tableKey = GlobalKey<CryDataTableState>();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   PageModel page = PageModel();
@@ -36,6 +37,7 @@ class _UserInfoListState extends State<UserInfoList> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     var form = Form(
       key: formKey,
       child: Wrap(
