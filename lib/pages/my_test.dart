@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/common/base_state.dart';
 
-class MyTest extends StatefulWidget  {
+class MyTest extends StatefulWidget {
   final int n;
 
   MyTest(this.n);
@@ -10,7 +9,7 @@ class MyTest extends StatefulWidget  {
   _MyTestState createState() => _MyTestState();
 }
 
-class _MyTestState extends BaseState<MyTest> {
+class _MyTestState extends State<MyTest> {
   @override
   void initState() {
     print(widget.n.toString() + '--myTest--initState');
@@ -19,7 +18,6 @@ class _MyTestState extends BaseState<MyTest> {
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     print(widget.n.toString() + '--myTest--build');
     var body = Center(child: Text('myTest' + widget.n.toString()));
     return Scaffold(
@@ -50,5 +48,4 @@ class _MyTestState extends BaseState<MyTest> {
     print(widget.n.toString() + '--myTest--didUpdateWidget');
     super.didUpdateWidget(oldWidget);
   }
-
 }

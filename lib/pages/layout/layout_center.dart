@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/common/base_state.dart';
 import 'package:flutter_admin/common/routes.dart';
 import 'package:flutter_admin/models/menu.dart';
+import 'package:flutter_admin/pages/common/keep_alive_wrapper.dart';
 import 'package:flutter_admin/pages/common/page_404.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
@@ -15,7 +15,7 @@ class LayoutCenter extends StatefulWidget {
   LayoutCenterState createState() => LayoutCenterState();
 }
 
-class LayoutCenterState extends BaseState<LayoutCenter> with TickerProviderStateMixin {
+class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixin {
   TabController tabController;
   Container content = Container();
 
@@ -30,27 +30,26 @@ class LayoutCenterState extends BaseState<LayoutCenter> with TickerProviderState
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     if (StoreUtil.instance.menuOpened.length == 0) {
       return Container();
     }
 
     int index = StoreUtil.instance.menuOpened.indexWhere((note) => note.id == StoreUtil.instance.currentOpenedMenuId);
     List<Widget> children = StoreUtil.instance.menuOpened.map((menu) {
-      return menu.url != null && layoutRoutesData[menu.url] != null ? layoutRoutesData[menu.url] : Page404();
+      var page = layoutRoutesData[menu.url];
+      return KeepAliveWrapper(child: page ?? Page404());
     }).toList();
     tabController = TabController(vsync: this, length: children.length);
 
-    var body = TabBarView(
-      controller: tabController,
-      children: children,
-    );
-
     content = Container(
       child: Expanded(
-        child: body,
+        child: TabBarView(
+          controller: tabController,
+          children: children,
+        ),
       ),
     );
+
     tabController.animateTo(index);
 
     TabBar tabBar = TabBar(
