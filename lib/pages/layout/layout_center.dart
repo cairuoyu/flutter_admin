@@ -18,6 +18,7 @@ class LayoutCenter extends StatefulWidget {
 class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixin {
   TabController tabController;
   Container content = Container();
+  List<Widget> pages;
 
   @override
   void initState() {
@@ -30,27 +31,25 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
 
   @override
   Widget build(BuildContext context) {
-    if (StoreUtil.instance.menuOpened.length == 0) {
+    var length = StoreUtil.instance.menuOpened.length;
+    if (length == 0) {
       return Container();
     }
-
     int index = StoreUtil.instance.menuOpened.indexWhere((note) => note.id == StoreUtil.instance.currentOpenedMenuId);
-    List<Widget> children = StoreUtil.instance.menuOpened.map((menu) {
+    pages = StoreUtil.instance.menuOpened.map((menu) {
       var page = layoutRoutesData[menu.url];
       return KeepAliveWrapper(child: page ?? Page404());
     }).toList();
-    tabController = TabController(vsync: this, length: children.length);
 
-    content = Container(
-      child: Expanded(
-        child: TabBarView(
-          controller: tabController,
-          children: children,
-        ),
-      ),
-    );
-
-    tabController.animateTo(index);
+    int tabIndex = tabController?.index ?? 0;
+    int initialIndex = tabIndex > length - 1 ? length - 1 : tabIndex;
+    tabController?.dispose();
+    tabController = TabController(vsync: this, length: pages.length, initialIndex: initialIndex);
+    tabController.addListener(() {
+      if (tabController.indexIsChanging) {
+        StoreUtil.instance.currentOpenedMenuId = StoreUtil.instance.menuOpened[tabController.index].id;
+      }
+    });
 
     TabBar tabBar = TabBar(
       controller: tabController,
@@ -71,6 +70,17 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
         );
       }).toList(),
     );
+
+    content = Container(
+      child: Expanded(
+        child: TabBarView(
+          controller: tabController,
+          children: pages,
+        ),
+      ),
+    );
+
+    tabController.animateTo(index);
     var result = Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,7 +114,11 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
   _closePage(menu) {
     StoreUtil.instance.menuOpened.remove(menu);
     var length = StoreUtil.instance.menuOpened.length;
-    StoreUtil.instance.currentOpenedMenuId = length > 0 ? StoreUtil.instance.menuOpened[length - 1].id : null;
+    if (length == 0) {
+      StoreUtil.instance.currentOpenedMenuId = null;
+    } else if (StoreUtil.instance.currentOpenedMenuId == menu.id) {
+      StoreUtil.instance.currentOpenedMenuId = StoreUtil.instance.menuOpened[0].id;
+    }
     setState(() {});
   }
 

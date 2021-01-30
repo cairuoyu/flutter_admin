@@ -2,11 +2,13 @@
 ![GitHub](https://img.shields.io/github/license/cairuoyu/flutter_admin)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/cairuoyu/flutter_admin)
 ![GitHub repo size](https://img.shields.io/github/repo-size/cairuoyu/flutter_admin?color=yellow)
-![Flutter version](https://img.shields.io/badge/flutter-1.24.0--10.2.pre-green)
+![Flutter version](https://img.shields.io/badge/flutter-1.25.0--8.3.pre-green)
 
 > [简体中文](./README.md) | English
 
 > A Background Management System Implemented Using Flutter
+
+> As a template for developing Web and APP based on Flutter, this project provides multiple realization methods in terms of functions, including pop-up window, form style, table, etc., and it is constantly improving. With this project, you can learn Flutter efficiently or quickly develop a new app.
 
 ---
 ## Functional technology
