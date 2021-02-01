@@ -48,9 +48,13 @@ class _DeptListState extends State<DeptList> {
         ],
       ),
     );
-    var treeView = TreeView(
-      treeController: treeController,
-      nodes: treeNodeList,
+    var treeView = Expanded(
+      child: SingleChildScrollView(
+        child: TreeView(
+          treeController: treeController,
+          nodes: treeNodeList,
+        ),
+      ),
     );
     var buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
@@ -78,13 +82,15 @@ class _DeptListState extends State<DeptList> {
         ),
       ],
     );
-    var result = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        queryForm,
-        buttonBar,
-        treeView,
-      ],
+    var result = Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          queryForm,
+          buttonBar,
+          treeView,
+        ],
+      ),
     );
     return result;
   }

@@ -25,7 +25,7 @@ Map<String, Widget> layoutRoutesData = {
   '/': Dashboard(),
   '/roleList': RoleList(),
   '/personList': PersonList(),
-  '/menuDemoList': CommonNavigator(MenuMain()),
+  '/menuList': CommonNavigator(MenuMain()),
   '/userInfoList': UserInfoList(),
   '/deptMain': DeptMain(),
   '/imageUpload': ImageUpload(),
