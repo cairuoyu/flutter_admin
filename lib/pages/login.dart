@@ -9,8 +9,10 @@ import 'package:flutter_admin/pages/register.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_admin/api/user_api.dart';
 import 'package:flutter_admin/models/user.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../generated/l10n.dart';
+import 'layout/layout_controller.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -205,8 +207,11 @@ class _LoginState extends State<Login> {
       return;
     }
     GetStorage().write(Constant.KEY_TOKEN, responseBodyApi.data);
-    await _initDict() ;
+    await _initDict();
     await _loadMenuData();
+
+    LayoutController layoutController = Get.find();
+    layoutController.init();
     BotToast.closeAllLoading();
     Navigator.pushNamed(context, '/');
   }

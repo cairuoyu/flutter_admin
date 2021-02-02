@@ -4,7 +4,6 @@ import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/pages/common/keep_alive_wrapper.dart';
 import 'package:flutter_admin/pages/common/page_404.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
-import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
 
@@ -21,6 +20,7 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
   Container content = Container();
   List<Widget> pages;
   LayoutController layoutController = Get.find();
+  List<Menu> menuOpened = [];
 
   @override
   void initState() {
@@ -33,12 +33,12 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
 
   @override
   Widget build(BuildContext context) {
-    var length = StoreUtil.instance.menuOpened.length;
+    var length = menuOpened.length;
     if (length == 0) {
       return Container();
     }
-    int index = StoreUtil.instance.menuOpened.indexWhere((note) => note.id == layoutController.currentOpenedMenuId);
-    pages = StoreUtil.instance.menuOpened.map((menu) {
+    int index = menuOpened.indexWhere((note) => note.id == layoutController.currentOpenedMenuId);
+    pages = menuOpened.map((menu) {
       var page = layoutRoutesData[menu.url];
       return KeepAliveWrapper(child: page ?? Page404());
     }).toList();
@@ -49,7 +49,7 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
     tabController = TabController(vsync: this, length: pages.length, initialIndex: initialIndex);
     tabController.addListener(() {
       if (tabController.indexIsChanging) {
-        layoutController.updateCurrentOpendMenuId(StoreUtil.instance.menuOpened[tabController.index].id);
+        layoutController.updateCurrentOpendMenuId(menuOpened[tabController.index].id);
       }
     });
 
@@ -57,7 +57,7 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
       controller: tabController,
       isScrollable: true,
       indicator: const UnderlineTabIndicator(),
-      tabs: StoreUtil.instance.menuOpened.map<Tab>((Menu menu) {
+      tabs: menuOpened.map<Tab>((Menu menu) {
         return Tab(
           child: Row(
             children: <Widget>[
@@ -114,24 +114,24 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
   }
 
   _closePage(menu) {
-    StoreUtil.instance.menuOpened.remove(menu);
-    var length = StoreUtil.instance.menuOpened.length;
+    menuOpened.remove(menu);
+    var length = menuOpened.length;
     if (length == 0) {
       layoutController.currentOpenedMenuId = null;
     } else if (layoutController.currentOpenedMenuId == menu.id) {
-      layoutController.currentOpenedMenuId = StoreUtil.instance.menuOpened[0].id;
+      layoutController.currentOpenedMenuId = menuOpened[0].id;
     }
     setState(() {});
   }
 
   openPage(Menu menu) {
     layoutController.currentOpenedMenuId = menu.id;
-    int index = StoreUtil.instance.menuOpened.indexWhere((note) => note.id == menu.id);
+    int index = menuOpened.indexWhere((note) => note.id == menu.id);
     if (index > -1) {
       tabController?.animateTo(index);
       return;
     }
-    StoreUtil.instance.menuOpened.add(menu);
+    menuOpened.add(menu);
     setState(() {});
   }
 }

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/data/data_icon.dart';
 import 'package:flutter_admin/enum/MenuDisplayType.dart';
+import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
-import 'package:flutter_admin/utils/store_util.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -41,7 +41,8 @@ class Utils {
 
   static logout() {
     GetStorage().remove(Constant.KEY_TOKEN);
-    StoreUtil.instance.clean();
+    GetStorage().remove(Constant.KEY_MENU_LIST);
+    GetStorage().remove(Constant.KEY_DICT_ITEM_LIST);
   }
 
   static launchURL(url) async {
@@ -82,5 +83,9 @@ class Utils {
     }
     // IconData iconData = IconData(int.parse(icon), fontFamily: 'MaterialIcons');
     return iconMap[icon] ?? Icons.menu;
+  }
+  static List<Menu> getMenuTree() {
+    var data = GetStorage().read(Constant.KEY_MENU_LIST);
+    return List.from(data).map((e) => Menu.fromMap(e)).toList();
   }
 }

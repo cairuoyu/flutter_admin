@@ -3,7 +3,6 @@ import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
-import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
@@ -38,8 +37,8 @@ class _LayoutMenuState extends State<LayoutMenu> {
         setState(() {});
       },
     );
-    List<Menu> menuTreeList = StoreUtil.instance.getMenuTree();
-    List<Widget> menuBody = _getMenuListTile(TreeUtil.toTreeVOList(menuTreeList));
+
+    List<Widget> menuBody = _getMenuListTile(TreeUtil.toTreeVOList(Utils.getMenuTree()));
     ListView menu = ListView(children: Utils.isMenuDisplayTypeDrawer(context) ? menuBody : [menuHeader, ...menuBody]);
     return SizedBox(
       width: expandMenu ? 300 : 60,
