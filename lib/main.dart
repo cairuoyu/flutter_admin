@@ -8,6 +8,7 @@ import 'package:flutter_admin/pages/layout/layout_setting_controller.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'common/routes.dart';
 import 'generated/l10n.dart';
 
@@ -15,6 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ApplicationContext.instance.init();
   loadBean();
+  await GetStorage.init();
   Get.put(LayoutSettingController());
 
   runApp(MyApp());

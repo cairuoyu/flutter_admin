@@ -21,25 +21,13 @@ class _LayoutState extends State {
 
   @override
   void initState() {
-    init();
     super.initState();
-  }
-
-  init() async {
-    if (!StoreUtil.instance.inited) {
-      await StoreUtil.instance.init();
-      setState(() {});
-    }
   }
 
   @override
   Widget build(BuildContext context) => GetBuilder<LayoutSettingController>(builder: (_) => getBuild(context));
 
   Widget getBuild(BuildContext context) {
-    if (!StoreUtil.instance.inited) {
-      return Container();
-    }
-
     var layoutMenu = LayoutMenu(onClick: _openPage);
     Row body = Row(
       crossAxisAlignment: CrossAxisAlignment.start,

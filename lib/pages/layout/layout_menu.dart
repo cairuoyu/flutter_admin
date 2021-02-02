@@ -1,11 +1,10 @@
+import 'package:cry/utils/adaptive_util.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
-
-import '../../models/menu.dart';
-import '../../utils/adaptive_util.dart';
-import '../../utils/utils.dart';
+import 'package:flutter_admin/utils/utils.dart';
 
 class LayoutMenu extends StatefulWidget {
   LayoutMenu({
@@ -36,7 +35,8 @@ class _LayoutMenuState extends State<LayoutMenu> {
         setState(() {});
       },
     );
-    List<Widget> menuBody = _getMenuListTile(TreeUtil.toTreeVOList(StoreUtil.instance.menuTree));
+    List<Menu> menuTreeList = StoreUtil.instance.getMenuTree();
+    List<Widget> menuBody = _getMenuListTile(TreeUtil.toTreeVOList(menuTreeList));
     ListView menu = ListView(children: Utils.isMenuDisplayTypeDrawer(context) ? menuBody : [menuHeader, ...menuBody]);
     return SizedBox(
       width: expandMenu ? 300 : 60,

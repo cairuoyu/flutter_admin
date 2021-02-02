@@ -1,10 +1,9 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/model/response_body_api.dart';
-import 'package:cry/vo/select_option_vo.dart';
 import 'package:flutter_admin/api/dict_api.dart';
 import 'package:flutter_admin/api/menu_api.dart';
-import 'package:flutter_admin/models/dict_item.dart';
+import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/models/menu.dart';
+import 'package:get_storage/get_storage.dart';
 
 class StoreUtil {
   StoreUtil._();
@@ -23,27 +22,18 @@ class StoreUtil {
   final Menu menuMain = Menu(id: 'dashboard', url: '/', name: 'Dashboard', nameEn: 'Dashboard');
   final Menu menu401 = Menu(id: 'layout401', url: '/layout401', name: '401', nameEn: '401');
   final Menu menuUserInfoMine = Menu(id: 'userInfoMine', url: '/userInfoMine', name: '我的信息', nameEn: 'My Info');
-  bool inited = false;
-  Map<String, List<DictItem>> dictItemMap;
-  Map<String, List<SelectOptionVO>> dictSelectMap;
 
-  List<Menu> menuList;
-  List<Menu> menuTree;
   List<Menu> menuOpened = [];
   String currentOpenedMenuId;
 
   init() async {
-    BotToast.showLoading();
-    this.inited = await _initDict() && await _loadMenuData();
-    BotToast.closeAllLoading();
+    await _initDict() && await _loadMenuData();
   }
 
   Future<bool> _loadMenuData() async {
     ResponseBodyApi responseBodyApi = await MenuApi.listAuth();
     if (responseBodyApi.success) {
-      List data = responseBodyApi.data;
-      menuTree = List.from(data).map((e) => Menu.fromMap(e)).toList();
-      menuList = menuTree + [menuMain, menuUserInfoMine];
+      GetStorage().write(Constant.KEY_MENU_LIST, responseBodyApi.data);
     }
     return responseBodyApi.success;
   }
@@ -51,22 +41,20 @@ class StoreUtil {
   Future<bool> _initDict() async {
     ResponseBodyApi responseBodyApi = await DictApi.map();
     if (responseBodyApi.success) {
-      this.dictSelectMap = Map();
-      this.dictItemMap = Map.from(responseBodyApi.data).map<String, List<DictItem>>((key, value) {
-        List<DictItem> list = (value as List).map((e) => DictItem.fromMap(e)).toList();
-        this.dictSelectMap[key] = list.map((e) => SelectOptionVO(value: e.code, label: e.name)).toList();
-        return MapEntry(key, list);
-      });
+      GetStorage().write(Constant.KEY_DICT_ITEM_LIST, responseBodyApi.data);
     }
     return responseBodyApi.success;
   }
 
+  List<Menu> getMenuTree() {
+    var data = GetStorage().read(Constant.KEY_MENU_LIST);
+    return List.from(data).map((e) => Menu.fromMap(e)).toList();
+  }
+
   clean() {
-    menuList = null;
-    menuTree = null;
+    GetStorage().remove(Constant.KEY_MENU_LIST);
+    GetStorage().remove(Constant.KEY_DICT_ITEM_LIST);
     menuOpened = [];
-    dictItemMap = null;
-    inited = false;
     currentOpenedMenuId = null;
   }
 }

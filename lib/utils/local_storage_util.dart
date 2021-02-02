@@ -1,11 +1,11 @@
-import 'package:universal_html/html.dart';
+import 'package:get_storage/get_storage.dart';
 
 class LocalStorageUtil {
   static set(String k, String v) {
-    (v == null) ? window.localStorage.remove(k) : window.localStorage[k] = v;
+    GetStorage().write(k, v);
   }
 
   static String get(String k) {
-    return window.localStorage[k];
+    return GetStorage().read(k);
   }
 }
