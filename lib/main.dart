@@ -4,7 +4,7 @@ import 'package:cry/generated/l10n.dart' as cryS;
 import 'package:flutter/material.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter_admin/common/cry_dio_interceptors.dart';
-import 'package:flutter_admin/pages/layout/layout_setting_controller.dart';
+import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -17,7 +17,7 @@ void main() async {
   await ApplicationContext.instance.init();
   loadBean();
   await GetStorage.init();
-  Get.put(LayoutSettingController());
+  Get.put(LayoutController());
 
   runApp(MyApp());
 }

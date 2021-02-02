@@ -2,9 +2,11 @@ import 'package:cry/utils/adaptive_util.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/models/menu.dart';
+import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
+import 'package:get/get.dart';
 
 class LayoutMenu extends StatefulWidget {
   LayoutMenu({
@@ -19,6 +21,7 @@ class LayoutMenu extends StatefulWidget {
 
 class _LayoutMenuState extends State<LayoutMenu> {
   bool expandMenu;
+  LayoutController layoutController = Get.find();
 
   @override
   void initState() {
@@ -55,7 +58,8 @@ class _LayoutMenuState extends State<LayoutMenu> {
       if (treeVO.children != null && treeVO.children.length > 0) {
         return isCurrentOpenedMenu(treeVO.children);
       }
-      return StoreUtil.instance.currentOpenedMenuId == treeVO.data.id;
+
+      return layoutController.currentOpenedMenuId == treeVO.data.id;
     }
     return false;
   }
@@ -78,11 +82,11 @@ class _LayoutMenuState extends State<LayoutMenu> {
         );
       } else {
         return ListTile(
-          tileColor: StoreUtil.instance.currentOpenedMenuId == treeVO.data.id ? Colors.blue.shade100 : Colors.white,
+          tileColor: layoutController.currentOpenedMenuId == treeVO.data.id ? Colors.blue.shade100 : Colors.white,
           leading: Icon(iconData),
           title: title,
           onTap: () {
-            if (StoreUtil.instance.currentOpenedMenuId != treeVO.data.id && widget.onClick != null) {
+            if (layoutController.currentOpenedMenuId != treeVO.data.id && widget.onClick != null) {
               widget.onClick(treeVO.data);
               setState(() {});
             }

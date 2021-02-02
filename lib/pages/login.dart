@@ -1,14 +1,15 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/api/dict_api.dart';
+import 'package:flutter_admin/api/menu_api.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/common/lang_switch.dart';
 import 'package:flutter_admin/pages/register.dart';
-import 'package:flutter_admin/utils/local_storage_util.dart';
-import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_admin/api/user_api.dart';
 import 'package:flutter_admin/models/user.dart';
+import 'package:get_storage/get_storage.dart';
 import '../generated/l10n.dart';
 
 class Login extends StatefulWidget {
@@ -190,24 +191,39 @@ class _LoginState extends State<Login> {
     );
   }
 
-  _login() {
+  _login() async {
     var form = formKey.currentState;
     if (!form.validate()) {
       return;
     }
     form.save();
     BotToast.showLoading();
-    UserApi.login(user.toJson()).then((ResponseBodyApi responseBodyApi) async {
-      if (!responseBodyApi.success) {
-        BotToast.closeAllLoading();
-        return;
-      }
-      LocalStorageUtil.set(Constant.KEY_TOKEN, responseBodyApi.data);
-      await StoreUtil.instance.init();
+
+    ResponseBodyApi responseBodyApi = await UserApi.login(user.toJson());
+    if (!responseBodyApi.success) {
       BotToast.closeAllLoading();
-      Navigator.pushNamed(context, '/');
-    }).catchError((e) {
-      BotToast.closeAllLoading();
-    });
+      return;
+    }
+    GetStorage().write(Constant.KEY_TOKEN, responseBodyApi.data);
+    await _initDict() ;
+    await _loadMenuData();
+    BotToast.closeAllLoading();
+    Navigator.pushNamed(context, '/');
+  }
+
+  Future<bool> _loadMenuData() async {
+    ResponseBodyApi responseBodyApi = await MenuApi.listAuth();
+    if (responseBodyApi.success) {
+      GetStorage().write(Constant.KEY_MENU_LIST, responseBodyApi.data);
+    }
+    return responseBodyApi.success;
+  }
+
+  Future<bool> _initDict() async {
+    ResponseBodyApi responseBodyApi = await DictApi.map();
+    if (responseBodyApi.success) {
+      GetStorage().write(Constant.KEY_DICT_ITEM_LIST, responseBodyApi.data);
+    }
+    return responseBodyApi.success;
   }
 }

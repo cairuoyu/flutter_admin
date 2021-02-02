@@ -4,11 +4,10 @@ import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/pages/layout/layout_center.dart';
 import 'package:flutter_admin/pages/layout/layout_menu.dart';
 import 'package:flutter_admin/pages/layout/layout_setting.dart';
-import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
 
-import 'layout_setting_controller.dart';
+import 'layout_controller.dart';
 
 class Layout extends StatefulWidget {
   @override
@@ -18,6 +17,7 @@ class Layout extends StatefulWidget {
 class _LayoutState extends State {
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
   final GlobalKey<LayoutCenterState> layoutCenterKey = GlobalKey<LayoutCenterState>();
+  final Menu menuMain = Menu(id: 'dashboard', url: '/', name: 'Dashboard', nameEn: 'Dashboard');
 
   @override
   void initState() {
@@ -25,7 +25,7 @@ class _LayoutState extends State {
   }
 
   @override
-  Widget build(BuildContext context) => GetBuilder<LayoutSettingController>(builder: (_) => getBuild(context));
+  Widget build(BuildContext context) => GetBuilder<LayoutController>(builder: (_) => getBuild(context));
 
   Widget getBuild(BuildContext context) {
     var layoutMenu = LayoutMenu(onClick: _openPage);
@@ -35,7 +35,7 @@ class _LayoutState extends State {
         Utils.isMenuDisplayTypeDrawer(context) ? Container() : layoutMenu,
         LayoutCenter(
           key: layoutCenterKey,
-          initPage: StoreUtil.instance.menuMain,
+          initPage: menuMain,
         ),
       ],
     );

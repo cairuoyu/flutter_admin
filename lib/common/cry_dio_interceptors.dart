@@ -3,14 +3,14 @@ import 'dart:io';
 import 'package:cry/model/response_body_api.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_admin/constants/constant.dart';
-import 'package:flutter_admin/utils/local_storage_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
+import 'package:get_storage/get_storage.dart';
 
 class CryDioInterceptors extends InterceptorsWrapper {
   @override
   Future onRequest(RequestOptions options) {
 //    print("REQUEST[${options?.method}] => PATH: ${options?.path}");
-    String token = LocalStorageUtil.get(Constant.KEY_TOKEN);
+    String token = GetStorage().read(Constant.KEY_TOKEN);
     options.headers[HttpHeaders.authorizationHeader] = token;
     return super.onRequest(options);
   }

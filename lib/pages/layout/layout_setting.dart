@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_admin/enum/MenuDisplayType.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/pages/common/lang_switch.dart';
-import 'package:flutter_admin/pages/layout/layout_setting_controller.dart';
+import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
@@ -28,8 +28,8 @@ class LayoutSetting extends StatelessWidget {
       ],
       defaultValue: MenuDisplayType.side,
       afterOnPress: (Object v) {
-        LayoutSettingController layoutSettingController = Get.find();
-        layoutSettingController.updateMenuDisplayType(v);
+        LayoutController layoutController = Get.find();
+        layoutController.updateMenuDisplayType(v);
       },
     );
     return Drawer(

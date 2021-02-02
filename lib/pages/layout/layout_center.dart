@@ -3,6 +3,7 @@ import 'package:flutter_admin/common/routes.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/pages/common/keep_alive_wrapper.dart';
 import 'package:flutter_admin/pages/common/page_404.dart';
+import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,7 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
   TabController tabController;
   Container content = Container();
   List<Widget> pages;
+  LayoutController layoutController = Get.find();
 
   @override
   void initState() {
@@ -35,7 +37,7 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
     if (length == 0) {
       return Container();
     }
-    int index = StoreUtil.instance.menuOpened.indexWhere((note) => note.id == StoreUtil.instance.currentOpenedMenuId);
+    int index = StoreUtil.instance.menuOpened.indexWhere((note) => note.id == layoutController.currentOpenedMenuId);
     pages = StoreUtil.instance.menuOpened.map((menu) {
       var page = layoutRoutesData[menu.url];
       return KeepAliveWrapper(child: page ?? Page404());
@@ -47,7 +49,7 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
     tabController = TabController(vsync: this, length: pages.length, initialIndex: initialIndex);
     tabController.addListener(() {
       if (tabController.indexIsChanging) {
-        StoreUtil.instance.currentOpenedMenuId = StoreUtil.instance.menuOpened[tabController.index].id;
+        layoutController.updateCurrentOpendMenuId(StoreUtil.instance.menuOpened[tabController.index].id);
       }
     });
 
@@ -115,15 +117,15 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
     StoreUtil.instance.menuOpened.remove(menu);
     var length = StoreUtil.instance.menuOpened.length;
     if (length == 0) {
-      StoreUtil.instance.currentOpenedMenuId = null;
-    } else if (StoreUtil.instance.currentOpenedMenuId == menu.id) {
-      StoreUtil.instance.currentOpenedMenuId = StoreUtil.instance.menuOpened[0].id;
+      layoutController.currentOpenedMenuId = null;
+    } else if (layoutController.currentOpenedMenuId == menu.id) {
+      layoutController.currentOpenedMenuId = StoreUtil.instance.menuOpened[0].id;
     }
     setState(() {});
   }
 
   openPage(Menu menu) {
-    StoreUtil.instance.currentOpenedMenuId = menu.id;
+    layoutController.currentOpenedMenuId = menu.id;
     int index = StoreUtil.instance.menuOpened.indexWhere((note) => note.id == menu.id);
     if (index > -1) {
       tabController?.animateTo(index);

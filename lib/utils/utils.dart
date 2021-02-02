@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/data/data_icon.dart';
 import 'package:flutter_admin/enum/MenuDisplayType.dart';
-import 'package:flutter_admin/pages/layout/layout_setting_controller.dart';
-import 'package:flutter_admin/utils/local_storage_util.dart';
+import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
@@ -16,8 +16,8 @@ class Utils {
   }
 
   static isMenuDisplayTypeDrawer(BuildContext context) {
-    LayoutSettingController layoutSettingController = Get.find();
-    return layoutSettingController.menuDisplayType == MenuDisplayType.drawer;
+    LayoutController layoutController = Get.find();
+    return layoutController.menuDisplayType == MenuDisplayType.drawer;
   }
 
   static getThemeData(Color themeColor) {
@@ -36,11 +36,11 @@ class Utils {
   }
 
   static isLogin() {
-    return LocalStorageUtil.get(Constant.KEY_TOKEN) != null;
+    return GetStorage().hasData(Constant.KEY_TOKEN);
   }
 
   static logout() {
-    LocalStorageUtil.set(Constant.KEY_TOKEN, null);
+    GetStorage().remove(Constant.KEY_TOKEN);
     StoreUtil.instance.clean();
   }
 
