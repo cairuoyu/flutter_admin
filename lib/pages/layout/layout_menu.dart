@@ -58,7 +58,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
         return isCurrentOpenedMenu(treeVO.children);
       }
 
-      return layoutController.currentOpenedMenuId == treeVO.data.id;
+      return layoutController.currentOpenedTabPageId == treeVO.data.id;
     }
     return false;
   }
@@ -81,12 +81,12 @@ class _LayoutMenuState extends State<LayoutMenu> {
         );
       } else {
         return ListTile(
-          tileColor: layoutController.currentOpenedMenuId == treeVO.data.id ? Colors.blue.shade100 : Colors.white,
+          tileColor: layoutController.currentOpenedTabPageId == treeVO.data.id ? Colors.blue.shade100 : Colors.white,
           leading: Icon(iconData),
           title: title,
           onTap: () {
-            if (layoutController.currentOpenedMenuId != treeVO.data.id && widget.onClick != null) {
-              widget.onClick(treeVO.data);
+            if (layoutController.currentOpenedTabPageId != treeVO.data.id && widget.onClick != null) {
+              widget.onClick(treeVO.data.toTabPage());
               setState(() {});
             }
           },

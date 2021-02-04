@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/enum/MenuDisplayType.dart';
-import 'package:flutter_admin/models/menu.dart';
+import 'package:flutter_admin/models/tab_page.dart';
 import 'package:get/get.dart';
 
 class LayoutController extends GetxController {
   TabController tabController;
   MenuDisplayType menuDisplayType;
-  String currentOpenedMenuId;
-  List<Menu> menuOpened = [];
+  String currentOpenedTabPageId;
+  List<TabPage> openedTabPageList = [];
 
   init() {
-    currentOpenedMenuId = null;
+    currentOpenedTabPageId = null;
   }
 
   updateMenuDisplayType(v) {
@@ -19,12 +19,12 @@ class LayoutController extends GetxController {
   }
 
   updateCurrentOpendMenuId(v) {
-    currentOpenedMenuId = v;
+    currentOpenedTabPageId = v;
     update();
   }
 
   updateMenuOpend(v) {
-    menuOpened = v;
+    openedTabPageList = v;
     update();
   }
 }

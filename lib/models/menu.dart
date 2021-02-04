@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cry/vo/tree_vo.dart';
+import 'package:flutter_admin/models/tab_page.dart';
 
 class Menu extends TreeData {
   String id;
@@ -17,6 +18,15 @@ class Menu extends TreeData {
   String remark;
   String createTime;
   String updateTime;
+
+  toTabPage() {
+    return TabPage(
+      id: id,
+      name: name,
+      nameEn: nameEn,
+      url: url,
+    );
+  }
 
   Menu({
     this.id,
@@ -90,7 +100,7 @@ class Menu extends TreeData {
 
   factory Menu.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-  
+
     return Menu(
       id: map['id'],
       pid: map['pid'],
@@ -121,39 +131,39 @@ class Menu extends TreeData {
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
-  
+
     return o is Menu &&
-      o.id == id &&
-      o.pid == pid &&
-      o.subsystemId == subsystemId &&
-      o.checked == checked &&
-      o.name == name &&
-      o.nameEn == nameEn &&
-      o.icon == icon &&
-      o.url == url &&
-      o.pname == pname &&
-      o.orderBy == orderBy &&
-      o.module == module &&
-      o.remark == remark &&
-      o.createTime == createTime &&
-      o.updateTime == updateTime;
+        o.id == id &&
+        o.pid == pid &&
+        o.subsystemId == subsystemId &&
+        o.checked == checked &&
+        o.name == name &&
+        o.nameEn == nameEn &&
+        o.icon == icon &&
+        o.url == url &&
+        o.pname == pname &&
+        o.orderBy == orderBy &&
+        o.module == module &&
+        o.remark == remark &&
+        o.createTime == createTime &&
+        o.updateTime == updateTime;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      pid.hashCode ^
-      subsystemId.hashCode ^
-      checked.hashCode ^
-      name.hashCode ^
-      nameEn.hashCode ^
-      icon.hashCode ^
-      url.hashCode ^
-      pname.hashCode ^
-      orderBy.hashCode ^
-      module.hashCode ^
-      remark.hashCode ^
-      createTime.hashCode ^
-      updateTime.hashCode;
+        pid.hashCode ^
+        subsystemId.hashCode ^
+        checked.hashCode ^
+        name.hashCode ^
+        nameEn.hashCode ^
+        icon.hashCode ^
+        url.hashCode ^
+        pname.hashCode ^
+        orderBy.hashCode ^
+        module.hashCode ^
+        remark.hashCode ^
+        createTime.hashCode ^
+        updateTime.hashCode;
   }
 }

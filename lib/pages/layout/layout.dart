@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/pages/layout/layout_app_bar.dart';
-import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/pages/layout/layout_center.dart';
 import 'package:flutter_admin/pages/layout/layout_menu.dart';
 import 'package:flutter_admin/pages/layout/layout_setting.dart';
@@ -17,7 +17,7 @@ class Layout extends StatefulWidget {
 class _LayoutState extends State {
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
   final GlobalKey<LayoutCenterState> layoutCenterKey = GlobalKey<LayoutCenterState>();
-  final Menu menuMain = Menu(id: 'dashboard', url: '/', name: 'Dashboard', nameEn: 'Dashboard');
+  final TabPage menuMain = TabPage(id: 'dashboard', url: '/', name: 'Dashboard', nameEn: 'Dashboard');
 
   @override
   void initState() {
@@ -28,7 +28,7 @@ class _LayoutState extends State {
   Widget build(BuildContext context) => GetBuilder<LayoutController>(builder: (_) => getBuild(context));
 
   Widget getBuild(BuildContext context) {
-    var layoutMenu = LayoutMenu(onClick: (v)=>Utils.openTab(v));
+    var layoutMenu = LayoutMenu(onClick: (TabPage v) => Utils.openTab(v));
     Row body = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -56,12 +56,11 @@ class _LayoutState extends State {
         dispose: () {
           this.dispose();
         },
-        openUserInfoMine: (menu) {
-          Utils.openTab(menu);
+        openUserInfoMine: (TabPage tabPage) {
+          Utils.openTab(tabPage);
         },
       ),
     );
     return subWidget;
   }
-
 }

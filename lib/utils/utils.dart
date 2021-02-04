@@ -5,6 +5,7 @@ import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/data/data_icon.dart';
 import 'package:flutter_admin/enum/MenuDisplayType.dart';
 import 'package:flutter_admin/models/menu.dart';
+import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -12,33 +13,33 @@ import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
 
-  static openTab(Menu menu) {
+  static openTab(TabPage tabPage) {
     LayoutController layoutController = Get.find();
-    var menuOpened = layoutController.menuOpened;
-    layoutController.currentOpenedMenuId = menu.id;
-    int index = menuOpened.indexWhere((note) => note.id == menu.id);
+    var openedTabPageList = layoutController.openedTabPageList;
+    layoutController.currentOpenedTabPageId = tabPage.id;
+    int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
     if (index > -1) {
       layoutController.tabController?.animateTo(index);
       return;
     }
-    menuOpened.add(menu);
-    layoutController.updateMenuOpend(menuOpened);
+    openedTabPageList.add(tabPage);
+    layoutController.updateMenuOpend(openedTabPageList);
   }
   static closeTab(int index) {
     LayoutController layoutController = Get.find();
-    var menuOpened = layoutController.menuOpened;
-    if (index >= menuOpened.length) {
+    var openedTabPageList = layoutController.openedTabPageList;
+    if (index >= openedTabPageList.length) {
       return;
     }
-    Menu menu = menuOpened[index];
-    menuOpened.removeAt(index);
-    var length = menuOpened.length;
+    TabPage tabPage = openedTabPageList[index];
+    openedTabPageList.removeAt(index);
+    var length = openedTabPageList.length;
     if (length == 0) {
-      layoutController.currentOpenedMenuId = null;
-    } else if (layoutController.currentOpenedMenuId == menu.id) {
-      layoutController.currentOpenedMenuId = menuOpened.first.id;
+      layoutController.currentOpenedTabPageId = null;
+    } else if (layoutController.currentOpenedTabPageId == tabPage.id) {
+      layoutController.currentOpenedTabPageId = openedTabPageList.first.id;
     }
-    layoutController.updateMenuOpend(menuOpened);
+    layoutController.updateMenuOpend(openedTabPageList);
   }
 
   static isLocalEn(BuildContext context) {

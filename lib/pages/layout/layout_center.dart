@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/common/routes.dart';
-import 'package:flutter_admin/models/menu.dart';
+import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/pages/common/keep_alive_wrapper.dart';
-import 'package:flutter_admin/pages/common/page_404.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
 
 class LayoutCenter extends StatefulWidget {
   LayoutCenter({Key key, this.initPage}) : super(key: key);
-  final Menu initPage;
+  final TabPage initPage;
 
   @override
   LayoutCenterState createState() => LayoutCenterState();
@@ -34,15 +33,15 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
   @override
   Widget build(BuildContext context) {
     TabController tabController = layoutController.tabController;
-    var menuOpened = layoutController.menuOpened;
-    var length = menuOpened.length;
+    var openedTabPageList = layoutController.openedTabPageList;
+    var length = openedTabPageList.length;
     if (length == 0) {
       return Container();
     }
-    int index = menuOpened.indexWhere((note) => note.id == layoutController.currentOpenedMenuId);
-    pages = menuOpened.map((Menu menu) {
-      var page = layoutRoutesData[menu.url];
-      return KeepAliveWrapper(child: page ?? Page404());
+    int index = openedTabPageList.indexWhere((note) => note.id == layoutController.currentOpenedTabPageId);
+    pages = openedTabPageList.map((TabPage tabPage) {
+      var page = tabPage.url != null ? layoutRoutesData[tabPage.url] ?? Container() : tabPage.widget ?? Container();
+      return KeepAliveWrapper(child: page);
     }).toList();
 
     int tabIndex = tabController?.index ?? 0;
@@ -52,7 +51,7 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
     layoutController.tabController = tabController;
     tabController.addListener(() {
       if (tabController.indexIsChanging) {
-        layoutController.updateCurrentOpendMenuId(menuOpened[tabController.index].id);
+        layoutController.updateCurrentOpendMenuId(openedTabPageList[tabController.index].id);
       }
     });
 
@@ -60,15 +59,15 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
       controller: tabController,
       isScrollable: true,
       indicator: const UnderlineTabIndicator(),
-      tabs: menuOpened.map<Tab>((Menu menu) {
+      tabs: openedTabPageList.map<Tab>((TabPage tabPage) {
         return Tab(
           child: Row(
             children: <Widget>[
-              Text(Utils.isLocalEn(context) ? menu.nameEn ?? '' : menu.name ?? ''),
+              Text(Utils.isLocalEn(context) ? tabPage.nameEn ?? '' : tabPage.name ?? ''),
               SizedBox(width: 3),
               InkWell(
                 child: Icon(Icons.close, size: 10),
-                onTap: () => Utils.closeTab(menuOpened.indexOf(menu)),
+                onTap: () => Utils.closeTab(openedTabPageList.indexOf(tabPage)),
               ),
             ],
           ),
@@ -115,5 +114,4 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
     );
     return result;
   }
-
 }
