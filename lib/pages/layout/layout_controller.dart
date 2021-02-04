@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_admin/enum/MenuDisplayType.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:get/get.dart';
 
 class LayoutController extends GetxController {
+  TabController tabController;
   MenuDisplayType menuDisplayType;
   String currentOpenedMenuId;
   List<Menu> menuOpened = [];

@@ -28,7 +28,7 @@ class _LayoutState extends State {
   Widget build(BuildContext context) => GetBuilder<LayoutController>(builder: (_) => getBuild(context));
 
   Widget getBuild(BuildContext context) {
-    var layoutMenu = LayoutMenu(onClick: _openPage);
+    var layoutMenu = LayoutMenu(onClick: (v)=>Utils.openTab(v));
     Row body = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -57,14 +57,11 @@ class _LayoutState extends State {
           this.dispose();
         },
         openUserInfoMine: (menu) {
-          _openPage(menu);
+          Utils.openTab(menu);
         },
       ),
     );
     return subWidget;
   }
 
-  _openPage(Menu menu) {
-    layoutCenterKey.currentState.openPage(menu);
-  }
 }

@@ -11,6 +11,19 @@ import 'package:get_storage/get_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
+
+  static openTab(Menu menu) {
+    LayoutController layoutController = Get.find();
+    var menuOpened = layoutController.menuOpened;
+    layoutController.currentOpenedMenuId = menu.id;
+    int index = menuOpened.indexWhere((note) => note.id == menu.id);
+    if (index > -1) {
+      layoutController.tabController?.animateTo(index);
+      return;
+    }
+    menuOpened.add(menu);
+    layoutController.updateMenuOpend(menuOpened);
+  }
   static closeTab(int index) {
     LayoutController layoutController = Get.find();
     var menuOpened = layoutController.menuOpened;

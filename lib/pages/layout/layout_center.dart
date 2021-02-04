@@ -16,7 +16,6 @@ class LayoutCenter extends StatefulWidget {
 }
 
 class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixin {
-  TabController tabController;
   Container content = Container();
   List<Widget> pages;
   LayoutController layoutController = Get.find();
@@ -24,7 +23,9 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
   @override
   void initState() {
     if (widget.initPage != null) {
-      openPage(widget.initPage);
+      WidgetsBinding.instance.addPostFrameCallback((c) {
+        Utils.openTab(widget.initPage);
+      });
     }
 
     super.initState();
@@ -32,13 +33,14 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
 
   @override
   Widget build(BuildContext context) {
+    TabController tabController = layoutController.tabController;
     var menuOpened = layoutController.menuOpened;
     var length = menuOpened.length;
     if (length == 0) {
       return Container();
     }
     int index = menuOpened.indexWhere((note) => note.id == layoutController.currentOpenedMenuId);
-    pages = menuOpened.map((menu) {
+    pages = menuOpened.map((Menu menu) {
       var page = layoutRoutesData[menu.url];
       return KeepAliveWrapper(child: page ?? Page404());
     }).toList();
@@ -47,6 +49,7 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
     int initialIndex = tabIndex > length - 1 ? length - 1 : tabIndex;
     tabController?.dispose();
     tabController = TabController(vsync: this, length: pages.length, initialIndex: initialIndex);
+    layoutController.tabController = tabController;
     tabController.addListener(() {
       if (tabController.indexIsChanging) {
         layoutController.updateCurrentOpendMenuId(menuOpened[tabController.index].id);
@@ -113,15 +116,4 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
     return result;
   }
 
-  openPage(Menu menu) {
-    var menuOpened = layoutController.menuOpened;
-    layoutController.currentOpenedMenuId = menu.id;
-    int index = menuOpened.indexWhere((note) => note.id == menu.id);
-    if (index > -1) {
-      tabController?.animateTo(index);
-      return;
-    }
-    menuOpened.add(menu);
-    setState(() {});
-  }
 }
