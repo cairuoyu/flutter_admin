@@ -11,6 +11,23 @@ import 'package:get_storage/get_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
+  static closeTab(int index) {
+    LayoutController layoutController = Get.find();
+    var menuOpened = layoutController.menuOpened;
+    if (index >= menuOpened.length) {
+      return;
+    }
+    Menu menu = menuOpened[index];
+    menuOpened.removeAt(index);
+    var length = menuOpened.length;
+    if (length == 0) {
+      layoutController.currentOpenedMenuId = null;
+    } else if (layoutController.currentOpenedMenuId == menu.id) {
+      layoutController.currentOpenedMenuId = menuOpened.first.id;
+    }
+    layoutController.updateMenuOpend(menuOpened);
+  }
+
   static isLocalEn(BuildContext context) {
     return Get.locale?.languageCode == 'en';
   }
@@ -84,6 +101,7 @@ class Utils {
     // IconData iconData = IconData(int.parse(icon), fontFamily: 'MaterialIcons');
     return iconMap[icon] ?? Icons.menu;
   }
+
   static List<Menu> getMenuTree() {
     var data = GetStorage().read(Constant.KEY_MENU_LIST);
     return List.from(data).map((e) => Menu.fromMap(e)).toList();

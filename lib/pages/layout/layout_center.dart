@@ -20,7 +20,6 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
   Container content = Container();
   List<Widget> pages;
   LayoutController layoutController = Get.find();
-  List<Menu> menuOpened = [];
 
   @override
   void initState() {
@@ -33,6 +32,7 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
 
   @override
   Widget build(BuildContext context) {
+    var menuOpened = layoutController.menuOpened;
     var length = menuOpened.length;
     if (length == 0) {
       return Container();
@@ -65,7 +65,7 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
               SizedBox(width: 3),
               InkWell(
                 child: Icon(Icons.close, size: 10),
-                onTap: () => _closePage(menu),
+                onTap: () => Utils.closeTab(menuOpened.indexOf(menu)),
               ),
             ],
           ),
@@ -113,18 +113,8 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
     return result;
   }
 
-  _closePage(menu) {
-    menuOpened.remove(menu);
-    var length = menuOpened.length;
-    if (length == 0) {
-      layoutController.currentOpenedMenuId = null;
-    } else if (layoutController.currentOpenedMenuId == menu.id) {
-      layoutController.currentOpenedMenuId = menuOpened[0].id;
-    }
-    setState(() {});
-  }
-
   openPage(Menu menu) {
+    var menuOpened = layoutController.menuOpened;
     layoutController.currentOpenedMenuId = menu.id;
     int index = menuOpened.indexWhere((note) => note.id == menu.id);
     if (index > -1) {
