@@ -1,10 +1,14 @@
+import 'package:cry/cry_menu.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/common/routes.dart';
+import 'package:flutter_admin/enum/MenuDisplayType.dart';
 import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/pages/common/keep_alive_wrapper.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
+import 'package:universal_html/html.dart';
 
 class LayoutCenter extends StatefulWidget {
   LayoutCenter({Key key, this.initPage}) : super(key: key);
@@ -60,14 +64,41 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
       isScrollable: true,
       indicator: const UnderlineTabIndicator(),
       tabs: openedTabPageList.map<Tab>((TabPage tabPage) {
+        var tabContent = Row(
+          children: <Widget>[
+            Text(Utils.isLocalEn(context) ? tabPage.nameEn ?? '' : tabPage.name ?? ''),
+            SizedBox(width: 3),
+            InkWell(
+              child: Icon(Icons.close, size: 10),
+              onTap: () => Utils.closeTab(tabPage),
+            ),
+          ],
+        );
         return Tab(
-          child: Row(
-            children: <Widget>[
-              Text(Utils.isLocalEn(context) ? tabPage.nameEn ?? '' : tabPage.name ?? ''),
-              SizedBox(width: 3),
-              InkWell(
-                child: Icon(Icons.close, size: 10),
-                onTap: () => Utils.closeTab(openedTabPageList.indexOf(tabPage)),
+          child: CryMenu(
+            child: tabContent,
+            onSelected: (v) {
+              switch (v) {
+                case TabMenuOption.closeAll:
+                  Utils.closeAllTab();
+                  break;
+                case TabMenuOption.closeOthers:
+                  Utils.closeOtherTab(tabPage);
+                  break;
+              }
+            },
+            itemBuilder: (context) => <PopupMenuEntry<TabMenuOption>>[
+              PopupMenuItem(
+                value: TabMenuOption.closeAll,
+                child: ListTile(
+                  title: Text('Close All'),
+                ),
+              ),
+              PopupMenuItem(
+                value: TabMenuOption.closeOthers,
+                child: ListTile(
+                  title: Text('Close Others'),
+                ),
               ),
             ],
           ),

@@ -12,10 +12,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
-
   static openTab(TabPage tabPage) {
     LayoutController layoutController = Get.find();
-    var openedTabPageList = layoutController.openedTabPageList;
+    List<TabPage> openedTabPageList = layoutController.openedTabPageList;
     layoutController.currentOpenedTabPageId = tabPage.id;
     int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
     if (index > -1) {
@@ -25,9 +24,17 @@ class Utils {
     openedTabPageList.add(tabPage);
     layoutController.updateMenuOpend(openedTabPageList);
   }
-  static closeTab(int index) {
+
+  static closeTab(TabPage tabPage) {
     LayoutController layoutController = Get.find();
-    var openedTabPageList = layoutController.openedTabPageList;
+    List<TabPage> openedTabPageList = layoutController.openedTabPageList;
+    int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
+    closeTabByIndex(index);
+  }
+
+  static closeTabByIndex(int index) {
+    LayoutController layoutController = Get.find();
+    List<TabPage> openedTabPageList = layoutController.openedTabPageList;
     if (index >= openedTabPageList.length) {
       return;
     }
@@ -39,6 +46,22 @@ class Utils {
     } else if (layoutController.currentOpenedTabPageId == tabPage.id) {
       layoutController.currentOpenedTabPageId = openedTabPageList.first.id;
     }
+    layoutController.updateMenuOpend(openedTabPageList);
+  }
+
+  static closeAllTab() {
+    LayoutController layoutController = Get.find();
+    List<TabPage> openedTabPageList = layoutController.openedTabPageList;
+    openedTabPageList.clear();
+    layoutController.currentOpenedTabPageId = null;
+    layoutController.updateMenuOpend(openedTabPageList);
+  }
+
+  static closeOtherTab(TabPage tabPage) {
+    LayoutController layoutController = Get.find();
+    List<TabPage> openedTabPageList = layoutController.openedTabPageList;
+    openedTabPageList.removeWhere((element) => element.id != tabPage.id);
+    layoutController.currentOpenedTabPageId = tabPage.id;
     layoutController.updateMenuOpend(openedTabPageList);
   }
 
