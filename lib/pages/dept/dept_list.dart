@@ -7,7 +7,7 @@ import 'package:cry/model/response_body_api.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/dept_api.dart';
-import 'package:flutter_admin/enum/MenuDisplayType.dart';
+import 'package:flutter_admin/constants/enum.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dept.dart';
 import 'package:flutter_admin/pages/dept/dept_edit.dart';

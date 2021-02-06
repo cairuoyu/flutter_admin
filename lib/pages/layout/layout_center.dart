@@ -2,7 +2,7 @@ import 'package:cry/cry_menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/common/routes.dart';
-import 'package:flutter_admin/enum/MenuDisplayType.dart';
+import 'package:flutter_admin/constants/enum.dart';
 import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/pages/common/keep_alive_wrapper.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
@@ -85,6 +85,12 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
                 case TabMenuOption.closeOthers:
                   Utils.closeOtherTab(tabPage);
                   break;
+                case TabMenuOption.closeAllToTheRight:
+                  Utils.closeAllToTheRightTab(tabPage);
+                  break;
+                case TabMenuOption.closeAllToTheLeft:
+                  Utils.closeAllToTheLeftTab(tabPage);
+                  break;
               }
             },
             itemBuilder: (context) => <PopupMenuEntry<TabMenuOption>>[
@@ -98,6 +104,18 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
                 value: TabMenuOption.closeOthers,
                 child: ListTile(
                   title: Text('Close Others'),
+                ),
+              ),
+              PopupMenuItem(
+                value: TabMenuOption.closeAllToTheRight,
+                child: ListTile(
+                  title: Text('Close All to the Right'),
+                ),
+              ),
+              PopupMenuItem(
+                value: TabMenuOption.closeAllToTheLeft,
+                child: ListTile(
+                  title: Text('Close All to the Left'),
                 ),
               ),
             ],

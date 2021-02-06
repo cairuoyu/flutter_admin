@@ -2,8 +2,8 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/constants/constant.dart';
+import 'package:flutter_admin/constants/enum.dart';
 import 'package:flutter_admin/data/data_icon.dart';
-import 'package:flutter_admin/enum/MenuDisplayType.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
@@ -61,6 +61,24 @@ class Utils {
     LayoutController layoutController = Get.find();
     List<TabPage> openedTabPageList = layoutController.openedTabPageList;
     openedTabPageList.removeWhere((element) => element.id != tabPage.id);
+    layoutController.currentOpenedTabPageId = tabPage.id;
+    layoutController.updateMenuOpend(openedTabPageList);
+  }
+
+  static closeAllToTheRightTab(TabPage tabPage) {
+    LayoutController layoutController = Get.find();
+    List<TabPage> openedTabPageList = layoutController.openedTabPageList;
+    int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
+    openedTabPageList.removeRange(index + 1, openedTabPageList.length);
+    layoutController.currentOpenedTabPageId = tabPage.id;
+    layoutController.updateMenuOpend(openedTabPageList);
+  }
+
+  static closeAllToTheLeftTab(TabPage tabPage) {
+    LayoutController layoutController = Get.find();
+    List<TabPage> openedTabPageList = layoutController.openedTabPageList;
+    int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
+    openedTabPageList.removeRange(0, index);
     layoutController.currentOpenedTabPageId = tabPage.id;
     layoutController.updateMenuOpend(openedTabPageList);
   }

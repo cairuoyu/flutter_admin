@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/enum/MenuDisplayType.dart';
+import 'package:flutter_admin/constants/enum.dart';
 import 'package:flutter_admin/models/tab_page.dart';
 import 'package:get/get.dart';
 
