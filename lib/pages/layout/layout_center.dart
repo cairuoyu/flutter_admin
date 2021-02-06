@@ -52,6 +52,7 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
     int initialIndex = tabIndex > length - 1 ? length - 1 : tabIndex;
     tabController?.dispose();
     tabController = TabController(vsync: this, length: pages.length, initialIndex: initialIndex);
+    tabController.animateTo(index);
     layoutController.tabController = tabController;
     tabController.addListener(() {
       if (tabController.indexIsChanging) {
@@ -133,7 +134,6 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
       ),
     );
 
-    tabController.animateTo(index);
     var result = Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

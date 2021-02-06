@@ -15,6 +15,7 @@ class LayoutSetting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LayoutController layoutController = Get.find();
     var picker = BlockPicker(
       pickerColor: Get.theme.primaryColor,
       onColorChanged: (v) {
@@ -26,9 +27,8 @@ class LayoutSetting extends StatelessWidget {
         SelectOptionVO(value: MenuDisplayType.drawer, label: S.of(context).drawer),
         SelectOptionVO(value: MenuDisplayType.side, label: S.of(context).side),
       ],
-      defaultValue: MenuDisplayType.side,
+      defaultValue: layoutController.menuDisplayType,
       afterOnPress: (Object v) {
-        LayoutController layoutController = Get.find();
         layoutController.updateMenuDisplayType(v);
       },
     );

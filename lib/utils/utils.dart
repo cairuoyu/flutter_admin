@@ -84,7 +84,7 @@ class Utils {
   }
 
   static isLocalEn(BuildContext context) {
-    return Get.locale?.languageCode == 'en';
+    return (Get.locale ?? Get.deviceLocale).languageCode == 'en';
   }
 
   static isMenuDisplayTypeDrawer(BuildContext context) {

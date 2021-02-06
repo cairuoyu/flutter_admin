@@ -19,7 +19,7 @@ class LangSwitchState extends State<LangSwitch> {
         SelectOptionVO(value: 'en', label: 'english'),
         SelectOptionVO(value: 'zh', label: '中文'),
       ],
-      defaultValue: Get.deviceLocale.languageCode,
+      defaultValue: (Get.locale ?? Get.deviceLocale).languageCode,
       afterOnPress: (v) {
         Get.updateLocale(Locale(v));
       },

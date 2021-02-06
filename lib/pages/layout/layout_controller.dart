@@ -5,12 +5,13 @@ import 'package:get/get.dart';
 
 class LayoutController extends GetxController {
   TabController tabController;
-  MenuDisplayType menuDisplayType;
+  MenuDisplayType menuDisplayType = MenuDisplayType.side;
   String currentOpenedTabPageId;
   List<TabPage> openedTabPageList = [];
 
   init() {
     currentOpenedTabPageId = null;
+    openedTabPageList = [];
   }
 
   updateMenuDisplayType(v) {
