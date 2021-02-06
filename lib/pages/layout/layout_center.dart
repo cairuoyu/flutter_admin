@@ -8,7 +8,6 @@ import 'package:flutter_admin/pages/common/keep_alive_wrapper.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
-import 'package:universal_html/html.dart';
 
 class LayoutCenter extends StatefulWidget {
   LayoutCenter({Key key, this.initPage}) : super(key: key);
@@ -80,6 +79,9 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
             child: tabContent,
             onSelected: (v) {
               switch (v) {
+                case TabMenuOption.close:
+                  Utils.closeTab(tabPage);
+                  break;
                 case TabMenuOption.closeAll:
                   Utils.closeAllTab();
                   break;
@@ -95,6 +97,12 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
               }
             },
             itemBuilder: (context) => <PopupMenuEntry<TabMenuOption>>[
+              PopupMenuItem(
+                value: TabMenuOption.close,
+                child: ListTile(
+                  title: Text('Close'),
+                ),
+              ),
               PopupMenuItem(
                 value: TabMenuOption.closeAll,
                 child: ListTile(

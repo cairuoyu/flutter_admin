@@ -78,7 +78,9 @@ flutter run -d chrome
 ## live demo
 http://www.cairuoyu.com/flutter_admin
 
-
+### web
+![image](http://cairuoyu.com/screenshots/flutter_admin1.gif)
+![image](http://cairuoyu.com/screenshots/flutter_admin2.gif)
 ![image](http://cairuoyu.com/screenshots/flutter_admin_login.png)
 ![image](http://cairuoyu.com/screenshots/flutter_admin_dashboard.png)
 ![image](http://cairuoyu.com/screenshots/flutter_admin_setting.png)
@@ -86,8 +88,12 @@ http://www.cairuoyu.com/flutter_admin
 ![image](http://cairuoyu.com/screenshots/flutter_admin_personEdit.png)
 ![image](http://cairuoyu.com/screenshots/flutter_admin_menu.png)
 
+### android
 <img src="http://cairuoyu.com/screenshots/flutter_admin_dashboard_app.png" width="50%"/>
 <img src="http://cairuoyu.com/screenshots/flutter_admin_setting_app.png" width="50%"/>
+
+### windows
+![image](http://cairuoyu.com/screenshots/flutter_admin_windows.png)
 
 ## Join Discussion Group
 ### Wechat
