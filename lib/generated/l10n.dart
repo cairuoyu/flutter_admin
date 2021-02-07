@@ -954,6 +954,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Admin`
+  String get admin {
+    return Intl.message(
+      'Admin',
+      name: 'admin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register other users to experience the menu permissions`
+  String get loginTip {
+    return Intl.message(
+      'Register other users to experience the menu permissions',
+      name: 'loginTip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Collapse`
+  String get collapse {
+    return Intl.message(
+      'Collapse',
+      name: 'collapse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Expand`
+  String get expand {
+    return Intl.message(
+      'Expand',
+      name: 'expand',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Short Name`
+  String get nameShort {
+    return Intl.message(
+      'Short Name',
+      name: 'nameShort',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Function`
+  String get fun {
+    return Intl.message(
+      'Function',
+      name: 'fun',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Header`
+  String get header {
+    return Intl.message(
+      'Header',
+      name: 'header',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

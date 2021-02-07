@@ -90,5 +90,12 @@
   "success": "Success",
   "subsystemList": "Sub System List",
   "menuManagement" : "Menu Management",
-  "menuTile" : "Select the subsystem for menu management"
+  "menuTile" : "Select the subsystem for menu management",
+  "admin": "Admin",
+  "loginTip": "Register other users to experience the menu permissions",
+  "collapse": "Collapse",
+  "expand": "Expand",
+  "nameShort": "Short Name",
+  "fun": "Function",
+  "header": "Header"
 }

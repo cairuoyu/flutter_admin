@@ -76,7 +76,7 @@
   "enable": "启用",
   "disable": "禁用",
   "dictItemCode": "字典项代码",
-  "dictItemName": "字典项名称",
+  "dictItemName": "字典项名",
   "completeTheTableData": "请完善表格数据",
   "leaveMessage": "给我留言",
   "allMessage": "所有留言",
@@ -88,6 +88,13 @@
   "exportExcel": "导出Excel",
   "success": "操作成功",
   "subsystemList": "子系统列表",
-  "menuManagement" : "菜单管理",
-  "menuTile" : "选择子系统进行菜单管理"
+  "menuManagement": "菜单管理",
+  "menuTile": "选择子系统进行菜单管理",
+  "admin": "管理员",
+  "loginTip": "注册其它用户可体验菜单权限",
+  "collapse": "合并",
+  "expand": "展开",
+  "nameShort": "简称",
+  "fun": "职能",
+  "header": "部门领导"
 }

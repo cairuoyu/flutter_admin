@@ -39,7 +39,7 @@ class _DeptListState extends State<DeptList> {
       child: Wrap(
         children: [
           CryInput(
-            label: '部门名称',
+            label: S.of(context).name,
             value: dept.name,
             onSaved: (v) {
               dept.name = v;
@@ -64,7 +64,7 @@ class _DeptListState extends State<DeptList> {
         CryButtons.add(context, () => toEdit(null)),
         CryButton(
           iconData: Icons.vertical_align_center,
-          label: '合并',
+          label: S.of(context).collapse,
           onPressed: () {
             setState(() {
               treeController.collapseAll();
@@ -73,7 +73,7 @@ class _DeptListState extends State<DeptList> {
         ),
         CryButton(
           iconData: Icons.expand,
-          label: '展开',
+          label: S.of(context).expand,
           onPressed: () {
             setState(() {
               treeController.expandAll();

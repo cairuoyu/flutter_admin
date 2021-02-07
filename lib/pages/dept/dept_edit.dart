@@ -35,7 +35,7 @@ class _DeptEditState extends State<DeptEdit> {
       child: Wrap(
         children: [
           CryInput(
-            label: '部门名称',
+            label: S.of(context).name,
             required: true,
             value: dept.name,
             onSaved: (v) {
@@ -43,14 +43,14 @@ class _DeptEditState extends State<DeptEdit> {
             },
           ),
           CryInput(
-            label: '部门简称',
+            label: S.of(context).nameShort,
             value: dept.nameShort,
             onSaved: (v) {
               dept.nameShort = v;
             },
           ),
           CrySelect(
-            label: '部门职能',
+            label: S.of(context).fun,
             dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT_FUN),
             value: dept.fun,
             onSaved: (v) {
@@ -58,21 +58,21 @@ class _DeptEditState extends State<DeptEdit> {
             },
           ),
           CryInput(
-            label: '部门领导',
+            label: S.of(context).header,
             value: dept.headerId,
             onSaved: (v) {
               dept.headerId = v;
             },
           ),
           CryInputNum(
-            label: '排序号',
+            label: S.of(context).sequenceNumber,
             value: dept.orderBy,
             onSaved: (v) {
               dept.orderBy = v;
             },
           ),
           CryInput(
-            label: '备注',
+            label: S.of(context).remarks,
             value: dept.remark,
             onSaved: (v) {
               dept.remark = v;

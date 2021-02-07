@@ -57,8 +57,8 @@ class _LoginState extends State<Login> {
           _buildLoginForm(),
           Column(
             children: [
-              Text('管理员：admin/admin'),
-              Text('注册其它用户可体验菜单权限'),
+              Text(S.of(context).admin + '：admin/admin'),
+              Text(S.of(context).loginTip),
             ],
           )
         ],
