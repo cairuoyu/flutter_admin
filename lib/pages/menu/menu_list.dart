@@ -81,7 +81,7 @@ class _MenuListState extends State<MenuList> {
     var data = responseBodyApi.data;
     List<Menu> list = List.from(data).map((e) => Menu.fromMap(e)).toList();
     this.treeVOList = TreeUtil.toTreeVOList(list);
-    this.setState(() {});
+    if (mounted) this.setState(() {});
   }
 
   _onEdit(Menu menu) {

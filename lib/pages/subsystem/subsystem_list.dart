@@ -64,6 +64,6 @@ class _SubsystemListState extends State<SubsystemList> {
   _loadData() async {
     ResponseBodyApi responseBodyApi = await SubsystemApi.list(RequestBodyApi(params: this.subsystemVO.toMap()).toMap());
     subsystemList = List.from(responseBodyApi.data).map((e) => Subsystem.fromMap(e)).toList();
-    setState(() {});
+    if (mounted) this.setState(() {});
   }
 }

@@ -196,7 +196,7 @@ class _UserInfoListState extends State<UserInfoList> {
     BotToast.closeAllLoading();
     page = responseBodyApi.data != null ? PageModel.fromMap(responseBodyApi.data) : PageModel();
 
-    setState(() {});
+    if (mounted) this.setState(() {});
   }
 
   _sort(column, {ascending}) {

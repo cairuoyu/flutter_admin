@@ -111,7 +111,7 @@ class _DeptListState extends State<DeptList> {
     List<Dept> list = List.from(data).map((e) => Dept.fromMap(e)).toList();
     List<TreeVO<Dept>> treeVOList = TreeUtil.toTreeVOList(list);
     treeNodeList = toTreeNodeList(treeVOList);
-    this.setState(() {});
+    if (mounted) this.setState(() {});
   }
 
   List<TreeNode> toTreeNodeList(List<TreeVO<Dept>> treeVOList) {

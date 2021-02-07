@@ -64,7 +64,7 @@ class PersonListState extends State {
     myDS.state = this;
     myDS.page.size = rowsPerPage;
     myDS.addListener(() {
-      setState(() {});
+      if (mounted) this.setState(() {});
     });
     WidgetsBinding.instance.addPostFrameCallback((c) {
       _query();

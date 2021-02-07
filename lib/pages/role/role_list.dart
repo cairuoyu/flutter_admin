@@ -186,7 +186,7 @@ class _RoleListState extends State<RoleList> {
     BotToast.closeAllLoading();
     page = responseBodyApi.data != null ? PageModel.fromMap(responseBodyApi.data) : PageModel();
 
-    setState(() {});
+    if (mounted) this.setState(() {});
   }
 
   _sort(column, ascending) {
