@@ -44,7 +44,7 @@ class _UserInfoListState extends State<UserInfoList> {
         children: <Widget>[
           CryInput(
             width: 400,
-            label: S.of(context).username,
+            label: S.of(context).name,
             value: userInfo.name,
             onSaved: (v) {
               userInfo.name = v;
@@ -53,8 +53,8 @@ class _UserInfoListState extends State<UserInfoList> {
           CrySelectCustomWidget<Dept>(
             context,
             width: 400,
-            value: Dept(id: userInfo.id, name: userInfo.deptName),
-            valueLabel: userInfo.deptName,
+            initialValue: Dept(id: userInfo.id, name: userInfo.deptName),
+            // valueLabel: 'a',
             label: S.of(context).personDepartment,
             popWidget: DeptSelector(),
             getValueLabel: (Dept d) => d.name,
@@ -133,11 +133,7 @@ class _UserInfoListState extends State<UserInfoList> {
             ConstantDict.CODE_GENDER,
           ))),
           DataCell(Text(userInfo.birthday ?? '--')),
-          DataCell(Text(DictUtil.getDictItemName(
-            userInfo.deptId,
-            ConstantDict.CODE_DEPT,
-            defaultValue: '--',
-          ))),
+          DataCell(Text(userInfo.deptName ?? '--')),
           DataCell(Text(userInfo.createTime ?? '--')),
           DataCell(Text(userInfo.updateTime ?? '--')),
         ];
@@ -190,6 +186,7 @@ class _UserInfoListState extends State<UserInfoList> {
 
   _reset() {
     userInfo = UserInfo();
+    formKey.currentState.reset();
     _loadData();
   }
 

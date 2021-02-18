@@ -77,8 +77,8 @@ class _UserInfoEditState extends State<UserInfoEdit> {
           CrySelectCustomWidget(
             context,
             label: S.of(context).personDepartment,
-            valueLabel: userInfo.deptName,
-            value: userInfo.deptId,
+            initialValue: userInfo.deptId,
+            initialValueLabel: userInfo.deptName,
             popWidget: DeptSelector(),
             getValueLabel: (Dept d) => d.name,
             getValue: (Dept d) => d.id,
