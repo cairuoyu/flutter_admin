@@ -1,28 +1,28 @@
 import 'dart:convert';
 
-
-
 class UserInfo {
-    bool selected;
-    String id;
-    String userId;
-    String nickName;
-    String avatarUrl;
-    String gender;
-    String country;
-    String province;
-    String city;
-    String name;
-    String school;
-    String major;
-    String birthday;
-    String entrance;
-    String hometown;
-    String memo;
-    String deptId;
-    String createTime;
-    String updateTime;
-    String userName;
+  bool selected;
+  String id;
+  String userId;
+  String nickName;
+  String avatarUrl;
+  String gender;
+  String country;
+  String province;
+  String city;
+  String name;
+  String school;
+  String major;
+  String birthday;
+  String entrance;
+  String hometown;
+  String memo;
+  String deptId;
+  String deptName;
+  String createTime;
+  String updateTime;
+  String userName;
+
   UserInfo({
     this.selected,
     this.id,
@@ -41,11 +41,11 @@ class UserInfo {
     this.hometown,
     this.memo,
     this.deptId,
+    this.deptName,
     this.createTime,
     this.updateTime,
     this.userName,
   });
-    
 
   UserInfo copyWith({
     bool selected,
@@ -65,6 +65,7 @@ class UserInfo {
     String hometown,
     String memo,
     String deptId,
+    String deptName,
     String createTime,
     String updateTime,
     String userName,
@@ -87,6 +88,7 @@ class UserInfo {
       hometown: hometown ?? this.hometown,
       memo: memo ?? this.memo,
       deptId: deptId ?? this.deptId,
+      deptName: deptName ?? this.deptName,
       createTime: createTime ?? this.createTime,
       updateTime: updateTime ?? this.updateTime,
       userName: userName ?? this.userName,
@@ -112,6 +114,7 @@ class UserInfo {
       'hometown': hometown,
       'memo': memo,
       'deptId': deptId,
+      'deptName': deptName,
       'createTime': createTime,
       'updateTime': updateTime,
       'userName': userName,
@@ -120,7 +123,7 @@ class UserInfo {
 
   factory UserInfo.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-  
+
     return UserInfo(
       selected: map['selected'],
       id: map['id'],
@@ -139,6 +142,7 @@ class UserInfo {
       hometown: map['hometown'],
       memo: map['memo'],
       deptId: map['deptId'],
+      deptName: map['deptName'],
       createTime: map['createTime'],
       updateTime: map['updateTime'],
       userName: map['userName'],
@@ -151,57 +155,59 @@ class UserInfo {
 
   @override
   String toString() {
-    return 'UserInfo(selected: $selected, id: $id, userId: $userId, nickName: $nickName, avatarUrl: $avatarUrl, gender: $gender, country: $country, province: $province, city: $city, name: $name, school: $school, major: $major, birthday: $birthday, entrance: $entrance, hometown: $hometown, memo: $memo, deptId: $deptId, createTime: $createTime, updateTime: $updateTime, userName: $userName)';
+    return 'UserInfo(selected: $selected, id: $id, userId: $userId, nickName: $nickName, avatarUrl: $avatarUrl, gender: $gender, country: $country, province: $province, city: $city, name: $name, school: $school, major: $major, birthday: $birthday, entrance: $entrance, hometown: $hometown, memo: $memo, deptId: $deptId, deptName: $deptName, createTime: $createTime, updateTime: $updateTime, userName: $userName)';
   }
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
-  
+
     return o is UserInfo &&
-      o.selected == selected &&
-      o.id == id &&
-      o.userId == userId &&
-      o.nickName == nickName &&
-      o.avatarUrl == avatarUrl &&
-      o.gender == gender &&
-      o.country == country &&
-      o.province == province &&
-      o.city == city &&
-      o.name == name &&
-      o.school == school &&
-      o.major == major &&
-      o.birthday == birthday &&
-      o.entrance == entrance &&
-      o.hometown == hometown &&
-      o.memo == memo &&
-      o.deptId == deptId &&
-      o.createTime == createTime &&
-      o.updateTime == updateTime &&
-      o.userName == userName;
+        o.selected == selected &&
+        o.id == id &&
+        o.userId == userId &&
+        o.nickName == nickName &&
+        o.avatarUrl == avatarUrl &&
+        o.gender == gender &&
+        o.country == country &&
+        o.province == province &&
+        o.city == city &&
+        o.name == name &&
+        o.school == school &&
+        o.major == major &&
+        o.birthday == birthday &&
+        o.entrance == entrance &&
+        o.hometown == hometown &&
+        o.memo == memo &&
+        o.deptId == deptId &&
+        o.deptName == deptName &&
+        o.createTime == createTime &&
+        o.updateTime == updateTime &&
+        o.userName == userName;
   }
 
   @override
   int get hashCode {
     return selected.hashCode ^
-      id.hashCode ^
-      userId.hashCode ^
-      nickName.hashCode ^
-      avatarUrl.hashCode ^
-      gender.hashCode ^
-      country.hashCode ^
-      province.hashCode ^
-      city.hashCode ^
-      name.hashCode ^
-      school.hashCode ^
-      major.hashCode ^
-      birthday.hashCode ^
-      entrance.hashCode ^
-      hometown.hashCode ^
-      memo.hashCode ^
-      deptId.hashCode ^
-      createTime.hashCode ^
-      updateTime.hashCode ^
-      userName.hashCode;
+        id.hashCode ^
+        userId.hashCode ^
+        nickName.hashCode ^
+        avatarUrl.hashCode ^
+        gender.hashCode ^
+        country.hashCode ^
+        province.hashCode ^
+        city.hashCode ^
+        name.hashCode ^
+        school.hashCode ^
+        major.hashCode ^
+        birthday.hashCode ^
+        entrance.hashCode ^
+        hometown.hashCode ^
+        memo.hashCode ^
+        deptId.hashCode ^
+        deptName.hashCode ^
+        createTime.hashCode ^
+        updateTime.hashCode ^
+        userName.hashCode;
   }
 }

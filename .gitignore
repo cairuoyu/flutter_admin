@@ -1,6 +1,7 @@
 .idea/
 .vscode/
 .dart_tool/
+.gradle/
 .packages
 /build/
 /android/

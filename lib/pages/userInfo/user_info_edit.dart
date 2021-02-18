@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/form/cry_select.dart';
+import 'package:cry/form/cry_select_custom_widget.dart';
 import 'package:cry/form/cry_select_date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,9 @@ import 'package:flutter_admin/api/user_info_api.dart';
 import 'package:cry/cry_button.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:cry/model/response_body_api.dart';
+import 'package:flutter_admin/models/dept.dart';
 import 'package:flutter_admin/models/user_info.dart';
+import 'package:flutter_admin/pages/common/dept_selector.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 import '../../generated/l10n.dart';
 
@@ -44,7 +47,8 @@ class _UserInfoEditState extends State<UserInfoEdit> {
             label: S.of(context).username,
             value: userInfo.userName,
             onSaved: (v) => {userInfo.userName = v},
-            validator: (v) => this.isAdd && v.isEmpty ? S.of(context).required : null,
+            validator: (v) =>
+                this.isAdd && v.isEmpty ? S.of(context).required : null,
             enable: this.isAdd,
           ),
           CryInput(
@@ -65,16 +69,23 @@ class _UserInfoEditState extends State<UserInfoEdit> {
           ),
           CrySelect(
             label: S.of(context).personGender,
-            dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_GENDER),
+            dataList:
+                DictUtil.getDictSelectOptionList(ConstantDict.CODE_GENDER),
             value: userInfo.gender,
             onSaved: (v) => {userInfo.gender = v},
           ),
-          CrySelect(
-              label: S.of(context).personDepartment,
-              dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT),
-              value: userInfo.deptId,
-              onSaved: (v) => {userInfo.deptId = v}),
-          // CryInput(label: '籍贯'),
+          CrySelectCustomWidget(
+            context,
+            label: S.of(context).personDepartment,
+            valueLabel: userInfo.deptName,
+            value: userInfo.deptId,
+            popWidget: DeptSelector(),
+            getValueLabel: (Dept d) => d.name,
+            getValue: (Dept d) => d.id,
+            onSaved: (v) {
+              userInfo.deptId = v;
+            },
+          ),
         ],
       ),
     );
@@ -89,7 +100,8 @@ class _UserInfoEditState extends State<UserInfoEdit> {
               return;
             }
             form.save();
-            UserInfoApi.saveOrUpdate(userInfo.toMap()).then((ResponseBodyApi res) {
+            UserInfoApi.saveOrUpdate(userInfo.toMap())
+                .then((ResponseBodyApi res) {
               if (!res.success) {
                 return;
               }

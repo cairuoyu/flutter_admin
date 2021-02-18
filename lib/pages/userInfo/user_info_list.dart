@@ -1,7 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
-import 'package:cry/form/cry_select.dart';
+import 'package:cry/form/cry_select_custom_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/user_info_api.dart';
 import 'package:cry/cry_button.dart';
@@ -11,7 +11,9 @@ import 'package:flutter_admin/generated/l10n.dart';
 import 'package:cry/model/page_model.dart';
 import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
+import 'package:flutter_admin/models/dept.dart';
 import 'package:flutter_admin/models/user_info.dart';
+import 'package:flutter_admin/pages/common/dept_selector.dart';
 import 'package:flutter_admin/pages/userInfo/user_info_edit.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 
@@ -48,14 +50,20 @@ class _UserInfoListState extends State<UserInfoList> {
               userInfo.name = v;
             },
           ),
-          CrySelect(
-              width: 400,
-              label: S.of(context).personDepartment,
-              value: userInfo.deptId,
-              dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT),
-              onSaved: (v) {
-                userInfo.deptId = v;
-              }),
+          CrySelectCustomWidget<Dept>(
+            context,
+            width: 400,
+            value: Dept(id: userInfo.id, name: userInfo.deptName),
+            valueLabel: userInfo.deptName,
+            label: S.of(context).personDepartment,
+            popWidget: DeptSelector(),
+            getValueLabel: (Dept d) => d.name,
+            getValue: (Dept d) => d,
+            onSaved: (Dept v) {
+              userInfo.deptId = v.id;
+              userInfo.deptName = v.name;
+            },
+          ),
         ],
       ),
     );
