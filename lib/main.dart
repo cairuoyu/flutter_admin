@@ -13,10 +13,10 @@ import 'common/routes.dart';
 import 'generated/l10n.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   await ApplicationContext.instance.init();
   loadBean();
-  await GetStorage.init();
   Get.put(LayoutController());
 
   runApp(MyApp());

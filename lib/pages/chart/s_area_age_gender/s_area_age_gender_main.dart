@@ -11,6 +11,10 @@ class SAreaAgeGenderMain extends StatefulWidget {
 class _SAreaAgeGenderMainState extends State<SAreaAgeGenderMain> {
   List<SAreaAgeGender> listData = <SAreaAgeGender>[];
 
+  bool isDoughnut = false;
+  bool isPointRadiusMapper = false;
+  int maxAge = 0;
+
   @override
   void initState() {
     super.initState();
@@ -19,12 +23,44 @@ class _SAreaAgeGenderMainState extends State<SAreaAgeGenderMain> {
 
   @override
   Widget build(BuildContext context) {
-    return _getPieChart();
+    var result = Column(
+      children: [
+        Wrap(
+          children: [
+            SizedBox(
+              width: 260,
+              child: SwitchListTile(
+                value: isPointRadiusMapper,
+                title: Text('pointRadiusMapper'),
+                onChanged: (v) {
+                  isPointRadiusMapper = v;
+                  setState(() {});
+                },
+              ),
+            ),
+            SizedBox(
+              width: 260,
+              child: SwitchListTile(
+                value: isDoughnut,
+                title: Text('Doughnut'),
+                onChanged: (v) {
+                  isDoughnut = v;
+                  setState(() {});
+                },
+              ),
+            ),
+          ],
+        ),
+        Expanded(child: _getPieChart()),
+      ],
+    );
+    return result;
   }
 
   _loadData() async {
     var responseBodyApi = await SAreaAgeGenderApi.list();
     listData = List.from(responseBodyApi.data).map((e) => SAreaAgeGender.fromMap(e)).toList();
+    maxAge = listData[0].age;
     setState(() {});
   }
 
@@ -32,21 +68,42 @@ class _SAreaAgeGenderMainState extends State<SAreaAgeGenderMain> {
     return SfCircularChart(
       title: ChartTitle(text: '中国各省人口统计'),
       legend: Legend(isVisible: true, overflowMode: LegendItemOverflowMode.wrap),
-      series: _getPieSeries(),
+      series: this.isDoughnut ? _getDoughnutSeries() : _getPieSeries(),
       tooltipBehavior: TooltipBehavior(enable: true),
     );
   }
 
-  List<PieSeries<SAreaAgeGender, String>> _getPieSeries() {
-    return <PieSeries<SAreaAgeGender, String>>[
-      PieSeries<SAreaAgeGender, String>(
+  List<DoughnutSeries<SAreaAgeGender, String>> _getDoughnutSeries() {
+    return <DoughnutSeries<SAreaAgeGender, String>>[
+      DoughnutSeries<SAreaAgeGender, String>(
+          explode: true,
           dataSource: listData,
           xValueMapper: (SAreaAgeGender data, _) => data.area,
           yValueMapper: (SAreaAgeGender data, _) => data.age,
           dataLabelMapper: (SAreaAgeGender data, _) => data.area,
           startAngle: 100,
           endAngle: 100,
+          pointRadiusMapper: _getPointRadiusMapper,
           dataLabelSettings: DataLabelSettings(isVisible: true, labelPosition: ChartDataLabelPosition.outside))
     ];
+  }
+
+  List<PieSeries<SAreaAgeGender, String>> _getPieSeries() {
+    return <PieSeries<SAreaAgeGender, String>>[
+      PieSeries<SAreaAgeGender, String>(
+          explode: true,
+          dataSource: listData,
+          xValueMapper: (SAreaAgeGender data, _) => data.area,
+          yValueMapper: (SAreaAgeGender data, _) => data.age,
+          dataLabelMapper: (SAreaAgeGender data, _) => data.area,
+          startAngle: 100,
+          endAngle: 100,
+          pointRadiusMapper: _getPointRadiusMapper,
+          dataLabelSettings: DataLabelSettings(isVisible: true, labelPosition: ChartDataLabelPosition.outside))
+    ];
+  }
+
+  String _getPointRadiusMapper(SAreaAgeGender data, int index) {
+    return this.isPointRadiusMapper ? (data.age / maxAge * 100).toString() + '%' : '100%';
   }
 }
