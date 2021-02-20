@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/pages/chart/s_area_age_gender/s_area_age_gender_main.dart';
 import 'package:flutter_admin/pages/common/commonNavigator.dart';
 import 'package:flutter_admin/pages/common/only_text.dart';
 import 'package:flutter_admin/pages/common/page_401.dart';
@@ -23,6 +24,7 @@ import 'package:flutter_admin/utils/utils.dart';
 
 Map<String, Widget> layoutRoutesData = {
   '/': Dashboard(),
+  '/sAreaAgeGenderMain': SAreaAgeGenderMain(),
   '/roleList': RoleList(),
   '/personList': PersonList(),
   '/menuList': CommonNavigator(MenuMain()),
