@@ -97,8 +97,8 @@ http://www.cairuoyu.com/flutter_admin
 ![image](http://cairuoyu.com/screenshots/flutter_admin_windows.png)
 
 ## 加入讨论组
-### 微信群
-![image](http://cairuoyu.com/screenshots/qrcode_wechat_flutter.png)
+### 加我微信拉你入群
+![image](http://cairuoyu.com/screenshots/qrcode_wechat_cry.png)
 
 ### QQ
 851796663

@@ -96,8 +96,8 @@ http://www.cairuoyu.com/flutter_admin
 ![image](http://cairuoyu.com/screenshots/flutter_admin_windows.png)
 
 ## Join Discussion Group
-### Wechat
-![image](http://cairuoyu.com/screenshots/qrcode_wechat_flutter.jpg)
+### Add me to WeChat to pull you into the group
+![image](http://cairuoyu.com/screenshots/qrcode_wechat_cry.jpg)
 
 ### QQ
 851796663
