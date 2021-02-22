@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/s_area_age_gender.dart';
+import 'package:flutter_admin/constants/enum.dart';
 import 'package:flutter_admin/models/s_area_age_gender.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -11,8 +12,8 @@ class SAreaAgeGenderMain extends StatefulWidget {
 class _SAreaAgeGenderMainState extends State<SAreaAgeGenderMain> {
   List<SAreaAgeGender> listData = <SAreaAgeGender>[];
 
-  bool isDoughnut = false;
   bool isPointRadiusMapper = false;
+  ChartTypeCircular type = ChartTypeCircular.pie;
   int maxAge = 0;
 
   @override
@@ -23,10 +24,34 @@ class _SAreaAgeGenderMainState extends State<SAreaAgeGenderMain> {
 
   @override
   Widget build(BuildContext context) {
+    List list = <Widget>[];
+    for (var v in ChartTypeCircular.values) {
+      list.add(
+        Expanded(
+          child: RadioListTile(
+            title: Text(v.toString().split('.').last),
+            value: v,
+            groupValue: type,
+            onChanged: (v) {
+              setState(() {
+                type = v;
+              });
+            },
+          ),
+        ),
+      );
+    }
     var result = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
+            SizedBox(
+              width: 500,
+              child: Row(children: list),
+            ),
+            Container(height: 20, child: VerticalDivider(color: Colors.grey)),
             SizedBox(
               width: 260,
               child: SwitchListTile(
@@ -38,20 +63,9 @@ class _SAreaAgeGenderMainState extends State<SAreaAgeGenderMain> {
                 },
               ),
             ),
-            SizedBox(
-              width: 260,
-              child: SwitchListTile(
-                value: isDoughnut,
-                title: Text('Doughnut'),
-                onChanged: (v) {
-                  isDoughnut = v;
-                  setState(() {});
-                },
-              ),
-            ),
           ],
         ),
-        Expanded(child: _getPieChart()),
+        Expanded(child: _getCircularChart()),
       ],
     );
     return result;
@@ -64,13 +78,33 @@ class _SAreaAgeGenderMainState extends State<SAreaAgeGenderMain> {
     setState(() {});
   }
 
-  SfCircularChart _getPieChart() {
+  SfCircularChart _getCircularChart() {
     return SfCircularChart(
       title: ChartTitle(text: '中国各省人口统计'),
       legend: Legend(isVisible: true, overflowMode: LegendItemOverflowMode.wrap),
-      series: this.isDoughnut ? _getDoughnutSeries() : _getPieSeries(),
+      series: type == ChartTypeCircular.pie
+          ? _getPieSeries()
+          : type == ChartTypeCircular.doughnut
+              ? _getDoughnutSeries()
+              : _getRadialBarSeries(),
+
       tooltipBehavior: TooltipBehavior(enable: true),
     );
+  }
+
+  List<RadialBarSeries<SAreaAgeGender, String>> _getRadialBarSeries() {
+    return <RadialBarSeries<SAreaAgeGender, String>>[
+      RadialBarSeries<SAreaAgeGender, String>(
+        dataSource: listData,
+        xValueMapper: (SAreaAgeGender data, _) => data.area,
+        yValueMapper: (SAreaAgeGender data, _) => data.age,
+        dataLabelMapper: (SAreaAgeGender data, _) => data.area,
+        // pointRadiusMapper: _getPointRadiusMapper,
+        dataLabelSettings: DataLabelSettings(isVisible: true, labelPosition: ChartDataLabelPosition.outside),
+        maximumValue: maxAge.toDouble(),
+        innerRadius: '1%',
+      )
+    ];
   }
 
   List<DoughnutSeries<SAreaAgeGender, String>> _getDoughnutSeries() {
