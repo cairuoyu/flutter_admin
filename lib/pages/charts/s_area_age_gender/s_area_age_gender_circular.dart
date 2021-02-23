@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/api/s_area_age_gender.dart';
 import 'package:flutter_admin/constants/enum.dart';
 import 'package:flutter_admin/models/s_area_age_gender.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class SAreaAgeGenderMain extends StatefulWidget {
+class SAreaAgeGenderCircular extends StatefulWidget {
+  SAreaAgeGenderCircular(this.listData);
+
+  final List<SAreaAgeGender> listData;
+
   @override
-  _SAreaAgeGenderMainState createState() => _SAreaAgeGenderMainState();
+  _SAreaAgeGenderCircularState createState() => _SAreaAgeGenderCircularState();
 }
 
-class _SAreaAgeGenderMainState extends State<SAreaAgeGenderMain> {
-  List<SAreaAgeGender> listData = <SAreaAgeGender>[];
-
+class _SAreaAgeGenderCircularState extends State<SAreaAgeGenderCircular> {
   bool isPointRadiusMapper = false;
   ChartTypeCircular type = ChartTypeCircular.pie;
-  int maxAge = 0;
+  int maxAge;
 
   @override
   void initState() {
     super.initState();
-    _loadData();
+    maxAge = widget.listData[0].age;
   }
 
   @override
@@ -71,13 +72,6 @@ class _SAreaAgeGenderMainState extends State<SAreaAgeGenderMain> {
     return result;
   }
 
-  _loadData() async {
-    var responseBodyApi = await SAreaAgeGenderApi.list();
-    listData = List.from(responseBodyApi.data).map((e) => SAreaAgeGender.fromMap(e)).toList();
-    maxAge = listData[0].age;
-    setState(() {});
-  }
-
   SfCircularChart _getCircularChart() {
     return SfCircularChart(
       title: ChartTitle(text: '中国各省人口统计'),
@@ -87,7 +81,6 @@ class _SAreaAgeGenderMainState extends State<SAreaAgeGenderMain> {
           : type == ChartTypeCircular.doughnut
               ? _getDoughnutSeries()
               : _getRadialBarSeries(),
-
       tooltipBehavior: TooltipBehavior(enable: true),
     );
   }
@@ -95,7 +88,7 @@ class _SAreaAgeGenderMainState extends State<SAreaAgeGenderMain> {
   List<RadialBarSeries<SAreaAgeGender, String>> _getRadialBarSeries() {
     return <RadialBarSeries<SAreaAgeGender, String>>[
       RadialBarSeries<SAreaAgeGender, String>(
-        dataSource: listData,
+        dataSource: widget.listData,
         xValueMapper: (SAreaAgeGender data, _) => data.area,
         yValueMapper: (SAreaAgeGender data, _) => data.age,
         dataLabelMapper: (SAreaAgeGender data, _) => data.area,
@@ -111,7 +104,7 @@ class _SAreaAgeGenderMainState extends State<SAreaAgeGenderMain> {
     return <DoughnutSeries<SAreaAgeGender, String>>[
       DoughnutSeries<SAreaAgeGender, String>(
           explode: true,
-          dataSource: listData,
+          dataSource: widget.listData,
           xValueMapper: (SAreaAgeGender data, _) => data.area,
           yValueMapper: (SAreaAgeGender data, _) => data.age,
           dataLabelMapper: (SAreaAgeGender data, _) => data.area,
@@ -126,7 +119,7 @@ class _SAreaAgeGenderMainState extends State<SAreaAgeGenderMain> {
     return <PieSeries<SAreaAgeGender, String>>[
       PieSeries<SAreaAgeGender, String>(
           explode: true,
-          dataSource: listData,
+          dataSource: widget.listData,
           xValueMapper: (SAreaAgeGender data, _) => data.area,
           yValueMapper: (SAreaAgeGender data, _) => data.age,
           dataLabelMapper: (SAreaAgeGender data, _) => data.area,
