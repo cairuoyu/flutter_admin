@@ -1,34 +1,27 @@
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/cry_tree_table.dart';
-import 'package:cry/model/response_body_api.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
-import 'package:cry/cry_dialog.dart';
-import 'package:flutter_admin/api/menu_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
 
-class MenuMenu extends StatefulWidget {
-  final double width;
-  final Function onEdit;
-  final VoidCallback reloadData;
+class MenuTableTree extends StatefulWidget {
   final List<TreeVO<Menu>> treeVOList;
-  final String subsystemId;
+  final Function onEdit;
+  final Function onDelete;
 
-  MenuMenu({
-    this.width,
-    this.onEdit,
+  MenuTableTree({
     this.treeVOList,
-    this.reloadData,
-    this.subsystemId,
+    this.onEdit,
+    this.onDelete,
   });
 
   @override
-  _MenuMenuState createState() => _MenuMenuState();
+  _MenuTableTreeState createState() => _MenuTableTreeState();
 }
 
-class _MenuMenuState extends State<MenuMenu> {
+class _MenuTableTreeState extends State<MenuTableTree> {
   @override
   void initState() {
     super.initState();
@@ -63,7 +56,7 @@ class _MenuMenuState extends State<MenuMenu> {
         ),
       ),
     );
-    return SizedBox(width: widget.width ?? double.infinity, child: result);
+    return result;
   }
 
   _getToolbars() {
@@ -71,20 +64,13 @@ class _MenuMenuState extends State<MenuMenu> {
     var result = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[
-        CryButtons.add(context, () => widget.onEdit(Menu(subsystemId: widget.subsystemId))),
+        CryButtons.add(context, () => widget.onEdit(Menu())),
         CryButtons.delete(
           context,
           selected.length >= 1
               ? () {
-                  cryConfirm(context, S.of(context).confirmDelete, (context) async {
-                    List ids = selected.map((e) => e.data.id).toList();
-                    ResponseBodyApi responseBodyApi = await MenuApi.removeByIds(ids);
-                    Navigator.of(context).pop();
-                    if (!responseBodyApi.success) {
-                      return;
-                    }
-                    widget.reloadData();
-                  });
+                  List ids = selected.map((e) => e.data.id).toList();
+                  widget.onDelete(ids);
                 }
               : null,
         ),
@@ -99,7 +85,7 @@ class _MenuMenuState extends State<MenuMenu> {
     columnList.add(
       IconButton(
         icon: Icon(Icons.add),
-        onPressed: () => widget.onEdit(Menu(pname: vo.data.name, pid: vo.data.id, subsystemId: widget.subsystemId)),
+        onPressed: () => widget.onEdit(Menu(pname: vo.data.name, pid: vo.data.id)),
       ),
     );
     columnList.add(

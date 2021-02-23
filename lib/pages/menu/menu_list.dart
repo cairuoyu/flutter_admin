@@ -1,3 +1,5 @@
+import 'package:cry/cry_button.dart';
+import 'package:cry/cry_dialog.dart';
 import 'package:cry/model/request_body_api.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +8,9 @@ import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/models/subsystem.dart';
-import 'package:flutter_admin/pages/menu/menu_form.dart';
-import 'package:flutter_admin/pages/menu/menu_menu.dart';
+import 'package:flutter_admin/pages/menu/menu_edit.dart';
+import 'package:flutter_admin/pages/menu/menu_table_tree.dart';
+import 'package:flutter_admin/pages/menu/menu_tree.dart';
 import 'package:flutter_admin/utils/adaptive_util.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
 
@@ -22,6 +25,7 @@ class MenuList extends StatefulWidget {
 
 class _MenuListState extends State<MenuList> {
   bool isEdit = false;
+  bool showTree = true;
   Menu menu = Menu();
   List<TreeVO<Menu>> treeVOList;
 
@@ -33,7 +37,10 @@ class _MenuListState extends State<MenuList> {
 
   @override
   Widget build(BuildContext context) {
-    MenuForm menuForm = MenuForm(
+    if (treeVOList == null) {
+      return Container();
+    }
+    MenuEdit menuEdit = MenuEdit(
       menu: menu,
       onSave: () {
         setState(() {
@@ -48,28 +55,39 @@ class _MenuListState extends State<MenuList> {
       },
     );
     if (this.isEdit && !isDisplayDesktop(context)) {
-      return menuForm;
+      return menuEdit;
     }
-    MenuMenu menuMenu = MenuMenu(
-      width: isEdit ? 400.0 : null,
-      subsystemId: widget.subsystem.id,
-      onEdit: (v) => _onEdit(v),
-      reloadData: () {
-        setState(() {
-          _loadData();
-        });
-      },
+    MenuTableTree menuTableTree = MenuTableTree(
       treeVOList: treeVOList,
+      onDelete: (v) => _onDelete(v),
+      onEdit: (v) => _onEdit(v),
     );
+    MenuTree menuTree = MenuTree(
+      treeVOList: treeVOList,
+      onDelete: (v) => _onDelete(v),
+      onEdit: (v) => _onEdit(v),
+    );
+    var right = showTree ? menuTree : menuTableTree;
     var body = this.isEdit && isDisplayDesktop(context)
         ? Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [menuMenu, menuForm],
+            children: [isEdit ? SizedBox(width: 400.0, child: right) : right, menuEdit],
           )
-        : menuMenu;
+        : right;
     var result = Scaffold(
       appBar: AppBar(
-        title: Text(widget.subsystem.name + ' -- ' + S.of(context).menuManagement),
+        title: Text(widget.subsystem.name ?? '' + ' -- ' + S.of(context).menuManagement),
+        actions: [
+          CryButton(
+            label: showTree ? '表格树' : '树',
+            iconData: showTree ? Icons.table_view : Icons.account_tree,
+            onPressed: () {
+              setState(() {
+                showTree = !showTree;
+              });
+            },
+          )
+        ],
       ),
       body: body,
     );
@@ -85,8 +103,25 @@ class _MenuListState extends State<MenuList> {
   }
 
   _onEdit(Menu menu) {
+    if (menu == null) {
+      menu = Menu();
+    }
+    menu.subsystemId = widget.subsystem.id;
     this.menu = menu;
     this.isEdit = true;
     setState(() {});
+  }
+
+  _onDelete(List<String> ids) {
+    cryConfirm(context, S.of(context).confirmDelete, (context) async {
+      ResponseBodyApi responseBodyApi = await MenuApi.removeByIds(ids);
+      Navigator.of(context).pop();
+      if (!responseBodyApi.success) {
+        return;
+      }
+      setState(() {
+        _loadData();
+      });
+    });
   }
 }

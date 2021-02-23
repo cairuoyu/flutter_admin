@@ -9,17 +9,17 @@ import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:cry/model/response_body_api.dart';
 
-class MenuForm extends StatefulWidget {
-  MenuForm({Key key, this.menu, this.onSave, this.onClose}) : super(key: key);
+class MenuEdit extends StatefulWidget {
+  MenuEdit({Key key, this.menu, this.onSave, this.onClose}) : super(key: key);
   final Menu menu;
   final Function onSave;
   final Function onClose;
 
   @override
-  _MenuFormState createState() => _MenuFormState();
+  _MenuEditState createState() => _MenuEditState();
 }
 
-class _MenuFormState extends State<MenuForm> {
+class _MenuEditState extends State<MenuEdit> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Menu menu;
 
