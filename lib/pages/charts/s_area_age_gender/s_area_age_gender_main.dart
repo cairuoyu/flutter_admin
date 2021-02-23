@@ -4,6 +4,7 @@ import 'package:flutter_admin/constants/enum.dart';
 import 'package:flutter_admin/models/s_area_age_gender.dart';
 import 'package:flutter_admin/pages/charts/s_area_age_gender/s_area_age_gender_cartesian.dart';
 import 'package:flutter_admin/pages/charts/s_area_age_gender/s_area_age_gender_circular.dart';
+import 'package:flutter_admin/pages/common/keep_alive_wrapper.dart';
 
 class SAreaAgeGenderMain extends StatefulWidget {
   @override
@@ -15,7 +16,6 @@ class _SAreaAgeGenderMainState extends State<SAreaAgeGenderMain> {
 
   bool isPointRadiusMapper = false;
   ChartTypeCircular type = ChartTypeCircular.pie;
-  int maxAge = 0;
   List<Tab> tabList;
   List<Widget> tabViewList;
 
@@ -38,6 +38,7 @@ class _SAreaAgeGenderMainState extends State<SAreaAgeGenderMain> {
     );
     var result = Scaffold(
       body: DefaultTabController(
+        initialIndex: 0,
         length: tabList.length,
         child: Column(
           children: [
@@ -56,15 +57,14 @@ class _SAreaAgeGenderMainState extends State<SAreaAgeGenderMain> {
       Tab(text: 'cartesian'),
     ];
     tabViewList = [
-      SAreaAgeGenderCircular(listData),
-      SAreaAgeGenderCartesian(listData),
+      KeepAliveWrapper(child: SAreaAgeGenderCircular(listData)),
+      KeepAliveWrapper(child: SAreaAgeGenderCartesian(listData)),
     ];
   }
 
   _loadData() async {
     var responseBodyApi = await SAreaAgeGenderApi.list();
     listData = List.from(responseBodyApi.data).map((e) => SAreaAgeGender.fromMap(e)).toList();
-    maxAge = listData[0].age;
     _initTab();
     setState(() {});
   }

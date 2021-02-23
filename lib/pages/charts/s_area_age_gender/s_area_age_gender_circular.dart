@@ -25,6 +25,17 @@ class _SAreaAgeGenderCircularState extends State<SAreaAgeGenderCircular> {
 
   @override
   Widget build(BuildContext context) {
+    var result = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _getSetting(),
+        Expanded(child: _getCircularChart()),
+      ],
+    );
+    return result;
+  }
+
+  Widget _getSetting() {
     List list = <Widget>[];
     for (var v in ChartTypeCircular.values) {
       list.add(
@@ -42,34 +53,26 @@ class _SAreaAgeGenderCircularState extends State<SAreaAgeGenderCircular> {
         ),
       );
     }
-    var result = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Wrap(
       children: [
-        Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: [
-            SizedBox(
-              width: 500,
-              child: Row(children: list),
-            ),
-            Container(height: 20, child: VerticalDivider(color: Colors.grey)),
-            SizedBox(
-              width: 260,
-              child: SwitchListTile(
-                value: isPointRadiusMapper,
-                title: Text('pointRadiusMapper'),
-                onChanged: (v) {
-                  isPointRadiusMapper = v;
-                  setState(() {});
-                },
-              ),
-            ),
-          ],
+        SizedBox(
+          width: 500,
+          child: Row(children: list),
         ),
-        Expanded(child: _getCircularChart()),
+        Container(height: 20, child: VerticalDivider(color: Colors.grey)),
+        SizedBox(
+          width: 260,
+          child: SwitchListTile(
+            value: isPointRadiusMapper,
+            title: Text('pointRadiusMapper'),
+            onChanged: (v) {
+              isPointRadiusMapper = v;
+              setState(() {});
+            },
+          ),
+        ),
       ],
     );
-    return result;
   }
 
   SfCircularChart _getCircularChart() {
