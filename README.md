@@ -26,10 +26,10 @@
 * 数据字典管理
 * 留言
 * 我的信息
+* 图表
 * 国际化
 * 语言切换
 * 主题切换
-* 组件封装
 * 独立配置文件
 * JWT
 * 导入导出Excel
@@ -90,8 +90,8 @@ http://www.cairuoyu.com/flutter_admin
 ![image](http://cairuoyu.com/screenshots/flutter_admin_menu.png)
 
 ### android
-<img src="http://cairuoyu.com/screenshots/flutter_admin_dashboard_app.png" width="50%"/>
-<img src="http://cairuoyu.com/screenshots/flutter_admin_setting_app.png" width="50%"/>
+<img src="http://cairuoyu.com/screenshots/flutter_admin_dashboard_app.png" width="50%" alt="dashboard"/>
+<img src="http://cairuoyu.com/screenshots/flutter_admin_setting_app.png" width="50%" alt="'setting"/>
 
 ### windows
 ![image](http://cairuoyu.com/screenshots/flutter_admin_windows.png)

@@ -25,10 +25,10 @@
 * Data Dictionary Management
 * Message
 * My Information
+* Chart
 * Globalization
 * Language Switch
 * Theme Switching
-* Component Encapsulation
 * Standalone configuration file
 * JWT
 * Import or Export Excle
@@ -89,8 +89,8 @@ http://www.cairuoyu.com/flutter_admin
 ![image](http://cairuoyu.com/screenshots/flutter_admin_menu.png)
 
 ### android
-<img src="http://cairuoyu.com/screenshots/flutter_admin_dashboard_app.png" width="50%"/>
-<img src="http://cairuoyu.com/screenshots/flutter_admin_setting_app.png" width="50%"/>
+<img src="http://cairuoyu.com/screenshots/flutter_admin_dashboard_app.png" width="50%" alt="dashboard"/>
+<img src="http://cairuoyu.com/screenshots/flutter_admin_setting_app.png" width="50%" alt="'setting"/>
 
 ### windows
 ![image](http://cairuoyu.com/screenshots/flutter_admin_windows.png)

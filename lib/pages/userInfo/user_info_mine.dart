@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/cry_image_upload.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/form/cry_select.dart';
+import 'package:cry/form/cry_select_custom_widget.dart';
 import 'package:cry/form/cry_select_date.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,9 @@ import 'package:flutter_admin/api/user_info_api.dart';
 import 'package:cry/cry_button.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:cry/model/response_body_api.dart';
+import 'package:flutter_admin/models/dept.dart';
 import 'package:flutter_admin/models/user_info.dart';
+import 'package:flutter_admin/pages/common/dept_selector.dart';
 import 'package:flutter_admin/utils/adaptive_util.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 import 'package:mime_type/mime_type.dart';
@@ -27,20 +30,23 @@ class UserInfoMine extends StatefulWidget {
 }
 
 class _UserInfoMineState extends State<UserInfoMine> {
-  UserInfo userInfo = UserInfo();
+  UserInfo userInfo;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     UserInfoApi.getCurrentUserInfo().then((res) {
       this.userInfo = UserInfo.fromMap(res.data);
-      this.setState(() {});
+      if (mounted) this.setState(() {});
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (this.userInfo == null) {
+      return Center(child: CircularProgressIndicator());
+    }
     Widget avatar = SizedBox(
       child: CryImageUpload(
         updateAreaSize: 200,
@@ -50,7 +56,8 @@ class _UserInfoMineState extends State<UserInfoMine> {
           String filename = "test.png"; //todo
           String mimeType = mime(Path.basename(filename));
           var mediaType = MediaType.parse(mimeType);
-          MultipartFile file = MultipartFile.fromBytes(imageBytes, contentType: mediaType, filename: filename);
+          MultipartFile file = MultipartFile.fromBytes(imageBytes,
+              contentType: mediaType, filename: filename);
           FormData formData = FormData.fromMap({"file": file});
           FileApi.upload(formData).then((res) {
             this.userInfo.avatarUrl = res.data;
@@ -83,13 +90,18 @@ class _UserInfoMineState extends State<UserInfoMine> {
         value: userInfo.gender,
         onSaved: (v) => {userInfo.gender = v},
       ),
-      CrySelect(
+      CrySelectCustomWidget(
+        context,
         label: S.of(context).personDepartment,
-        dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT),
-        value: userInfo.deptId,
-        onSaved: (v) => {userInfo.deptId = v},
+        initialValue: userInfo.deptId,
+        initialValueLabel: userInfo.deptName,
+        popWidget: DeptSelector(),
+        getValueLabel: (Dept d) => d.name,
+        getValue: (Dept d) => d.id,
+        onSaved: (v) {
+          userInfo.deptId = v;
+        },
       ),
-//       CryInput(label: '籍贯'),
     ];
     var form = _getForm(avatar, propList);
     var buttonBar = ButtonBar(
@@ -103,7 +115,8 @@ class _UserInfoMineState extends State<UserInfoMine> {
               return;
             }
             form.save();
-            UserInfoApi.saveOrUpdate(this.userInfo.toMap()).then((ResponseBodyApi res) {
+            UserInfoApi.saveOrUpdate(this.userInfo.toMap())
+                .then((ResponseBodyApi res) {
               if (!res.success) {
                 return;
               }

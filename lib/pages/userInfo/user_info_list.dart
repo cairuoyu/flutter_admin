@@ -54,7 +54,6 @@ class _UserInfoListState extends State<UserInfoList> {
             context,
             width: 400,
             initialValue: Dept(id: userInfo.id, name: userInfo.deptName),
-            // valueLabel: 'a',
             label: S.of(context).personDepartment,
             popWidget: DeptSelector(),
             getValueLabel: (Dept d) => d.name,
