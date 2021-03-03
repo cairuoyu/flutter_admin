@@ -47,11 +47,12 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
   @override
   Widget build(BuildContext context) {
     List<CryTreeTableColumnData> columnData = [
-      CryTreeTableColumnData(S.of(context).name, (Menu v) => v.name),
-      CryTreeTableColumnData(S.of(context).englishName, (Menu v) => v.nameEn),
-      CryTreeTableColumnData('URL', (Menu v) => v.url),
-      CryTreeTableColumnData(S.of(context).sequenceNumber, (Menu v) => v.orderBy?.toString(), width: 180),
-      CryTreeTableColumnData(S.of(context).remarks, (Menu v) => v.remark, width: 300)
+      CryTreeTableColumnData(label:S.of(context).name,getCell: (Menu v) => Text(v.name)),
+      CryTreeTableColumnData(label:S.of(context).englishName,getCell:  (Menu v) => Text(v.nameEn)),
+      CryTreeTableColumnData(label:'URL',getCell:  (Menu v) => Text(v.url)),
+      CryTreeTableColumnData(label:'Icon',getCell:  (Menu v) => Icon(Utils.toIconData(v.icon))),
+      CryTreeTableColumnData(label:S.of(context).sequenceNumber, getCell: (Menu v) => Text(v.orderBy?.toString()), width: 180),
+      CryTreeTableColumnData(label:S.of(context).remarks,getCell:  (Menu v) => Text(v.remark), width: 300)
     ];
 
     var treeTable = CryTreeTable<Menu>(
@@ -59,7 +60,7 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
       columnData: columnData,
       data: data,
       onSelected: (v) => _onSelected(v),
-      tableWidth: 1300,
+      tableWidth: 1500,
       selectType: CryTreeTableSelectType.parentCascadeTrue,
     );
     var result = Scaffold(

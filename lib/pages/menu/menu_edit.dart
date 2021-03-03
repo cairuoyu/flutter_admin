@@ -99,6 +99,13 @@ class _MenuEditState extends State<MenuEdit> {
                   menu.url = v;
                 },
               ),
+              CryInput(
+                value: menu.icon,
+                label: 'Icon',
+                onSaved: (v) {
+                  menu.icon = v;
+                },
+              ),
               CryInputNum(
                 value: menu.orderBy,
                 label: S.of(context).sequenceNumber,

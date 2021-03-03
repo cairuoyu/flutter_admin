@@ -4,6 +4,7 @@ import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
+import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
 
 class MenuTree extends StatefulWidget {
@@ -101,6 +102,7 @@ class _MenuTreeState extends State<MenuTree> {
     var key = ValueKey(treeVO.data.id);
     var content = Expanded(
       child: ListTile(
+        leading: Icon(Utils.toIconData(treeVO.data.icon)),
         title: Text(treeVO.data.name ?? '--'),
         trailing: trailing,
       ),

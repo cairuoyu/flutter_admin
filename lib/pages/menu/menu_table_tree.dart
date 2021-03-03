@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
+import 'package:flutter_admin/utils/utils.dart';
 
 class MenuTableTree extends StatefulWidget {
   final List<TreeVO<Menu>> treeVOList;
@@ -30,18 +31,19 @@ class _MenuTableTreeState extends State<MenuTableTree> {
   @override
   Widget build(BuildContext context) {
     List<CryTreeTableColumnData> columnData = [
-      CryTreeTableColumnData(S.of(context).name, (Menu v) => v.name),
-      CryTreeTableColumnData(S.of(context).englishName, (Menu v) => v.nameEn),
-      CryTreeTableColumnData('URL', (Menu v) => v.url),
-      CryTreeTableColumnData(S.of(context).sequenceNumber, (Menu v) => v.orderBy?.toString(), width: 180),
-      CryTreeTableColumnData(S.of(context).remarks, (Menu v) => v.remark, width: 300)
+      CryTreeTableColumnData(label:S.of(context).name,getCell: (Menu v) => Text(v.name)),
+      CryTreeTableColumnData(label:S.of(context).englishName,getCell:  (Menu v) => Text(v.nameEn)),
+      CryTreeTableColumnData(label:'URL',getCell:  (Menu v) => Text(v.url)),
+      CryTreeTableColumnData(label:'Icon',getCell:  (Menu v) => Icon(Utils.toIconData(v.icon))),
+      CryTreeTableColumnData(label:S.of(context).sequenceNumber, getCell: (Menu v) => Text(v.orderBy?.toString()), width: 180),
+      CryTreeTableColumnData(label:S.of(context).remarks,getCell:  (Menu v) => Text(v.remark), width: 300)
     ];
     var treeTable = CryTreeTable(
       columnData: columnData,
       data: widget.treeVOList,
       onSelected: (v) => _onSelected(v),
       getRowOper: (TreeVO<Menu> v, TreeVO<Menu> parent) => _getRowOper(v, parent),
-      tableWidth: 1300,
+      tableWidth: 1500,
       selectType: CryTreeTableSelectType.childrenCascade,
     );
     var result = Scaffold(

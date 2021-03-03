@@ -74,7 +74,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
       if (treeVO.children != null && treeVO.children.length > 0) {
         return ExpansionTile(
           initiallyExpanded: isCurrentOpenedMenu(treeVO.children),
-          leading: Icon(expandMenu ? treeVO.icon : null),
+          leading: Icon(iconData),
           backgroundColor: Theme.of(context).accentColor.withOpacity(0.025),
           children: _getMenuListTile(treeVO.children),
           title: title,
