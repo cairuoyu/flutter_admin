@@ -11,5 +11,7 @@ Map<String, IconData> iconMap = {
   'message': Icons.message,
   'dict': Icons.dialpad_outlined,
   'subsystem': Icons.home_work_outlined,
-  'dept':Icons.deck
+  'dept': Icons.deck,
+  'chart': Icons.multiline_chart,
+  'people': Icons.people,
 };

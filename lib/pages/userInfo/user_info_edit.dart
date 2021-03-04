@@ -47,8 +47,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
             label: S.of(context).username,
             value: userInfo.userName,
             onSaved: (v) => {userInfo.userName = v},
-            validator: (v) =>
-                this.isAdd && v.isEmpty ? S.of(context).required : null,
+            validator: (v) => this.isAdd && v.isEmpty ? S.of(context).required : null,
             enable: this.isAdd,
           ),
           CryInput(
@@ -69,8 +68,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
           ),
           CrySelect(
             label: S.of(context).personGender,
-            dataList:
-                DictUtil.getDictSelectOptionList(ConstantDict.CODE_GENDER),
+            dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_GENDER),
             value: userInfo.gender,
             onSaved: (v) => {userInfo.gender = v},
           ),
@@ -100,8 +98,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
               return;
             }
             form.save();
-            UserInfoApi.saveOrUpdate(userInfo.toMap())
-                .then((ResponseBodyApi res) {
+            UserInfoApi.saveOrUpdate(userInfo.toMap()).then((ResponseBodyApi res) {
               if (!res.success) {
                 return;
               }

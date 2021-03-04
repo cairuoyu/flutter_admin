@@ -2,12 +2,14 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/form/cry_input_num.dart';
+import 'package:cry/form/cry_select_custom_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_admin/api/menu_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:cry/model/response_body_api.dart';
+import 'package:flutter_admin/pages/common/icon_selector.dart';
 
 class MenuEdit extends StatefulWidget {
   MenuEdit({Key key, this.menu, this.onSave, this.onClose}) : super(key: key);
@@ -99,9 +101,14 @@ class _MenuEditState extends State<MenuEdit> {
                   menu.url = v;
                 },
               ),
-              CryInput(
-                value: menu.icon,
+              CrySelectCustomWidget<String>(
+                context,
                 label: 'Icon',
+                initialValue: menu.icon,
+                initialValueLabel: menu.icon,
+                popWidget: IconSelector(),
+                getValueLabel: (v) => v,
+                getValue: (v) => v,
                 onSaved: (v) {
                   menu.icon = v;
                 },
