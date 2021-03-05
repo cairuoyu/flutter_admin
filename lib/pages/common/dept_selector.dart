@@ -119,7 +119,7 @@ class _DeptSelectorState extends State<DeptSelector> {
     var key = ValueKey(treeVO.data.id);
     var content = Expanded(
       child: ListTile(
-        hoverColor: Colors.black26,
+        hoverColor: Colors.blue.shade100,
         onTap: () {
           Get.back<Dept>(result: treeVO.data);
         },

@@ -133,6 +133,8 @@ class _DeptListState extends State<DeptList> {
     var content = Expanded(
       child: ListTile(
         title: Text(treeVO.data.name ?? '--'),
+        hoverColor: Colors.blue.shade100,
+        onTap: () {},
         trailing: PopupMenuButton(
           onSelected: (v) {
             if (v == OperationType.add) {

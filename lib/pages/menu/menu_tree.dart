@@ -104,6 +104,8 @@ class _MenuTreeState extends State<MenuTree> {
       child: ListTile(
         leading: Icon(Utils.toIconData(treeVO.data.icon)),
         title: Text(treeVO.data.name ?? '--'),
+        hoverColor: Colors.blue.shade100,
+        onTap: () {},
         trailing: trailing,
       ),
     );
