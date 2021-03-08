@@ -39,7 +39,7 @@ class _MenuTreeState extends State<MenuTree> {
 
   @override
   Widget build(BuildContext context) {
-    treeNodeList = toTreeNodeList(widget.treeVOList);
+    treeNodeList = toTreeNodeList(widget.treeVOList, null);
     var treeView = Expanded(
       child: SingleChildScrollView(
         child: TreeView(
@@ -84,18 +84,24 @@ class _MenuTreeState extends State<MenuTree> {
     return result;
   }
 
-  List<TreeNode> toTreeNodeList(List<TreeVO<Menu>> treeVOList) {
-    return treeVOList.map((treeVO) => toTreeNode(treeVO)).toList();
+  List<TreeNode> toTreeNodeList(List<TreeVO<Menu>> treeVOList, TreeVO<Menu> parent) {
+    return treeVOList.map((treeVO) => toTreeNode(treeVO, parent)).toList();
   }
 
-  TreeNode toTreeNode(TreeVO<Menu> treeVO) {
+  TreeNode toTreeNode(TreeVO<Menu> treeVO, TreeVO<Menu> parent) {
+    Menu menu = treeVO.data;
     var trailing = SizedBox(
       width: 180,
       child: ButtonBar(
         children: [
-          CryButtons.add(context, () => widget.onEdit(Menu(pid: treeVO.data.id)), showLabel: false),
-          CryButtons.edit(context, () => widget.onEdit(treeVO.data), showLabel: false),
-          CryButtons.delete(context, () => widget.onDelete([treeVO.data.id]), showLabel: false),
+          CryButtons.add(context, () => widget.onEdit(Menu(pname: menu.name, pid: menu.id)), showLabel: false),
+          CryButtons.edit(context, () {
+            if (parent != null) {
+              menu.pname = parent.data.name;
+            }
+            widget.onEdit(menu);
+          }, showLabel: false),
+          CryButtons.delete(context, () => widget.onDelete([menu.id]), showLabel: false),
         ],
       ),
     );
@@ -120,7 +126,7 @@ class _MenuTreeState extends State<MenuTree> {
     return TreeNode(
       key: key,
       content: content,
-      children: toTreeNodeList(treeVO.children),
+      children: toTreeNodeList(treeVO.children, treeVO),
     );
   }
 }

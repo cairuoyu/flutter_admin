@@ -37,7 +37,7 @@ class PersonListState extends State {
   }
 
   _query() {
-    formKey.currentState.save();
+    formKey.currentState?.save();
     myDS.requestBodyApi.params = formData.toJson();
     myDS.loadData();
   }
