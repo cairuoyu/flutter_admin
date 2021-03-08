@@ -11,7 +11,7 @@ import 'package:flutter_admin/pages/image/image_upload.dart';
 import 'package:flutter_admin/pages/layout/layout.dart';
 import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/pages/menu/menu_main.dart';
-import 'package:flutter_admin/pages/message/message.dart';
+import 'package:flutter_admin/pages/message/message_main.dart';
 import 'package:flutter_admin/pages/my_test.dart';
 import 'package:flutter_admin/pages/person/person_list.dart';
 import 'package:flutter_admin/pages/register.dart';
@@ -37,7 +37,7 @@ Map<String, Widget> layoutRoutesData = {
   '/layout404': Page404(),
   '/layoutTest': MyTest(1),
   '/dictList': DictList(),
-  '/message': Message(),
+  '/message': MessageMain(),
   '/subsystemList': SubsystemMain(),
   '/secondLevel': OnlyText('二级菜单页面'),
   '/threeLevel': OnlyText('三级菜单页面'),
