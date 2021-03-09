@@ -115,6 +115,7 @@ class Utils {
     GetStorage().remove(Constant.KEY_TOKEN);
     GetStorage().remove(Constant.KEY_MENU_LIST);
     GetStorage().remove(Constant.KEY_DICT_ITEM_LIST);
+    GetStorage().remove(Constant.KEY_CURRENT_USER_INFO);
   }
 
   static launchURL(url) async {

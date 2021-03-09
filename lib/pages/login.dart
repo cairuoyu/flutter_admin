@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/dict_api.dart';
 import 'package:flutter_admin/api/menu_api.dart';
+import 'package:flutter_admin/api/user_info_api.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/common/lang_switch.dart';
@@ -207,13 +208,22 @@ class _LoginState extends State<Login> {
       return;
     }
     GetStorage().write(Constant.KEY_TOKEN, responseBodyApi.data);
-    await _initDict();
+    await _loadDict();
     await _loadMenuData();
+    await _loadCurrentUserInfo();
 
     LayoutController layoutController = Get.find();
     layoutController.init();
     BotToast.closeAllLoading();
     Navigator.pushNamed(context, '/');
+  }
+
+  Future<bool> _loadCurrentUserInfo() async {
+    ResponseBodyApi responseBodyApi = await UserInfoApi.getCurrentUserInfo();
+    if (responseBodyApi.success) {
+      GetStorage().write(Constant.KEY_CURRENT_USER_INFO, responseBodyApi.data);
+    }
+    return responseBodyApi.success;
   }
 
   Future<bool> _loadMenuData() async {
@@ -224,7 +234,7 @@ class _LoginState extends State<Login> {
     return responseBodyApi.success;
   }
 
-  Future<bool> _initDict() async {
+  Future<bool> _loadDict() async {
     ResponseBodyApi responseBodyApi = await DictApi.map();
     if (responseBodyApi.success) {
       GetStorage().write(Constant.KEY_DICT_ITEM_LIST, responseBodyApi.data);

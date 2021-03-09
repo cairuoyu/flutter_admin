@@ -9,18 +9,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/file_api.dart';
 import 'package:flutter_admin/api/user_info_api.dart';
 import 'package:cry/cry_button.dart';
+import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:cry/model/response_body_api.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dept.dart';
 import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/pages/common/dept_selector.dart';
 import 'package:flutter_admin/utils/adaptive_util.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:path/path.dart' as Path;
 import 'package:http_parser/http_parser.dart';
-
-import '../../generated/l10n.dart';
 
 class UserInfoMine extends StatefulWidget {
   UserInfoMine();
@@ -35,10 +36,8 @@ class _UserInfoMineState extends State<UserInfoMine> {
 
   @override
   void initState() {
-    UserInfoApi.getCurrentUserInfo().then((res) {
-      this.userInfo = UserInfo.fromMap(res.data);
-      if (mounted) this.setState(() {});
-    });
+    var data = GetStorage().read(Constant.KEY_CURRENT_USER_INFO);
+    this.userInfo = UserInfo.fromMap(data);
     super.initState();
   }
 
@@ -56,8 +55,7 @@ class _UserInfoMineState extends State<UserInfoMine> {
           String filename = "test.png"; //todo
           String mimeType = mime(Path.basename(filename));
           var mediaType = MediaType.parse(mimeType);
-          MultipartFile file = MultipartFile.fromBytes(imageBytes,
-              contentType: mediaType, filename: filename);
+          MultipartFile file = MultipartFile.fromBytes(imageBytes, contentType: mediaType, filename: filename);
           FormData formData = FormData.fromMap({"file": file});
           FileApi.upload(formData).then((res) {
             this.userInfo.avatarUrl = res.data;
@@ -115,8 +113,7 @@ class _UserInfoMineState extends State<UserInfoMine> {
               return;
             }
             form.save();
-            UserInfoApi.saveOrUpdate(this.userInfo.toMap())
-                .then((ResponseBodyApi res) {
+            UserInfoApi.saveOrUpdate(this.userInfo.toMap()).then((ResponseBodyApi res) {
               if (!res.success) {
                 return;
               }
