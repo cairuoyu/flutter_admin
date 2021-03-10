@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/tab_page.dart';
+import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/utils/utils.dart';
+import 'package:get_storage/get_storage.dart';
 
 class LayoutAppBar extends AppBar {
   LayoutAppBar(
@@ -11,7 +14,7 @@ class LayoutAppBar extends AppBar {
     openSetting,
     openMenu,
     dispose,
-    openUserInfoMine,
+    UserInfo userInfo,
   }) : super(
           key: key,
           automaticallyImplyLeading: false,
@@ -61,26 +64,47 @@ class LayoutAppBar extends AppBar {
                 },
               ),
             ),
-            Tooltip(
-              message: S.of(context).myInformation,
-              child: IconButton(
-                icon: Icon(Icons.person),
-                onPressed: () {
-                  openUserInfoMine(TabPage(id: 'userInfoMine', url: '/userInfoMine', name: '我的信息', nameEn: 'My Info'));
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: PopupMenuButton(
+                tooltip: S.of(context).information,
+                onSelected: (v) {
+                  if (v == 'info') {
+                    Utils.openTab(TabPage(id: 'userInfoMine', url: '/userInfoMine', name: '我的信息', nameEn: 'My Info'));
+                  } else if (v == 'logout') {
+                    dispose();
+                    Utils.logout();
+                    Navigator.popAndPushNamed(context, '/login');
+                  }
                 },
-              ),
-            ),
-            Tooltip(
-              message: 'Logout',
-              child: IconButton(
-                icon: Icon(Icons.exit_to_app),
-                onPressed: () {
-                  dispose();
-                  Utils.logout();
-                  Navigator.popAndPushNamed(context, '/login');
-                },
+                child: Align(
+                  child: userInfo.avatarUrl == null
+                      ? Icon(Icons.person)
+                      : CircleAvatar(
+                          backgroundImage: NetworkImage(userInfo.avatarUrl),
+                          radius: 12.0,
+                        ),
+                ),
+                itemBuilder: (context) => <PopupMenuEntry<String>>[
+                  PopupMenuItem<String>(
+                    value: 'info',
+                    child: ListTile(
+                      leading: const Icon(Icons.info),
+                      title: Text(S.of(context).myInformation),
+                    ),
+                  ),
+                  const PopupMenuDivider(),
+                  PopupMenuItem<String>(
+                    value: 'logout',
+                    child: ListTile(
+                      leading: const Icon(Icons.logout),
+                      title: Text(S.of(context).logout),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
         );
+  static UserInfo userInfo = UserInfo.fromMap(GetStorage().read(Constant.KEY_CURRENT_USER_INFO));
 }

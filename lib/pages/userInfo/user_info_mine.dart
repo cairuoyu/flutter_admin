@@ -117,6 +117,7 @@ class _UserInfoMineState extends State<UserInfoMine> {
               if (!res.success) {
                 return;
               }
+              GetStorage().write(Constant.KEY_CURRENT_USER_INFO, this.userInfo.toMap());
               BotToast.showText(text: S.of(context).saved);
             });
           },

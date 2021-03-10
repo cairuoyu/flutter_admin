@@ -96,5 +96,6 @@
   "expand": "展开",
   "nameShort": "简称",
   "fun": "职能",
-  "header": "部门领导"
+  "header": "部门领导",
+  "logout":"退出"
 }

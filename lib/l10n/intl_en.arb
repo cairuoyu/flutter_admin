@@ -97,5 +97,7 @@
   "expand": "Expand",
   "nameShort": "Short Name",
   "fun": "Function",
-  "header": "Header"
+  "header": "Header",
+  "logout": "Logout"
+
 }
