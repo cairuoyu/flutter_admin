@@ -59,7 +59,6 @@ class _UserInfoMineState extends State<UserInfoMine> {
           FormData formData = FormData.fromMap({"file": file});
           FileApi.upload(formData).then((res) {
             this.userInfo.avatarUrl = res.data;
-            setState(() {});
           });
         },
       ),

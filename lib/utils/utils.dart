@@ -137,8 +137,7 @@ class Utils {
             SizedBox(
               height: 20,
             ),
-            FlatButton(
-              color: Colors.lightBlue,
+            ElevatedButton(
               child: Text(buttonText),
               onPressed: () {
                 Utils.launchURL(url);

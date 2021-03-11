@@ -135,14 +135,14 @@ class _LoginState extends State<Login> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-                          FlatButton(
+                          TextButton(
                             child: Text(
                               S.of(context).register,
                               style: TextStyle(color: Colors.blue),
                             ),
-                            onPressed: () => _register(),
+                            onPressed: _register,
                           ),
-                          FlatButton(
+                          TextButton(
                             child: Text(
                               S.of(context).forgetPassword,
                               style: TextStyle(color: Colors.black45),
@@ -168,17 +168,16 @@ class _LoginState extends State<Login> {
             ],
           ),
           Container(
-            height: 380,
+            height: 360,
             alignment: Alignment.bottomCenter,
             child: SizedBox(
               width: 420,
-              child: RaisedButton(
-                onPressed: () {
-                  _login();
-                },
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
+              child: ElevatedButton(
+                onPressed: _login,
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0))),
+                ),
                 child: Text(S.of(context).login, style: TextStyle(color: Colors.white70, fontSize: 20)),
-                color: Colors.blue,
               ),
             ),
           ),

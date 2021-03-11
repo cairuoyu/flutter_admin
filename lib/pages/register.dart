@@ -111,26 +111,29 @@ class _RegisterState extends State {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              FlatButton(
-                  child: Text(
-                    S.of(context).haveAccountLogin,
-                    style: TextStyle(color: Colors.blue),
-                  ),
-                  onPressed: () => _login())
+              TextButton(
+                child: Text(
+                  S.of(context).haveAccountLogin,
+                  style: TextStyle(color: Colors.blue),
+                ),
+                onPressed: _login,
+              )
             ],
           ),
+          SizedBox(height: 20),
           Container(
             // height: 620,
             alignment: Alignment.bottomCenter,
             child: SizedBox(
               width: 400,
-              child: RaisedButton(
+              child: ElevatedButton(
                 onPressed: () {
                   _register();
                 },
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0))),
+                ),
                 child: Text(S.of(context).register, style: TextStyle(color: Colors.white70, fontSize: 20)),
-                color: Colors.blue,
               ),
             ),
           ),
