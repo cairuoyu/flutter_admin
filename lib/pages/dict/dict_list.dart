@@ -129,7 +129,7 @@ class _DictList extends State<DictList> {
   }
 
   _importExcel() async {
-    FilePickerResult result = await FilePicker.platform.pickFiles();
+    FilePickerResult result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ['xlsx']);
 
     if (result == null) {
       return;

@@ -32,6 +32,8 @@ dependencies:
   get: ^3.24.0
   get_storage: ^1.4.0
   syncfusion_flutter_charts: ^18.4.43+1
+  syncfusion_flutter_datagrid: ^18.4.30-beta
+  flutter_markdown: ^0.6.0
 
 
 dev_dependencies:

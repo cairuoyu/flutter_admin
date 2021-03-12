@@ -12,6 +12,14 @@ import 'package:get_storage/get_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
+  static snackbar(String message){
+    Get.snackbar(
+      '提示',
+      message,
+      colorText: Colors.black,
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  }
   static openTab(TabPage tabPage) {
     LayoutController layoutController = Get.find();
     List<TabPage> openedTabPageList = layoutController.openedTabPageList;
