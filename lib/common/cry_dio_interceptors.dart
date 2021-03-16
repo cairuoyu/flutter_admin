@@ -28,6 +28,7 @@ class CryDioInterceptors extends InterceptorsWrapper {
   @override
   Future onError(DioError err) {
     print("ERROR[${err?.response?.statusCode}] => PATH: ${err?.request?.path}");
+    print(err.toString());
     String message = '请求出错：' + err.toString();
     Utils.message(message);
     return super.onError(err);

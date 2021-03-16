@@ -27,23 +27,30 @@ class _ArticleMainState extends State<ArticleMain> {
   Widget build(BuildContext context) {
     var dataGrid = SfDataGrid(
       source: ds,
+      cellBuilder: getCellWidget,
       columns: <GridColumn>[
+        GridWidgetColumn(
+          mappingName: 'operation',
+          headerText: 'Operation',
+          columnWidthMode: ColumnWidthMode.header,
+          // width: 50,
+          textAlignment: Alignment.center,
+        ),
         GridTextColumn(
           mappingName: 'id',
           headerText: 'ID',
           columnWidthMode: ColumnWidthMode.cells,
-          headerTextAlignment: Alignment.centerLeft,
         ),
         GridTextColumn(
           mappingName: 'title',
           headerText: 'Title',
           columnWidthMode: ColumnWidthMode.fill,
-          // headerTextAlignment: Alignment.centerLeft,
+          // textAlignment: Alignment.center,
         ),
         GridTextColumn(
           mappingName: 'status',
           headerText: 'Status',
-          headerTextAlignment: Alignment.center,
+          headerTextAlignment: Alignment.centerLeft,
         ),
       ],
     );
@@ -51,7 +58,7 @@ class _ArticleMainState extends State<ArticleMain> {
       alignment: MainAxisAlignment.start,
       children: [
         CryButtons.query(context, loadData),
-        CryButtons.add(context, add),
+        CryButtons.add(context, edit),
       ],
     );
     var result = Scaffold(
@@ -65,9 +72,8 @@ class _ArticleMainState extends State<ArticleMain> {
     return result;
   }
 
-  add() async {
-    var result = await Get.to(ArticleEdit());
-
+  edit({Article article}) async {
+    var result = await Get.to(ArticleEdit(article: article));
     if (result ?? false) {
       loadData();
     }
@@ -81,6 +87,18 @@ class _ArticleMainState extends State<ArticleMain> {
     var articleList = page.records.map((element) => Article.fromMap(element)).toList();
     ds.setData(articleList);
     ds.sort();
+  }
+
+  Widget getCellWidget(BuildContext context, GridColumn column, int rowIndex) {
+    if (column.mappingName == 'operation') {
+      var result = ButtonBar(
+        children: [
+          CryButtons.edit(context, () => edit(article: ds.dataSource[rowIndex]), showLabel: false),
+        ],
+      );
+      return result;
+    }
+    return Text('--');
   }
 }
 
