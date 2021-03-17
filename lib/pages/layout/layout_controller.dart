@@ -8,10 +8,15 @@ class LayoutController extends GetxController {
   MenuDisplayType menuDisplayType = MenuDisplayType.side;
   String currentOpenedTabPageId;
   List<TabPage> openedTabPageList = [];
+  String fontFamily = 'fzytk';
 
   init() {
     currentOpenedTabPageId = null;
     openedTabPageList = [];
+  }
+  updateFontFamily(v){
+    fontFamily = v;
+    update();
   }
 
   updateMenuDisplayType(v) {

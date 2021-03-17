@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_admin/constants/enum.dart';
 import 'package:flutter_admin/generated/l10n.dart';
+import 'package:flutter_admin/pages/common/font_selector.dart';
 import 'package:flutter_admin/pages/common/lang_switch.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/utils.dart';
@@ -19,7 +20,7 @@ class LayoutSetting extends StatelessWidget {
     var picker = BlockPicker(
       pickerColor: Get.theme.primaryColor,
       onColorChanged: (v) {
-        Get.changeTheme(Utils.getThemeData(v));
+        Get.changeTheme(Utils.getThemeData(themeColor: v));
       },
     );
     var menuDisplayType = CryToggleButtons(
@@ -62,6 +63,17 @@ class LayoutSetting extends StatelessWidget {
             child: Row(children: [
               SizedBox(width: 100, child: Text(S.of(context).language)),
               LangSwitch(),
+            ]),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(bottom: BorderSide(color: Colors.black12)),
+            ),
+            padding: EdgeInsets.all(10),
+            child: Row(children: [
+              SizedBox(width: 100, child: Text('Font')),
+              FontSelector(),
             ]),
           ),
           Container(

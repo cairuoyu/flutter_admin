@@ -12,7 +12,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
-  static snackbar(String message){
+  static snackbar(String message) {
     Get.snackbar(
       '提示',
       message,
@@ -20,6 +20,7 @@ class Utils {
       snackPosition: SnackPosition.BOTTOM,
     );
   }
+
   static openTab(TabPage tabPage) {
     LayoutController layoutController = Get.find();
     List<TabPage> openedTabPageList = layoutController.openedTabPageList;
@@ -100,7 +101,14 @@ class Utils {
     return layoutController.menuDisplayType == MenuDisplayType.drawer;
   }
 
-  static getThemeData(Color themeColor) {
+  static getThemeData({Color themeColor, String fontFamily}) {
+    LayoutController layoutController = Get.find();
+    if (fontFamily != null) {
+      layoutController.fontFamily = fontFamily;
+    }
+    if (themeColor == null) {
+      themeColor = Get.theme.primaryColor;
+    }
     return ThemeData(
       primaryColor: themeColor,
       iconTheme: IconThemeData(color: themeColor),
@@ -108,6 +116,7 @@ class Utils {
         backgroundColor: themeColor,
       ),
       buttonTheme: ButtonThemeData(buttonColor: themeColor),
+      fontFamily: layoutController.fontFamily,
     );
   }
 

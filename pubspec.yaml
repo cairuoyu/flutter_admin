@@ -49,6 +49,19 @@ flutter:
   uses-material-design: true
   assets:
     - config/
+  fonts:
+    - family: rockSalt
+      fonts:
+        - asset: assets/fonts/RockSalt-Regular.ttf
+    - family: bradhitc
+      fonts:
+        - asset: assets/fonts/BRADHITC.TTF
+    - family: agencry
+      fonts:
+        - asset: assets/fonts/AGENCYR.TTF
+    - family: fzytk
+      fonts:
+        - asset: assets/fonts/FZYTK.TTF
 
 flutter_intl:
   enabled: true
