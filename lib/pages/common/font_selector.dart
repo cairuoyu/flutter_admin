@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
+import 'package:flutter_admin/data/data_font.dart';
 
 class FontSelector extends StatefulWidget {
   @override
@@ -11,19 +12,15 @@ class FontSelector extends StatefulWidget {
 class _FontSelectorState extends State<FontSelector> {
   String currentFontFamily;
 
-  List<String> fontFamilyList = [
-    'rockSalt',
-    'agencry',
-    'bradhitc',
-    'fzytk',
-  ];
-
   @override
   Widget build(BuildContext context) {
     LayoutController layoutController = Get.find();
     var result = PopupMenuButton(
       tooltip: '选择字体',
-      child: Text(currentFontFamily ?? layoutController.fontFamily),
+      child: Container(
+        child: Text(fontFamilyMap[currentFontFamily ?? layoutController.fontFamily]),
+        padding: EdgeInsets.all(10),
+      ),
       initialValue: currentFontFamily ?? layoutController.fontFamily,
       onSelected: (v) {
         Get.changeTheme(Utils.getThemeData(fontFamily: v));
@@ -31,12 +28,15 @@ class _FontSelectorState extends State<FontSelector> {
           currentFontFamily = v;
         });
       },
-      itemBuilder: (context) => fontFamilyList
+      itemBuilder: (context) => fontFamilyMap.entries
           .map(
             (e) => PopupMenuItem(
-              value: e,
+              value: e.key,
               child: ListTile(
-                title: Text(e),
+                title: Text(
+                  e.value,
+                  style: TextStyle(fontFamily: e.key),
+                ),
               ),
             ),
           )

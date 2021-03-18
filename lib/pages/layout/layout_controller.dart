@@ -14,10 +14,6 @@ class LayoutController extends GetxController {
     currentOpenedTabPageId = null;
     openedTabPageList = [];
   }
-  updateFontFamily(v){
-    fontFamily = v;
-    update();
-  }
 
   updateMenuDisplayType(v) {
     menuDisplayType = v;

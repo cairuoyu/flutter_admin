@@ -28,7 +28,8 @@
 * Chart
 * Globalization
 * Language Switch
-* Theme Switching
+* Theme Switch
+* Font Switch
 * Standalone configuration file
 * JWT
 * Import or Export Excle

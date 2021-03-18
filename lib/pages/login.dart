@@ -5,6 +5,7 @@ import 'package:flutter_admin/api/menu_api.dart';
 import 'package:flutter_admin/api/user_info_api.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:cry/model/response_body_api.dart';
+import 'package:flutter_admin/pages/common/font_selector.dart';
 import 'package:flutter_admin/pages/common/lang_switch.dart';
 import 'package:flutter_admin/pages/register.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -47,9 +48,10 @@ class _LoginState extends State<Login> {
       color: Colors.cyan.shade100,
       child: ListView(
         children: <Widget>[
-          Row(
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [LangSwitch()],
+            children: [LangSwitch(), FontSelector()],
           ),
           Center(child: appName),
           SizedBox(
