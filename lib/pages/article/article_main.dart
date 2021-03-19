@@ -1,4 +1,8 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cry/cry_dialog.dart';
+import 'package:flutter_admin/constants/constant_dict.dart';
+import 'package:flutter_admin/generated/l10n.dart';
+import 'package:flutter_admin/utils/dict_util.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/model/page_model.dart';
@@ -40,8 +44,8 @@ class _ArticleMainState extends State<ArticleMain> {
         GridWidgetColumn(
           mappingName: 'operation',
           headerText: 'Operation',
-          columnWidthMode: ColumnWidthMode.header,
-          // width: 50,
+          // columnWidthMode: ColumnWidthMode.fill,
+          width: 120,
           textAlignment: Alignment.center,
         ),
         GridTextColumn(
@@ -85,6 +89,13 @@ class _ArticleMainState extends State<ArticleMain> {
     return result;
   }
 
+  delete(ids) async {
+    cryConfirm(context, S.of(context).confirmDelete, (context) async {
+      await ArticleApi.removeByIds(ids);
+      Navigator.of(context).pop();
+      ds.loadData();
+    });
+  }
 
   edit({Article article}) async {
     var result = await Get.to(ArticleEdit(article: article));
@@ -96,8 +107,10 @@ class _ArticleMainState extends State<ArticleMain> {
   Widget getCellWidget(BuildContext context, GridColumn column, int rowIndex) {
     if (column.mappingName == 'operation') {
       var result = ButtonBar(
+        alignment: MainAxisAlignment.start,
         children: [
           CryButtons.edit(context, () => edit(article: ds.dataSource[rowIndex]), showLabel: false),
+          CryButtons.delete(context, () => delete([ds.dataSource[rowIndex].id]), showLabel: false),
         ],
       );
       return result;
@@ -137,7 +150,8 @@ class ArticleDataSource extends DataGridSource<Article> {
         return article.title;
         break;
       case 'status':
-        return article.status;
+        return DictUtil.getDictItemName(article.status, ConstantDict.CODE_ARTICLE_STATUS);
+        // return article.status;
         break;
       default:
         return '--';

@@ -1,14 +1,17 @@
+import 'package:cry/cry_button.dart';
 import 'package:cry/cry_buttons.dart';
+import 'package:cry/cry_file.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/article_api.dart';
+import 'package:flutter_admin/api/file_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/article.dart';
-import 'package:flutter_admin/pages/article/cry_file.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:dio/dio.dart';
 
 class ArticleEdit extends StatefulWidget {
   final Article article;
@@ -45,7 +48,12 @@ class _ArticleEditState extends State<ArticleEdit> {
           ),
           CryFile(
             initFileUrl: widget.article?.fileUrl,
-            onSaved: (v) => article.fileUrl = v,
+            onSaved: (MultipartFile file) async {
+              FormData formData = FormData.fromMap({"file": file});
+              var res = await FileApi.upload(formData);
+              article.fileUrl = res.data;
+            },
+            buttonLabel: '上传文章',
           ),
         ],
       ),
@@ -53,20 +61,36 @@ class _ArticleEditState extends State<ArticleEdit> {
     var result = Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).add),
-        actions: [CryButtons.save(context, save)],
+        actions: [
+          CryButtons.save(context, save),
+          CryButton(label: '提交审核', onPressed: audit, iconData: Icons.done),
+          CryButton(label: '发布', onPressed: public, iconData: Icons.public),
+        ],
       ),
       body: form,
     );
     return result;
   }
 
-  save() async {
+  save() {
+    action((data) async => await ArticleApi.save(data));
+  }
+
+  audit() {
+    action((data) async => await ArticleApi.audit(data));
+  }
+
+  public() {
+    action((data) async => await ArticleApi.public(data));
+  }
+
+  action(action) async {
     if (!formKey.currentState.validate()) {
       return;
     }
     formKey.currentState.save();
 
-    ResponseBodyApi res = await ArticleApi.save(article.toMap());
+    ResponseBodyApi res = await action(article.toMap());
     if (res.success) {
       Utils.message(S.of(context).success);
       Get.back(result: true);

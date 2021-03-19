@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/pages/article/article_main.dart';
 import 'package:flutter_admin/pages/charts/s_area_age_gender/s_area_age_gender_main.dart';
 import 'package:flutter_admin/pages/common/only_text.dart';
 import 'package:flutter_admin/pages/common/page_401.dart';
@@ -31,6 +32,7 @@ Map<String, Widget> layoutRoutesData = {
   '/deptMain': DeptMain(),
   '/imageUpload': ImageUpload(),
   '/videoUpload': VideoUpload(),
+  '/articleMain': ArticleMain(),
   '/userInfoMine': UserInfoMine(),
   '/layout401': Page401(),
   '/layout404': Page404(),
