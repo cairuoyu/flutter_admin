@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/model/page_model.dart';
 import 'package:cry/model/request_body_api.dart';
@@ -19,12 +20,19 @@ class _ArticleMainState extends State<ArticleMain> {
 
   @override
   void initState() {
-    loadData();
+    ds.loadData();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    var buttonBar = ButtonBar(
+      alignment: MainAxisAlignment.start,
+      children: [
+        CryButtons.query(context, ds.loadData),
+        CryButtons.add(context, edit),
+      ],
+    );
     var dataGrid = SfDataGrid(
       source: ds,
       cellBuilder: getCellWidget,
@@ -54,39 +62,35 @@ class _ArticleMainState extends State<ArticleMain> {
         ),
       ],
     );
-    var buttonBar = ButtonBar(
-      alignment: MainAxisAlignment.start,
-      children: [
-        CryButtons.query(context, loadData),
-        CryButtons.add(context, edit),
-      ],
+    var pager = SfDataPagerTheme(
+      data: SfDataPagerThemeData(
+        brightness: Brightness.light,
+        selectedItemColor: Get.theme.primaryColor,
+      ),
+      child: SfDataPager(
+        delegate: ds,
+        rowsPerPage: 10,
+        direction: Axis.horizontal,
+      ),
     );
     var result = Scaffold(
       body: Column(
         children: [
           buttonBar,
           Expanded(child: dataGrid),
+          pager,
         ],
       ),
     );
     return result;
   }
 
+
   edit({Article article}) async {
     var result = await Get.to(ArticleEdit(article: article));
     if (result ?? false) {
-      loadData();
+      ds.loadData();
     }
-  }
-
-  loadData() async {
-    BotToast.showLoading();
-    var responseBodyApi = await ArticleApi.page(RequestBodyApi(page: PageModel(), params: {}).toMap());
-    BotToast.closeAllLoading();
-    var page = responseBodyApi.data != null ? PageModel.fromMap(responseBodyApi.data) : PageModel();
-    var articleList = page.records.map((element) => Article.fromMap(element)).toList();
-    ds.setData(articleList);
-    ds.sort();
   }
 
   Widget getCellWidget(BuildContext context, GridColumn column, int rowIndex) {
@@ -107,9 +111,15 @@ class ArticleDataSource extends DataGridSource<Article> {
     _articleList = articleList ?? [];
   }
 
-  setData(List<Article> articleList) {
-    _articleList = articleList;
-    notifyListeners();
+  PageModel pageModel = PageModel();
+
+  loadData() async {
+    BotToast.showLoading();
+    var responseBodyApi = await ArticleApi.page(RequestBodyApi(page: pageModel, params: {}).toMap());
+    BotToast.closeAllLoading();
+    pageModel = responseBodyApi.data != null ? PageModel.fromMap(responseBodyApi.data) : PageModel();
+    _articleList = pageModel.records.map((element) => Article.fromMap(element)).toList();
+    notifyDataSourceListeners();
   }
 
   List<Article> _articleList;
@@ -133,5 +143,15 @@ class ArticleDataSource extends DataGridSource<Article> {
         return '--';
         break;
     }
+  }
+
+  @override
+  int get rowCount => pageModel.total;
+
+  @override
+  Future<bool> handlePageChange(int oldPageIndex, int newPageIndex, int startRowIndex, int rowsPerPage) async {
+    pageModel.current = startRowIndex / pageModel.size + 1;
+    await loadData();
+    return true;
   }
 }
