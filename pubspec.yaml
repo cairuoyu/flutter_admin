@@ -59,9 +59,6 @@ flutter:
     - family: agencry
       fonts:
         - asset: assets/fonts/AGENCYR.TTF
-    - family: fzytk
-      fonts:
-        - asset: assets/fonts/FZYTK.TTF
 
 flutter_intl:
   enabled: true
