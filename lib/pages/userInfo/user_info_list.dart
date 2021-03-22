@@ -69,8 +69,15 @@ class _UserInfoListState extends State<UserInfoList> {
     CryDataTable table = CryDataTable(
       key: tableKey,
       title: S.of(context).userList,
-      page: page,
-      onPageChanged: _onPageChanged,
+      onPageChanged: (firstRowIndex) {
+        page.current = (firstRowIndex / page.size + 1) as int;
+        _loadData();
+      },
+      onRowsPerPageChanged: (int size) {
+        page.size = size;
+        page.current = 1;
+        _loadData();
+      },
       onSelectChanged: (Map selected) {
         this.setState(() {});
       },
@@ -191,6 +198,7 @@ class _UserInfoListState extends State<UserInfoList> {
 
   _query() {
     formKey.currentState?.save();
+    tableKey.currentState?.pageTo(0);
     _loadData();
   }
 
@@ -199,19 +207,12 @@ class _UserInfoListState extends State<UserInfoList> {
     ResponseBodyApi responseBodyApi = await UserInfoApi.page(RequestBodyApi(page: page, params: userInfo.toMap()).toMap());
     BotToast.closeAllLoading();
     page = responseBodyApi.data != null ? PageModel.fromMap(responseBodyApi.data) : PageModel();
-
-    if (mounted) this.setState(() {});
+    tableKey.currentState.loadData(page);
   }
 
   _sort(column, {ascending}) {
     page.orders[0].column = column;
     page.orders[0].asc = ascending ?? !page.orders[0].asc;
-    _query();
-  }
-
-  _onPageChanged(int size, int current) {
-    page.size = size;
-    page.current = current;
     _query();
   }
 }

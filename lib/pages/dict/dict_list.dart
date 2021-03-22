@@ -80,8 +80,15 @@ class _DictList extends State<DictList> {
         child: CryDataTable(
           key: tableKey,
           title: S.of(context).dictList,
-          page: page,
-          onPageChanged: _onPageChanged,
+          onPageChanged: (firstRowIndex) {
+            page.current = (firstRowIndex / page.size + 1) as int;
+            _loadData();
+          },
+          onRowsPerPageChanged: (int size) {
+            page.size = size;
+            page.current = 1;
+            _loadData();
+          },
           selectable: (Map m) {
             return Dict.fromMap(m).state != ConstantDict.CODE_YESNO_YES;
           },
@@ -185,12 +192,6 @@ class _DictList extends State<DictList> {
   _loadData() async {
     ResponseBodyApi responseBodyApi = await DictApi.page(RequestBodyApi(page: page, params: this.dict.toMap()).toMap());
     page = PageModel.fromMap(responseBodyApi.data);
-    if (mounted) this.setState(() {});
-  }
-
-  _onPageChanged(int size, int current) {
-    page.size = size;
-    page.current = current;
-    this._loadData();
+    tableKey.currentState.loadData(page);
   }
 }

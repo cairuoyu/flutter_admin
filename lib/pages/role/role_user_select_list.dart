@@ -88,8 +88,15 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
     CryDataTable table = CryDataTable(
       key: tableKey,
       title: widget.title,
-      page: page,
-      onPageChanged: _onPageChanged,
+      onPageChanged: (firstRowIndex) {
+        page.current = (firstRowIndex / page.size + 1) as int;
+        query();
+      },
+      onRowsPerPageChanged: (int size) {
+        page.size = size;
+        page.current = 1;
+        query();
+      },
       onSelectChanged: (Map selected) {
         this.setState(() {});
       },
@@ -145,18 +152,12 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
     }
     page = PageModel.fromMap(responseBodyApi.data);
 
-    setState(() {});
+    tableKey.currentState.loadData(page);
   }
 
   _sort(column, {ascending}) {
     page.orders[0].column = column;
     page.orders[0].asc = ascending ?? !page.orders[0].asc;
-    query();
-  }
-
-  _onPageChanged(int size, int current) {
-    page.size = size;
-    page.current = current;
     query();
   }
 }

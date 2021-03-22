@@ -84,8 +84,15 @@ class _SubsystemMain extends State<SubsystemMain> {
         child: CryDataTable(
           key: tableKey,
           title: S.of(context).subsystemList,
-          page: page,
-          onPageChanged: _onPageChanged,
+          onPageChanged: (firstRowIndex) {
+            page.current = (firstRowIndex / page.size + 1) as int;
+            _loadData();
+          },
+          onRowsPerPageChanged: (int size) {
+            page.size = size;
+            page.current = 1;
+            _loadData();
+          },
           onSelectChanged: (v) {
             this.setState(() {});
           },
@@ -176,12 +183,6 @@ class _SubsystemMain extends State<SubsystemMain> {
   _loadData() async {
     ResponseBodyApi responseBodyApi = await SubsystemApi.page(RequestBodyApi(page: page, params: this.subsystemVO.toMap()).toMap());
     page = PageModel.fromMap(responseBodyApi.data);
-    if (mounted) this.setState(() {});
-  }
-
-  _onPageChanged(int size, int current) {
-    page.size = size;
-    page.current = current;
-    this._loadData();
+    tableKey.currentState.loadData(page);
   }
 }

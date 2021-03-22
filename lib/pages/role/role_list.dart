@@ -39,8 +39,15 @@ class _RoleListState extends State<RoleList> {
   Widget build(BuildContext context) {
     CryDataTable table = CryDataTable(
       key: tableKey,
-      page: page,
-      onPageChanged: _onPageChanged,
+      onPageChanged: (firstRowIndex) {
+        page.current = (firstRowIndex / page.size + 1) as int;
+        _query();
+      },
+      onRowsPerPageChanged: (int size) {
+        page.size = size;
+        page.current = 1;
+        _query();
+      },
       onSelectChanged: (Map selected) {
         this.setState(() {});
       },
@@ -186,18 +193,13 @@ class _RoleListState extends State<RoleList> {
     BotToast.closeAllLoading();
     page = responseBodyApi.data != null ? PageModel.fromMap(responseBodyApi.data) : PageModel();
 
-    if (mounted) this.setState(() {});
+    tableKey.currentState.loadData(page);
+    // if (mounted) this.setState(() {});
   }
 
   _sort(column, ascending) {
     page.orders[0].column = column;
     page.orders[0].asc = !page.orders[0].asc;
-    _query();
-  }
-
-  _onPageChanged(int size, int current) {
-    page.size = size;
-    page.current = current;
     _query();
   }
 }
