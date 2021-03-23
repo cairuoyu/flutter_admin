@@ -50,13 +50,31 @@ flutter:
   assets:
     - config/
   fonts:
-    - family: rockSalt
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Black.ttf
+    - family: RockSalt
       fonts:
         - asset: assets/fonts/RockSalt-Regular.ttf
-    - family: bradhitc
+    - family: Bradhitc
       fonts:
         - asset: assets/fonts/BRADHITC.TTF
-    - family: agencry
+    - family: OpenSansCondensed
+      fonts:
+        - asset: assets/fonts/OpenSansCondensed-LightItalic.TTF
+    - family: Italianno
+      fonts:
+        - asset: assets/fonts/Italianno-Regular.TTF
+    - family: BowlbyOneSC
+      fonts:
+        - asset: assets/fonts/BowlbyOneSC-Regular.TTF
+    - family: AnnieUseYourTelescope
+      fonts:
+        - asset: assets/fonts/AnnieUseYourTelescope-Regular.TTF
+    - family: Chango
+      fonts:
+        - asset: assets/fonts/Chango-Regular.TTF
+    - family: Agencry
       fonts:
         - asset: assets/fonts/AGENCYR.TTF
 

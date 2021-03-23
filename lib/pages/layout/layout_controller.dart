@@ -8,7 +8,7 @@ class LayoutController extends GetxController {
   MenuDisplayType menuDisplayType = MenuDisplayType.side;
   String currentOpenedTabPageId;
   List<TabPage> openedTabPageList = [];
-  String fontFamily = 'bradhitc';
+  String fontFamily = 'Roboto';
 
   init() {
     currentOpenedTabPageId = null;
