@@ -2,6 +2,7 @@ import 'package:cry/cry_button.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/cry_file.dart';
 import 'package:cry/form/cry_input.dart';
+import 'package:cry/form/cry_select_date.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/article_api.dart';
@@ -38,13 +39,34 @@ class _ArticleEditState extends State<ArticleEdit> {
     var form = Form(
       key: formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CryInput(
-            label: 'title',
-            value: article.title,
-            required: true,
-            onSaved: (v) => article.title = v,
+          Wrap(
+            children: [
+              CryInput(
+                label: 'title',
+                value: article.title,
+                required: true,
+                onSaved: (v) => article.title = v,
+              ),
+              CryInput(
+                label: 'titleSub',
+                value: article.titleSub,
+                onSaved: (v) => article.titleSub = v,
+              ),
+              CryInput(
+                label: 'author',
+                value: article.author,
+                onSaved: (v) => article.author = v,
+                width: 300,
+              ),
+              CrySelectDate(
+                context,
+                label: 'publishTime',
+                value: article.publishTime,
+                onSaved: (v) => article.publishTime = v,
+                width: 200,
+              ),
+            ],
           ),
           CryFile(
             initFileUrl: widget.article?.fileUrl,
@@ -54,6 +76,7 @@ class _ArticleEditState extends State<ArticleEdit> {
               article.fileUrl = res.data;
             },
             buttonLabel: '上传文章',
+            allowedExtensions: ['md', 'txt'],
           ),
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/cry_dialog.dart';
+import 'package:cry/form/cry_input.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
@@ -21,10 +22,11 @@ class ArticleMain extends StatefulWidget {
 
 class _ArticleMainState extends State<ArticleMain> {
   ArticleDataSource ds = ArticleDataSource();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  Article article = Article();
 
   @override
   void initState() {
-    ds.loadData();
     super.initState();
   }
 
@@ -33,9 +35,24 @@ class _ArticleMainState extends State<ArticleMain> {
     var buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: [
-        CryButtons.query(context, ds.loadData),
+        CryButtons.query(context, query),
+        CryButtons.reset(context, reset),
         CryButtons.add(context, edit),
       ],
+    );
+    var form = Form(
+      key: formKey,
+      child: Wrap(
+        alignment: WrapAlignment.start,
+        children: [
+          CryInput(
+            label: 'title',
+            onSaved: (v) {
+              article.title = v;
+            },
+          ),
+        ],
+      ),
     );
     var dataGrid = SfDataGrid(
       source: ds,
@@ -60,6 +77,21 @@ class _ArticleMainState extends State<ArticleMain> {
           // textAlignment: Alignment.center,
         ),
         GridTextColumn(
+          mappingName: 'titleSub',
+          headerText: 'Sub Title',
+          columnWidthMode: ColumnWidthMode.cells,
+        ),
+        GridTextColumn(
+          mappingName: 'author',
+          headerText: 'Author',
+          width: 120,
+        ),
+        GridTextColumn(
+          mappingName: 'publishTime',
+          headerText: 'publishTime',
+          width: 120,
+        ),
+        GridTextColumn(
           mappingName: 'status',
           headerText: 'Status',
           headerTextAlignment: Alignment.centerLeft,
@@ -80,6 +112,7 @@ class _ArticleMainState extends State<ArticleMain> {
     var result = Scaffold(
       body: Column(
         children: [
+          form,
           buttonBar,
           Expanded(child: dataGrid),
           pager,
@@ -87,6 +120,16 @@ class _ArticleMainState extends State<ArticleMain> {
       ),
     );
     return result;
+  }
+
+  query() {
+    formKey.currentState.save();
+    ds.loadData(params: article.toMap());
+  }
+
+  reset() async {
+    formKey.currentState.reset();
+    await ds.loadData(params: {});
   }
 
   delete(ids) async {
@@ -125,10 +168,14 @@ class ArticleDataSource extends DataGridSource<Article> {
   }
 
   PageModel pageModel = PageModel();
+  Map params = {};
 
-  loadData() async {
+  loadData({Map params}) async {
+    if (params != null) {
+      this.params = params;
+    }
     BotToast.showLoading();
-    var responseBodyApi = await ArticleApi.page(RequestBodyApi(page: pageModel, params: {}).toMap());
+    var responseBodyApi = await ArticleApi.page(RequestBodyApi(page: pageModel, params: this.params).toMap());
     BotToast.closeAllLoading();
     pageModel = responseBodyApi.data != null ? PageModel.fromMap(responseBodyApi.data) : PageModel();
     _articleList = pageModel.records.map((element) => Article.fromMap(element)).toList();
@@ -149,9 +196,17 @@ class ArticleDataSource extends DataGridSource<Article> {
       case 'title':
         return article.title;
         break;
+      case 'titleSub':
+        return article.titleSub;
+        break;
+      case 'author':
+        return article.author;
+        break;
+      case 'publishTime':
+        return article.publishTime;
+        break;
       case 'status':
         return DictUtil.getDictItemName(article.status, ConstantDict.CODE_ARTICLE_STATUS);
-        // return article.status;
         break;
       default:
         return '--';

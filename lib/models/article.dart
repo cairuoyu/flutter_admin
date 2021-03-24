@@ -10,8 +10,6 @@ class Article {
   String publishTime;
   String fileUrl;
 
-  //<editor-fold desc="Data Methods" defaultstate="collapsed">
-
   Article({
     this.id,
     this.title,
