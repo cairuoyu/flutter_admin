@@ -136,7 +136,7 @@ class ImageUploadState extends State<ImageUpload> {
     ResponseBodyApi responseBodyApi = await ImageApi.upload(formData);
     if (responseBodyApi.success) {
       BotToast.closeAllLoading();
-      Utils.toPortal(context, S.of(context).saved, S.of(context).goToThePortal, "http://www.cairuoyu.com/flutter_portal");
+      Utils.toPortal(context, S.of(context).saved, S.of(context).goToThePortal);
       setState(() {
         this.pickedFile = null;
       });

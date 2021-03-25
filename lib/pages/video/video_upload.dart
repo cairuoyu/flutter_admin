@@ -140,7 +140,7 @@ class VideoUploadState extends State<VideoUpload> {
     ResponseBodyApi responseBodyApi = await VideoApi.upload(formData);
     if (responseBodyApi.success) {
       BotToast.closeAllLoading();
-      Utils.toPortal(context, S.of(context).saved, S.of(context).goToThePortal, "http://www.cairuoyu.com/flutter_portal");
+      Utils.toPortal(context, S.of(context).saved, S.of(context).goToThePortal);
       setState(() {
 //        this.disposeController();
       });

@@ -103,8 +103,11 @@ class _ArticleEditState extends State<ArticleEdit> {
     action((data) async => await ArticleApi.audit(data));
   }
 
-  public() {
-    action((data) async => await ArticleApi.public(data));
+  public() async {
+    var res = await action((data) async => await ArticleApi.public(data));
+    if (res.success) {
+      Utils.toPortal(context, '发布成功', S.of(context).goToThePortal);
+    }
   }
 
   action(action) async {
@@ -118,5 +121,6 @@ class _ArticleEditState extends State<ArticleEdit> {
       Utils.message(S.of(context).success);
       Get.back(result: true);
     }
+    return res;
   }
 }

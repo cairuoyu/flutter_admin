@@ -19,6 +19,7 @@
 * Role Management
 * User Management
 * Menu Management
+* Article Management
 * upload Picture
 * Video Upload
 * Personnel Management

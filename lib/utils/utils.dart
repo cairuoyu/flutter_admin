@@ -143,7 +143,7 @@ class Utils {
     }
   }
 
-  static toPortal(BuildContext context, String message, String buttonText, String url) {
+  static toPortal(BuildContext context, String message, String buttonText, {String url = "http://www.cairuoyu.com/flutter_portal"}) {
     cryAlertWidget(
       context,
       Container(

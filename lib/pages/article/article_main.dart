@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:cry/form/cry_input.dart';
+import 'package:cry/form/cry_select.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
@@ -47,8 +48,27 @@ class _ArticleMainState extends State<ArticleMain> {
         children: [
           CryInput(
             label: 'title',
+            value: article.title,
+            width: 400,
             onSaved: (v) {
               article.title = v;
+            },
+          ),
+          CryInput(
+            label: 'titleSub',
+            value: article.titleSub,
+            width: 400,
+            onSaved: (v) {
+              article.titleSub = v;
+            },
+          ),
+          CrySelect(
+            label: 'Status',
+            value: article.status,
+            width: 200,
+            dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_ARTICLE_STATUS),
+            onSaved: (v) {
+              article.status = v;
             },
           ),
         ],
@@ -111,6 +131,7 @@ class _ArticleMainState extends State<ArticleMain> {
     );
     var result = Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           form,
           buttonBar,
@@ -128,6 +149,7 @@ class _ArticleMainState extends State<ArticleMain> {
   }
 
   reset() async {
+    article = Article();
     formKey.currentState.reset();
     await ds.loadData(params: {});
   }
