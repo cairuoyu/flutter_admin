@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/form/cry_select.dart';
+import 'package:cry/form/cry_select_date.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
@@ -69,6 +70,24 @@ class _ArticleMainState extends State<ArticleMain> {
             dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_ARTICLE_STATUS),
             onSaved: (v) {
               article.status = v;
+            },
+          ),
+          CrySelectDate(
+            context,
+            label: '发布日期起',
+            value: article.publishTimeStart,
+            width: 200,
+            onSaved: (v) {
+              article.publishTimeStart = v;
+            },
+          ),
+          CrySelectDate(
+            context,
+            label: '发布日期止',
+            value: article.publishTimeEnd,
+            width: 200,
+            onSaved: (v) {
+              article.publishTimeEnd = v;
             },
           ),
         ],

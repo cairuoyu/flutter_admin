@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 
 class Article {
   String id;
@@ -8,7 +6,14 @@ class Article {
   String author;
   String status;
   String publishTime;
+  String publishTimeStart;
+  String publishTimeEnd;
   String fileUrl;
+  int orderBy;
+  String createTime;
+  String updateTime;
+  String createrId;
+  String updateId;
 
   Article({
     this.id,
@@ -17,6 +22,8 @@ class Article {
     this.author,
     this.status,
     this.publishTime,
+    this.publishTimeStart,
+    this.publishTimeEnd,
     this.fileUrl,
     this.orderBy,
     this.createTime,
@@ -32,6 +39,8 @@ class Article {
     String author,
     String status,
     String publishTime,
+    String publishTimeStart,
+    String publishTimeEnd,
     String fileUrl,
     int orderBy,
     String createTime,
@@ -46,6 +55,8 @@ class Article {
       author: author ?? this.author,
       status: status ?? this.status,
       publishTime: publishTime ?? this.publishTime,
+      publishTimeStart: publishTimeStart ?? this.publishTimeStart,
+      publishTimeEnd: publishTimeEnd ?? this.publishTimeEnd,
       fileUrl: fileUrl ?? this.fileUrl,
       orderBy: orderBy ?? this.orderBy,
       createTime: createTime ?? this.createTime,
@@ -57,7 +68,7 @@ class Article {
 
   @override
   String toString() {
-    return 'Article{id: $id, title: $title, titleSub: $titleSub, author: $author, status: $status, publishTime: $publishTime, fileUrl: $fileUrl, orderBy: $orderBy, createTime: $createTime, updateTime: $updateTime, createrId: $createrId, updateId: $updateId}';
+    return 'Article{id: $id, title: $title, titleSub: $titleSub, author: $author, status: $status, publishTime: $publishTime, publishTimeStart: $publishTimeStart, publishTimeEnd: $publishTimeEnd, fileUrl: $fileUrl, orderBy: $orderBy, createTime: $createTime, updateTime: $updateTime, createrId: $createrId, updateId: $updateId}';
   }
 
   @override
@@ -71,6 +82,8 @@ class Article {
           author == other.author &&
           status == other.status &&
           publishTime == other.publishTime &&
+          publishTimeStart == other.publishTimeStart &&
+          publishTimeEnd == other.publishTimeEnd &&
           fileUrl == other.fileUrl &&
           orderBy == other.orderBy &&
           createTime == other.createTime &&
@@ -86,6 +99,8 @@ class Article {
       author.hashCode ^
       status.hashCode ^
       publishTime.hashCode ^
+      publishTimeStart.hashCode ^
+      publishTimeEnd.hashCode ^
       fileUrl.hashCode ^
       orderBy.hashCode ^
       createTime.hashCode ^
@@ -101,6 +116,8 @@ class Article {
       author: map['author'] as String,
       status: map['status'] as String,
       publishTime: map['publishTime'] as String,
+      publishTimeStart: map['publishTimeStart'] as String,
+      publishTimeEnd: map['publishTimeEnd'] as String,
       fileUrl: map['fileUrl'] as String,
       orderBy: map['orderBy'] as int,
       createTime: map['createTime'] as String,
@@ -119,6 +136,8 @@ class Article {
       'author': this.author,
       'status': this.status,
       'publishTime': this.publishTime,
+      'publishTimeStart': this.publishTimeStart,
+      'publishTimeEnd': this.publishTimeEnd,
       'fileUrl': this.fileUrl,
       'orderBy': this.orderBy,
       'createTime': this.createTime,
@@ -128,19 +147,6 @@ class Article {
     } as Map<String, dynamic>;
   }
 
-  //</editor-fold>
+//</editor-fold>
 
-  int orderBy;
-
-  String createTime;
-
-  String updateTime;
-
-  String createrId;
-
-  String updateId;
-
-  String toJson() => json.encode(toMap());
-
-  factory Article.fromJson(String source) => Article.fromMap(json.decode(source));
 }
