@@ -7,30 +7,27 @@ import 'package:flutter_admin/utils/utils.dart';
 import 'package:get_storage/get_storage.dart';
 
 class CryDioInterceptors extends InterceptorsWrapper {
-  @override
-  Future onRequest(RequestOptions options) {
-//    print("REQUEST[${options?.method}] => PATH: ${options?.path}");
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    print('REQUEST[${options.method}] => PATH: ${options.path}');
     String token = GetStorage().read(Constant.KEY_TOKEN);
     options.headers[HttpHeaders.authorizationHeader] = token;
-    return super.onRequest(options);
+    return super.onRequest(options, handler);
   }
-
   @override
-  Future onResponse(Response response) {
-//    print("RESPONSE[${response?.statusCode}] => PATH: ${response?.request?.path}");
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
+    print('RESPONSE[${response.statusCode}] => PATH: ${response.realUri}');
     ResponseBodyApi responseBodyApi = ResponseBodyApi.fromMap(response.data);
     if (!responseBodyApi.success) {
       Utils.message(responseBodyApi.message);
     }
-    return super.onResponse(response);
+    return super.onResponse(response, handler);
   }
-
   @override
-  Future onError(DioError err) {
-    print("ERROR[${err?.response?.statusCode}] => PATH: ${err?.request?.path}");
+  void onError(DioError err, ErrorInterceptorHandler handler) {
+    print('ERROR[${err.response?.statusCode}] => PATH: ${err.response.realUri}');
     print(err.toString());
     String message = '请求出错：' + err.toString();
     Utils.message(message);
-    return super.onError(err);
+    return super.onError(err, handler);
   }
 }
