@@ -101,15 +101,16 @@ class Utils {
     return layoutController.menuDisplayType == MenuDisplayType.drawer;
   }
 
-  static getThemeData({Color themeColor, String fontFamily}) {
+  static getThemeData({Color themeColor, String fontFamily, bool isDark = false}) {
     LayoutController layoutController = Get.find();
     if (fontFamily != null) {
       layoutController.fontFamily = fontFamily;
     }
     if (themeColor == null) {
-      themeColor = Get.theme.primaryColor;
+      themeColor = Get.theme?.primaryColor ?? Colors.blue;
     }
     return ThemeData(
+      brightness: isDark ? Brightness.dark : Brightness.light,
       primaryColor: themeColor,
       iconTheme: IconThemeData(color: themeColor),
       floatingActionButtonTheme: FloatingActionButtonThemeData(

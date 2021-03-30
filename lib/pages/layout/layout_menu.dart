@@ -39,17 +39,15 @@ class _LayoutMenuState extends State<LayoutMenu> {
     );
 
     List<Widget> menuBody = _getMenuListTile(TreeUtil.toTreeVOList(Utils.getMenuTree()));
-    ListView menu = ListView(children: Utils.isMenuDisplayTypeDrawer(context) ? menuBody : [menuHeader, ...menuBody]);
-    return SizedBox(
-      width: expandMenu ? 300 : 60,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.blue[50],
-          // border: Border(right: BorderSide(color: Colors.black)),
-        ),
-        child: menu,
-      ),
+    ListView menu = ListView(
+      children: Utils.isMenuDisplayTypeDrawer(context) ? menuBody : [menuHeader, ...menuBody],
     );
+    return Utils.isMenuDisplayTypeDrawer(context)
+        ? Drawer(child: menu)
+        : SizedBox(
+            width: expandMenu ? 300 : 60,
+            child: menu,
+          );
   }
 
   bool isCurrentOpenedMenu(List<TreeVO<Menu>> data) {
@@ -57,7 +55,6 @@ class _LayoutMenuState extends State<LayoutMenu> {
       if (treeVO.children != null && treeVO.children.length > 0) {
         return isCurrentOpenedMenu(treeVO.children);
       }
-
       return layoutController.currentOpenedTabPageId == treeVO.data.id;
     }
     return false;
@@ -75,13 +72,12 @@ class _LayoutMenuState extends State<LayoutMenu> {
         return ExpansionTile(
           initiallyExpanded: isCurrentOpenedMenu(treeVO.children),
           leading: Icon(iconData),
-          backgroundColor: Theme.of(context).accentColor.withOpacity(0.025),
           children: _getMenuListTile(treeVO.children),
           title: title,
         );
       } else {
         return ListTile(
-          tileColor: layoutController.currentOpenedTabPageId == treeVO.data.id ? Colors.blue.shade100 : Colors.white,
+          tileColor: layoutController.currentOpenedTabPageId == treeVO.data.id ? Colors.blue.shade100 : null,
           leading: Icon(iconData),
           title: title,
           onTap: () {

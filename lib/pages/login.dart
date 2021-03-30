@@ -33,8 +33,11 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildPageContent(),
+    return Theme(
+      data: ThemeData(),
+      child: Scaffold(
+        body: _buildPageContent(),
+      ),
     );
   }
 

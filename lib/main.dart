@@ -35,7 +35,8 @@ class MyApp extends StatelessWidget {
       builder: BotToastInit(),
       enableLog: false,
       navigatorObservers: [BotToastNavigatorObserver()],
-      theme: Utils.getThemeData(themeColor: Colors.blue),
+      theme: Utils.getThemeData(),
+      darkTheme: Utils.getThemeData(isDark: true),
       localizationsDelegates: [
         S.delegate,
         cryS.S.delegate,

@@ -33,6 +33,16 @@ class LayoutSetting extends StatelessWidget {
         layoutController.updateMenuDisplayType(v);
       },
     );
+    var themeMode = CryToggleButtons(
+      [
+        SelectOptionVO(value: ThemeMode.dark, label: 'dart'),
+        SelectOptionVO(value: ThemeMode.light, label: 'light'),
+      ],
+      defaultValue: Get.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      afterOnPress: (Object v) {
+        Get.changeThemeMode(v);
+      },
+    );
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -40,12 +50,11 @@ class LayoutSetting extends StatelessWidget {
           DrawerHeader(
             child: Text(S.of(context).mySettings),
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Get.theme.primaryColor,
             ),
           ),
           Container(
             decoration: BoxDecoration(
-              color: Colors.white,
               border: Border(bottom: BorderSide(color: Colors.black12)),
             ),
             padding: EdgeInsets.all(10),
@@ -56,7 +65,16 @@ class LayoutSetting extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              border: Border(bottom: BorderSide(color: Colors.black12)),
+            ),
+            padding: EdgeInsets.all(10),
+            child: Row(children: [
+              SizedBox(width: 100, child: Text(S.of(context).menuDisplay)),
+              themeMode,
+            ]),
+          ),
+          Container(
+            decoration: BoxDecoration(
               border: Border(bottom: BorderSide(color: Colors.black12)),
             ),
             padding: EdgeInsets.all(10),
@@ -67,7 +85,6 @@ class LayoutSetting extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
-              color: Colors.white,
               border: Border(bottom: BorderSide(color: Colors.black12)),
             ),
             padding: EdgeInsets.all(10),
@@ -78,7 +95,6 @@ class LayoutSetting extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
-              color: Colors.white,
               border: Border(bottom: BorderSide(color: Colors.black12)),
             ),
             padding: EdgeInsets.all(5),

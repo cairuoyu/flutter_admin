@@ -22,8 +22,11 @@ class _RegisterState extends State {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildPageContent(),
+    return Theme(
+      data: ThemeData(),
+      child: Scaffold(
+        body: _buildPageContent(),
+      ),
     );
   }
 

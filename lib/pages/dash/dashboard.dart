@@ -59,7 +59,6 @@ class Dashboard extends StatelessWidget {
       ],
     );
     return Scaffold(
-      backgroundColor: Colors.white,
       body: b,
     );
   }
@@ -117,7 +116,11 @@ class Dashboard extends StatelessWidget {
         children: <Widget>[
           Text(
             title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0,
+              color: Colors.black,
+            ),
           ),
           if (child != null) ...[const SizedBox(height: 10.0), child]
         ],
@@ -138,9 +141,14 @@ class Dashboard extends StatelessWidget {
         dense: true,
         title: Text(
           title,
-          style: TextStyle(fontWeight: FontWeight.w500, color: Colors.blue),
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            color: Colors.blue,
+          ),
         ),
-        trailing: Icon(FontAwesomeIcons.alignRight, color: Colors.blue),
+        trailing: Icon(
+          FontAwesomeIcons.alignRight,
+        ),
       ),
     );
     var body = list.map((v) {
@@ -154,7 +162,10 @@ class Dashboard extends StatelessWidget {
         ),
         child: ListTile(
           dense: true,
-          title: Text(Utils.isLocalEn(context) ? (v.titleEn ?? v.title) : v.title),
+          title: Text(
+            Utils.isLocalEn(context) ? (v.titleEn ?? v.title) : v.title,
+            style: TextStyle(color: Colors.black),
+          ),
           trailing: v.trailing == null ? null : Text(v.trailing),
         ),
       );
