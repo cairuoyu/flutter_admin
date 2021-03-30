@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:cry/cry_list_view.dart';
 import 'package:cry/model/order_item_model.dart';
 import 'package:cry/model/page_model.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_admin/models/message.dart';
 import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/message/message_view.dart';
+import 'package:get/get.dart';
 
 class MessageList extends StatefulWidget {
   @override
@@ -35,25 +35,14 @@ class MessageListState extends State<MessageList> {
       count: messageList.length,
       getCell: (index) {
         Message message = messageList[index];
-        var openContainer = OpenContainer(
-          openBuilder: (context, action) {
-            return MessageView(
-              message: message,
-            );
-          },
-          closedBuilder: (context, action) {
-            var list =  Column(children: [
-              const Divider(thickness: 2),
-              ListTile(
-                leading: Text((index + 1).toString()),
-                title: Text(message.title),
-                subtitle: Text(message.content),
-              ),
-            ]);
-            return list;
-          },
+        return ListTile(
+          onTap: () => Get.to(MessageView(
+            message: message,
+          )),
+          leading: Text((index + 1).toString()),
+          title: Text(message.title),
+          subtitle: Text(message.content),
         );
-        return openContainer;
       },
       loadMore: loadMore,
       onRefresh: reloadData,

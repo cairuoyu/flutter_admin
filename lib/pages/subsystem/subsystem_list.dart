@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:cry/cry_list_view.dart';
 import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_admin/api/subsystem_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/subsystem.dart';
 import 'package:flutter_admin/models/subsystem_vo.dart';
+import 'package:get/get.dart';
 
 typedef OpenSubsystemBuilder<S> = Widget Function(Subsystem subsystem);
 
@@ -39,23 +39,12 @@ class _SubsystemListState extends State<SubsystemList> {
       count: subsystemList.length,
       getCell: (index) {
         Subsystem subsystem = subsystemList[index];
-        var openContainer = OpenContainer(
-          openBuilder: (context, action) {
-            return widget.openSubsystemBuilder(subsystem);
-          },
-          closedBuilder: (context, action) {
-            var list = Column(children: [
-              const Divider(thickness: 2),
-              ListTile(
-                leading: Text((index + 1).toString()),
-                title: Text(subsystem.name),
-                subtitle: Text(subsystem.code),
-              ),
-            ]);
-            return list;
-          },
+        return ListTile(
+          onTap: () => Get.to(widget.openSubsystemBuilder(subsystem)),
+          leading: Text((index + 1).toString()),
+          title: Text(subsystem.name),
+          subtitle: Text(subsystem.code),
         );
-        return openContainer;
       },
     );
     return listView;
