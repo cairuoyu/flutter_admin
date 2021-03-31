@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/message.dart';
+import 'package:flutter_admin/pages/message/message_replay_list.dart';
 
 class MessageView extends StatefulWidget {
   final Message message;
@@ -32,6 +33,13 @@ class _MessageViewState extends State<MessageView> {
           Divider(thickness: 2),
           SizedBox(height: 20),
           Text(widget.message.content),
+          SizedBox(height: 20),
+          Divider(thickness: 2),
+          Text(
+            'Replay',
+            style: textTheme.headline5,
+          ),
+          Expanded(child: MessageReplayList(messageId: widget.message.id)),
         ],
       ),
     );
@@ -39,7 +47,8 @@ class _MessageViewState extends State<MessageView> {
       appBar: AppBar(
         title: Text(S.of(context).view),
       ),
-      body: SingleChildScrollView(child: body),
+      body: body,
+      // body: SingleChildScrollView(child: body),
     );
     return result;
   }
