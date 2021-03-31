@@ -15,33 +15,24 @@ class _FontSelectorState extends State<FontSelector> {
   @override
   Widget build(BuildContext context) {
     LayoutController layoutController = Get.find();
-    var result = PopupMenuButton(
-      tooltip: '选择字体',
-      child: Container(
-        child: Text(fontFamilyMap[currentFontFamily ?? layoutController.fontFamily]),
-        padding: EdgeInsets.all(10),
-      ),
-      initialValue: currentFontFamily ?? layoutController.fontFamily,
-      onSelected: (v) {
+
+    return DropdownButtonFormField<String>(
+      value: currentFontFamily ?? layoutController.fontFamily,
+      items: fontFamilyMap.entries.map((e) {
+        return DropdownMenuItem<String>(
+          value: e.key,
+          child: Text(
+              e.value,
+              style: TextStyle(fontFamily: e.key,fontSize: 10),
+          ),
+        );
+      }).toList(),
+      onChanged: (v) {
         Get.changeTheme(Utils.getThemeData(fontFamily: v));
         setState(() {
           currentFontFamily = v;
         });
       },
-      itemBuilder: (context) => fontFamilyMap.entries
-          .map(
-            (e) => PopupMenuItem(
-              value: e.key,
-              child: ListTile(
-                title: Text(
-                  e.value,
-                  style: TextStyle(fontFamily: e.key),
-                ),
-              ),
-            ),
-          )
-          .toList(),
     );
-    return result;
   }
 }

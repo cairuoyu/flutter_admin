@@ -90,7 +90,7 @@ class LayoutSetting extends StatelessWidget {
             padding: EdgeInsets.all(10),
             child: Row(children: [
               SizedBox(width: 100, child: Text('Font')),
-              FontSelector(),
+              Expanded(child: FontSelector()),
             ]),
           ),
           Container(

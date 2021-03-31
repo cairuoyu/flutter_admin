@@ -14,7 +14,9 @@ import '../../generated/l10n.dart';
 
 class PersonEdit extends StatefulWidget {
   final Person person;
+
   const PersonEdit({Key key, this.person}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return PersonEditState();
@@ -24,6 +26,7 @@ class PersonEdit extends StatefulWidget {
 class PersonEditState extends State<PersonEdit> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Person formData = Person();
+
   @override
   void initState() {
     super.initState();
@@ -45,7 +48,7 @@ class PersonEditState extends State<PersonEdit> {
               formData.name = v;
             },
             validator: (v) {
-              return v.isEmpty ? S.of(context).required: null;
+              return v.isEmpty ? S.of(context).required : null;
             },
           ),
           CryInput(
@@ -64,7 +67,7 @@ class PersonEditState extends State<PersonEdit> {
             },
           ),
           CrySelectDate(
-            context: context,
+            context,
             value: formData.birthday,
             label: S.of(context).personBirthday,
             onSaved: (v) {
