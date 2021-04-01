@@ -38,7 +38,12 @@ class MessageReplayListState extends State<MessageReplayList> {
       getCell: (index) {
         MessageReplayModel messageReplayModel = messageReplayModelList[index];
         return ListTile(
-          leading: Text((index + 1).toString()),
+          leading: messageReplayModel.avatarUrl == null
+              ? Icon(Icons.person)
+              : CircleAvatar(
+                  backgroundImage: NetworkImage(messageReplayModel.avatarUrl),
+                  radius: 12.0,
+                ),
           title: Text(messageReplayModel.content),
           trailing: Text(messageReplayModel.createTime ?? '--'),
         );
@@ -46,7 +51,11 @@ class MessageReplayListState extends State<MessageReplayList> {
       loadMore: loadMore,
       onRefresh: reloadData,
     );
-    return listView;
+    return Card(
+      child: listView,
+      color: Colors.black54,
+      shadowColor: Colors.red,
+    );
   }
 
   Future reloadData() async {

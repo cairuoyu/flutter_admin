@@ -3,14 +3,17 @@ class MessageReplayModel{
   String messageId;
   String content;
   String createTime;
+  String avatarUrl;
 
 //<editor-fold desc="Data Methods" defaultstate="collapsed">
+
 
   MessageReplayModel({
     this.id,
     this.messageId,
     this.content,
     this.createTime,
+    this.avatarUrl,
   });
 
   MessageReplayModel copyWith({
@@ -18,18 +21,20 @@ class MessageReplayModel{
     String messageId,
     String content,
     String createTime,
+    String avatarUrl,
   }) {
     return new MessageReplayModel(
       id: id ?? this.id,
       messageId: messageId ?? this.messageId,
       content: content ?? this.content,
       createTime: createTime ?? this.createTime,
+      avatarUrl: avatarUrl ?? this.avatarUrl,
     );
   }
 
   @override
   String toString() {
-    return 'MessageReplayModel{id: $id, messageId: $messageId, content: $content, createTime: $createTime}';
+    return 'MessageReplayModel{id: $id, messageId: $messageId, content: $content, createTime: $createTime, avatarUrl: $avatarUrl}';
   }
 
   @override
@@ -40,10 +45,11 @@ class MessageReplayModel{
           id == other.id &&
           messageId == other.messageId &&
           content == other.content &&
-          createTime == other.createTime);
+          createTime == other.createTime &&
+          avatarUrl == other.avatarUrl);
 
   @override
-  int get hashCode => id.hashCode ^ messageId.hashCode ^ content.hashCode ^ createTime.hashCode;
+  int get hashCode => id.hashCode ^ messageId.hashCode ^ content.hashCode ^ createTime.hashCode ^ avatarUrl.hashCode;
 
   factory MessageReplayModel.fromMap(Map<String, dynamic> map) {
     return new MessageReplayModel(
@@ -51,6 +57,7 @@ class MessageReplayModel{
       messageId: map['messageId'] as String,
       content: map['content'] as String,
       createTime: map['createTime'] as String,
+      avatarUrl: map['avatarUrl'] as String,
     );
   }
 
@@ -61,6 +68,7 @@ class MessageReplayModel{
       'messageId': this.messageId,
       'content': this.content,
       'createTime': this.createTime,
+      'avatarUrl': this.avatarUrl,
     } as Map<String, dynamic>;
   }
 

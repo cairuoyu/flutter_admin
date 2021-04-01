@@ -32,7 +32,7 @@ class _MessageReplayState extends State<MessageReplay> {
       child: Column(
         children: [
           CryInput(
-            maxLines: 5,
+            maxLines: 10,
             required: true,
             onSaved: (v) {
               messageReplayModel.content = v;
@@ -50,11 +50,13 @@ class _MessageReplayState extends State<MessageReplay> {
     );
     var result = Scaffold(
       appBar: AppBar(title: Text('回复-' + widget.message.title)),
-      body: Column(
-        children: [
-          form,
-          buttonBar,
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            form,
+            buttonBar,
+          ],
+        ),
       ),
     );
     return result;
