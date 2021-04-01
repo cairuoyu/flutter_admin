@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/cry_dialog.dart';
+import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/constants/enum.dart';
@@ -178,5 +179,16 @@ class Utils {
   static List<Menu> getMenuTree() {
     var data = GetStorage().read(Constant.KEY_MENU_LIST);
     return List.from(data).map((e) => Menu.fromMap(e)).toList();
+  }
+
+  static bool isCurrentOpenedMenu(List<TreeVO<Menu>> data) {
+    LayoutController layoutController = Get.find();
+    for (var treeVO in data) {
+      if (treeVO.children != null && treeVO.children.length > 0) {
+        return isCurrentOpenedMenu(treeVO.children);
+      }
+      return layoutController.currentOpenedTabPageId == treeVO.data.id;
+    }
+    return false;
   }
 }

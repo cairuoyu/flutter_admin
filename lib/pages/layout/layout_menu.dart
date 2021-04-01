@@ -1,3 +1,4 @@
+import 'package:cry/cry_button.dart';
 import 'package:cry/utils/adaptive_util.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class LayoutMenu extends StatefulWidget {
 
 class _LayoutMenuState extends State<LayoutMenu> {
   bool expandMenu;
+  bool expandAll = true;
   LayoutController layoutController = Get.find();
 
   @override
@@ -30,17 +32,58 @@ class _LayoutMenuState extends State<LayoutMenu> {
   @override
   Widget build(BuildContext context) {
     this.expandMenu ??= isDisplayDesktop(context) || Utils.isMenuDisplayTypeDrawer(context);
-    ListTile menuHeader = ListTile(
-      title: Icon(Icons.menu),
-      onTap: () {
-        expandMenu = !expandMenu;
-        setState(() {});
-      },
+    ListTile menuHeaderCollapse = ListTile(
+      leading: IconButton(
+        padding: EdgeInsets.zero,
+        icon: Icon(Icons.chevron_left),
+        onPressed: () {
+          expandMenu = !expandMenu;
+          setState(() {});
+        },
+      ),
+      trailing: SizedBox(
+        width: 120,
+        child: ButtonBar(
+          children: [
+            CryButton(
+              iconData: Icons.expand,
+              onPressed: () {
+                setState(() {
+                  expandAll = true;
+                });
+              },
+            ),
+            CryButton(
+              iconData: Icons.vertical_align_center,
+              onPressed: () {
+                setState(() {
+                  expandAll = false;
+                });
+              },
+            ),
+          ],
+        ),
+      ),
     );
-
+    ListTile menuHeaderExpand = ListTile(
+      title: IconButton(
+        padding: EdgeInsets.zero,
+        icon: Icon(Icons.chevron_right),
+        onPressed: () {
+          expandMenu = !expandMenu;
+          setState(() {});
+        },
+      ),
+    );
     List<Widget> menuBody = _getMenuListTile(TreeUtil.toTreeVOList(Utils.getMenuTree()));
     ListView menu = ListView(
-      children: Utils.isMenuDisplayTypeDrawer(context) ? menuBody : [menuHeader, ...menuBody],
+      key: Key('builder ${expandAll.toString()}'),
+      children: Utils.isMenuDisplayTypeDrawer(context)
+          ? menuBody
+          : [
+              expandMenu ? menuHeaderCollapse : menuHeaderExpand,
+              ...menuBody,
+            ],
     );
     return Utils.isMenuDisplayTypeDrawer(context)
         ? Drawer(child: menu)
@@ -48,16 +91,6 @@ class _LayoutMenuState extends State<LayoutMenu> {
             width: expandMenu ? 300 : 60,
             child: menu,
           );
-  }
-
-  bool isCurrentOpenedMenu(List<TreeVO<Menu>> data) {
-    for (var treeVO in data) {
-      if (treeVO.children != null && treeVO.children.length > 0) {
-        return isCurrentOpenedMenu(treeVO.children);
-      }
-      return layoutController.currentOpenedTabPageId == treeVO.data.id;
-    }
-    return false;
   }
 
   List<Widget> _getMenuListTile(List<TreeVO<Menu>> data) {
@@ -70,7 +103,8 @@ class _LayoutMenuState extends State<LayoutMenu> {
       Text title = Text(expandMenu ? name : '');
       if (treeVO.children != null && treeVO.children.length > 0) {
         return ExpansionTile(
-          initiallyExpanded: isCurrentOpenedMenu(treeVO.children),
+          key: Key(treeVO.data.id),
+          initiallyExpanded: expandAll,
           leading: Icon(iconData),
           children: _getMenuListTile(treeVO.children),
           title: title,
