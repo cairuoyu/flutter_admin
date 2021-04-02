@@ -122,13 +122,10 @@ class _UserInfoListState extends State<UserInfoList> {
         UserInfo userInfo = UserInfo.fromMap(m);
         return [
           DataCell(
-            Container(
-              width: 60,
-              child: ButtonBar(
-                children: [
-                  CryButton(iconData: Icons.edit, tip: S.of(context).modify, onPressed: () => _edit(userInfo)),
-                ],
-              ),
+            ButtonBar(
+              children: [
+                CryButton(iconData: Icons.edit, tip: S.of(context).modify, onPressed: () => _edit(userInfo)),
+              ],
             ),
           ),
           DataCell(Text(userInfo.userName ?? '--')),
@@ -163,12 +160,7 @@ class _UserInfoListState extends State<UserInfoList> {
           SizedBox(height: 10),
           form,
           buttonBar,
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(10.0),
-              children: <Widget>[table],
-            ),
-          ),
+          Expanded(child: SingleChildScrollView(child: table)),
         ],
       ),
     );

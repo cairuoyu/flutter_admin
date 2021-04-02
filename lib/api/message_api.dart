@@ -14,6 +14,10 @@ class MessageApi {
     return HttpUtil.post('/message/page', data: data);
   }
 
+
+  static Future<ResponseBodyApi> removeByIds(data) {
+    return HttpUtil.post('/message/removeByIds', data: data);
+  }
   static Future<ResponseBodyApi> save(data) {
     return HttpUtil.post('/message/save', data: data);
   }

@@ -71,19 +71,16 @@ class _RoleListState extends State<RoleList> {
         Role role = Role.fromJson(m);
         return [
           DataCell(
-            Container(
-              width: 240,
-              child: ButtonBar(
-                children: [
-                  CryButton(iconData: Icons.edit, tip: S.of(context).modify, onPressed: () => _edit(role)),
-                  CryButton(iconData: Icons.delete, tip: S.of(context).delete, onPressed: () => _delete([role])),
-                  CryButton(iconData: Icons.person, tip: S.of(context).selectUsers, onPressed: () => _selectUser(role)),
-                  CryButton(iconData: Icons.menu, tip: S.of(context).selectMenus, onPressed: () => _selectMenu(role)),
-                ],
-              ),
+            ButtonBar(
+              children: [
+                CryButton(iconData: Icons.edit, tip: S.of(context).modify, onPressed: () => _edit(role)),
+                CryButton(iconData: Icons.delete, tip: S.of(context).delete, onPressed: () => _delete([role])),
+                CryButton(iconData: Icons.person, tip: S.of(context).selectUsers, onPressed: () => _selectUser(role)),
+                CryButton(iconData: Icons.menu, tip: S.of(context).selectMenus, onPressed: () => _selectMenu(role)),
+              ],
             ),
           ),
-          DataCell(Container(width: 800, child: Text(role.name ?? '--'))),
+          DataCell(Text(role.name ?? '--')),
         ];
       },
     );
@@ -123,12 +120,7 @@ class _RoleListState extends State<RoleList> {
         children: <Widget>[
           SizedBox(height: 10),
           buttonBar,
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(10.0),
-              children: <Widget>[table],
-            ),
-          ),
+          Expanded(child: SingleChildScrollView(child: table)),
         ],
       ),
     );

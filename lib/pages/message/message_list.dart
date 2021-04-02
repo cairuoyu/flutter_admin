@@ -1,9 +1,12 @@
 import 'package:cry/cry_button.dart';
+import 'package:cry/cry_buttons.dart';
+import 'package:cry/cry_dialog.dart';
 import 'package:cry/cry_list_view.dart';
 import 'package:cry/model/order_item_model.dart';
 import 'package:cry/model/page_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/message_api.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/message.dart';
 import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
@@ -42,15 +45,34 @@ class MessageListState extends State<MessageList> {
             leading: Text((index + 1).toString()),
             title: Text(message.title),
             subtitle: Text(message.content),
-            trailing: CryButton(
-              iconData: Icons.replay,
-              onPressed: () => Get.to(MessageReplay(message: message)),
+            trailing: SizedBox(
+              width: 110,
+              child: ButtonBar(
+                children: [
+                  CryButtons.delete(context, ()=>_delete([message]),showLabel: false),
+                  CryButton(
+                    iconData: Icons.replay,
+                    onPressed: () => Get.to(MessageReplay(message: message)),
+                  ),
+                ],
+              ),
             ));
       },
       loadMore: loadMore,
       onRefresh: reloadData,
     );
     return listView;
+  }
+
+  _delete(List<Message> list) {
+    if (list == null || list.length == 0) {
+      return;
+    }
+    cryConfirm(context, S.of(context).confirmDelete, (context) async {
+      await MessageApi.removeByIds(list.map((e) => e.id).toList());
+      reloadData();
+      Navigator.of(context).pop();
+    });
   }
 
   Future reloadData() async {
