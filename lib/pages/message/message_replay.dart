@@ -2,8 +2,10 @@ import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/message_api.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/message.dart';
 import 'package:flutter_admin/models/message_replay_model.dart';
+import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
 
 class MessageReplay extends StatefulWidget {
@@ -69,6 +71,7 @@ class _MessageReplayState extends State<MessageReplay> {
     formKey.currentState.save();
     var result = await MessageApi.replayCommit(messageReplayModel.toMap());
     if (result.success) {
+      Utils.message(S.of(context).success);
       Get.back();
     }
   }

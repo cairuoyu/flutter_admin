@@ -62,7 +62,7 @@ class _MessageEditState extends State<MessageEdit> {
     }
     this.formKey.currentState.save();
     await MessageApi.save(this._message.toMap());
-    Utils.message(S.of(context).saved);
+    Utils.message(S.of(context).success);
     this.setState(() {});
   }
 }

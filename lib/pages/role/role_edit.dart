@@ -1,13 +1,15 @@
+import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/role_api.dart';
-import 'package:cry/cry_button.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/models/role.dart';
+import 'package:flutter_admin/utils/utils.dart';
 
 class RoleEdit extends StatefulWidget {
   final Role role;
+
   RoleEdit({Key key, this.role}) : super(key: key);
 
   @override
@@ -17,6 +19,7 @@ class RoleEdit extends StatefulWidget {
 class _RoleEditState extends State<RoleEdit> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Role _role;
+
   @override
   void initState() {
     super.initState();
@@ -28,28 +31,10 @@ class _RoleEditState extends State<RoleEdit> {
     var buttonBar = ButtonBar(
       alignment: MainAxisAlignment.center,
       children: [
-        CryButton(
-          iconData: Icons.save,
-          label: S.of(context).save,
-          onPressed: () async {
-            var form = formKey.currentState;
-            if (!form.validate()) {
-              return;
-            }
-            form.save();
-            ResponseBodyApi responseBodyApi = await RoleApi.saveOrUpdate(_role);
-            if (responseBodyApi.success) {
-              Navigator.pop(context, true);
-            }
-          },
-        ),
-        CryButton(
-          iconData: Icons.cancel,
-          label: S.of(context).cancel,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        CryButtons.save(context, save),
+        CryButtons.cancel(context, () {
+          Navigator.pop(context);
+        })
       ],
     );
     var form = Form(
@@ -85,5 +70,18 @@ class _RoleEditState extends State<RoleEdit> {
       height: 220,
       child: result,
     );
+  }
+
+  save() async {
+    var form = formKey.currentState;
+    if (!form.validate()) {
+      return;
+    }
+    form.save();
+    ResponseBodyApi responseBodyApi = await RoleApi.saveOrUpdate(_role);
+    if (responseBodyApi.success) {
+      Utils.message(S.of(context).success);
+      Navigator.pop(context, true);
+    }
   }
 }

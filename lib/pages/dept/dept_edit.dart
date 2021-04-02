@@ -8,6 +8,7 @@ import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dept.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
+import 'package:flutter_admin/utils/utils.dart';
 
 class DeptEdit extends StatefulWidget {
   final Dept dept;
@@ -111,6 +112,7 @@ class _DeptEditState extends State<DeptEdit> {
     if (!res.success) {
       return;
     }
+    Utils.message(S.of(context).success);
     close();
   }
 

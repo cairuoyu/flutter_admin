@@ -8,7 +8,7 @@
 
 > A Background Management System Implemented Using Flutter
 
-> As a template for developing Web and APP based on Flutter, this project provides multiple realization methods in terms of functions, including pop-up window, form style, table, etc., and it is constantly improving. With this project, you can learn Flutter efficiently or quickly develop a new app.
+> This project serves as a template, example, and demonstration for developing multi-terminal applications such as Web, Android, iOS, Windows, macOS, Linux, etc. based on Flutter. It provides multiple implementation methods in function, including pop-up windows, form styles, tables, etc., and it continues The ground is perfecting. Through this project, you can learn Flutter efficiently or quickly develop a new cross-terminal application.
 
 ---
 ## Functional technology
