@@ -1,3 +1,4 @@
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/cry_data_table.dart';
 import 'package:cry/cry_dialog.dart';
@@ -69,8 +70,7 @@ class _SubsystemMain extends State<SubsystemMain> {
       ),
     );
     List<Subsystem> selectedList = tableKey?.currentState?.getSelectedList(page)?.map<Subsystem>((e) => Subsystem.fromMap(e))?.toList() ?? [];
-    var buttonBar = ButtonBar(
-      alignment: MainAxisAlignment.start,
+    var buttonBar = CryButtonBar(
       children: [
         CryButtons.query(context, () => _query()),
         CryButtons.reset(context, () => _reset()),
@@ -122,8 +122,8 @@ class _SubsystemMain extends State<SubsystemMain> {
                   })),
               DataCell(ButtonBar(
                 children: [
-                  CryButtons.edit(context, () => _edit(subsystem)),
-                  CryButtons.delete(context, () => _delete([subsystem])),
+                  CryButtons.edit(context, () => _edit(subsystem),showLabel: false),
+                  CryButtons.delete(context, () => _delete([subsystem]),showLabel: false),
                 ],
               )),
             ];

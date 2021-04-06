@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_image_upload.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/form/cry_select.dart';
@@ -101,8 +102,7 @@ class _UserInfoMineState extends State<UserInfoMine> {
       ),
     ];
     var form = _getForm(avatar, propList);
-    var buttonBar = ButtonBar(
-      alignment: MainAxisAlignment.start,
+    var buttonBar = CryButtonBar(
       children: <Widget>[
         CryButton(
           label: S.of(context).save,

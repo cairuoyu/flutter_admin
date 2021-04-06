@@ -1,4 +1,5 @@
 import 'package:cry/cry_button.dart';
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
@@ -48,8 +49,7 @@ class _MenuTreeState extends State<MenuTree> {
         ),
       ),
     );
-    var buttonBar = ButtonBar(
-      alignment: MainAxisAlignment.start,
+    var buttonBar = CryButtonBar(
       children: [
         CryButtons.add(context, () => widget.onEdit(null)),
         CryButton(
@@ -92,7 +92,7 @@ class _MenuTreeState extends State<MenuTree> {
     Menu menu = treeVO.data;
     var trailing = SizedBox(
       width: 180,
-      child: ButtonBar(
+      child: CryButtonBar(
         children: [
           CryButtons.add(context, () => widget.onEdit(Menu(pname: menu.name, pid: menu.id)), showLabel: false),
           CryButtons.edit(context, () {

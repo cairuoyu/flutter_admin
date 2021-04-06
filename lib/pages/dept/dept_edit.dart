@@ -1,3 +1,4 @@
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/form/cry_input_num.dart';
@@ -83,8 +84,7 @@ class _DeptEditState extends State<DeptEdit> {
       ),
     );
 
-    var buttonBar = ButtonBar(
-      alignment: MainAxisAlignment.start,
+    var buttonBar = CryButtonBar(
       children: [
         CryButtons.save(context, () => save()),
         CryButtons.cancel(context, () => close()),
@@ -92,11 +92,13 @@ class _DeptEditState extends State<DeptEdit> {
     );
     var result = Scaffold(
       appBar: AppBar(title: Text(S.of(context).add)),
-      body: Column(
-        children: [
-          buttonBar,
-          form,
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            buttonBar,
+            form,
+          ],
+        ),
       ),
     );
     return result;

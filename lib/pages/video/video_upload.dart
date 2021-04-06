@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:dio/dio.dart';
@@ -59,8 +60,7 @@ class VideoUploadState extends State<VideoUpload> {
         ],
       ),
     );
-    var bb = ButtonBar(
-      alignment: MainAxisAlignment.start,
+    var bb = CryButtonBar(
       children: <Widget>[
         CryButton(
           label: S.of(context).selectVideo,

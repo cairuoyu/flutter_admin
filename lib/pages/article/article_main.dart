@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/form/cry_select.dart';
@@ -34,8 +35,7 @@ class _ArticleMainState extends State<ArticleMain> {
 
   @override
   Widget build(BuildContext context) {
-    var buttonBar = ButtonBar(
-      alignment: MainAxisAlignment.start,
+    var buttonBar = CryButtonBar(
       children: [
         CryButtons.query(context, query),
         CryButtons.reset(context, reset),
@@ -190,8 +190,7 @@ class _ArticleMainState extends State<ArticleMain> {
 
   Widget getCellWidget(BuildContext context, GridColumn column, int rowIndex) {
     if (column.mappingName == 'operation') {
-      var result = ButtonBar(
-        alignment: MainAxisAlignment.start,
+      var result = CryButtonBar(
         children: [
           CryButtons.edit(context, () => edit(article: ds.dataSource[rowIndex]), showLabel: false),
           CryButtons.delete(context, () => delete([ds.dataSource[rowIndex].id]), showLabel: false),

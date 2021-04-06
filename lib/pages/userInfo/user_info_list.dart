@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/form/cry_select_custom_widget.dart';
@@ -122,7 +123,7 @@ class _UserInfoListState extends State<UserInfoList> {
         UserInfo userInfo = UserInfo.fromMap(m);
         return [
           DataCell(
-            ButtonBar(
+            CryButtonBar(
               children: [
                 CryButton(iconData: Icons.edit, tip: S.of(context).modify, onPressed: () => _edit(userInfo)),
               ],
@@ -143,8 +144,7 @@ class _UserInfoListState extends State<UserInfoList> {
       },
     );
     List<UserInfo> selectedList = tableKey?.currentState?.getSelectedList(page)?.map<UserInfo>((e) => UserInfo.fromMap(e))?.toList() ?? [];
-    ButtonBar buttonBar = ButtonBar(
-      alignment: MainAxisAlignment.start,
+    CryButtonBar buttonBar = CryButtonBar(
       children: <Widget>[
         CryButtons.query(context, () => _query()),
         CryButtons.reset(context, () => _reset()),

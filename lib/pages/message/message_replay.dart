@@ -1,3 +1,4 @@
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:flutter/material.dart';
@@ -43,8 +44,7 @@ class _MessageReplayState extends State<MessageReplay> {
         ],
       ),
     );
-    var buttonBar = ButtonBar(
-      alignment: MainAxisAlignment.center,
+    var buttonBar = CryButtonBar(
       children: [
         CryButtons.commit(context, commit),
         CryButtons.cancel(context, () => Get.back()),

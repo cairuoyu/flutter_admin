@@ -85,7 +85,7 @@ class PersonEditState extends State<PersonEdit> {
         ],
       ),
     );
-    ButtonBar buttonBar = ButtonBar(
+    var  buttonBar = ButtonBar(
       alignment: MainAxisAlignment.center,
       children: <Widget>[
         CryButton(

@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_data_table.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:cry/model/order_item_model.dart';
@@ -71,7 +72,7 @@ class _RoleListState extends State<RoleList> {
         Role role = Role.fromJson(m);
         return [
           DataCell(
-            ButtonBar(
+            CryButtonBar(
               children: [
                 CryButton(iconData: Icons.edit, tip: S.of(context).modify, onPressed: () => _edit(role)),
                 CryButton(iconData: Icons.delete, tip: S.of(context).delete, onPressed: () => _delete([role])),
@@ -85,7 +86,7 @@ class _RoleListState extends State<RoleList> {
       },
     );
     List<Role> selectedList = tableKey?.currentState?.getSelectedList(page)?.map<Role>((e) => Role.fromJson(e))?.toList() ?? [];
-    ButtonBar buttonBar = ButtonBar(
+    var buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[
         CryButton(

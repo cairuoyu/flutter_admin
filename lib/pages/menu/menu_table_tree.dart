@@ -1,3 +1,4 @@
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/cry_tree_table.dart';
 import 'package:cry/vo/tree_vo.dart';
@@ -63,8 +64,7 @@ class _MenuTableTreeState extends State<MenuTableTree> {
 
   _getToolbars() {
     var selected = TreeUtil.getSelected(widget.treeVOList);
-    var result = ButtonBar(
-      alignment: MainAxisAlignment.start,
+    var result = CryButtonBar(
       children: <Widget>[
         CryButtons.add(context, () => widget.onEdit(Menu())),
         CryButtons.delete(

@@ -1,4 +1,5 @@
 import 'package:cry/cry_button.dart';
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:cry/cry_list_view.dart';
@@ -47,7 +48,7 @@ class MessageListState extends State<MessageList> {
             subtitle: Text(message.content),
             trailing: SizedBox(
               width: 110,
-              child: ButtonBar(
+              child: CryButtonBar(
                 children: [
                   CryButtons.delete(context, ()=>_delete([message]),showLabel: false),
                   CryButton(

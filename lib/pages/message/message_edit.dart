@@ -1,3 +1,4 @@
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +18,7 @@ class _MessageEditState extends State<MessageEdit> {
 
   @override
   Widget build(BuildContext context) {
-    var buttonBar = ButtonBar(
-      alignment: MainAxisAlignment.center,
+    var buttonBar = CryButtonBar(
       children: [
         CryButtons.commit(context, save),
       ],

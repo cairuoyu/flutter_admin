@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:dio/dio.dart';
@@ -80,10 +81,7 @@ class ImageUploadState extends State<ImageUpload> {
         ),
       );
     }
-    var bb = ButtonBar(
-      alignment: MainAxisAlignment.start,
-      children: buttons,
-    );
+    var bb = CryButtonBar(children: buttons);
     var result = Scrollbar(
       child: SingleChildScrollView(
         child: Column(

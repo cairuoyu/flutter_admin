@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/form/cry_input_num.dart';
@@ -33,8 +34,7 @@ class _MenuEditState extends State<MenuEdit> {
   @override
   Widget build(BuildContext context) {
     menu = widget.menu ?? Menu();
-    var buttonBar = ButtonBar(
-      alignment: MainAxisAlignment.start,
+    var buttonBar = CryButtonBar(
       children: <Widget>[
         CryButtons.save(
           context,

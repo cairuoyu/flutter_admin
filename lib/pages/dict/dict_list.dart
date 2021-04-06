@@ -1,3 +1,4 @@
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/cry_data_table.dart';
 import 'package:cry/cry_dialog.dart';
@@ -63,8 +64,7 @@ class _DictList extends State<DictList> {
       ),
     );
     List<Dict> selectedList = tableKey?.currentState?.getSelectedList(page)?.map<Dict>((e) => Dict.fromMap(e))?.toList() ?? [];
-    var buttonBar = ButtonBar(
-      alignment: MainAxisAlignment.start,
+    var buttonBar = CryButtonBar(
       children: [
         CryButtons.query(context, () => _query()),
         CryButtons.reset(context, () => _reset()),
@@ -104,7 +104,7 @@ class _DictList extends State<DictList> {
           getCells: (Map m) {
             Dict dict = Dict.fromMap(m);
             return [
-              DataCell(ButtonBar(
+              DataCell(CryButtonBar(
                 children: dict.state == ConstantDict.CODE_YESNO_YES ? [] : [CryButton(iconData: Icons.edit, onPressed: () => _edit(dict))],
               )),
               DataCell(Text(dict.code)),

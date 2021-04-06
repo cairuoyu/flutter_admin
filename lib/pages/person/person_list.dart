@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/form1/cry_input.dart';
 import 'package:cry/form1/cry_select.dart';
 import 'package:cry/model/order_item_model.dart';
@@ -96,12 +97,11 @@ class PersonListState extends State {
       ),
     );
 
-    ButtonBar buttonBar = ButtonBar(
-      alignment: MainAxisAlignment.start,
+    var buttonBar = CryButtonBar(
       children: <Widget>[
-        CryButton(label: S.of(context).query,iconData: Icons.search, onPressed: () => _query()),
-        CryButton(label: S.of(context).reset,iconData: Icons.refresh, onPressed: () => _reset()),
-        CryButton(label: S.of(context).add,iconData: Icons.add, onPressed: () => _edit()),
+        CryButton(label: S.of(context).query, iconData: Icons.search, onPressed: () => _query()),
+        CryButton(label: S.of(context).reset, iconData: Icons.refresh, onPressed: () => _reset()),
+        CryButton(label: S.of(context).add, iconData: Icons.add, onPressed: () => _edit()),
         CryButton(
           label: S.of(context).modify,
           iconData: Icons.edit,
@@ -279,6 +279,7 @@ class MyDS extends DataTableSource {
         DataCell(Text(person.createTime ?? '--')),
         DataCell(Text(person.updateTime ?? '--')),
         DataCell(ButtonBar(
+          // alignment: MainAxisAlignment.start,
           children: <Widget>[
             IconButton(
               icon: Icon(Icons.edit),

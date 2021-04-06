@@ -1,3 +1,4 @@
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:flutter/material.dart';
@@ -43,8 +44,7 @@ class DictItemListEditState extends State<DictItemListEdit> {
 
   @override
   Widget build(BuildContext context) {
-    var buttonBar = ButtonBar(
-      alignment: MainAxisAlignment.start,
+    var buttonBar = CryButtonBar(
       children: [CryButtons.add(context, () => this._add())],
     );
     int i = 0;
@@ -60,7 +60,7 @@ class DictItemListEditState extends State<DictItemListEdit> {
         var result = DataRow(
           cells: [
             DataCell(Text((rowIndex).toString())),
-            DataCell(ButtonBar(
+            DataCell(CryButtonBar(
               children: [
                 CryButton(
                   iconData: Icons.delete,

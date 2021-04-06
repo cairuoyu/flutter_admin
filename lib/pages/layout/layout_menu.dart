@@ -1,4 +1,5 @@
 import 'package:cry/cry_button.dart';
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/utils/adaptive_util.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
       ),
       trailing: SizedBox(
         width: 120,
-        child: ButtonBar(
+        child: CryButtonBar(
           children: [
             CryButton(
               iconData: Icons.expand,

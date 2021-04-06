@@ -1,3 +1,4 @@
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/model/order_item_model.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
 
   @override
   Widget build(BuildContext context) {
-    var buttonBar = ButtonBar(
+    var buttonBar = CryButtonBar(
       children: [
         CryButton(
           label: S.of(context).query,
@@ -65,7 +66,6 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
           },
         ),
       ],
-      alignment: MainAxisAlignment.start,
     );
     var form = Form(
       key: formKey,

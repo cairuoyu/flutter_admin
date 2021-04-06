@@ -1,4 +1,5 @@
 import 'package:cry/cry_button.dart';
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
@@ -51,8 +52,7 @@ class _DeptSelectorState extends State<DeptSelector> {
         ),
       ),
     );
-    var buttonBar = ButtonBar(
-      alignment: MainAxisAlignment.start,
+    var buttonBar = CryButtonBar(
       children: [
         CryButton(
           iconData: Icons.vertical_align_center,

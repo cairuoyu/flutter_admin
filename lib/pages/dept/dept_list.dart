@@ -1,4 +1,5 @@
 import 'package:cry/cry_button.dart';
+import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:cry/form/cry_input.dart';
@@ -56,8 +57,7 @@ class _DeptListState extends State<DeptList> {
         ),
       ),
     );
-    var buttonBar = ButtonBar(
-      alignment: MainAxisAlignment.start,
+    var buttonBar = CryButtonBar(
       children: [
         CryButtons.query(context, query),
         CryButtons.reset(context, reset),
