@@ -1,5 +1,5 @@
 import 'dart:typed_data';
-import 'package:bot_toast/bot_toast.dart';
+
 import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
@@ -12,6 +12,7 @@ import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/video.dart';
 import 'package:flutter_admin/utils/utils.dart';
+import 'package:get/route_manager.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as Path;
@@ -136,10 +137,10 @@ class VideoUploadState extends State<VideoUpload> {
     map['file'] = file;
     FormData formData = FormData.fromMap(map);
 
-    BotToast.showLoading();
+    Utils.loading();
     ResponseBodyApi responseBodyApi = await VideoApi.upload(formData);
     if (responseBodyApi.success) {
-      BotToast.closeAllLoading();
+      Get.back();
       Utils.toPortal(context, S.of(context).saved, S.of(context).goToThePortal);
       setState(() {
 //        this.disposeController();

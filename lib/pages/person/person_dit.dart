@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/form1/cry_input.dart';
 import 'package:cry/form1/cry_select.dart';
 import 'package:cry/form1/cry_select_date.dart';
@@ -10,6 +9,7 @@ import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/models/person.dart';
 import 'package:flutter_admin/utils/adaptive_util.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
+import 'package:flutter_admin/utils/utils.dart';
 import '../../generated/l10n.dart';
 
 class PersonEdit extends StatefulWidget {
@@ -85,7 +85,7 @@ class PersonEditState extends State<PersonEdit> {
         ],
       ),
     );
-    var  buttonBar = ButtonBar(
+    var buttonBar = ButtonBar(
       alignment: MainAxisAlignment.center,
       children: <Widget>[
         CryButton(
@@ -98,9 +98,8 @@ class PersonEditState extends State<PersonEdit> {
             }
             form.save();
             PersonApi.saveOrUpdate(formData.toJson()).then((res) {
-              BotToast.showText(text: S.of(context).saved);
-              // BotToast.showSimpleNotification(title: "init");
               Navigator.pop(context, true);
+              Utils.message(S.of(context).saved);
             });
           },
         ),

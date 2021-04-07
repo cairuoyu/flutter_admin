@@ -1,8 +1,8 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/user_api.dart';
 import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/models/user.dart';
+import 'package:flutter_admin/utils/utils.dart';
 import '../generated/l10n.dart';
 
 class Register extends StatefulWidget {
@@ -173,7 +173,7 @@ class _RegisterState extends State {
           return;
         }
         _login();
-        BotToast.showText(text: S.of(context).registerSuccess);
+        Utils.message(S.of(context).registerSuccess);
       });
     }
   }

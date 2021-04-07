@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/dict_api.dart';
 import 'package:flutter_admin/api/menu_api.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_admin/constants/constant.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/common/lang_switch.dart';
 import 'package:flutter_admin/pages/register.dart';
+import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_admin/api/user_api.dart';
 import 'package:flutter_admin/models/user.dart';
@@ -203,11 +203,11 @@ class _LoginState extends State<Login> {
       return;
     }
     form.save();
-    BotToast.showLoading();
+    Utils.loading();
 
     ResponseBodyApi responseBodyApi = await UserApi.login(user.toJson());
     if (!responseBodyApi.success) {
-      BotToast.closeAllLoading();
+      Get.back();
       return;
     }
     GetStorage().write(Constant.KEY_TOKEN, responseBodyApi.data);
@@ -217,7 +217,7 @@ class _LoginState extends State<Login> {
 
     LayoutController layoutController = Get.find();
     layoutController.init();
-    BotToast.closeAllLoading();
+    Get.back();
     Navigator.pushNamed(context, '/');
   }
 

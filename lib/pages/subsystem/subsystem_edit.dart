@@ -122,8 +122,8 @@ class _SubsystemEditState extends State<SubsystemEdit> {
     form.save();
     ResponseBodyApi responseBodyApi = await SubsystemApi.saveOrUpdate(_subsystem.toMap());
     if (responseBodyApi.success) {
-      Utils.message(S.of(context).success);
       Navigator.pop(context, true);
+      Utils.message(S.of(context).success);
     }
   }
 }

@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/form/cry_select.dart';
 import 'package:cry/form/cry_select_custom_widget.dart';
@@ -13,6 +12,7 @@ import 'package:flutter_admin/models/dept.dart';
 import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/pages/common/dept_selector.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
+import 'package:flutter_admin/utils/utils.dart';
 import '../../generated/l10n.dart';
 
 class UserInfoEdit extends StatefulWidget {
@@ -102,8 +102,8 @@ class _UserInfoEditState extends State<UserInfoEdit> {
               if (!res.success) {
                 return;
               }
-              BotToast.showText(text: S.of(context).saved);
               Navigator.pop(context, true);
+              Utils.message(S.of(context).saved);
             });
           },
           iconData: Icons.save,

@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
@@ -14,6 +13,7 @@ import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/image.dart' as model;
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/utils/utils.dart';
+import 'package:get/route_manager.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -130,10 +130,10 @@ class ImageUploadState extends State<ImageUpload> {
     map['file'] = file;
     FormData formData = FormData.fromMap(map);
 
-    BotToast.showLoading();
+    Utils.loading();
     ResponseBodyApi responseBodyApi = await ImageApi.upload(formData);
     if (responseBodyApi.success) {
-      BotToast.closeAllLoading();
+      Get.back();
       Utils.toPortal(context, S.of(context).saved, S.of(context).goToThePortal);
       setState(() {
         this.pickedFile = null;

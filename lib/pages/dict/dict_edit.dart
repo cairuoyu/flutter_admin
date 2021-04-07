@@ -106,7 +106,7 @@ class _DictEditState extends State<DictEdit> {
     if (!res.success) {
       return;
     }
-    Utils.message(S.of(context).success);
     Navigator.pop(context);
+    Utils.message(S.of(context).success);
   }
 }

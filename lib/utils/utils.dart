@@ -1,4 +1,4 @@
-import 'package:bot_toast/bot_toast.dart';
+
 import 'package:cry/cry_dialog.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
@@ -13,15 +13,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
-  static snackbar(String message) {
-    Get.snackbar(
-      '提示',
-      message,
-      colorText: Colors.black,
-      snackPosition: SnackPosition.BOTTOM,
-    );
-  }
-
   static openTab(TabPage tabPage) {
     LayoutController layoutController = Get.find();
     List<TabPage> openedTabPageList = layoutController.openedTabPageList;
@@ -121,9 +112,17 @@ class Utils {
       fontFamily: layoutController.fontFamily,
     );
   }
+  static loading(){
+    Get.dialog(Center(child: CircularProgressIndicator()));
+  }
 
-  static message(text, {durationSeconds = 3}) {
-    BotToast.showText(text: text, duration: Duration(seconds: durationSeconds));
+  static message(message) {
+    Get.snackbar(
+      '提示',
+      message,
+      colorText: Colors.black,
+      snackPosition: SnackPosition.BOTTOM,
+    );
   }
 
   static isLogin() {

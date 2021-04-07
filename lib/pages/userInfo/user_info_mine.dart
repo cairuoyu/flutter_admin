@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_image_upload.dart';
 import 'package:cry/form/cry_input.dart';
@@ -19,6 +18,7 @@ import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/pages/common/dept_selector.dart';
 import 'package:flutter_admin/utils/adaptive_util.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
+import 'package:flutter_admin/utils/utils.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:path/path.dart' as Path;
@@ -117,7 +117,7 @@ class _UserInfoMineState extends State<UserInfoMine> {
                 return;
               }
               GetStorage().write(Constant.KEY_CURRENT_USER_INFO, this.userInfo.toMap());
-              BotToast.showText(text: S.of(context).saved);
+              Utils.message(S.of(context).saved);
             });
           },
           iconData: Icons.save,

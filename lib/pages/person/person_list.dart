@@ -1,4 +1,4 @@
-import 'package:bot_toast/bot_toast.dart';
+
 import 'package:cry/cry_button_bar.dart';
 import 'package:cry/form1/cry_input.dart';
 import 'package:cry/form1/cry_select.dart';
@@ -14,6 +14,8 @@ import 'package:flutter_admin/models/person.dart';
 import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
+import 'package:flutter_admin/utils/utils.dart';
+import 'package:get/route_manager.dart';
 import '../../generated/l10n.dart';
 import 'person_dit.dart';
 
@@ -226,11 +228,11 @@ class MyDS extends DataTableSource {
   }
 
   loadData() async {
-    BotToast.showLoading();
+    Utils.loading();
     requestBodyApi.page = page;
     ResponseBodyApi responseBodyApi = await PersonApi.page(requestBodyApi.toMap());
     page = PageModel.fromMap(responseBodyApi.data);
-    BotToast.closeAllLoading();
+    Get.back();
 
     dataList = page.records.map<Person>((v) {
       Person person = Person.fromJson(v);

@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
@@ -11,6 +10,7 @@ import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/common/icon_selector.dart';
+import 'package:flutter_admin/utils/utils.dart';
 
 class MenuEdit extends StatefulWidget {
   MenuEdit({Key key, this.menu, this.onSave, this.onClose}) : super(key: key);
@@ -48,7 +48,7 @@ class _MenuEditState extends State<MenuEdit> {
               if (!res.success) {
                 return;
               }
-              BotToast.showText(text: S.of(context).saved);
+              Utils.message(S.of(context).saved);
               if (widget.onSave != null) {
                 widget.onSave();
               }

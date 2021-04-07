@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
@@ -17,6 +16,8 @@ import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/pages/common/dept_selector.dart';
 import 'package:flutter_admin/pages/userInfo/user_info_edit.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
+import 'package:flutter_admin/utils/utils.dart';
+import 'package:get/route_manager.dart';
 
 class UserInfoList extends StatefulWidget {
   UserInfoList({Key key}) : super(key: key);
@@ -34,7 +35,9 @@ class _UserInfoListState extends State<UserInfoList> {
   @override
   void initState() {
     super.initState();
-    _query();
+    WidgetsBinding.instance.addPostFrameCallback((c) {
+      _query();
+    });
   }
 
   @override
@@ -195,9 +198,9 @@ class _UserInfoListState extends State<UserInfoList> {
   }
 
   _loadData() async {
-    BotToast.showLoading();
+    Utils.loading();
     ResponseBodyApi responseBodyApi = await UserInfoApi.page(RequestBodyApi(page: page, params: userInfo.toMap()).toMap());
-    BotToast.closeAllLoading();
+    Get.back();
     page = responseBodyApi.data != null ? PageModel.fromMap(responseBodyApi.data) : PageModel();
     tableKey.currentState.loadData(page);
   }

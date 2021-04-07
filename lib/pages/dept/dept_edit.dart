@@ -10,6 +10,7 @@ import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dept.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
+import 'package:get/get.dart';
 
 class DeptEdit extends StatefulWidget {
   final Dept dept;
@@ -87,7 +88,7 @@ class _DeptEditState extends State<DeptEdit> {
     var buttonBar = CryButtonBar(
       children: [
         CryButtons.save(context, () => save()),
-        CryButtons.cancel(context, () => close()),
+        CryButtons.cancel(context, () => Get.back()),
       ],
     );
     var result = Scaffold(
@@ -114,11 +115,7 @@ class _DeptEditState extends State<DeptEdit> {
     if (!res.success) {
       return;
     }
+    Get.back();
     Utils.message(S.of(context).success);
-    close();
-  }
-
-  close() {
-    Navigator.pop(context);
   }
 }

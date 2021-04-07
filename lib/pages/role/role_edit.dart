@@ -80,8 +80,8 @@ class _RoleEditState extends State<RoleEdit> {
     form.save();
     ResponseBodyApi responseBodyApi = await RoleApi.saveOrUpdate(_role);
     if (responseBodyApi.success) {
-      Utils.message(S.of(context).success);
       Navigator.pop(context, true);
+      Utils.message(S.of(context).success);
     }
   }
 }

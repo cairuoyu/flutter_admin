@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:cry/cry_tree_table.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +13,7 @@ import 'package:flutter_admin/models/role_menu.dart';
 import 'package:flutter_admin/models/subsystem.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
+import 'package:get/route_manager.dart';
 
 class RoleMenuSelect extends StatefulWidget {
   final Function onEdit;
@@ -47,12 +47,12 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
   @override
   Widget build(BuildContext context) {
     List<CryTreeTableColumnData> columnData = [
-      CryTreeTableColumnData(label:S.of(context).name,getCell: (Menu v) => Text(v.name)),
-      CryTreeTableColumnData(label:S.of(context).englishName,getCell:  (Menu v) => Text(v.nameEn)),
-      CryTreeTableColumnData(label:'URL',getCell:  (Menu v) => Text(v.url)),
-      CryTreeTableColumnData(label:'Icon',getCell:  (Menu v) => Icon(Utils.toIconData(v.icon))),
-      CryTreeTableColumnData(label:S.of(context).sequenceNumber, getCell: (Menu v) => Text(v.orderBy?.toString()), width: 180),
-      CryTreeTableColumnData(label:S.of(context).remarks,getCell:  (Menu v) => Text(v.remark), width: 300)
+      CryTreeTableColumnData(label: S.of(context).name, getCell: (Menu v) => Text(v.name)),
+      CryTreeTableColumnData(label: S.of(context).englishName, getCell: (Menu v) => Text(v.nameEn)),
+      CryTreeTableColumnData(label: 'URL', getCell: (Menu v) => Text(v.url)),
+      CryTreeTableColumnData(label: 'Icon', getCell: (Menu v) => Icon(Utils.toIconData(v.icon))),
+      CryTreeTableColumnData(label: S.of(context).sequenceNumber, getCell: (Menu v) => Text(v.orderBy?.toString()), width: 180),
+      CryTreeTableColumnData(label: S.of(context).remarks, getCell: (Menu v) => Text(v.remark), width: 300)
     ];
 
     var treeTable = CryTreeTable<Menu>(
@@ -84,14 +84,13 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
   }
 
   save() async {
-    BotToast.showLoading();
+    Utils.loading();
     List<Menu> selectedList = treeTableKey.currentState.getSelectedData();
     List roleMenuList = selectedList.map((e) => RoleMenu(roleId: widget.role.id, menuId: e.id).toMap()).toList();
     ResponseBodyApi res = await RoleMenuApi.saveBatch({'roleId': widget.role.id, 'subsystemId': widget.subsystem.id, 'roleMenuList': roleMenuList});
     if (res.success) {
-      BotToast.closeAllLoading();
+      Get.back();
       Utils.message(S.of(context).saved);
-      Navigator.pop(context);
     }
   }
 

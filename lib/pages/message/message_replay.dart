@@ -71,8 +71,8 @@ class _MessageReplayState extends State<MessageReplay> {
     formKey.currentState.save();
     var result = await MessageApi.replayCommit(messageReplayModel.toMap());
     if (result.success) {
-      Utils.message(S.of(context).success);
       Get.back();
+      Utils.message(S.of(context).success);
     }
   }
 }
