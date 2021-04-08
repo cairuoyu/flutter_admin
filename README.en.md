@@ -32,6 +32,7 @@
 * Theme Switch
 * Font Switch
 * Standalone configuration file
+* Component packaging
 * JWT
 * Import or Export Excle
 
