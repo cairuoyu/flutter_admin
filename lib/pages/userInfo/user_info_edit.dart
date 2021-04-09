@@ -1,7 +1,6 @@
-import 'package:cry/form/cry_input.dart';
-import 'package:cry/form/cry_select.dart';
-import 'package:cry/form/cry_select_custom_widget.dart';
-import 'package:cry/form/cry_select_date.dart';
+import 'package:cry/cry.dart';
+import 'package:cry/data/location.dart';
+import 'package:cry/model/cascade_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/user_info_api.dart';
@@ -39,6 +38,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
 
   @override
   Widget build(BuildContext context) {
+    var hometownData = pca.map((e) => CascadeModel.fromMap(e)).toList();
     var form = Form(
       key: formKey,
       child: Wrap(
@@ -59,6 +59,22 @@ class _UserInfoEditState extends State<UserInfoEdit> {
             label: S.of(context).personNickname,
             value: userInfo.nickName,
             onSaved: (v) => {userInfo.nickName = v},
+          ),
+          CrySelectCustomWidget(
+            context,
+            initialValue: userInfo.hometown,
+            initialValueLabel: userInfo.hometown,
+            label: 'Hometown',
+            key: UniqueKey(),
+            popWidget: CryCascade(
+              data: hometownData,
+              title: '中国',
+            ),
+            getValue: (List<CascadeModel> v) => v.map((e) => e.name).toList().join(','),
+            getValueLabel: (List<CascadeModel> v) => v.map((e) => e.name).toList().join(','),
+            onSaved: (v) {
+              userInfo.hometown = v;
+            },
           ),
           CrySelectDate(
             context,

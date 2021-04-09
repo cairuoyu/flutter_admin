@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  cry: 1.0.5
+  cry: 1.0.7
   dio: ^4.0.0
   cupertino_icons: ^1.0.2
   charts_flutter: ^0.9.0

@@ -106,6 +106,10 @@ class _UserInfoListState extends State<UserInfoList> {
           onSort: (int columnIndex, bool ascending) => _sort('gender'),
         ),
         DataColumn(
+          label: Text('Hometown'),
+          onSort: (int columnIndex, bool ascending) => _sort('hometown'),
+        ),
+        DataColumn(
           label: Text(S.of(context).personBirthday),
           onSort: (int columnIndex, bool ascending) => _sort('birthday'),
         ),
@@ -139,6 +143,7 @@ class _UserInfoListState extends State<UserInfoList> {
             userInfo.gender,
             ConstantDict.CODE_GENDER,
           ))),
+          DataCell(Text(userInfo.hometown?? '--')),
           DataCell(Text(userInfo.birthday ?? '--')),
           DataCell(Text(userInfo.deptName ?? '--')),
           DataCell(Text(userInfo.createTime ?? '--')),
@@ -170,19 +175,11 @@ class _UserInfoListState extends State<UserInfoList> {
     return result;
   }
 
-  _edit(UserInfo userInfo) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => Dialog(
-        child: UserInfoEdit(
-          userInfo: userInfo,
-        ),
-      ),
-    ).then((v) {
-      if (v != null) {
-        userInfo == null ? _sort('create_time', ascending: false) : _sort('update_time', ascending: false);
-      }
-    });
+  _edit(UserInfo userInfo) async {
+    var result = await Get.to(UserInfoEdit(userInfo: userInfo));
+    if (result != null) {
+      userInfo == null ? _sort('create_time', ascending: false) : _sort('update_time', ascending: false);
+    }
   }
 
   _reset() {
