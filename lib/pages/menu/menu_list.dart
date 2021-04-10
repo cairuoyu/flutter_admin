@@ -13,6 +13,7 @@ import 'package:flutter_admin/pages/menu/menu_table_tree.dart';
 import 'package:flutter_admin/pages/menu/menu_tree.dart';
 import 'package:flutter_admin/utils/adaptive_util.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
+import 'package:get/get.dart';
 
 class MenuList extends StatefulWidget {
   final Subsystem subsystem;
@@ -115,13 +116,11 @@ class _MenuListState extends State<MenuList> {
   _onDelete(List<String> ids) {
     cryConfirm(context, S.of(context).confirmDelete, (context) async {
       ResponseBodyApi responseBodyApi = await MenuApi.removeByIds(ids);
-      Navigator.of(context).pop();
       if (!responseBodyApi.success) {
         return;
       }
-      setState(() {
-        _loadData();
-      });
+      _loadData();
+      Get.back();
     });
   }
 }

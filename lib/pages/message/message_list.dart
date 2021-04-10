@@ -50,7 +50,7 @@ class MessageListState extends State<MessageList> {
               width: 110,
               child: CryButtonBar(
                 children: [
-                  CryButtons.delete(context, ()=>_delete([message]),showLabel: false),
+                  CryButtons.delete(context, () => _delete([message]), showLabel: false),
                   CryButton(
                     iconData: Icons.replay,
                     onPressed: () => Get.to(MessageReplay(message: message)),
@@ -70,9 +70,12 @@ class MessageListState extends State<MessageList> {
       return;
     }
     cryConfirm(context, S.of(context).confirmDelete, (context) async {
-      await MessageApi.removeByIds(list.map((e) => e.id).toList());
+      var res = await MessageApi.removeByIds(list.map((e) => e.id).toList());
+      if (!res.success) {
+        return;
+      }
       reloadData();
-      Navigator.of(context).pop();
+      Get.back();
     });
   }
 
