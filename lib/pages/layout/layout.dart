@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/models/tab_page.dart';
-import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/pages/layout/layout_app_bar.dart';
 import 'package:flutter_admin/pages/layout/layout_center.dart';
 import 'package:flutter_admin/pages/layout/layout_menu.dart';
 import 'package:flutter_admin/pages/layout/layout_setting.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 import 'layout_controller.dart';
 
@@ -50,7 +47,7 @@ class _LayoutState extends State {
       appBar: LayoutAppBar(
         context,
         type: 2,
-        userInfo: UserInfo.fromMap(GetStorage().read(Constant.KEY_CURRENT_USER_INFO)),
+        userInfo: Utils.getCurrentUserInfo(),
         openMenu: () {
           scaffoldStateKey.currentState.openDrawer();
         },

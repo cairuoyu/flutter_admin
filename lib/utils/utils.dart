@@ -1,4 +1,3 @@
-
 import 'package:cry/cry_dialog.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_admin/constants/enum.dart';
 import 'package:flutter_admin/data/data_icon.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/models/tab_page.dart';
+import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -113,19 +113,20 @@ class Utils {
       fontFamily: layoutController.fontFamily,
     );
   }
-  static loading(){
+
+  static loading() {
     Get.dialog(Center(child: CircularProgressIndicator()));
   }
 
   static message(message) {
     Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0,
     );
   }
 
@@ -179,9 +180,14 @@ class Utils {
     return iconMap[icon] ?? Icons.menu;
   }
 
+  static UserInfo getCurrentUserInfo() {
+    var data = GetStorage().read(Constant.KEY_CURRENT_USER_INFO);
+    return data == null ? UserInfo() : UserInfo.fromMap(data);
+  }
+
   static List<Menu> getMenuTree() {
     var data = GetStorage().read(Constant.KEY_MENU_LIST);
-    return List.from(data).map((e) => Menu.fromMap(e)).toList();
+    return data == null ? [] : List.from(data).map((e) => Menu.fromMap(e)).toList();
   }
 
   static bool isCurrentOpenedMenu(List<TreeVO<Menu>> data) {

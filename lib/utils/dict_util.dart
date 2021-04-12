@@ -3,20 +3,27 @@ import 'package:flutter_admin/constants/constant.dart';
 import 'package:get_storage/get_storage.dart';
 
 class DictUtil {
-  static List<SelectOptionVO> getDictSelectOptionList(String dictCode) {
+  static List getDictItemList(String dictCode) {
     var data = GetStorage().read(Constant.KEY_DICT_ITEM_LIST);
-    List list = Map.from(data)[dictCode];
-    var a = list.map((e) => SelectOptionVO(value: e['code'], label: e['name'])).toList();
-    return a;
+    if (data == null) {
+      return [];
+    }
+    var map = Map.from(data);
+    if (map == null) {
+      return [];
+    }
+    return map[dictCode];
+  }
+
+  static List<SelectOptionVO> getDictSelectOptionList(String dictCode) {
+    return getDictItemList(dictCode).map((e) => SelectOptionVO(value: e['code'], label: e['name'])).toList();
   }
 
   static String getDictItemName(String code, String dictCode, {defaultValue = ''}) {
     if (code == null) {
       return defaultValue;
     }
-    var data = GetStorage().read(Constant.KEY_DICT_ITEM_LIST);
-    List list = Map.from(data)[dictCode];
-    Map result = list.firstWhere((v) {
+    Map result = getDictItemList(dictCode).firstWhere((v) {
       return v['code'] == code;
     }, orElse: () {
       return null;

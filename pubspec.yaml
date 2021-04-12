@@ -29,7 +29,7 @@ dependencies:
   file_picker: ^3.0.0
   flutter_simple_treeview: ^3.0.0-nullsafety.1
   get: ^4.0.0-nullsafety.2
-  get_storage: ^2.0.1
+  get_storage: ^2.0.2
   syncfusion_flutter_charts: ^18.4.43+1
   syncfusion_flutter_datagrid: ^18.4.30-beta
   flutter_markdown: ^0.6.1

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/utils/utils.dart';
-import 'package:get_storage/get_storage.dart';
 
 class LayoutAppBar extends AppBar {
   LayoutAppBar(
@@ -106,5 +104,4 @@ class LayoutAppBar extends AppBar {
             ),
           ],
         );
-  static UserInfo userInfo = UserInfo.fromMap(GetStorage().read(Constant.KEY_CURRENT_USER_INFO));
 }

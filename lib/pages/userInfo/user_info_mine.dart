@@ -37,16 +37,12 @@ class _UserInfoMineState extends State<UserInfoMine> {
 
   @override
   void initState() {
-    var data = GetStorage().read(Constant.KEY_CURRENT_USER_INFO);
-    this.userInfo = UserInfo.fromMap(data);
+    this.userInfo = Utils.getCurrentUserInfo();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (this.userInfo == null) {
-      return Center(child: CircularProgressIndicator());
-    }
     Widget avatar = SizedBox(
       child: CryImageUpload(
         updateAreaSize: 200,
