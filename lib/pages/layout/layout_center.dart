@@ -43,7 +43,7 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
     }
     int index = openedTabPageList.indexWhere((note) => note.id == layoutController.currentOpenedTabPageId);
     pages = openedTabPageList.map((TabPage tabPage) {
-      var page = tabPage.url != null ? layoutRoutesData[tabPage.url] ?? Container() : tabPage.widget ?? Container();
+      var page = tabPage.url != null ? Routes.layoutPagesMap[tabPage.url] ?? Container() : tabPage.widget ?? Container();
       return KeepAliveWrapper(child: page);
     }).toList();
 
