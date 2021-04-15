@@ -38,6 +38,7 @@
   "modify": "修改",
   "delete": "删除",
   "confirmDelete": "确定删除",
+  "commit": "提交",
   "userList": "用户列表",
   "roleList": "角色列表",
   "dictList": "数据字典列表",
@@ -81,6 +82,7 @@
   "leaveMessage": "给我留言",
   "allMessage": "所有留言",
   "title": "标题",
+  "subTitle": "子标题",
   "content": "内容",
   "view": "查看",
   "downloadTemplate": "模板下载",
@@ -97,5 +99,14 @@
   "nameShort": "简称",
   "fun": "职能",
   "header": "部门领导",
-  "logout":"退出"
+  "logout": "退出",
+  "hometown": "贯籍",
+  "status": "状态",
+  "publish": "发布",
+  "publishTime": "发布日期",
+  "publishTimeStart": "发布日期起",
+  "publishTimeEnd": "发布日期止",
+  "author": "作者",
+  "uploadArticle": "上传文章",
+  "replay": "回复"
 }

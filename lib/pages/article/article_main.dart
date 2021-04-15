@@ -48,7 +48,7 @@ class _ArticleMainState extends State<ArticleMain> {
         alignment: WrapAlignment.start,
         children: [
           CryInput(
-            label: 'title',
+            label: S.of(context).title,
             value: article.title,
             width: 400,
             onSaved: (v) {
@@ -56,7 +56,7 @@ class _ArticleMainState extends State<ArticleMain> {
             },
           ),
           CryInput(
-            label: 'titleSub',
+            label: S.of(context).subTitle,
             value: article.titleSub,
             width: 400,
             onSaved: (v) {
@@ -64,7 +64,7 @@ class _ArticleMainState extends State<ArticleMain> {
             },
           ),
           CrySelect(
-            label: 'Status',
+            label: S.of(context).status,
             value: article.status,
             width: 200,
             dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_ARTICLE_STATUS),
@@ -74,7 +74,7 @@ class _ArticleMainState extends State<ArticleMain> {
           ),
           CrySelectDate(
             context,
-            label: '发布日期起',
+            label: S.of(context).publishTimeStart,
             value: article.publishTimeStart,
             width: 200,
             onSaved: (v) {
@@ -83,7 +83,7 @@ class _ArticleMainState extends State<ArticleMain> {
           ),
           CrySelectDate(
             context,
-            label: '发布日期止',
+            label: S.of(context).publishTimeEnd,
             value: article.publishTimeEnd,
             width: 200,
             onSaved: (v) {
@@ -99,7 +99,7 @@ class _ArticleMainState extends State<ArticleMain> {
       columns: <GridColumn>[
         GridWidgetColumn(
           mappingName: 'operation',
-          headerText: 'Operation',
+          headerText: S.of(context).operating,
           // columnWidthMode: ColumnWidthMode.fill,
           width: 120,
           textAlignment: Alignment.center,
@@ -111,28 +111,28 @@ class _ArticleMainState extends State<ArticleMain> {
         ),
         GridTextColumn(
           mappingName: 'title',
-          headerText: 'Title',
+          headerText: S.of(context).title,
           columnWidthMode: ColumnWidthMode.fill,
           // textAlignment: Alignment.center,
         ),
         GridTextColumn(
           mappingName: 'titleSub',
-          headerText: 'Sub Title',
+          headerText: S.of(context).subTitle,
           columnWidthMode: ColumnWidthMode.cells,
         ),
         GridTextColumn(
           mappingName: 'author',
-          headerText: 'Author',
+          headerText: S.of(context).author,
           width: 120,
         ),
         GridTextColumn(
           mappingName: 'publishTime',
-          headerText: 'publishTime',
+          headerText: S.of(context).publishTime,
           width: 120,
         ),
         GridTextColumn(
           mappingName: 'status',
-          headerText: 'Status',
+          headerText: S.of(context).status,
           headerTextAlignment: Alignment.centerLeft,
         ),
       ],

@@ -51,7 +51,7 @@ class _MessageReplayState extends State<MessageReplay> {
       ],
     );
     var result = Scaffold(
-      appBar: AppBar(title: Text('回复-' + widget.message.title)),
+      appBar: AppBar(title: Text(S.of(context).replay + '-' + widget.message.title)),
       body: SingleChildScrollView(
         child: Column(
           children: [

@@ -64,7 +64,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
             context,
             initialValue: userInfo.hometown,
             initialValueLabel: userInfo.hometown,
-            label: 'Hometown',
+            label: S.of(context).hometown,
             key: UniqueKey(),
             popWidget: CryCascade(
               data: hometownData,

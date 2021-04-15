@@ -39,6 +39,7 @@
   "modify": "Modify",
   "delete": "Delete",
   "confirmDelete": "Are you sure?",
+  "commit": "Commit",
   "userList": "User List",
   "roleList": "Role List",
   "dictList": "Dict List",
@@ -82,6 +83,7 @@
   "leaveMessage": "Leave me a message",
   "allMessage": "Leave me a message",
   "title": "Title",
+  "subTitle": "Sub Title",
   "content": "Content",
   "view": "View",
   "downloadTemplate": "Download Template",
@@ -89,8 +91,8 @@
   "exportExcel": "Export Excel",
   "success": "Success",
   "subsystemList": "Sub System List",
-  "menuManagement" : "Menu Management",
-  "menuTile" : "Select the subsystem for menu management",
+  "menuManagement": "Menu Management",
+  "menuTile": "Select the subsystem for menu management",
   "admin": "Admin",
   "loginTip": "Register other users to experience the menu permissions",
   "collapse": "Collapse",
@@ -98,6 +100,14 @@
   "nameShort": "Short Name",
   "fun": "Function",
   "header": "Header",
-  "logout": "Logout"
-
+  "logout": "Logout",
+  "hometown": "Hometown",
+  "status": "Status",
+  "publish": "Publish",
+  "publishTime": "Publish time",
+  "publishTimeStart": "Publish time start",
+  "publishTimeEnd": "Publish time end",
+  "author": "Author",
+  "uploadArticle": "Upload Article",
+  "replay": "Replay"
 }

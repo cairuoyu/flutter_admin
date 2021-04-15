@@ -27,7 +27,7 @@ class Routes {
   static List<GetPage> layoutPages;
 
   static Map<String, Widget> layoutPagesMap = {
-    '/': Dashboard(),
+    '/dashboard': Dashboard(),
     '/sAreaAgeGenderMain': SAreaAgeGenderMain(),
     '/roleList': RoleList(),
     '/personList': PersonList(),
@@ -49,20 +49,7 @@ class Routes {
   };
 
   static init() {
-    layoutPages = [
-      GetPage(
-        name: '/u',
-        page: () => UserInfoList(),
-      ),
-      GetPage(
-        name: '/userInfoList',
-        page: () => UserInfoList(),
-      ),
-      GetPage(
-        name: '/a',
-        page: () => ArticleMain(),
-      ),
-    ];
+    layoutPages = layoutPagesMap.entries.map((e) => GetPage(name: e.key, page: () => e.value)).toList();
     pages = [
       GetPage(
         name: '/login',

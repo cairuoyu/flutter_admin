@@ -43,25 +43,25 @@ class _ArticleEditState extends State<ArticleEdit> {
           Wrap(
             children: [
               CryInput(
-                label: 'title',
+                label: S.of(context).title,
                 value: article.title,
                 required: true,
                 onSaved: (v) => article.title = v,
               ),
               CryInput(
-                label: 'titleSub',
+                label: S.of(context).subTitle,
                 value: article.titleSub,
                 onSaved: (v) => article.titleSub = v,
               ),
               CryInput(
-                label: 'author',
+                label: S.of(context).author,
                 value: article.author,
                 onSaved: (v) => article.author = v,
                 width: 300,
               ),
               CrySelectDate(
                 context,
-                label: 'publishTime',
+                label: S.of(context).publishTime,
                 value: article.publishTime,
                 onSaved: (v) => article.publishTime = v,
                 width: 200,
@@ -75,7 +75,7 @@ class _ArticleEditState extends State<ArticleEdit> {
               var res = await FileApi.upload(formData);
               article.fileUrl = res.data;
             },
-            buttonLabel: '上传文章',
+            buttonLabel: S.of(context).uploadArticle,
             allowedExtensions: ['md', 'txt'],
           ),
         ],
@@ -86,8 +86,8 @@ class _ArticleEditState extends State<ArticleEdit> {
         title: Text(S.of(context).add),
         actions: [
           CryButtons.save(context, save),
-          CryButton(label: '提交审核', onPressed: audit, iconData: Icons.done),
-          CryButton(label: '发布', onPressed: public, iconData: Icons.public),
+          CryButtons.commit(context, audit),
+          CryButton(label: S.of(context).publish, onPressed: public, iconData: Icons.public),
         ],
       ),
       body: form,

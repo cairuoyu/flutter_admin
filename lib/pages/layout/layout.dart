@@ -17,7 +17,7 @@ class Layout extends StatefulWidget {
 class _LayoutState extends State {
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
   final GlobalKey<LayoutCenterState> layoutCenterKey = GlobalKey<LayoutCenterState>();
-  final TabPage menuMain = TabPage(id: 'dashboard', url: '/', name: 'Dashboard', nameEn: 'Dashboard');
+  final TabPage menuMain = TabPage(id: 'dashboard', url: '/dashboard', name: 'Dashboard', nameEn: 'Dashboard');
 
   @override
   void initState() {

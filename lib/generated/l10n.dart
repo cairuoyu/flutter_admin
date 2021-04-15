@@ -435,6 +435,16 @@ class S {
     );
   }
 
+  /// `Commit`
+  String get commit {
+    return Intl.message(
+      'Commit',
+      name: 'commit',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `User List`
   String get userList {
     return Intl.message(
@@ -865,6 +875,16 @@ class S {
     );
   }
 
+  /// `Sub Title`
+  String get subTitle {
+    return Intl.message(
+      'Sub Title',
+      name: 'subTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Content`
   String get content {
     return Intl.message(
@@ -1030,6 +1050,96 @@ class S {
     return Intl.message(
       'Logout',
       name: 'logout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hometown`
+  String get hometown {
+    return Intl.message(
+      'Hometown',
+      name: 'hometown',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Status`
+  String get status {
+    return Intl.message(
+      'Status',
+      name: 'status',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Publish`
+  String get publish {
+    return Intl.message(
+      'Publish',
+      name: 'publish',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Publish time`
+  String get publishTime {
+    return Intl.message(
+      'Publish time',
+      name: 'publishTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Publish time start`
+  String get publishTimeStart {
+    return Intl.message(
+      'Publish time start',
+      name: 'publishTimeStart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Publish time end`
+  String get publishTimeEnd {
+    return Intl.message(
+      'Publish time end',
+      name: 'publishTimeEnd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Author`
+  String get author {
+    return Intl.message(
+      'Author',
+      name: 'author',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload Article`
+  String get uploadArticle {
+    return Intl.message(
+      'Upload Article',
+      name: 'uploadArticle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Replay`
+  String get replay {
+    return Intl.message(
+      'Replay',
+      name: 'replay',
       desc: '',
       args: [],
     );

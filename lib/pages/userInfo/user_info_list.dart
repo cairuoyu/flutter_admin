@@ -106,7 +106,7 @@ class _UserInfoListState extends State<UserInfoList> {
           onSort: (int columnIndex, bool ascending) => _sort('gender'),
         ),
         DataColumn(
-          label: Text('Hometown'),
+          label: Text(S.of(context).hometown),
           onSort: (int columnIndex, bool ascending) => _sort('hometown'),
         ),
         DataColumn(
