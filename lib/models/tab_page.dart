@@ -39,7 +39,7 @@ class TabPage {
       'name': name,
       'nameEn': nameEn,
       'url': url,
-      'widget': widget.toStringShort(),
+      'widget': widget?.toStringShort(),
     };
   }
 

@@ -8,6 +8,7 @@ import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
+import 'package:flutter_admin/utils/store_util.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -16,27 +17,27 @@ import 'package:url_launcher/url_launcher.dart';
 class Utils {
   static openTab(TabPage tabPage) {
     LayoutController layoutController = Get.find();
-    List<TabPage> openedTabPageList = layoutController.openedTabPageList;
-    layoutController.currentOpenedTabPageId = tabPage.id;
+    List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
+    StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
     int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
     if (index > -1) {
       layoutController.tabController?.animateTo(index);
       return;
     }
     openedTabPageList.add(tabPage);
-    layoutController.updateMenuOpend(openedTabPageList);
+    StoreUtil.writeOpenedTabPageList(openedTabPageList);
+    layoutController.update();
   }
 
   static closeTab(TabPage tabPage) {
-    LayoutController layoutController = Get.find();
-    List<TabPage> openedTabPageList = layoutController.openedTabPageList;
+    List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
     int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
     closeTabByIndex(index);
   }
 
   static closeTabByIndex(int index) {
     LayoutController layoutController = Get.find();
-    List<TabPage> openedTabPageList = layoutController.openedTabPageList;
+    List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
     if (index >= openedTabPageList.length) {
       return;
     }
@@ -44,45 +45,50 @@ class Utils {
     openedTabPageList.removeAt(index);
     var length = openedTabPageList.length;
     if (length == 0) {
-      layoutController.currentOpenedTabPageId = null;
-    } else if (layoutController.currentOpenedTabPageId == tabPage.id) {
-      layoutController.currentOpenedTabPageId = openedTabPageList.first.id;
+      StoreUtil.writeCurrentOpenedTabPageId(null);
+    } else if (StoreUtil.readCurrentOpenedTabPageId() == tabPage.id) {
+      StoreUtil.writeCurrentOpenedTabPageId(openedTabPageList.first.id);
     }
-    layoutController.updateMenuOpend(openedTabPageList);
+    StoreUtil.writeOpenedTabPageList(openedTabPageList);
+    layoutController.update();
   }
 
   static closeAllTab() {
     LayoutController layoutController = Get.find();
-    List<TabPage> openedTabPageList = layoutController.openedTabPageList;
+    List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
     openedTabPageList.clear();
-    layoutController.currentOpenedTabPageId = null;
-    layoutController.updateMenuOpend(openedTabPageList);
+    StoreUtil.writeCurrentOpenedTabPageId(null);
+    StoreUtil.writeOpenedTabPageList(openedTabPageList);
+    layoutController.update();
   }
 
   static closeOtherTab(TabPage tabPage) {
     LayoutController layoutController = Get.find();
-    List<TabPage> openedTabPageList = layoutController.openedTabPageList;
+    List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
     openedTabPageList.removeWhere((element) => element.id != tabPage.id);
-    layoutController.currentOpenedTabPageId = tabPage.id;
-    layoutController.updateMenuOpend(openedTabPageList);
+    StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
+    StoreUtil.writeOpenedTabPageList(openedTabPageList);
+    layoutController.update();
   }
 
   static closeAllToTheRightTab(TabPage tabPage) {
     LayoutController layoutController = Get.find();
-    List<TabPage> openedTabPageList = layoutController.openedTabPageList;
+    List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
     int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
     openedTabPageList.removeRange(index + 1, openedTabPageList.length);
-    layoutController.currentOpenedTabPageId = tabPage.id;
-    layoutController.updateMenuOpend(openedTabPageList);
+    StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
+    StoreUtil.writeOpenedTabPageList(openedTabPageList);
+    layoutController.update();
   }
 
   static closeAllToTheLeftTab(TabPage tabPage) {
     LayoutController layoutController = Get.find();
-    List<TabPage> openedTabPageList = layoutController.openedTabPageList;
+    List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
     int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
     openedTabPageList.removeRange(0, index);
-    layoutController.currentOpenedTabPageId = tabPage.id;
-    layoutController.updateMenuOpend(openedTabPageList);
+    StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
+    StoreUtil.writeOpenedTabPageList(openedTabPageList);
+    layoutController.update();
   }
 
   static isLocalEn(BuildContext context) {
@@ -139,6 +145,8 @@ class Utils {
     GetStorage().remove(Constant.KEY_MENU_LIST);
     GetStorage().remove(Constant.KEY_DICT_ITEM_LIST);
     GetStorage().remove(Constant.KEY_CURRENT_USER_INFO);
+    GetStorage().remove(Constant.KEY_OPENED_TAB_PAGE_LIST);
+    GetStorage().remove(Constant.KEY_CURRENT_OPENED_TAB_PAGE_ID);
   }
 
   static launchURL(url) async {
@@ -191,12 +199,11 @@ class Utils {
   }
 
   static bool isCurrentOpenedMenu(List<TreeVO<Menu>> data) {
-    LayoutController layoutController = Get.find();
     for (var treeVO in data) {
       if (treeVO.children != null && treeVO.children.length > 0) {
         return isCurrentOpenedMenu(treeVO.children);
       }
-      return layoutController.currentOpenedTabPageId == treeVO.data.id;
+      return StoreUtil.readCurrentOpenedTabPageId() == treeVO.data.id;
     }
     return false;
   }

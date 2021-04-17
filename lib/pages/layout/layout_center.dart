@@ -6,6 +6,7 @@ import 'package:flutter_admin/constants/enum.dart';
 import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/pages/common/keep_alive_wrapper.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
+import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
 
@@ -24,7 +25,7 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
 
   @override
   void initState() {
-    if (widget.initPage != null) {
+    if (widget.initPage != null && StoreUtil.readCurrentOpenedTabPageId() == null) {
       WidgetsBinding.instance.addPostFrameCallback((c) {
         Utils.openTab(widget.initPage);
       });
@@ -36,12 +37,13 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
   @override
   Widget build(BuildContext context) {
     TabController tabController = layoutController.tabController;
-    var openedTabPageList = layoutController.openedTabPageList;
+    var openedTabPageList = StoreUtil.readOpenedTabPageList();
     var length = openedTabPageList.length;
     if (length == 0) {
       return Container();
     }
-    int index = openedTabPageList.indexWhere((note) => note.id == layoutController.currentOpenedTabPageId);
+    var currentOpenedTabPageId = StoreUtil.readCurrentOpenedTabPageId();
+    int index = openedTabPageList.indexWhere((note) => note.id == currentOpenedTabPageId);
     pages = openedTabPageList.map((TabPage tabPage) {
       var page = tabPage.url != null ? Routes.layoutPagesMap[tabPage.url] ?? Container() : tabPage.widget ?? Container();
       return KeepAliveWrapper(child: page);
@@ -55,7 +57,8 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
     layoutController.tabController = tabController;
     tabController.addListener(() {
       if (tabController.indexIsChanging) {
-        layoutController.updateCurrentOpendMenuId(openedTabPageList[tabController.index].id);
+        StoreUtil.writeCurrentOpenedTabPageId(openedTabPageList[tabController.index].id);
+        layoutController.update();
       }
     });
 

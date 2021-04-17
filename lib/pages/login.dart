@@ -13,7 +13,6 @@ import 'package:flutter_admin/models/user.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../generated/l10n.dart';
-import 'layout/layout_controller.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -215,8 +214,6 @@ class _LoginState extends State<Login> {
     await _loadMenuData();
     await _loadCurrentUserInfo();
 
-    LayoutController layoutController = Get.find();
-    layoutController.init();
     Get.back();
     Navigator.pushNamed(context, '/');
   }

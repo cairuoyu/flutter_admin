@@ -5,6 +5,7 @@ import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
+import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
@@ -98,6 +99,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
     if (data == null) {
       return [];
     }
+    var currentOpenedTabPageId = StoreUtil.readCurrentOpenedTabPageId();
     List<Widget> listTileList = data.map<Widget>((TreeVO<Menu> treeVO) {
       IconData iconData = Utils.toIconData(treeVO.data.icon);
       String name = Utils.isLocalEn(context) ? treeVO.data.nameEn ?? '' : treeVO.data.name ?? '';
@@ -112,11 +114,11 @@ class _LayoutMenuState extends State<LayoutMenu> {
         );
       } else {
         return ListTile(
-          tileColor: layoutController.currentOpenedTabPageId == treeVO.data.id ? Colors.blue.shade100 : null,
+          tileColor: currentOpenedTabPageId == treeVO.data.id ? Colors.blue.shade100 : null,
           leading: Icon(iconData),
           title: title,
           onTap: () {
-            if (layoutController.currentOpenedTabPageId != treeVO.data.id && widget.onClick != null) {
+            if (currentOpenedTabPageId != treeVO.data.id && widget.onClick != null) {
               widget.onClick(treeVO.data.toTabPage());
               setState(() {});
             }
