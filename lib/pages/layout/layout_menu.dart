@@ -77,7 +77,8 @@ class _LayoutMenuState extends State<LayoutMenu> {
         },
       ),
     );
-    List<Widget> menuBody = _getMenuListTile(TreeUtil.toTreeVOList(Utils.getMenuTree()));
+    var currentOpenedTabPageId = StoreUtil.readCurrentOpenedTabPageId();
+    List<Widget> menuBody = _getMenuListTile(TreeUtil.toTreeVOList(Utils.getMenuTree()), currentOpenedTabPageId);
     ListView menu = ListView(
       key: Key('builder ${expandAll.toString()}'),
       children: Utils.isMenuDisplayTypeDrawer(context)
@@ -95,11 +96,10 @@ class _LayoutMenuState extends State<LayoutMenu> {
           );
   }
 
-  List<Widget> _getMenuListTile(List<TreeVO<Menu>> data) {
+  List<Widget> _getMenuListTile(List<TreeVO<Menu>> data, String currentOpenedTabPageId) {
     if (data == null) {
       return [];
     }
-    var currentOpenedTabPageId = StoreUtil.readCurrentOpenedTabPageId();
     List<Widget> listTileList = data.map<Widget>((TreeVO<Menu> treeVO) {
       IconData iconData = Utils.toIconData(treeVO.data.icon);
       String name = Utils.isLocalEn(context) ? treeVO.data.nameEn ?? '' : treeVO.data.name ?? '';
@@ -109,7 +109,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
           key: Key(treeVO.data.id),
           initiallyExpanded: expandAll,
           leading: Icon(iconData),
-          children: _getMenuListTile(treeVO.children),
+          children: _getMenuListTile(treeVO.children, currentOpenedTabPageId),
           title: title,
         );
       } else {

@@ -1,5 +1,4 @@
 import 'package:cry/cry_dialog.dart';
-import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/constants/enum.dart';
@@ -141,12 +140,7 @@ class Utils {
   }
 
   static logout() {
-    GetStorage().remove(Constant.KEY_TOKEN);
-    GetStorage().remove(Constant.KEY_MENU_LIST);
-    GetStorage().remove(Constant.KEY_DICT_ITEM_LIST);
-    GetStorage().remove(Constant.KEY_CURRENT_USER_INFO);
-    GetStorage().remove(Constant.KEY_OPENED_TAB_PAGE_LIST);
-    GetStorage().remove(Constant.KEY_CURRENT_OPENED_TAB_PAGE_ID);
+    StoreUtil.cleanAll();
   }
 
   static launchURL(url) async {
@@ -198,13 +192,13 @@ class Utils {
     return data == null ? [] : List.from(data).map((e) => Menu.fromMap(e)).toList();
   }
 
-  static bool isCurrentOpenedMenu(List<TreeVO<Menu>> data) {
-    for (var treeVO in data) {
-      if (treeVO.children != null && treeVO.children.length > 0) {
-        return isCurrentOpenedMenu(treeVO.children);
-      }
-      return StoreUtil.readCurrentOpenedTabPageId() == treeVO.data.id;
-    }
-    return false;
-  }
+  // static bool isCurrentOpenedMenu(List<TreeVO<Menu>> data) {
+  //   for (var treeVO in data) {
+  //     if (treeVO.children != null && treeVO.children.length > 0) {
+  //       return isCurrentOpenedMenu(treeVO.children);
+  //     }
+  //     return StoreUtil.readCurrentOpenedTabPageId() == treeVO.data.id;
+  //   }
+  //   return false;
+  // }
 }

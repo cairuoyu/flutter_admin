@@ -28,4 +28,8 @@ class StoreUtil {
   static writeCurrentOpenedTabPageId(data) {
     write(Constant.KEY_CURRENT_OPENED_TAB_PAGE_ID, data);
   }
+
+  static cleanAll() {
+    GetStorage().erase();
+  }
 }
