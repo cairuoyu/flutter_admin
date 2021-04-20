@@ -78,7 +78,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
       ),
     );
     var currentOpenedTabPageId = StoreUtil.readCurrentOpenedTabPageId();
-    List<Widget> menuBody = _getMenuListTile(TreeUtil.toTreeVOList(Utils.getMenuTree()), currentOpenedTabPageId);
+    List<Widget> menuBody = _getMenuListTile(TreeUtil.toTreeVOList(StoreUtil.getMenuTree()), currentOpenedTabPageId);
     ListView menu = ListView(
       key: Key('builder ${expandAll.toString()}'),
       children: Utils.isMenuDisplayTypeDrawer(context)

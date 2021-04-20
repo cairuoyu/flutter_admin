@@ -3,14 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/constants/enum.dart';
 import 'package:flutter_admin/data/data_icon.dart';
-import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/models/tab_page.dart';
-import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
@@ -136,7 +133,7 @@ class Utils {
   }
 
   static isLogin() {
-    return GetStorage().hasData(Constant.KEY_TOKEN);
+    return StoreUtil.hasData(Constant.KEY_TOKEN);
   }
 
   static logout() {
@@ -180,16 +177,6 @@ class Utils {
     }
     // IconData iconData = IconData(int.parse(icon), fontFamily: 'MaterialIcons');
     return iconMap[icon] ?? Icons.menu;
-  }
-
-  static UserInfo getCurrentUserInfo() {
-    var data = GetStorage().read(Constant.KEY_CURRENT_USER_INFO);
-    return data == null ? UserInfo() : UserInfo.fromMap(data);
-  }
-
-  static List<Menu> getMenuTree() {
-    var data = GetStorage().read(Constant.KEY_MENU_LIST);
-    return data == null ? [] : List.from(data).map((e) => Menu.fromMap(e)).toList();
   }
 
   // static bool isCurrentOpenedMenu(List<TreeVO<Menu>> data) {

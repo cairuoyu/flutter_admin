@@ -6,12 +6,12 @@ import 'package:flutter_admin/constants/constant.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/common/lang_switch.dart';
 import 'package:flutter_admin/pages/register.dart';
+import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_admin/api/user_api.dart';
 import 'package:flutter_admin/models/user.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import '../generated/l10n.dart';
 
 class Login extends StatefulWidget {
@@ -209,7 +209,7 @@ class _LoginState extends State<Login> {
       Get.back();
       return;
     }
-    GetStorage().write(Constant.KEY_TOKEN, responseBodyApi.data);
+    StoreUtil.write(Constant.KEY_TOKEN, responseBodyApi.data);
     await _loadDict();
     await _loadMenuData();
     await _loadCurrentUserInfo();
@@ -221,7 +221,7 @@ class _LoginState extends State<Login> {
   Future<bool> _loadCurrentUserInfo() async {
     ResponseBodyApi responseBodyApi = await UserInfoApi.getCurrentUserInfo();
     if (responseBodyApi.success) {
-      GetStorage().write(Constant.KEY_CURRENT_USER_INFO, responseBodyApi.data);
+      StoreUtil.write(Constant.KEY_CURRENT_USER_INFO, responseBodyApi.data);
     }
     return responseBodyApi.success;
   }
@@ -229,7 +229,7 @@ class _LoginState extends State<Login> {
   Future<bool> _loadMenuData() async {
     ResponseBodyApi responseBodyApi = await MenuApi.listAuth();
     if (responseBodyApi.success) {
-      GetStorage().write(Constant.KEY_MENU_LIST, responseBodyApi.data);
+      StoreUtil.write(Constant.KEY_MENU_LIST, responseBodyApi.data);
     }
     return responseBodyApi.success;
   }
@@ -237,7 +237,7 @@ class _LoginState extends State<Login> {
   Future<bool> _loadDict() async {
     ResponseBodyApi responseBodyApi = await DictApi.map();
     if (responseBodyApi.success) {
-      GetStorage().write(Constant.KEY_DICT_ITEM_LIST, responseBodyApi.data);
+      StoreUtil.write(Constant.KEY_DICT_ITEM_LIST, responseBodyApi.data);
     }
     return responseBodyApi.success;
   }

@@ -1,5 +1,7 @@
 import 'package:flutter_admin/constants/constant.dart';
+import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/models/tab_page.dart';
+import 'package:flutter_admin/models/user_info.dart';
 import 'package:get_storage/get_storage.dart';
 
 class StoreUtil {
@@ -9,6 +11,14 @@ class StoreUtil {
 
   static write(String key, value) {
     GetStorage().write(key, value);
+  }
+
+  static hasData(String key) {
+    return GetStorage().hasData(key);
+  }
+
+  static cleanAll() {
+    GetStorage().erase();
   }
 
   static List<TabPage> readOpenedTabPageList() {
@@ -25,11 +35,17 @@ class StoreUtil {
     return read(Constant.KEY_CURRENT_OPENED_TAB_PAGE_ID);
   }
 
-  static writeCurrentOpenedTabPageId(data) {
+  static writeCurrentOpenedTabPageId(String data) {
     write(Constant.KEY_CURRENT_OPENED_TAB_PAGE_ID, data);
   }
 
-  static cleanAll() {
-    GetStorage().erase();
+  static UserInfo getCurrentUserInfo() {
+    var data = GetStorage().read(Constant.KEY_CURRENT_USER_INFO);
+    return data == null ? UserInfo() : UserInfo.fromMap(data);
+  }
+
+  static List<Menu> getMenuTree() {
+    var data = GetStorage().read(Constant.KEY_MENU_LIST);
+    return data == null ? [] : List.from(data).map((e) => Menu.fromMap(e)).toList();
   }
 }

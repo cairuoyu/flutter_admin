@@ -4,6 +4,7 @@ import 'package:flutter_admin/pages/layout/layout_app_bar.dart';
 import 'package:flutter_admin/pages/layout/layout_center.dart';
 import 'package:flutter_admin/pages/layout/layout_menu.dart';
 import 'package:flutter_admin/pages/layout/layout_setting.dart';
+import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
 
@@ -47,7 +48,7 @@ class _LayoutState extends State {
       appBar: LayoutAppBar(
         context,
         type: 2,
-        userInfo: Utils.getCurrentUserInfo(),
+        userInfo: StoreUtil.getCurrentUserInfo(),
         openMenu: () {
           scaffoldStateKey.currentState.openDrawer();
         },

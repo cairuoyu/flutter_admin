@@ -1,10 +1,10 @@
 import 'package:cry/vo/select_option_vo.dart';
 import 'package:flutter_admin/constants/constant.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:flutter_admin/utils/store_util.dart';
 
 class DictUtil {
   static List getDictItemList(String dictCode) {
-    var data = GetStorage().read(Constant.KEY_DICT_ITEM_LIST);
+    var data = StoreUtil.read(Constant.KEY_DICT_ITEM_LIST);
     if (data == null) {
       return [];
     }
