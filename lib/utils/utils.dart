@@ -116,9 +116,9 @@ class Utils {
     );
   }
 
-  static loading() {
-    Get.dialog(Center(child: CircularProgressIndicator()));
-  }
+  // static loading() {
+  //   Get.dialog(Center(child: CircularProgressIndicator()));
+  // }
 
   static message(message) {
     Fluttertoast.showToast(

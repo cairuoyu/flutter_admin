@@ -7,11 +7,9 @@ import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/common/lang_switch.dart';
 import 'package:flutter_admin/pages/register.dart';
 import 'package:flutter_admin/utils/store_util.dart';
-import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_admin/api/user_api.dart';
 import 'package:flutter_admin/models/user.dart';
-import 'package:get/get.dart';
 import '../generated/l10n.dart';
 
 class Login extends StatefulWidget {
@@ -202,11 +200,9 @@ class _LoginState extends State<Login> {
       return;
     }
     form.save();
-    Utils.loading();
 
     ResponseBodyApi responseBodyApi = await UserApi.login(user.toJson());
     if (!responseBodyApi.success) {
-      Get.back();
       return;
     }
     StoreUtil.write(Constant.KEY_TOKEN, responseBodyApi.data);
@@ -214,7 +210,6 @@ class _LoginState extends State<Login> {
     await _loadMenuData();
     await _loadCurrentUserInfo();
 
-    Get.back();
     Navigator.pushNamed(context, '/');
   }
 

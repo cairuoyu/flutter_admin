@@ -16,7 +16,6 @@ import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/pages/common/dept_selector.dart';
 import 'package:flutter_admin/pages/userInfo/user_info_edit.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
-import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/route_manager.dart';
 
 class UserInfoList extends StatefulWidget {
@@ -195,9 +194,7 @@ class _UserInfoListState extends State<UserInfoList> {
   }
 
   _loadData() async {
-    Utils.loading();
     ResponseBodyApi responseBodyApi = await UserInfoApi.page(RequestBodyApi(page: page, params: userInfo.toMap()).toMap());
-    Get.back();
     page = responseBodyApi.data != null ? PageModel.fromMap(responseBodyApi.data) : PageModel();
     tableKey.currentState.loadData(page);
   }

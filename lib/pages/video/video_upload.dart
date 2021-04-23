@@ -12,7 +12,6 @@ import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/video.dart';
 import 'package:flutter_admin/utils/utils.dart';
-import 'package:get/route_manager.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as Path;
@@ -137,10 +136,8 @@ class VideoUploadState extends State<VideoUpload> {
     map['file'] = file;
     FormData formData = FormData.fromMap(map);
 
-    Utils.loading();
     ResponseBodyApi responseBodyApi = await VideoApi.upload(formData);
     if (responseBodyApi.success) {
-      Get.back();
       Utils.toPortal(context, S.of(context).saved, S.of(context).goToThePortal);
       setState(() {
 //        this.disposeController();

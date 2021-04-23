@@ -13,7 +13,6 @@ import 'package:flutter_admin/models/role_menu.dart';
 import 'package:flutter_admin/models/subsystem.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
-import 'package:get/route_manager.dart';
 
 class RoleMenuSelect extends StatefulWidget {
   final Function onEdit;
@@ -84,12 +83,10 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
   }
 
   save() async {
-    Utils.loading();
     List<Menu> selectedList = treeTableKey.currentState.getSelectedData();
     List roleMenuList = selectedList.map((e) => RoleMenu(roleId: widget.role.id, menuId: e.id).toMap()).toList();
     ResponseBodyApi res = await RoleMenuApi.saveBatch({'roleId': widget.role.id, 'subsystemId': widget.subsystem.id, 'roleMenuList': roleMenuList});
     if (res.success) {
-      Get.back();
       Utils.message(S.of(context).saved);
     }
   }

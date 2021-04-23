@@ -6,7 +6,6 @@ import 'package:cry/form/cry_select_date.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
-import 'package:flutter_admin/utils/utils.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/model/page_model.dart';
@@ -214,9 +213,9 @@ class ArticleDataSource extends DataGridSource<Article> {
     if (params != null) {
       this.params = params;
     }
-    Utils.loading();
+    // Utils.loading();
     var responseBodyApi = await ArticleApi.page(RequestBodyApi(page: pageModel, params: this.params).toMap());
-    Get.back();
+    // Get.back();
     pageModel = responseBodyApi.data != null ? PageModel.fromMap(responseBodyApi.data) : PageModel();
     _articleList = pageModel.records.map((element) => Article.fromMap(element)).toList();
     notifyDataSourceListeners();

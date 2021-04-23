@@ -13,8 +13,6 @@ import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/pages/role/role_edit.dart';
 import 'package:flutter_admin/pages/role/role_subsystem_list.dart';
 import 'package:flutter_admin/pages/role/role_user_select.dart';
-import 'package:flutter_admin/utils/utils.dart';
-import 'package:get/route_manager.dart';
 
 class RoleList extends StatefulWidget {
   RoleList({Key key}) : super(key: key);
@@ -182,9 +180,7 @@ class _RoleListState extends State<RoleList> {
   _query() async {
     RequestBodyApi requestBodyApi = RequestBodyApi();
     requestBodyApi.page = page;
-    Utils.loading();
     ResponseBodyApi responseBodyApi = await RoleApi.page(requestBodyApi.toMap());
-    Get.back();
     page = responseBodyApi.data != null ? PageModel.fromMap(responseBodyApi.data) : PageModel();
 
     tableKey.currentState.loadData(page);
