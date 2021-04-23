@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/dict_api.dart';
 import 'package:flutter_admin/api/menu_api.dart';
 import 'package:flutter_admin/api/user_info_api.dart';
+import 'package:flutter_admin/common/cry.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/common/lang_switch.dart';
@@ -210,7 +211,7 @@ class _LoginState extends State<Login> {
     await _loadMenuData();
     await _loadCurrentUserInfo();
 
-    Navigator.pushNamed(context, '/');
+    Cry.pushNamed('/');
   }
 
   Future<bool> _loadCurrentUserInfo() async {

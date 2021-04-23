@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/common/cry.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/utils/utils.dart';
-import 'package:get/get.dart';
 
 class LayoutAppBar extends AppBar {
   LayoutAppBar(
@@ -71,9 +71,9 @@ class LayoutAppBar extends AppBar {
                   if (v == 'info') {
                     Utils.openTab(TabPage(id: 'userInfoMine', url: '/userInfoMine', name: '我的信息', nameEn: 'My Info'));
                   } else if (v == 'logout') {
-                    dispose();
+                    // dispose();
                     Utils.logout();
-                    Get.toNamed('/login');
+                    Cry.pushNamedAndRemove('/login');
                   }
                 },
                 child: Align(
