@@ -4,6 +4,7 @@ import 'package:cry/model/request_body_api.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/menu_api.dart';
+import 'package:flutter_admin/common/cry.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:cry/model/response_body_api.dart';
@@ -13,7 +14,6 @@ import 'package:flutter_admin/pages/menu/menu_table_tree.dart';
 import 'package:flutter_admin/pages/menu/menu_tree.dart';
 import 'package:flutter_admin/utils/adaptive_util.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
-import 'package:get/get.dart';
 
 class MenuList extends StatefulWidget {
   final Subsystem subsystem;
@@ -120,7 +120,7 @@ class _MenuListState extends State<MenuList> {
         return;
       }
       _loadData();
-      Get.back();
+      Cry.pop();
     });
   }
 }

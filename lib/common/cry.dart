@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'cry_route.dart';
 
 class Cry {
@@ -13,4 +15,9 @@ class Cry {
     CryRoute.instance.pushNamed(name);
   }
 
+  static push(Widget widget) {
+    CryRoute.instance.push(widget);
+  }
+
+  static pop() => CryRoute.instance.pop();
 }

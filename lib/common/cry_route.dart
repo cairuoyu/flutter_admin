@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_admin/common/cry_router_delegate.dart';
 
 class CryRoute {
@@ -20,11 +21,13 @@ class CryRoute {
     _cryRouterDelegate = cryRouterDelegate;
   }
 
-  pushNamed(String name) {
-    _cryRouterDelegate.pushNamed(name);
-  }
+  push(Widget widget) => _cryRouterDelegate.push(widget);
+
+  pushNamed(String name) => _cryRouterDelegate.pushNamed(name);
 
   pushNamedAndRemove(String name) => _cryRouterDelegate.pushNamedAndRemove(name);
 
   popAndPushNamed(String name) => _cryRouterDelegate.popAndPushNamed(name);
+
+  pop() => _cryRouterDelegate.pop();
 }

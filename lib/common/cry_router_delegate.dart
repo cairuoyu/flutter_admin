@@ -23,6 +23,8 @@ class CryRouterDelegate extends RouterDelegate<RouteInformation> with ChangeNoti
         if (!route.didPop(result)) {
           return false;
         }
+        pop();
+
         return true;
       },
     );
@@ -51,4 +53,11 @@ class CryRouterDelegate extends RouterDelegate<RouteInformation> with ChangeNoti
   }
 
   pushNamed(String name) {}
+
+  push(Widget widget) {}
+
+  pop() {
+    pages.removeLast();
+    notifyListeners();
+  }
 }

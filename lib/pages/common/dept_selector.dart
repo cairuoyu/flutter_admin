@@ -9,7 +9,6 @@ import 'package:flutter_admin/api/dept_api.dart';
 import 'package:flutter_admin/models/dept.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
-import 'package:get/get.dart';
 
 class DeptSelector extends StatefulWidget {
   @override
@@ -101,8 +100,7 @@ class _DeptSelectorState extends State<DeptSelector> {
   }
 
   _loadData() async {
-    ResponseBodyApi responseBodyApi =
-        await DeptApi.list(RequestBodyApi(params: dept.toMap()).toMap());
+    ResponseBodyApi responseBodyApi = await DeptApi.list(RequestBodyApi(params: dept.toMap()).toMap());
     var data = responseBodyApi.data;
     List<Dept> list = List.from(data).map((e) => Dept.fromMap(e)).toList();
     List<TreeVO<Dept>> treeVOList = TreeUtil.toTreeVOList(list);
@@ -121,7 +119,7 @@ class _DeptSelectorState extends State<DeptSelector> {
       child: ListTile(
         hoverColor: Colors.blue.shade100,
         onTap: () {
-          Get.back<Dept>(result: treeVO.data);
+          Navigator.pop(context, treeVO.data);
         },
         title: Text(treeVO.data.name ?? '--'),
       ),

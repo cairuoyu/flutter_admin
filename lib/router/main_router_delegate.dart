@@ -10,11 +10,22 @@ import 'package:flutter_admin/utils/utils.dart';
 class MainRouterDelegate extends CryRouterDelegate {
   MainRouterDelegate({Map pageMap}) : super(pageMap: pageMap);
 
-
   @override
   Future<void> setNewRoutePath(RouteInformation routeInformation) async {
     popAndPushNamed(routeInformation.location);
   }
+
+  push(Widget widget) {
+    pages.add(
+      MaterialPage(
+        key: UniqueKey(),
+        child: widget,
+      ),
+    );
+
+    notifyListeners();
+  }
+
   pushNamed(String name) {
     pages.add(
       MaterialPage(

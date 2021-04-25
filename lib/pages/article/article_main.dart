@@ -3,6 +3,7 @@ import 'package:cry/cry_dialog.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/form/cry_select.dart';
 import 'package:cry/form/cry_select_date.dart';
+import 'package:flutter_admin/common/cry.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
@@ -181,7 +182,7 @@ class _ArticleMainState extends State<ArticleMain> {
   }
 
   edit({Article article}) async {
-    var result = await Get.to(ArticleEdit(article: article));
+    var result = await Cry.push(ArticleEdit(article: article));
     if (result ?? false) {
       ds.loadData();
     }
@@ -213,9 +214,7 @@ class ArticleDataSource extends DataGridSource<Article> {
     if (params != null) {
       this.params = params;
     }
-    // Utils.loading();
     var responseBodyApi = await ArticleApi.page(RequestBodyApi(page: pageModel, params: this.params).toMap());
-    // Get.back();
     pageModel = responseBodyApi.data != null ? PageModel.fromMap(responseBodyApi.data) : PageModel();
     _articleList = pageModel.records.map((element) => Article.fromMap(element)).toList();
     notifyDataSourceListeners();

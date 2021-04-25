@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/data/data_icon.dart';
-import 'package:get/get.dart';
 
 class IconSelector extends StatefulWidget {
   @override
@@ -13,7 +12,7 @@ class _IconSelectorState extends State<IconSelector> {
     List<Widget> list = iconMap.entries.map((e) {
       var result = InkWell(
         onTap: () {
-          Get.back<String>(result: e.key);
+          Navigator.pop(context, e.key);
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

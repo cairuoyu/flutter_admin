@@ -5,12 +5,12 @@ import 'package:cry/form/cry_input_num.dart';
 import 'package:cry/form/cry_select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/dept_api.dart';
+import 'package:flutter_admin/common/cry.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dept.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
-import 'package:get/get.dart';
 
 class DeptEdit extends StatefulWidget {
   final Dept dept;
@@ -88,7 +88,7 @@ class _DeptEditState extends State<DeptEdit> {
     var buttonBar = CryButtonBar(
       children: [
         CryButtons.save(context, () => save()),
-        CryButtons.cancel(context, () => Get.back()),
+        CryButtons.cancel(context, () => Cry.pop()),
       ],
     );
     var result = Scaffold(
@@ -115,7 +115,7 @@ class _DeptEditState extends State<DeptEdit> {
     if (!res.success) {
       return;
     }
-    Get.back();
+    Cry.pop();
     Utils.message(S.of(context).success);
   }
 }

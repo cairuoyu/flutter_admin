@@ -10,8 +10,6 @@ import 'package:flutter_admin/api/file_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/article.dart';
 import 'package:flutter_admin/utils/utils.dart';
-import 'package:get/get_core/get_core.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:dio/dio.dart';
 
 class ArticleEdit extends StatefulWidget {
@@ -119,7 +117,7 @@ class _ArticleEditState extends State<ArticleEdit> {
     ResponseBodyApi res = await action(article.toMap());
     if (res.success) {
       Utils.message(S.of(context).success);
-      Get.back(result: true);
+      Navigator.pop(context,true);
     }
     return res;
   }

@@ -3,10 +3,10 @@ import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/subsystem_api.dart';
+import 'package:flutter_admin/common/cry.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/subsystem.dart';
 import 'package:flutter_admin/models/subsystem_vo.dart';
-import 'package:get/get.dart';
 
 typedef OpenSubsystemBuilder<S> = Widget Function(Subsystem subsystem);
 
@@ -40,7 +40,7 @@ class _SubsystemListState extends State<SubsystemList> {
       getCell: (index) {
         Subsystem subsystem = subsystemList[index];
         return ListTile(
-          onTap: () => Get.to(widget.openSubsystemBuilder(subsystem)),
+          onTap: () => Cry.push(widget.openSubsystemBuilder(subsystem)),
           leading: Text((index + 1).toString()),
           title: Text(subsystem.name),
           subtitle: Text(subsystem.code),
