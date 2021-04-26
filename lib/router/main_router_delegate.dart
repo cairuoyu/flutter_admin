@@ -9,6 +9,13 @@ import 'package:flutter_admin/utils/utils.dart';
 
 class MainRouterDelegate extends CryRouterDelegate {
   MainRouterDelegate({Map pageMap}) : super(pageMap: pageMap);
+  List<String> whiteRoutes = ['/register'];
+  String location;
+
+  @override
+  RouteInformation get currentConfiguration {
+    return RouteInformation(location: location ?? '/');
+  }
 
   @override
   Future<void> setNewRoutePath(RouteInformation routeInformation) async {
@@ -38,15 +45,18 @@ class MainRouterDelegate extends CryRouterDelegate {
   }
 
   Widget getPageChild(String name) {
-    if (!Utils.isLogin()) {
+    if (!Utils.isLogin() && !whiteRoutes.contains(name)) {
+      location = '/login';
       return Login();
     }
     if (pageMap.containsKey(name)) {
+      location = name;
       return pageMap[name];
     }
     var menuList = StoreUtil.getMenuTree();
     var menu = menuList.firstWhere((element) => element.url == name, orElse: () => null);
     if (menu == null) {
+      location = '/404';
       return Page404();
     }
 
@@ -58,6 +68,7 @@ class MainRouterDelegate extends CryRouterDelegate {
       openedTabPageList.add(tabPage);
       StoreUtil.writeOpenedTabPageList(openedTabPageList);
     }
+    location = name;
     return Layout();
   }
 }

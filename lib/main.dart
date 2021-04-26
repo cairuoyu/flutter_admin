@@ -33,9 +33,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map<String, Widget> pageMap = {
-      '/login': Login(),
       '/': Layout(),
-      '/r': Register(),
+      '/login': Login(),
+      '/register': Register(),
     };
     return GetMaterialApp.router(
       key: UniqueKey(),

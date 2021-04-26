@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/user_api.dart';
-import 'package:flutter_admin/pages/login.dart';
+import 'package:flutter_admin/common/cry.dart';
 import 'package:flutter_admin/models/user.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import '../generated/l10n.dart';
@@ -158,10 +158,7 @@ class _RegisterState extends State {
   }
 
   _login() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (BuildContext context) => Login()),
-    );
+    Cry.pushNamed('/login');
   }
 
   _register() {

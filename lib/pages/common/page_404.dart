@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cry/cry_button.dart';
+import 'package:flutter_admin/common/cry.dart';
 
 class Page404 extends StatelessWidget {
   const Page404({Key key}) : super(key: key);
@@ -15,7 +16,7 @@ class Page404 extends StatelessWidget {
               iconData: Icons.arrow_back,
               label: '返回首页',
               onPressed: () {
-                Navigator.pushNamed(context, '/');
+                Cry.pushNamed('/');
               },
             ),
           ],

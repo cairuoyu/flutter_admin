@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cry/cry_button.dart';
+import 'package:flutter_admin/common/cry.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
 class Page401 extends StatelessWidget {
@@ -18,7 +19,7 @@ class Page401 extends StatelessWidget {
             label: '重新登录',
             onPressed: () {
               Utils.logout();
-              Navigator.pushNamed(context, '/login');
+              Cry.pushNamed('/login');
             },
           ),
         ],

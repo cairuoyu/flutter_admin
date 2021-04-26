@@ -7,7 +7,7 @@ class CryRouteInformationParser extends RouteInformationParser<RouteInformation>
   }
 
   @override
-  RouteInformation restoreRouteInformation(RouteInformation path) {
-    return null;
+  RouteInformation restoreRouteInformation(RouteInformation routeInformation) {
+    return routeInformation;
   }
 }

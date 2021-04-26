@@ -6,7 +6,6 @@ import 'package:flutter_admin/common/cry.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/common/lang_switch.dart';
-import 'package:flutter_admin/pages/register.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_admin/api/user_api.dart';
@@ -189,10 +188,7 @@ class _LoginState extends State<Login> {
   }
 
   _register() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (BuildContext context) => Register()),
-    );
+    Cry.pushNamed('/register');
   }
 
   _login() async {
