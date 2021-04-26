@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/common/cry_router_delegate.dart';
+import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/pages/common/page_404.dart';
 import 'package:flutter_admin/pages/layout/layout.dart';
@@ -10,6 +11,12 @@ import 'package:flutter_admin/utils/utils.dart';
 class MainRouterDelegate extends CryRouterDelegate {
   MainRouterDelegate({Map pageMap}) : super(pageMap: pageMap);
   List<String> whiteRoutes = ['/register'];
+
+  List<Menu> otherMenu = [
+    Menu(id: 'userInfoMine', url: '/userInfoMine', name: '我的信息', nameEn: 'My Info'),
+    Menu(id: 'dashboard', url: '/dashboard', name: 'Dashboard', nameEn: 'Dashboard'),
+  ];
+
   String location;
 
   @override
@@ -49,15 +56,23 @@ class MainRouterDelegate extends CryRouterDelegate {
       location = '/login';
       return Login();
     }
+    if (name == '/') {
+      return Layout();
+    }
     if (pageMap.containsKey(name)) {
       location = name;
       return pageMap[name];
     }
-    var menuList = StoreUtil.getMenuTree();
-    var menu = menuList.firstWhere((element) => element.url == name, orElse: () => null);
+
+    Menu menu;
+    menu = otherMenu.firstWhere((element) => element.url == name, orElse: () => null);
     if (menu == null) {
-      location = '/404';
-      return Page404();
+      var menuList = StoreUtil.getMenuList();
+      menu = menuList.firstWhere((element) => element.url == name, orElse: () => null);
+      if (menu == null) {
+        location = '/404';
+        return Page404();
+      }
     }
 
     TabPage tabPage = menu.toTabPage();

@@ -78,7 +78,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
       ),
     );
     var currentOpenedTabPageId = StoreUtil.readCurrentOpenedTabPageId();
-    List<Widget> menuBody = _getMenuListTile(TreeUtil.toTreeVOList(StoreUtil.getMenuTree()), currentOpenedTabPageId);
+    List<Widget> menuBody = _getMenuListTile(TreeUtil.toTreeVOList(StoreUtil.getMenuList()), currentOpenedTabPageId);
     ListView menu = ListView(
       key: Key('builder ${expandAll.toString()}'),
       children: Utils.isMenuDisplayTypeDrawer(context)
@@ -119,7 +119,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
           title: title,
           onTap: () {
             if (currentOpenedTabPageId != treeVO.data.id && widget.onClick != null) {
-              widget.onClick(treeVO.data.toTabPage());
+              widget.onClick(treeVO.data);
               setState(() {});
             }
           },

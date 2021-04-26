@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/models/tab_page.dart';
+import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/pages/layout/layout_app_bar.dart';
 import 'package:flutter_admin/pages/layout/layout_center.dart';
 import 'package:flutter_admin/pages/layout/layout_menu.dart';
@@ -18,7 +18,6 @@ class Layout extends StatefulWidget {
 class _LayoutState extends State {
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
   final GlobalKey<LayoutCenterState> layoutCenterKey = GlobalKey<LayoutCenterState>();
-  final TabPage menuMain = TabPage(id: 'dashboard', url: '/dashboard', name: 'Dashboard', nameEn: 'Dashboard');
 
   @override
   void initState() {
@@ -29,14 +28,14 @@ class _LayoutState extends State {
   Widget build(BuildContext context) => GetBuilder<LayoutController>(builder: (_) => getBuild(context));
 
   Widget getBuild(BuildContext context) {
-    var layoutMenu = LayoutMenu(onClick: (TabPage v) => Utils.openTab(v));
+    var layoutMenu = LayoutMenu(onClick: (Menu menu) => Utils.openTab(menu.url));
     Row body = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Utils.isMenuDisplayTypeDrawer(context) ? Container() : layoutMenu,
         LayoutCenter(
           key: layoutCenterKey,
-          initPage: menuMain,
+          mainPage: '/dashboard',
         ),
       ],
     );

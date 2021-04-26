@@ -1,5 +1,6 @@
 import 'package:cry/cry_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/common/cry.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/constants/enum.dart';
 import 'package:flutter_admin/data/data_icon.dart';
@@ -11,18 +12,8 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
-  static openTab(TabPage tabPage) {
-    LayoutController layoutController = Get.find();
-    List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
-    StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
-    int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
-    if (index > -1) {
-      layoutController.tabController?.animateTo(index);
-      return;
-    }
-    openedTabPageList.add(tabPage);
-    StoreUtil.writeOpenedTabPageList(openedTabPageList);
-    layoutController.update();
+  static openTab(String url) {
+    Cry.popAndPushNamed(url);
   }
 
   static closeTab(TabPage tabPage) {
@@ -179,13 +170,13 @@ class Utils {
     return iconMap[icon] ?? Icons.menu;
   }
 
-  // static bool isCurrentOpenedMenu(List<TreeVO<Menu>> data) {
-  //   for (var treeVO in data) {
-  //     if (treeVO.children != null && treeVO.children.length > 0) {
-  //       return isCurrentOpenedMenu(treeVO.children);
-  //     }
-  //     return StoreUtil.readCurrentOpenedTabPageId() == treeVO.data.id;
-  //   }
-  //   return false;
-  // }
+// static bool isCurrentOpenedMenu(List<TreeVO<Menu>> data) {
+//   for (var treeVO in data) {
+//     if (treeVO.children != null && treeVO.children.length > 0) {
+//       return isCurrentOpenedMenu(treeVO.children);
+//     }
+//     return StoreUtil.readCurrentOpenedTabPageId() == treeVO.data.id;
+//   }
+//   return false;
+// }
 }

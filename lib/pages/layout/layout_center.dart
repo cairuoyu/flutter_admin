@@ -11,8 +11,8 @@ import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
 
 class LayoutCenter extends StatefulWidget {
-  LayoutCenter({Key key, this.initPage}) : super(key: key);
-  final TabPage initPage;
+  LayoutCenter({Key key, this.mainPage}) : super(key: key);
+  final String mainPage;
 
   @override
   LayoutCenterState createState() => LayoutCenterState();
@@ -25,9 +25,9 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
 
   @override
   void initState() {
-    if (widget.initPage != null && StoreUtil.readCurrentOpenedTabPageId() == null) {
+    if (widget.mainPage != null && StoreUtil.readCurrentOpenedTabPageId() == null) {
       WidgetsBinding.instance.addPostFrameCallback((c) {
-        Utils.openTab(widget.initPage);
+        Utils.openTab(widget.mainPage);
       });
     }
 

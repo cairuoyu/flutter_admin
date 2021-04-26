@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/common/cry.dart';
 import 'package:flutter_admin/generated/l10n.dart';
-import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
@@ -69,7 +68,7 @@ class LayoutAppBar extends AppBar {
                 tooltip: S.of(context).information,
                 onSelected: (v) {
                   if (v == 'info') {
-                    Utils.openTab(TabPage(id: 'userInfoMine', url: '/userInfoMine', name: '我的信息', nameEn: 'My Info'));
+                    Utils.openTab('/userInfoMine');
                   } else if (v == 'logout') {
                     // dispose();
                     Utils.logout();

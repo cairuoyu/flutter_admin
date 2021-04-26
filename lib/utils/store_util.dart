@@ -44,7 +44,7 @@ class StoreUtil {
     return data == null ? UserInfo() : UserInfo.fromMap(data);
   }
 
-  static List<Menu> getMenuTree() {
+  static List<Menu> getMenuList() {
     var data = GetStorage().read(Constant.KEY_MENU_LIST);
     return data == null ? [] : List.from(data).map((e) => Menu.fromMap(e)).toList();
   }
