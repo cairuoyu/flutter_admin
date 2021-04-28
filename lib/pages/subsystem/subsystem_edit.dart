@@ -6,7 +6,7 @@ import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/models/subsystem.dart';
-import 'package:flutter_admin/utils/utils.dart';
+import 'package:flutter_admin/utils/cry_utils.dart';
 
 class SubsystemEdit extends StatefulWidget {
   final Subsystem subsystem;
@@ -123,7 +123,7 @@ class _SubsystemEditState extends State<SubsystemEdit> {
     ResponseBodyApi responseBodyApi = await SubsystemApi.saveOrUpdate(_subsystem.toMap());
     if (responseBodyApi.success) {
       Navigator.pop(context, true);
-      Utils.message(S.of(context).success);
+      CryUtils.message(S.of(context).success);
     }
   }
 }

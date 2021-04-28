@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/utils/cry_utils.dart';
 import 'package:flutter_admin/utils/store_util.dart';
-import 'package:flutter_admin/utils/utils.dart';
 
 class CryDioInterceptors extends InterceptorsWrapper {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
@@ -21,7 +20,7 @@ class CryDioInterceptors extends InterceptorsWrapper {
     print('RESPONSE[${response.statusCode}] => PATH: ${response.realUri}');
     ResponseBodyApi responseBodyApi = ResponseBodyApi.fromMap(response.data);
     if (!responseBodyApi.success) {
-      Utils.message(responseBodyApi.message);
+      CryUtils.message(responseBodyApi.message);
     }
     return super.onResponse(response, handler);
   }
@@ -31,7 +30,7 @@ class CryDioInterceptors extends InterceptorsWrapper {
     print('ERROR[${err.response?.statusCode}] => PATH: ${err.response.realUri}');
     print(err.toString());
     String message = '请求出错：' + err.toString();
-    Utils.message(message);
+    CryUtils.message(message);
     return super.onError(err, handler);
   }
 }

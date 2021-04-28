@@ -9,7 +9,7 @@ import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dict.dart';
 import 'package:flutter_admin/models/dict_item.dart';
 import 'package:cry/model/response_body_api.dart';
-import 'package:flutter_admin/utils/utils.dart';
+import 'package:flutter_admin/utils/cry_utils.dart';
 import 'package:quiver/strings.dart';
 
 class DictItemListEdit extends StatefulWidget {
@@ -123,7 +123,7 @@ class DictItemListEditState extends State<DictItemListEdit> {
           return null;
         }) !=
         null) {
-      Utils.message(S.of(context).completeTheTableData);
+      CryUtils.message(S.of(context).completeTheTableData);
       return false;
     }
     return true;

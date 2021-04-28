@@ -10,8 +10,8 @@ import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/models/dept.dart';
 import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/pages/common/dept_selector.dart';
+import 'package:flutter_admin/utils/cry_utils.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
-import 'package:flutter_admin/utils/utils.dart';
 import '../../generated/l10n.dart';
 
 class UserInfoEdit extends StatefulWidget {
@@ -119,7 +119,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
                 return;
               }
               Navigator.pop(context, true);
-              Utils.message(S.of(context).saved);
+              CryUtils.message(S.of(context).saved);
             });
           },
           iconData: Icons.save,

@@ -8,8 +8,8 @@ import 'package:cry/cry_button.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/models/person.dart';
 import 'package:flutter_admin/utils/adaptive_util.dart';
+import 'package:flutter_admin/utils/cry_utils.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
-import 'package:flutter_admin/utils/utils.dart';
 import '../../generated/l10n.dart';
 
 class PersonEdit extends StatefulWidget {
@@ -99,7 +99,7 @@ class PersonEditState extends State<PersonEdit> {
             form.save();
             PersonApi.saveOrUpdate(formData.toJson()).then((res) {
               Navigator.pop(context, true);
-              Utils.message(S.of(context).saved);
+              CryUtils.message(S.of(context).saved);
             });
           },
         ),

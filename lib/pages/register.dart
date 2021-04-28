@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/user_api.dart';
 import 'package:flutter_admin/common/cry.dart';
 import 'package:flutter_admin/models/user.dart';
-import 'package:flutter_admin/utils/utils.dart';
+import 'package:flutter_admin/utils/cry_utils.dart';
 import '../generated/l10n.dart';
 
 class Register extends StatefulWidget {
@@ -170,7 +170,7 @@ class _RegisterState extends State {
           return;
         }
         _login();
-        Utils.message(S.of(context).registerSuccess);
+        CryUtils.message(S.of(context).registerSuccess);
       });
     }
   }

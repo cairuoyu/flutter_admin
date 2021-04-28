@@ -9,8 +9,8 @@ import 'package:flutter_admin/common/cry.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dept.dart';
+import 'package:flutter_admin/utils/cry_utils.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
-import 'package:flutter_admin/utils/utils.dart';
 
 class DeptEdit extends StatefulWidget {
   final Dept dept;
@@ -116,6 +116,6 @@ class _DeptEditState extends State<DeptEdit> {
       return;
     }
     Cry.pop();
-    Utils.message(S.of(context).success);
+    CryUtils.message(S.of(context).success);
   }
 }

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/message_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/message.dart';
-import 'package:flutter_admin/utils/utils.dart';
+import 'package:flutter_admin/utils/cry_utils.dart';
 
 class MessageEdit extends StatefulWidget {
   @override
@@ -62,7 +62,7 @@ class _MessageEditState extends State<MessageEdit> {
     }
     this.formKey.currentState.save();
     await MessageApi.save(this._message.toMap());
-    Utils.message(S.of(context).success);
+    CryUtils.message(S.of(context).success);
     this.setState(() {});
   }
 }

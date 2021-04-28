@@ -7,7 +7,6 @@ import 'package:flutter_admin/data/data_icon.dart';
 import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/store_util.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -104,22 +103,6 @@ class Utils {
       ),
       buttonTheme: ButtonThemeData(buttonColor: themeColor),
       fontFamily: layoutController.fontFamily,
-    );
-  }
-
-  // static loading() {
-  //   Get.dialog(Center(child: CircularProgressIndicator()));
-  // }
-
-  static message(message) {
-    Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
-      fontSize: 16.0,
     );
   }
 

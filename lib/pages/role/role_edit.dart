@@ -5,7 +5,7 @@ import 'package:flutter_admin/api/role_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/models/role.dart';
-import 'package:flutter_admin/utils/utils.dart';
+import 'package:flutter_admin/utils/cry_utils.dart';
 
 class RoleEdit extends StatefulWidget {
   final Role role;
@@ -81,7 +81,7 @@ class _RoleEditState extends State<RoleEdit> {
     ResponseBodyApi responseBodyApi = await RoleApi.saveOrUpdate(_role);
     if (responseBodyApi.success) {
       Navigator.pop(context, true);
-      Utils.message(S.of(context).success);
+      CryUtils.message(S.of(context).success);
     }
   }
 }

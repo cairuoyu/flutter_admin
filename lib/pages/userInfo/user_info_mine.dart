@@ -17,9 +17,9 @@ import 'package:flutter_admin/models/dept.dart';
 import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/pages/common/dept_selector.dart';
 import 'package:flutter_admin/utils/adaptive_util.dart';
+import 'package:flutter_admin/utils/cry_utils.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 import 'package:flutter_admin/utils/store_util.dart';
-import 'package:flutter_admin/utils/utils.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:path/path.dart' as Path;
 import 'package:http_parser/http_parser.dart';
@@ -113,7 +113,7 @@ class _UserInfoMineState extends State<UserInfoMine> {
                 return;
               }
               StoreUtil.write(Constant.KEY_CURRENT_USER_INFO, this.userInfo.toMap());
-              Utils.message(S.of(context).saved);
+              CryUtils.message(S.of(context).saved);
             });
           },
           iconData: Icons.save,

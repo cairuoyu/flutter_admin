@@ -7,7 +7,7 @@ import 'package:flutter_admin/common/cry.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/message.dart';
 import 'package:flutter_admin/models/message_replay_model.dart';
-import 'package:flutter_admin/utils/utils.dart';
+import 'package:flutter_admin/utils/cry_utils.dart';
 
 class MessageReplay extends StatefulWidget {
   final Message message;
@@ -72,7 +72,7 @@ class _MessageReplayState extends State<MessageReplay> {
     var result = await MessageApi.replayCommit(messageReplayModel.toMap());
     if (result.success) {
       Cry.pop();
-      Utils.message(S.of(context).success);
+      CryUtils.message(S.of(context).success);
     }
   }
 }

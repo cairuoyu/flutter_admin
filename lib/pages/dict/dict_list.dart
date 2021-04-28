@@ -15,6 +15,7 @@ import 'package:flutter_admin/models/dict.dart';
 import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/dict/dict_edit.dart';
+import 'package:flutter_admin/utils/cry_utils.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:dio/dio.dart';
@@ -147,7 +148,7 @@ class _DictList extends State<DictList> {
     var data = FormData.fromMap({'file': file});
     await DictApi.importExcel(data);
     this._loadData();
-    Utils.message(S.of(context).success);
+    CryUtils.message(S.of(context).success);
   }
 
   _exportExcel() async {

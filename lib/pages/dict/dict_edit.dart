@@ -8,7 +8,7 @@ import 'package:flutter_admin/models/dict.dart';
 import 'package:flutter_admin/models/dict_item.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/dict/dict_item_list_edit.dart';
-import 'package:flutter_admin/utils/utils.dart';
+import 'package:flutter_admin/utils/cry_utils.dart';
 
 class DictEdit extends StatefulWidget {
   final Dict dict;
@@ -107,6 +107,6 @@ class _DictEditState extends State<DictEdit> {
       return;
     }
     Navigator.pop(context);
-    Utils.message(S.of(context).success);
+    CryUtils.message(S.of(context).success);
   }
 }

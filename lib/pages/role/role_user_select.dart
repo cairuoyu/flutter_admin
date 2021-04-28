@@ -6,7 +6,7 @@ import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/models/role_user.dart';
 import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/pages/role/role_user_select_list.dart';
-import 'package:flutter_admin/utils/utils.dart';
+import 'package:flutter_admin/utils/cry_utils.dart';
 
 class RoleUserSelect extends StatefulWidget {
   RoleUserSelect({Key key, this.role}) : super(key: key);
@@ -35,24 +35,24 @@ class _RoleUserSelectState extends State<RoleUserSelect> {
       toRight: () async {
         List<UserInfo> selectedList = tableKey1.currentState.getSelectedList();
         if (selectedList.isEmpty) {
-          Utils.message(S.of(context).selectUnselectedUsers);
+          CryUtils.message(S.of(context).selectUnselectedUsers);
           return;
         }
         List roleUserList = selectedList.map((e) => RoleUser(userId: e.userId, roleId: widget.role.id).toMap()).toList();
         await RoleUserApi.saveBatch(roleUserList);
-        Utils.message(S.of(context).saved);
+        CryUtils.message(S.of(context).saved);
         tableKey1.currentState.query();
         tableKey2.currentState.query();
       },
       toLeft: () async {
         List<UserInfo> selectedList = tableKey2.currentState.getSelectedList();
         if (selectedList.isEmpty) {
-          Utils.message(S.of(context).selectSelectedUsers);
+          CryUtils.message(S.of(context).selectSelectedUsers);
           return;
         }
         List roleUserList = selectedList.map((e) => RoleUser(roleId: widget.role.id, userId: e.userId).toMap()).toList();
         await RoleUserApi.removeBatch(roleUserList);
-        Utils.message(S.of(context).saved);
+        CryUtils.message(S.of(context).saved);
         tableKey1.currentState.query();
         tableKey2.currentState.query();
       },

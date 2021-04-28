@@ -10,7 +10,7 @@ import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/common/icon_selector.dart';
-import 'package:flutter_admin/utils/utils.dart';
+import 'package:flutter_admin/utils/cry_utils.dart';
 
 class MenuEdit extends StatefulWidget {
   MenuEdit({Key key, this.menu, this.onSave, this.onClose}) : super(key: key);
@@ -48,7 +48,7 @@ class _MenuEditState extends State<MenuEdit> {
               if (!res.success) {
                 return;
               }
-              Utils.message(S.of(context).saved);
+              CryUtils.message(S.of(context).saved);
               if (widget.onSave != null) {
                 widget.onSave();
               }

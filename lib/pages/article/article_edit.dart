@@ -9,6 +9,7 @@ import 'package:flutter_admin/api/article_api.dart';
 import 'package:flutter_admin/api/file_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/article.dart';
+import 'package:flutter_admin/utils/cry_utils.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:dio/dio.dart';
 
@@ -116,7 +117,7 @@ class _ArticleEditState extends State<ArticleEdit> {
 
     ResponseBodyApi res = await action(article.toMap());
     if (res.success) {
-      Utils.message(S.of(context).success);
+      CryUtils.message(S.of(context).success);
       Navigator.pop(context,true);
     }
     return res;
