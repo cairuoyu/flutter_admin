@@ -2,6 +2,7 @@ import 'package:cry/common/application_context.dart';
 import 'package:cry/constants/cry_constant.dart';
 import 'package:cry/generated/l10n.dart' as cryS;
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/common/cry.dart';
 import 'package:flutter_admin/common/cry_dio_interceptors.dart';
 import 'package:flutter_admin/common/cry_route_Information_parser.dart';
 import 'package:flutter_admin/pages/layout/layout.dart';
@@ -12,7 +13,6 @@ import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'common/routes.dart';
 import 'generated/l10n.dart';
 import 'router/main_router_delegate.dart';
 
@@ -39,11 +39,11 @@ class MyApp extends StatelessWidget {
     };
     return GetMaterialApp.router(
       key: UniqueKey(),
+      builder: Cry.init,
       debugShowCheckedModeBanner: false,
       title: 'FLUTTER_ADMIN',
       enableLog: false,
       theme: Utils.getThemeData(),
-      getPages: Routes.pages,
       darkTheme: Utils.getThemeData(isDark: true),
       localizationsDelegates: [
         S.delegate,

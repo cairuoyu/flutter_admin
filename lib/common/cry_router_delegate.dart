@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/utils/cry_utils.dart';
 
 import 'cry_route.dart';
 
@@ -17,7 +18,7 @@ class CryRouterDelegate extends RouterDelegate<RouteInformation> with ChangeNoti
       return Container();
     }
     return Navigator(
-      key: navigatorKey,
+      key: CryUtils.navigatorKey = navigatorKey,
       pages: pages,
       onPopPage: (route, result) {
         if (!route.didPop(result)) {
