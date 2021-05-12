@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/pages/article/article_main.dart';
 import 'package:flutter_admin/pages/charts/s_area_age_gender/s_area_age_gender_main.dart';
 import 'package:flutter_admin/pages/common/only_text.dart';
@@ -47,6 +48,14 @@ class Routes {
     '/secondLevel': OnlyText('二级菜单页面'),
     '/threeLevel': OnlyText('三级菜单页面'),
   };
+  static List<String> whiteRoutes = ['/register'];
+
+  static List<TabPage> defaultTabPage = [
+    TabPage(id: 'dashboard', url: '/dashboard', name: 'Dashboard', nameEn: 'Dashboard'),
+  ];
+  static List<TabPage> otherTabPage = [
+    TabPage(id: 'userInfoMine', url: '/userInfoMine', name: '我的信息', nameEn: 'My Info'),
+  ];
 
   static init() {
     layoutPages = layoutPagesMap.entries.map((e) => GetPage(name: e.key, page: () => e.value)).toList();

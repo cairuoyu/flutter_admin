@@ -1,3 +1,4 @@
+import 'package:flutter_admin/common/routes.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/models/tab_page.dart';
@@ -19,6 +20,11 @@ class StoreUtil {
 
   static cleanAll() {
     GetStorage().erase();
+  }
+
+  static init() {
+    writeOpenedTabPageList(Routes.defaultTabPage);
+    writeCurrentOpenedTabPageId(Routes.defaultTabPage.first.id);
   }
 
   static List<TabPage> readOpenedTabPageList() {

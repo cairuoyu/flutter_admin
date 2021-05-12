@@ -206,6 +206,7 @@ class _LoginState extends State<Login> {
     await _loadDict();
     await _loadMenuData();
     await _loadCurrentUserInfo();
+    StoreUtil.init();
 
     Cry.pushNamed('/');
   }

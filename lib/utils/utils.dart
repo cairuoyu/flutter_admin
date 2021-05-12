@@ -1,6 +1,7 @@
 import 'package:cry/cry_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/common/cry.dart';
+import 'package:flutter_admin/common/routes.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/constants/enum.dart';
 import 'package:flutter_admin/data/data_icon.dart';
@@ -38,16 +39,13 @@ class Utils {
   }
 
   static closeAllTab() {
-    List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
-    openedTabPageList.clear();
-    StoreUtil.writeCurrentOpenedTabPageId(null);
-    StoreUtil.writeOpenedTabPageList(openedTabPageList);
+    StoreUtil.init();
     Cry.popAndPushNamed('/');
   }
 
   static closeOtherTab(TabPage tabPage) {
     List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
-    openedTabPageList.removeWhere((element) => element.id != tabPage.id);
+    openedTabPageList.removeWhere((element) => element.id != tabPage.id && !Routes.defaultTabPage.contains(element));
     StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
     Cry.popAndPushNamed(tabPage.url);
@@ -56,7 +54,7 @@ class Utils {
   static closeAllToTheRightTab(TabPage tabPage) {
     List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
     int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
-    openedTabPageList.removeRange(index + 1, openedTabPageList.length);
+    openedTabPageList.removeWhere((element) => openedTabPageList.indexOf(element) > index && !Routes.defaultTabPage.contains(element));
     StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
     Cry.popAndPushNamed(tabPage.url);
@@ -65,7 +63,7 @@ class Utils {
   static closeAllToTheLeftTab(TabPage tabPage) {
     List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
     int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
-    openedTabPageList.removeRange(0, index);
+    openedTabPageList.removeWhere((element) => openedTabPageList.indexOf(element) < index && !Routes.defaultTabPage.contains(element));
     StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
     Cry.popAndPushNamed(tabPage.url);

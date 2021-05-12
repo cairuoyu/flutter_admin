@@ -10,8 +10,7 @@ import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
 
 class LayoutCenter extends StatefulWidget {
-  LayoutCenter({Key key, this.mainPage}) : super(key: key);
-  final String mainPage;
+  LayoutCenter({Key key}) : super(key: key);
 
   @override
   LayoutCenterState createState() => LayoutCenterState();
@@ -23,16 +22,7 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
 
   @override
   void initState() {
-    if (widget.mainPage != null && StoreUtil.readCurrentOpenedTabPageId() == null) {
-      WidgetsBinding.instance.addPostFrameCallback((c) {
-        Utils.openTab(widget.mainPage);
-      });
-    }
-
     var openedTabPageList = StoreUtil.readOpenedTabPageList();
-    if (openedTabPageList.isEmpty) {
-      return;
-    }
     var currentOpenedTabPageId = StoreUtil.readCurrentOpenedTabPageId();
     int initialIndex = openedTabPageList.indexWhere((note) => note.id == currentOpenedTabPageId);
     tabController = TabController(vsync: this, length: openedTabPageList.length, initialIndex: initialIndex);
@@ -48,9 +38,6 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
   @override
   Widget build(BuildContext context) {
     var openedTabPageList = StoreUtil.readOpenedTabPageList();
-    if (openedTabPageList.isEmpty) {
-      return Container();
-    }
     TabBar tabBar = TabBar(
       controller: tabController,
       isScrollable: true,
@@ -60,10 +47,11 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
           children: <Widget>[
             Text(Utils.isLocalEn(context) ? tabPage.nameEn ?? '' : tabPage.name ?? ''),
             SizedBox(width: 3),
-            InkWell(
-              child: Icon(Icons.close, size: 10),
-              onTap: () => Utils.closeTab(tabPage),
-            ),
+            if (!Routes.defaultTabPage.contains(tabPage))
+              InkWell(
+                child: Icon(Icons.close, size: 10),
+                onTap: () => Utils.closeTab(tabPage),
+              ),
           ],
         );
         return Tab(
@@ -89,12 +77,13 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
               }
             },
             itemBuilder: (context) => <PopupMenuEntry<TabMenuOption>>[
-              PopupMenuItem(
-                value: TabMenuOption.close,
-                child: ListTile(
-                  title: Text('Close'),
+              if (!Routes.defaultTabPage.contains(tabPage))
+                PopupMenuItem(
+                  value: TabMenuOption.close,
+                  child: ListTile(
+                    title: Text('Close'),
+                  ),
                 ),
-              ),
               PopupMenuItem(
                 value: TabMenuOption.closeAll,
                 child: ListTile(

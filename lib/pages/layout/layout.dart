@@ -33,10 +33,7 @@ class _LayoutState extends State {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Utils.isMenuDisplayTypeDrawer(context) ? Container() : layoutMenu,
-        LayoutCenter(
-          key: layoutCenterKey,
-          mainPage: '/dashboard',
-        ),
+        LayoutCenter(key: layoutCenterKey),
       ],
     );
     Scaffold subWidget = Scaffold(
