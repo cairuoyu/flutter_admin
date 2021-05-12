@@ -5,7 +5,6 @@ import 'package:flutter_admin/common/routes.dart';
 import 'package:flutter_admin/constants/enum.dart';
 import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/pages/common/keep_alive_wrapper.dart';
-import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
@@ -20,8 +19,7 @@ class LayoutCenter extends StatefulWidget {
 
 class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixin {
   Container content = Container();
-  List<Widget> pages;
-  LayoutController layoutController = Get.find();
+  TabController tabController;
 
   @override
   void initState() {
@@ -31,37 +29,28 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
       });
     }
 
+    var openedTabPageList = StoreUtil.readOpenedTabPageList();
+    if (openedTabPageList.isEmpty) {
+      return;
+    }
+    var currentOpenedTabPageId = StoreUtil.readCurrentOpenedTabPageId();
+    int initialIndex = openedTabPageList.indexWhere((note) => note.id == currentOpenedTabPageId);
+    tabController = TabController(vsync: this, length: openedTabPageList.length, initialIndex: initialIndex);
+    tabController.addListener(() {
+      if (tabController.indexIsChanging) {
+        StoreUtil.writeCurrentOpenedTabPageId(openedTabPageList[tabController.index].id);
+      }
+    });
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    TabController tabController = layoutController.tabController;
     var openedTabPageList = StoreUtil.readOpenedTabPageList();
-    var length = openedTabPageList.length;
-    if (length == 0) {
+    if (openedTabPageList.isEmpty) {
       return Container();
     }
-    var currentOpenedTabPageId = StoreUtil.readCurrentOpenedTabPageId();
-    int index = openedTabPageList.indexWhere((note) => note.id == currentOpenedTabPageId);
-    pages = openedTabPageList.map((TabPage tabPage) {
-      var page = tabPage.url != null ? Routes.layoutPagesMap[tabPage.url] ?? Container() : tabPage.widget ?? Container();
-      return KeepAliveWrapper(child: page);
-    }).toList();
-
-    int tabIndex = tabController?.index ?? 0;
-    int initialIndex = tabIndex > length - 1 ? length - 1 : tabIndex;
-    tabController?.dispose();
-    tabController = TabController(vsync: this, length: pages.length, initialIndex: initialIndex);
-    tabController.animateTo(index);
-    layoutController.tabController = tabController;
-    tabController.addListener(() {
-      if (tabController.indexIsChanging) {
-        StoreUtil.writeCurrentOpenedTabPageId(openedTabPageList[tabController.index].id);
-        layoutController.update();
-      }
-    });
-
     TabBar tabBar = TabBar(
       controller: tabController,
       isScrollable: true,
@@ -140,7 +129,10 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
       child: Expanded(
         child: TabBarView(
           controller: tabController,
-          children: pages,
+          children: openedTabPageList.map((TabPage tabPage) {
+            var page = tabPage.url != null ? Routes.layoutPagesMap[tabPage.url] ?? Container() : tabPage.widget ?? Container();
+            return KeepAliveWrapper(child: page);
+          }).toList(),
         ),
       ),
     );

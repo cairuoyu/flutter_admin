@@ -18,63 +18,57 @@ class Utils {
   static closeTab(TabPage tabPage) {
     List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
     int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
-    closeTabByIndex(index);
-  }
-
-  static closeTabByIndex(int index) {
-    LayoutController layoutController = Get.find();
-    List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
     if (index >= openedTabPageList.length) {
       return;
     }
-    TabPage tabPage = openedTabPageList[index];
     openedTabPageList.removeAt(index);
     var length = openedTabPageList.length;
+    String url;
     if (length == 0) {
       StoreUtil.writeCurrentOpenedTabPageId(null);
+      url = '/';
     } else if (StoreUtil.readCurrentOpenedTabPageId() == tabPage.id) {
       StoreUtil.writeCurrentOpenedTabPageId(openedTabPageList.first.id);
+      url = openedTabPageList.first.url;
+    } else {
+      url = openedTabPageList.first.url;
     }
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
-    layoutController.update();
+    Cry.popAndPushNamed(url);
   }
 
   static closeAllTab() {
-    LayoutController layoutController = Get.find();
     List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
     openedTabPageList.clear();
     StoreUtil.writeCurrentOpenedTabPageId(null);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
-    layoutController.update();
+    Cry.popAndPushNamed('/');
   }
 
   static closeOtherTab(TabPage tabPage) {
-    LayoutController layoutController = Get.find();
     List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
     openedTabPageList.removeWhere((element) => element.id != tabPage.id);
     StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
-    layoutController.update();
+    Cry.popAndPushNamed(tabPage.url);
   }
 
   static closeAllToTheRightTab(TabPage tabPage) {
-    LayoutController layoutController = Get.find();
     List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
     int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
     openedTabPageList.removeRange(index + 1, openedTabPageList.length);
     StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
-    layoutController.update();
+    Cry.popAndPushNamed(tabPage.url);
   }
 
   static closeAllToTheLeftTab(TabPage tabPage) {
-    LayoutController layoutController = Get.find();
     List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
     int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
     openedTabPageList.removeRange(0, index);
     StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
-    layoutController.update();
+    Cry.popAndPushNamed(tabPage.url);
   }
 
   static isLocalEn(BuildContext context) {
