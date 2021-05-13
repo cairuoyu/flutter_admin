@@ -94,6 +94,8 @@ class Utils {
         backgroundColor: themeColor,
       ),
       buttonTheme: ButtonThemeData(buttonColor: themeColor),
+      elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(backgroundColor: MaterialStateProperty.all(themeColor))),
+      textButtonTheme: TextButtonThemeData(style: ButtonStyle(backgroundColor: MaterialStateProperty.all(themeColor))),
       fontFamily: layoutController.fontFamily,
     );
   }

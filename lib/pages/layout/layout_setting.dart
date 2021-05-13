@@ -18,7 +18,7 @@ class LayoutSetting extends StatelessWidget {
   Widget build(BuildContext context) {
     LayoutController layoutController = Get.find();
     var picker = BlockPicker(
-      pickerColor: Get.theme.primaryColor,
+      pickerColor: context.theme.primaryColor,
       onColorChanged: (v) {
         Get.changeTheme(Utils.getThemeData(themeColor: v));
       },
@@ -38,7 +38,7 @@ class LayoutSetting extends StatelessWidget {
         SelectOptionVO(value: ThemeMode.dark, label: 'dart'),
         SelectOptionVO(value: ThemeMode.light, label: 'light'),
       ],
-      defaultValue: Get.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      defaultValue: context.isDarkMode ? ThemeMode.dark : ThemeMode.light,
       afterOnPress: (Object v) {
         Get.changeThemeMode(v);
       },
