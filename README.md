@@ -11,7 +11,7 @@
 > 本项目作为一个基于Flutter开发Web、Android、iOS、Windows、macOS、Linux等多端应用程序的模板、例子、演示，在功能上提供多种实现方式，包括弹窗、表单风格、表格等，而且不断地在完善。通过这个项目，可以高效学习Flutter或快速地开发一个新的跨端应用。
 
 ---
-## 功能技术
+## 功能
 * 用户注册
 * 登录登出
 * 功能菜单
@@ -34,8 +34,19 @@
 * 字体切换
 * 独立配置文件
 * 组件封装
-* JWT
 * 导入导出Excel
+
+## 技术
+| 名称     | 技术                                                         |
+| -------- | ------------------------------------------------------------ |
+| 权限     | JWT                                                          |
+| 路由管理 | Flutter Navigator 2                                          |
+| 状态管理 | GetX                                                         |
+| 缓存管理 | GetStorage                                                   |
+| 网络请求 | Dio                                                          |
+| 图表     | syncfusion_flutter_charts                                    |
+| 富文本   | flutter_markdown                                             |
+| 选择器   | image_picker、video_player、file_picker、flutter_colorpicker |
 
 ## 代码结构
 ```
@@ -76,7 +87,23 @@ flutter create .
 
 ## 运行
 ```bash
-flutter run -d chrome
+# Web
+flutter run -d chrome --web-renderer html
+
+# Windows
+flutter run -d windows
+```
+
+## 打包
+```bash
+# Web
+flutter build web --web-renderer html --release
+
+# Windows
+flutter build windows
+
+# Android
+flutter build apk
 ```
 
 ## live demo
@@ -105,5 +132,4 @@ http://www.cairuoyu.com/flutter_admin
 
 ### QQ
 851796663
-
 

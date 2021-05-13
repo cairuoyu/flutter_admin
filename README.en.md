@@ -33,24 +33,36 @@
 * Font Switch
 * Standalone configuration file
 * Component packaging
-* JWT
 * Import or Export Excle
+
+
+## 技术
+| Name               | Technology                                                   |
+| ------------------ | ------------------------------------------------------------ |
+| Permissions        | JWT                                                          |
+| Routing management | Flutter Navigator 2                                          |
+| State management   | GetX                                                         |
+| Cache management   | GetStorage                                                   |
+| Network request    | Dio                                                          |
+| The chart          | syncfusion_flutter_charts                                    |
+| The rich text      | flutter_markdown                                             |
+| Picker             | image_picker、video_player、file_picker、flutter_colorpicker |
 
 
 ## The code structure
 ```
-├─config    配置文件
+├─config    The configuration file
 └─lib
-    ├─api   服务接口
-    ├─common    公共类
-    ├─constants     常量类
-    ├─data      数据类
-    ├─enum      枚举类
-    ├─generated     工具自动生成的国际化代码
+    ├─api   The service interface
+    ├─common    The public class
+    ├─constants     Constant class
+    ├─data      Data classes
+    ├─enum      Enumeration class
+    ├─generated     The tool automatically generates the internationalization code
     │  └─intl
-    ├─l10n      国际化配置，修改后工具生成代码到generated文件夹下
-    ├─models    模型类
-    ├─pages     页面，各文件夹对应各功能
+    ├─l10n      Internationalize the configuration and modify the tool to generate code in the generated folder
+    ├─models    Model class
+    ├─pages     Page, each folder corresponds to each function
     │  ├─common
     │  ├─dash
     │  ├─dict
@@ -64,7 +76,7 @@
     │  ├─subsystem
     │  ├─userInfo
     │  └─video
-    └─utils     工具类
+    └─utils     Utility class
 
 ```
 ## installation
@@ -75,7 +87,23 @@ flutter create .
 
 ## run
 ```bash
-flutter run -d chrome
+# Web
+flutter run -d chrome --web-renderer html
+
+# Windows
+flutter run -d windows
+```
+
+## packaging
+```bash
+# Web
+flutter build web --web-renderer html --release
+
+# Windows
+flutter build windows
+
+# Android
+flutter build apk
 ```
 
 ## live demo
