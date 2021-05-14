@@ -1144,6 +1144,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Font`
+  String get font {
+    return Intl.message(
+      'Font',
+      name: 'font',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Night mode`
+  String get nightMode {
+    return Intl.message(
+      'Night mode',
+      name: 'nightMode',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

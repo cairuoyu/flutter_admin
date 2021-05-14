@@ -108,5 +108,7 @@
   "publishTimeEnd": "发布日期止",
   "author": "作者",
   "uploadArticle": "上传文章",
-  "replay": "回复"
+  "replay": "回复",
+  "font": "字体",
+  "nightMode": "夜晚模式"
 }

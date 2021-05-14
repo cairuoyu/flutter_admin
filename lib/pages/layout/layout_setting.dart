@@ -33,15 +33,9 @@ class LayoutSetting extends StatelessWidget {
         layoutController.updateMenuDisplayType(v);
       },
     );
-    var themeMode = CryToggleButtons(
-      [
-        SelectOptionVO(value: ThemeMode.dark, label: 'dart'),
-        SelectOptionVO(value: ThemeMode.light, label: 'light'),
-      ],
-      defaultValue: context.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-      afterOnPress: (Object v) {
-        Get.changeThemeMode(v);
-      },
+    var themeMode = Switch(
+      onChanged: (nightMode) => {Get.changeTheme(context.isDarkMode ? ThemeData.light() : ThemeData.dark())},
+      value: context.isDarkMode,
     );
     return Drawer(
       child: ListView(
@@ -59,26 +53,6 @@ class LayoutSetting extends StatelessWidget {
             ),
             padding: EdgeInsets.all(10),
             child: Row(children: [
-              SizedBox(width: 100, child: Text(S.of(context).menuDisplay)),
-              menuDisplayType,
-            ]),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.black12)),
-            ),
-            padding: EdgeInsets.all(10),
-            child: Row(children: [
-              SizedBox(width: 100, child: Text(S.of(context).menuDisplay)),
-              themeMode,
-            ]),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.black12)),
-            ),
-            padding: EdgeInsets.all(10),
-            child: Row(children: [
               SizedBox(width: 100, child: Text(S.of(context).language)),
               LangSwitch(),
             ]),
@@ -89,9 +63,26 @@ class LayoutSetting extends StatelessWidget {
             ),
             padding: EdgeInsets.all(10),
             child: Row(children: [
-              SizedBox(width: 100, child: Text('Font')),
-              Expanded(child: FontSelector()),
+              SizedBox(width: 100, child: Text(S.of(context).menuDisplay)),
+              menuDisplayType,
             ]),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: Colors.black12)),
+            ),
+            padding: EdgeInsets.all(10),
+            child: Row(children: [
+              SizedBox(width: 100, child: Text(S.of(context).nightMode)),
+              themeMode,
+            ]),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: Colors.black12)),
+            ),
+            padding: EdgeInsets.all(10),
+            child: Expanded(child: FontSelector()),
           ),
           Container(
             decoration: BoxDecoration(

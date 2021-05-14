@@ -115,7 +115,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
       } else {
         return ListTile(
           tileColor: currentOpenedTabPageId == treeVO.data.id ? Colors.blue.shade100 : null,
-          leading: Icon(iconData),
+          leading: Icon(iconData,color: context.theme.primaryColor),
           title: title,
           onTap: () {
             if (currentOpenedTabPageId != treeVO.data.id && widget.onClick != null) {

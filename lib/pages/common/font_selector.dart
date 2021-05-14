@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,14 @@ class _FontSelectorState extends State<FontSelector> {
     LayoutController layoutController = Get.find();
 
     return DropdownButtonFormField<String>(
+      decoration: InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: S.of(context).font,
+        icon: Icon(
+          Icons.font_download,
+          color: Colors.blue,
+        ),
+      ),
       value: currentFontFamily ?? layoutController.fontFamily,
       items: fontFamilyMap.entries.map((e) {
         return DropdownMenuItem<String>(
