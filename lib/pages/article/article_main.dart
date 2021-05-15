@@ -176,7 +176,6 @@ class _ArticleMainState extends State<ArticleMain> {
   delete(ids) async {
     cryConfirm(context, S.of(context).confirmDelete, (context) async {
       await ArticleApi.removeByIds(ids);
-      Navigator.of(context).pop();
       ds.loadData();
     });
   }

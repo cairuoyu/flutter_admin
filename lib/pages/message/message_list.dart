@@ -75,7 +75,6 @@ class MessageListState extends State<MessageList> {
         return;
       }
       reloadData();
-      Cry.pop();
     });
   }
 

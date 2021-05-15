@@ -157,7 +157,6 @@ class _SubsystemMain extends State<SubsystemMain> {
   _delete(List<Subsystem> subsystemList) {
     cryConfirm(context, S.of(context).confirmDelete, (context) async {
       ResponseBodyApi responseBodyApi = await SubsystemApi.removeByIds(subsystemList.map((e) => e.id).toList());
-      Navigator.of(context).pop();
       if (!responseBodyApi.success) {
         return;
       }

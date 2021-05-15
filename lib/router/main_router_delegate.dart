@@ -44,6 +44,7 @@ class MainRouterDelegate extends CryRouterDelegate {
       return Login();
     }
     if (name == '/') {
+      location = '/';
       return Layout();
     }
     if (pageMap.containsKey(name)) {

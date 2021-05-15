@@ -82,7 +82,9 @@ class LayoutSetting extends StatelessWidget {
               border: Border(bottom: BorderSide(color: Colors.black12)),
             ),
             padding: EdgeInsets.all(10),
-            child: Expanded(child: FontSelector()),
+            child: Row(children: [
+              Expanded(child: FontSelector()),
+            ]),
           ),
           Container(
             decoration: BoxDecoration(

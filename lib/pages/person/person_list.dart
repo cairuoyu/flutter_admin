@@ -131,7 +131,6 @@ class PersonListState extends State {
                     }).toList();
                     await PersonApi.removeByIds(ids);
                     _query();
-                    Navigator.of(context).pop();
                   });
                 },
         ),
@@ -291,7 +290,6 @@ class MyDS extends DataTableSource {
                 cryConfirm(context, S.of(context).confirmDelete, (context) async {
                   await PersonApi.removeByIds([person.id]);
                   loadData();
-                  Navigator.of(context).pop();
                 });
               },
             ),

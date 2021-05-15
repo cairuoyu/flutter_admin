@@ -144,7 +144,6 @@ class _DeptListState extends State<DeptList> {
             } else if (v == OperationType.delete) {
               cryConfirm(context, S.of(context).confirmDelete, (context) async {
                 delete([treeVO.data.id]);
-                Navigator.of(context).pop();
               });
             }
           },
