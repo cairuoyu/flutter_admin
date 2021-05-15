@@ -11,7 +11,7 @@ import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/models/role_menu.dart';
 import 'package:flutter_admin/models/subsystem.dart';
-import 'package:flutter_admin/utils/cry_utils.dart';
+import 'package:cry/utils/cry_utils.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 

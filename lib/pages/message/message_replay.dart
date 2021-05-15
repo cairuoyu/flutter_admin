@@ -3,11 +3,11 @@ import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/message_api.dart';
-import 'package:flutter_admin/common/cry.dart';
+import 'package:cry/routes/cry.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/message.dart';
 import 'package:flutter_admin/models/message_replay_model.dart';
-import 'package:flutter_admin/utils/cry_utils.dart';
+import 'package:cry/utils/cry_utils.dart';
 
 class MessageReplay extends StatefulWidget {
   final Message message;

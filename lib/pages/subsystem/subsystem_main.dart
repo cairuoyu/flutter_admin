@@ -8,7 +8,7 @@ import 'package:cry/model/order_item_model.dart';
 import 'package:cry/model/page_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/subsystem_api.dart';
-import 'package:flutter_admin/common/cry.dart';
+import 'package:cry/routes/cry.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/subsystem.dart';

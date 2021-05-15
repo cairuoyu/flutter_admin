@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:cry/model/response_body_api.dart';
+import 'package:cry/utils/cry_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_admin/constants/constant.dart';
-import 'package:flutter_admin/utils/cry_utils.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 
 class CryDioInterceptors extends InterceptorsWrapper {
@@ -14,6 +14,7 @@ class CryDioInterceptors extends InterceptorsWrapper {
     CryUtils.loading();
     return super.onRequest(options, handler);
   }
+
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     CryUtils.loaded();
@@ -24,6 +25,7 @@ class CryDioInterceptors extends InterceptorsWrapper {
     }
     return super.onResponse(response, handler);
   }
+
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
     CryUtils.loaded();

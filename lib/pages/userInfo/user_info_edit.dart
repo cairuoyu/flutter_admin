@@ -10,7 +10,7 @@ import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/models/dept.dart';
 import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/pages/common/dept_selector.dart';
-import 'package:flutter_admin/utils/cry_utils.dart';
+import 'package:cry/utils/cry_utils.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 import '../../generated/l10n.dart';
 

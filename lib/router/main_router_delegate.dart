@@ -1,5 +1,5 @@
+import 'package:cry/routes/cry_router_delegate.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/common/cry_router_delegate.dart';
 import 'package:flutter_admin/common/routes.dart';
 import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/pages/common/page_404.dart';
@@ -11,16 +11,9 @@ import 'package:flutter_admin/utils/utils.dart';
 class MainRouterDelegate extends CryRouterDelegate {
   MainRouterDelegate({Map pageMap}) : super(pageMap: pageMap);
 
-  String location;
-
   @override
   RouteInformation get currentConfiguration {
     return RouteInformation(location: location ?? '/');
-  }
-
-  @override
-  Future<void> setNewRoutePath(RouteInformation routeInformation) async {
-    popAndPushNamed(routeInformation.location);
   }
 
   push(Widget widget) {

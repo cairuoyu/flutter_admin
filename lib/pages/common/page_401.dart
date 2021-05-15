@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cry/cry_button.dart';
-import 'package:flutter_admin/common/cry.dart';
+import 'package:cry/routes/cry.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
 class Page401 extends StatelessWidget {

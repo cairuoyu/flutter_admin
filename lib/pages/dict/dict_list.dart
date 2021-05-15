@@ -15,7 +15,7 @@ import 'package:flutter_admin/models/dict.dart';
 import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/dict/dict_edit.dart';
-import 'package:flutter_admin/utils/cry_utils.dart';
+import 'package:cry/utils/cry_utils.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:dio/dio.dart';

@@ -6,7 +6,7 @@ import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/models/role_user.dart';
 import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/pages/role/role_user_select_list.dart';
-import 'package:flutter_admin/utils/cry_utils.dart';
+import 'package:cry/utils/cry_utils.dart';
 
 class RoleUserSelect extends StatefulWidget {
   RoleUserSelect({Key key, this.role}) : super(key: key);

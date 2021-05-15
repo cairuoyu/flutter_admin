@@ -10,7 +10,7 @@ import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/common/icon_selector.dart';
-import 'package:flutter_admin/utils/cry_utils.dart';
+import 'package:cry/utils/cry_utils.dart';
 
 class MenuEdit extends StatefulWidget {
   MenuEdit({Key key, this.menu, this.onSave, this.onClose}) : super(key: key);

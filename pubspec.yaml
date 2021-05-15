@@ -11,34 +11,21 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  cry: 1.0.7
-  dio: ^4.0.0
-  cupertino_icons: ^1.0.2
+  cry: 1.1.1
   charts_flutter: ^0.9.0
   flutter_custom_clippers: ^1.1.0
   font_awesome_flutter: ^9.0.0
   flutter_colorpicker: ^0.4.0
   url_launcher: ^6.0.3
-  universal_html: ^2.0.7
   mime_type: ^1.0.0
-  image_picker: ^0.7.3
-  image_picker_for_web: ^2.0.0
   video_player: ^2.1.0
-  quiver: ^3.0.0
-  global_configuration: ^2.0.0-nullsafety.0
-  file_picker: ^3.0.0
   flutter_simple_treeview: ^3.0.0-nullsafety.1
   get: ^4.0.0-nullsafety.2
   get_storage: ^2.0.2
   syncfusion_flutter_charts: ^18.4.43+1
   syncfusion_flutter_datagrid: ^18.4.30-beta
-  flutter_markdown: ^0.6.1
-  fluttertoast: ^8.0.3
-
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
   build_runner: ^1.0.0
 
 dependency_overrides:

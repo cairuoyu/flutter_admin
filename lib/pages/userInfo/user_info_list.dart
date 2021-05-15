@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/user_info_api.dart';
 import 'package:cry/cry_button.dart';
 import 'package:cry/cry_data_table.dart';
-import 'package:flutter_admin/common/cry.dart';
+import 'package:cry/routes/cry.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:cry/model/page_model.dart';

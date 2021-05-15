@@ -8,7 +8,7 @@
 
 > 使用flutter实现的一个后台管理系统
 
-> 本项目作为一个基于Flutter开发Web、Android、iOS、Windows、macOS、Linux等多端应用程序的模板、例子、演示，在功能上提供多种实现方式，包括弹窗、表单风格、表格等，而且不断地在完善。通过这个项目，可以高效学习Flutter或快速地开发一个新的跨端应用。
+> 本项目作为一个基于Flutter开发Web、Android、iOS、Windows、macOS、Linux等多端应用程序的模板、例子、演示，在功能上提供多种实现方式，而且不断地在完善。通过这个项目，可以高效学习Flutter或快速地开发一个新的跨端应用。
 
 ---
 ## 功能
