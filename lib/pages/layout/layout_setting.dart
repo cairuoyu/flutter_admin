@@ -47,52 +47,31 @@ class LayoutSetting extends StatelessWidget {
               color: Get.theme.primaryColor,
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.black12)),
-            ),
-            padding: EdgeInsets.all(10),
-            child: Row(children: [
-              SizedBox(width: 100, child: Text(S.of(context).language)),
-              LangSwitch(),
-            ]),
+          ListTile(
+            title: Text(S.of(context).language),
+            trailing: LangSwitch(),
           ),
-          Container(
-            decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.black12)),
-            ),
-            padding: EdgeInsets.all(10),
-            child: Row(children: [
-              SizedBox(width: 100, child: Text(S.of(context).menuDisplay)),
-              menuDisplayType,
-            ]),
+          Divider(thickness: 1),
+          ListTile(
+            title: Text(S.of(context).menuDisplay),
+            trailing: menuDisplayType,
           ),
-          Container(
-            decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.black12)),
-            ),
-            padding: EdgeInsets.all(10),
-            child: Row(children: [
-              SizedBox(width: 100, child: Text(S.of(context).nightMode)),
-              themeMode,
-            ]),
+          Divider(thickness: 1),
+          ListTile(
+            title: Text(S.of(context).nightMode),
+            trailing: themeMode,
           ),
-          Container(
-            decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.black12)),
-            ),
-            padding: EdgeInsets.all(10),
-            child: Row(children: [
-              Expanded(child: FontSelector()),
-            ]),
+          Divider(thickness: 1),
+          Padding(
+            padding: const EdgeInsets.all(3.0),
+            child: FontSelector(),
           ),
-          Container(
-            decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.black12)),
-            ),
-            padding: EdgeInsets.all(5),
+          Divider(thickness: 1),
+          Padding(
+            padding: const EdgeInsets.all(3.0),
             child: picker,
           ),
+          Divider(thickness: 1),
         ],
       ),
     );
