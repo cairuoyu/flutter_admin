@@ -4,6 +4,7 @@ import 'package:cry/form/cry_input.dart';
 import 'package:cry/form/cry_select.dart';
 import 'package:cry/form/cry_select_date.dart';
 import 'package:cry/routes/cry.dart';
+import 'package:cry/utils/cry_utils.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
@@ -39,7 +40,7 @@ class _ArticleMainState extends State<ArticleMain> {
       children: [
         CryButtons.query(context, query),
         CryButtons.reset(context, reset),
-        CryButtons.add(context, edit),
+        CryButtons.add(context, ds.edit),
       ],
     );
     var form = Form(
@@ -95,45 +96,87 @@ class _ArticleMainState extends State<ArticleMain> {
     );
     var dataGrid = SfDataGrid(
       source: ds,
-      cellBuilder: getCellWidget,
       columns: <GridColumn>[
-        GridWidgetColumn(
-          mappingName: 'operation',
-          headerText: S.of(context).operating,
-          // columnWidthMode: ColumnWidthMode.fill,
+        GridTextColumn(
+          columnName: 'operation',
+          label: Container(
+            padding: EdgeInsets.all(8.0),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              S.of(context).operating,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
           width: 120,
-          textAlignment: Alignment.center,
         ),
         GridTextColumn(
-          mappingName: 'id',
-          headerText: 'ID',
-          columnWidthMode: ColumnWidthMode.cells,
+          columnName: 'id',
+          label: Container(
+            padding: EdgeInsets.all(8.0),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'ID',
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
         ),
         GridTextColumn(
-          mappingName: 'title',
-          headerText: S.of(context).title,
+          columnName: 'title',
+          label: Container(
+            padding: EdgeInsets.all(8.0),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              S.of(context).title,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
           columnWidthMode: ColumnWidthMode.fill,
-          // textAlignment: Alignment.center,
         ),
         GridTextColumn(
-          mappingName: 'titleSub',
-          headerText: S.of(context).subTitle,
-          columnWidthMode: ColumnWidthMode.cells,
+          columnName: 'titleSub',
+          label: Container(
+            padding: EdgeInsets.all(8.0),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              S.of(context).subTitle,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
         ),
         GridTextColumn(
-          mappingName: 'author',
-          headerText: S.of(context).author,
+          columnName: 'author',
+          label: Container(
+            padding: EdgeInsets.all(8.0),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              S.of(context).author,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
           width: 120,
         ),
         GridTextColumn(
-          mappingName: 'publishTime',
-          headerText: S.of(context).publishTime,
+          columnName: 'publishTime',
+          label: Container(
+            padding: EdgeInsets.all(8.0),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              S.of(context).publishTime,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
           width: 120,
         ),
         GridTextColumn(
-          mappingName: 'status',
-          headerText: S.of(context).status,
-          headerTextAlignment: Alignment.centerLeft,
+          columnName: 'status',
+          label: Container(
+            padding: EdgeInsets.all(8.0),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              S.of(context).status,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
         ),
       ],
     );
@@ -144,7 +187,7 @@ class _ArticleMainState extends State<ArticleMain> {
       ),
       child: SfDataPager(
         delegate: ds,
-        rowsPerPage: 10,
+        pageCount: 10,
         direction: Axis.horizontal,
       ),
     );
@@ -172,42 +215,12 @@ class _ArticleMainState extends State<ArticleMain> {
     formKey.currentState.reset();
     await ds.loadData(params: {});
   }
-
-  delete(ids) async {
-    cryConfirm(context, S.of(context).confirmDelete, (context) async {
-      await ArticleApi.removeByIds(ids);
-      ds.loadData();
-    });
-  }
-
-  edit({Article article}) async {
-    var result = await Cry.push(ArticleEdit(article: article));
-    if (result ?? false) {
-      ds.loadData();
-    }
-  }
-
-  Widget getCellWidget(BuildContext context, GridColumn column, int rowIndex) {
-    if (column.mappingName == 'operation') {
-      var result = CryButtonBar(
-        children: [
-          CryButtons.edit(context, () => edit(article: ds.dataSource[rowIndex]), showLabel: false),
-          CryButtons.delete(context, () => delete([ds.dataSource[rowIndex].id]), showLabel: false),
-        ],
-      );
-      return result;
-    }
-    return Text('--');
-  }
 }
 
-class ArticleDataSource extends DataGridSource<Article> {
-  ArticleDataSource({List<Article> articleList}) {
-    _articleList = articleList ?? [];
-  }
-
+class ArticleDataSource extends DataGridSource {
   PageModel pageModel = PageModel();
   Map params = {};
+  List<DataGridRow> _rows = [];
 
   loadData({Map params}) async {
     if (params != null) {
@@ -215,49 +228,97 @@ class ArticleDataSource extends DataGridSource<Article> {
     }
     var responseBodyApi = await ArticleApi.page(RequestBodyApi(page: pageModel, params: this.params).toMap());
     pageModel = responseBodyApi.data != null ? PageModel.fromMap(responseBodyApi.data) : PageModel();
-    _articleList = pageModel.records.map((element) => Article.fromMap(element)).toList();
+    List<Article> list = pageModel.records.map((element) => Article.fromMap(element)).toList();
+    _rows = list.map<DataGridRow>((v) {
+      return DataGridRow(cells: [
+        DataGridCell(columnName: 'article', value: v),
+      ]);
+    }).toList(growable: false);
     notifyDataSourceListeners();
   }
 
-  List<Article> _articleList;
+  @override
+  List<DataGridRow> get rows => _rows;
 
   @override
-  List<Article> get dataSource => _articleList;
-
-  @override
-  getValue(Article article, String columnName) {
-    switch (columnName) {
-      case 'id':
-        return article.id;
-        break;
-      case 'title':
-        return article.title;
-        break;
-      case 'titleSub':
-        return article.titleSub;
-        break;
-      case 'author':
-        return article.author;
-        break;
-      case 'publishTime':
-        return article.publishTime;
-        break;
-      case 'status':
-        return DictUtil.getDictItemName(article.status, ConstantDict.CODE_ARTICLE_STATUS);
-        break;
-      default:
-        return '--';
-        break;
-    }
+  Future<bool> handlePageChange(int oldPageIndex, int newPageIndex) async {
+    pageModel.current = newPageIndex;
+    await loadData();
+    return true;
   }
 
   @override
-  int get rowCount => pageModel.total;
+  DataGridRowAdapter buildRow(DataGridRow row) {
+    Article article = row.getCells()[0].value;
+    return DataGridRowAdapter(cells: [
+      CryButtonBar(
+        children: [
+          CryButtons.edit(CryUtils.context, () => edit(article: article), showLabel: false),
+          CryButtons.delete(CryUtils.context, () => delete([article.id]), showLabel: false),
+        ],
+      ),
+      Container(
+        padding: const EdgeInsets.all(8),
+        alignment: Alignment.centerRight,
+        child: Text(
+          article.id,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+      Container(
+        padding: const EdgeInsets.all(8),
+        alignment: Alignment.centerRight,
+        child: Text(
+          article.title ?? '--',
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+      Container(
+        padding: const EdgeInsets.all(8),
+        alignment: Alignment.centerRight,
+        child: Text(
+          article.titleSub ?? '--',
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+      Container(
+        padding: const EdgeInsets.all(8),
+        alignment: Alignment.centerRight,
+        child: Text(
+          article.author ?? '--',
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+      Container(
+        padding: const EdgeInsets.all(8),
+        alignment: Alignment.centerRight,
+        child: Text(
+          article.publishTime ?? '--',
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+      Container(
+        padding: const EdgeInsets.all(8),
+        alignment: Alignment.centerRight,
+        child: Text(
+          DictUtil.getDictItemName(article.status, ConstantDict.CODE_ARTICLE_STATUS),
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+    ]);
+  }
 
-  @override
-  Future<bool> handlePageChange(int oldPageIndex, int newPageIndex, int startRowIndex, int rowsPerPage) async {
-    pageModel.current = startRowIndex / pageModel.size + 1;
-    await loadData();
-    return true;
+  delete(ids) async {
+    cryConfirm(CryUtils.context, S.of(CryUtils.context).confirmDelete, (context) async {
+      await ArticleApi.removeByIds(ids);
+      loadData();
+    });
+  }
+
+  edit({Article article}) async {
+    var result = await Cry.push(ArticleEdit(article: article));
+    if (result ?? false) {
+      loadData();
+    }
   }
 }
