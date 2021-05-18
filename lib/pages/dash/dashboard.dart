@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/pages/dash/task_statistical_chart.dart';
 import 'package:flutter_admin/utils/adaptive_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_admin/charts/simple_series_legend.dart';
 import 'package:flutter_admin/data/data_dashboard.dart';
 import '../../generated/l10n.dart';
 
@@ -21,8 +21,8 @@ class Dashboard extends StatelessWidget {
             child: _buildTitledContainer(
               S.of(context).dashTotal,
               child: Container(
-                height: 200,
-                child: SimpleSeriesLegend.withSampleData(context),
+                height: 300,
+                child: TaskStatisticalChart(),
               ),
             ),
           ),

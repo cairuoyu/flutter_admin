@@ -1,7 +1,8 @@
 import 'package:flutter_admin/models/link_model.dart';
+import 'package:flutter_admin/models/task_statistical_model.dart';
 import 'package:flutter_admin/models/todo_model.dart';
 
-List<TodoModel> todoList = [
+final List<TodoModel> todoList = [
   TodoModel(
     title: '江西：清理“影子药师” 整治“挂证”乱象',
     titleEn: 'Jiangxi: clean up the "shadow pharmacist" and rectify the "hanging license" chaos',
@@ -44,7 +45,7 @@ List<TodoModel> todoList = [
   // TodoModel(title: '“中国天眼”通过国家验收 未来将加强国内外开放共享', trailing: '2020-01-11'),
 ];
 
-List<LinkModel> linkList = [
+final List<LinkModel> linkList = [
   LinkModel(title: 'google'),
   LinkModel(title: 'baidu'),
   LinkModel(title: 'oracle'),
@@ -52,4 +53,19 @@ List<LinkModel> linkList = [
   LinkModel(title: 'vue'),
   LinkModel(title: 'javascript'),
   LinkModel(title: 'java'),
+];
+
+final List<TaskStatisticalModel> taskStatisticalList = <TaskStatisticalModel>[
+  TaskStatisticalModel(timeName: '1月', upcomingCount: 43, inProgressCount: 37, doneCount: 41, finishCount: 20),
+  TaskStatisticalModel(timeName: '2月', upcomingCount: 3, inProgressCount: 20, doneCount: 11, finishCount: 40),
+  TaskStatisticalModel(timeName: '3月', upcomingCount: 23, inProgressCount: 10, doneCount: 21, finishCount: 23),
+  TaskStatisticalModel(timeName: '4月', upcomingCount: 13, inProgressCount: 23, doneCount: 41, finishCount: 0),
+  TaskStatisticalModel(timeName: '5月', upcomingCount: 23, inProgressCount: 47, doneCount: 31, finishCount: 40),
+  TaskStatisticalModel(timeName: '6月', upcomingCount: 28, inProgressCount: 9, doneCount: 21, finishCount: 22),
+  TaskStatisticalModel(timeName: '7月', upcomingCount: 12, inProgressCount: 12, doneCount: 11, finishCount: 40),
+  TaskStatisticalModel(timeName: '8月', upcomingCount: 9, inProgressCount: 3, doneCount: 1, finishCount: 4),
+  TaskStatisticalModel(timeName: '9月', upcomingCount: 8, inProgressCount: 10, doneCount: 23, finishCount: 4),
+  TaskStatisticalModel(timeName: '10月', upcomingCount: 18, inProgressCount: 44, doneCount: 6, finishCount: 30),
+  TaskStatisticalModel(timeName: '11月', upcomingCount: 23, inProgressCount: 33, doneCount: 21, finishCount: 20),
+  TaskStatisticalModel(timeName: '12月', upcomingCount: 34, inProgressCount: 10, doneCount: 34, finishCount: 10),
 ];
