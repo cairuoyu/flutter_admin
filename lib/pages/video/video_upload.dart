@@ -132,7 +132,7 @@ class VideoUploadState extends State<VideoUpload> {
     var mediaType = MediaType.parse(mimeType);
     // Uint8List uint8list = await pickedFile.readAsBytes();
     var file = MultipartFile.fromBytes(videoBytes, contentType: mediaType, filename: filename);
-    Map map = video.toJson();
+    Map map = video.toMap();
     map['file'] = file;
     FormData formData = FormData.fromMap(map);
 

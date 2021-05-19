@@ -29,7 +29,7 @@ class CryDioInterceptors extends InterceptorsWrapper {
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
     CryUtils.loaded();
-    print('ERROR[${err.response?.statusCode}] => PATH: ${err.response.realUri}');
+    print('ERROR[${err.response?.statusCode}] => PATH: ${err.response?.realUri}');
     print(err.toString());
     String message = '请求出错：' + err.toString();
     CryUtils.message(message);

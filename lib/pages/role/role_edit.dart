@@ -78,7 +78,7 @@ class _RoleEditState extends State<RoleEdit> {
       return;
     }
     form.save();
-    ResponseBodyApi responseBodyApi = await RoleApi.saveOrUpdate(_role);
+    ResponseBodyApi responseBodyApi = await RoleApi.saveOrUpdate(_role.toMap());
     if (responseBodyApi.success) {
       Navigator.pop(context, true);
       CryUtils.message(S.of(context).success);

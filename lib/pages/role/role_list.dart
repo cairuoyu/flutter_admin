@@ -68,7 +68,7 @@ class _RoleListState extends State<RoleList> {
         ),
       ],
       getCells: (Map m) {
-        Role role = Role.fromJson(m);
+        Role role = Role.fromMap(m);
         return [
           DataCell(
             CryButtonBar(
@@ -84,7 +84,7 @@ class _RoleListState extends State<RoleList> {
         ];
       },
     );
-    List<Role> selectedList = tableKey?.currentState?.getSelectedList(page)?.map<Role>((e) => Role.fromJson(e))?.toList() ?? [];
+    List<Role> selectedList = tableKey?.currentState?.getSelectedList(page)?.map<Role>((e) => Role.fromMap(e))?.toList() ?? [];
     var buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[

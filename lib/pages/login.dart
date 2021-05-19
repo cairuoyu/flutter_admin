@@ -192,7 +192,7 @@ class _LoginState extends State<Login> {
     }
     form.save();
 
-    ResponseBodyApi responseBodyApi = await UserApi.login(user.toJson());
+    ResponseBodyApi responseBodyApi = await UserApi.login(user.toMap());
     if (!responseBodyApi.success) {
       return;
     }

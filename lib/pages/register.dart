@@ -165,7 +165,7 @@ class _RegisterState extends State {
     var form = formKey.currentState;
     form.save();
     if (form.validate()) {
-      UserApi.register(user.toJson()).then((v) {
+      UserApi.register(user.toMap()).then((v) {
         if (!v.success) {
           return;
         }

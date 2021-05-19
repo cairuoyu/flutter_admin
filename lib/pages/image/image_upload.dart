@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
+import 'package:cry/model/image_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,6 @@ import 'package:flutter_admin/api/image_api.dart';
 import 'package:cry/cry_button.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:flutter_admin/generated/l10n.dart';
-import 'package:flutter_admin/models/image.dart' as model;
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:http_parser/http_parser.dart';
@@ -28,7 +28,7 @@ class ImageUploadState extends State<ImageUpload> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   PickedFile pickedFile;
   final ImagePicker imagePicker = ImagePicker();
-  model.Image image = model.Image();
+  ImageModel imageModel = ImageModel();
   Uint8List imageBytes;
 
   @override
@@ -44,16 +44,16 @@ class ImageUploadState extends State<ImageUpload> {
         children: <Widget>[
           CryInput(
             label: S.of(context).imageTitle,
-            value: image.title,
-            onSaved: (v) => {image.title = v},
+            value: imageModel.title,
+            onSaved: (v) => {imageModel.title = v},
             validator: (v) {
               return v.isEmpty ? S.of(context).required : null;
             },
           ),
           CryInput(
             label: S.of(context).imageMemo,
-            value: image.memo,
-            onSaved: (v) => {image.memo = v},
+            value: imageModel.memo,
+            onSaved: (v) => {imageModel.memo = v},
           ),
         ],
       ),
@@ -125,7 +125,7 @@ class ImageUploadState extends State<ImageUpload> {
     String mimeType = mime(Path.basename(filename));
     var mediaType = MediaType.parse(mimeType);
     var file = MultipartFile.fromBytes(imageBytes, contentType: mediaType, filename: filename);
-    Map map = image.toJson();
+    Map map = imageModel.toMap();
     map['file'] = file;
     FormData formData = FormData.fromMap(map);
 

@@ -10,7 +10,7 @@ import 'package:cry/cry_button.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:cry/model/page_model.dart';
-import 'package:flutter_admin/models/person.dart';
+import 'package:flutter_admin/models/person_model.dart';
 import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
@@ -28,27 +28,27 @@ class PersonListState extends State {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   int rowsPerPage = 10;
   MyDS myDS = new MyDS();
-  Person formData = Person();
+  PersonModel formData = PersonModel();
 
   _reset() {
-    this.formData = Person();
+    this.formData = PersonModel();
     formKey.currentState.reset();
-    myDS.requestBodyApi.params = formData.toJson();
+    myDS.requestBodyApi.params = formData.toMap();
     myDS.loadData();
   }
 
   _query() {
     formKey.currentState?.save();
-    myDS.requestBodyApi.params = formData.toJson();
+    myDS.requestBodyApi.params = formData.toMap();
     myDS.loadData();
   }
 
-  _edit({Person person}) {
+  _edit({PersonModel personModel}) {
     showDialog(
       context: context,
       builder: (BuildContext context) => Dialog(
         child: PersonEdit(
-          person: person,
+          personModel: personModel,
         ),
       ),
     ).then((v) {
@@ -111,10 +111,10 @@ class PersonListState extends State {
                   if (myDS.selectedRowCount != 1) {
                     return;
                   }
-                  Person person = myDS.dataList.firstWhere((v) {
+                  PersonModel personModel = myDS.dataList.firstWhere((v) {
                     return v.selected;
                   });
-                  _edit(person: person);
+                  _edit(personModel: personModel);
                 },
         ),
         CryButton(
@@ -213,7 +213,7 @@ class MyDS extends DataTableSource {
 
   PersonListState state;
   BuildContext context;
-  List<Person> dataList;
+  List<PersonModel> dataList;
   int selectedCount = 0;
   RequestBodyApi requestBodyApi = RequestBodyApi();
   PageModel page = PageModel(orders: [OrderItemModel(column: 'create_time', asc: false)]);
@@ -229,10 +229,10 @@ class MyDS extends DataTableSource {
     ResponseBodyApi responseBodyApi = await PersonApi.page(requestBodyApi.toMap());
     page = PageModel.fromMap(responseBodyApi.data);
 
-    dataList = page.records.map<Person>((v) {
-      Person person = Person.fromJson(v);
-      person.selected = false;
-      return person;
+    dataList = page.records.map<PersonModel>((v) {
+      PersonModel personModel = PersonModel.fromMap(v);
+      personModel.selected = false;
+      return personModel;
     }).toList();
     selectedCount = 0;
     notifyListeners();
@@ -250,45 +250,45 @@ class MyDS extends DataTableSource {
     if (dataIndex >= dataList.length) {
       return null;
     }
-    Person person = dataList[dataIndex];
+    PersonModel personModel = dataList[dataIndex];
 
     return DataRow.byIndex(
       index: index,
-      selected: person.selected,
+      selected: personModel.selected,
       onSelectChanged: (bool value) {
-        person.selected = value;
+        personModel.selected = value;
         selectedCount += value ? 1 : -1;
         notifyListeners();
       },
       cells: <DataCell>[
-        DataCell(Text(person.name ?? '--')),
-        DataCell(Text(person.nickName ?? '--')),
+        DataCell(Text(personModel.name ?? '--')),
+        DataCell(Text(personModel.nickName ?? '--')),
         DataCell(Text(DictUtil.getDictItemName(
-          person.gender,
+          personModel.gender,
           ConstantDict.CODE_GENDER,
         ))),
-        DataCell(Text(person.birthday ?? '--')),
+        DataCell(Text(personModel.birthday ?? '--')),
         DataCell(Text(DictUtil.getDictItemName(
-          person.deptId,
+          personModel.deptId,
           ConstantDict.CODE_DEPT,
           defaultValue: '--',
         ))),
-        DataCell(Text(person.createTime ?? '--')),
-        DataCell(Text(person.updateTime ?? '--')),
+        DataCell(Text(personModel.createTime ?? '--')),
+        DataCell(Text(personModel.updateTime ?? '--')),
         DataCell(ButtonBar(
           // alignment: MainAxisAlignment.start,
           children: <Widget>[
             IconButton(
               icon: Icon(Icons.edit),
               onPressed: () {
-                state._edit(person: person);
+                state._edit(personModel: personModel);
               },
             ),
             IconButton(
               icon: Icon(Icons.delete),
               onPressed: () {
                 cryConfirm(context, S.of(context).confirmDelete, (context) async {
-                  await PersonApi.removeByIds([person.id]);
+                  await PersonApi.removeByIds([personModel.id]);
                   loadData();
                 });
               },

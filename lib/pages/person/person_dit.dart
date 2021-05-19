@@ -6,16 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/person_api.dart';
 import 'package:cry/cry_button.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
-import 'package:flutter_admin/models/person.dart';
+import 'package:flutter_admin/models/person_model.dart';
 import 'package:flutter_admin/utils/adaptive_util.dart';
 import 'package:cry/utils/cry_utils.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 import '../../generated/l10n.dart';
 
 class PersonEdit extends StatefulWidget {
-  final Person person;
+  final PersonModel personModel;
 
-  const PersonEdit({Key key, this.person}) : super(key: key);
+  const PersonEdit({Key key, this.personModel}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -25,13 +25,13 @@ class PersonEdit extends StatefulWidget {
 
 class PersonEditState extends State<PersonEdit> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  Person formData = Person();
+  PersonModel _personModel = PersonModel();
 
   @override
   void initState() {
     super.initState();
-    if (widget.person != null) {
-      formData = widget.person;
+    if (widget.personModel != null) {
+      _personModel = widget.personModel;
     }
   }
 
@@ -42,44 +42,44 @@ class PersonEditState extends State<PersonEdit> {
       child: Wrap(
         children: <Widget>[
           CryInput(
-            value: formData.name,
+            value: _personModel.name,
             label: S.of(context).personName,
             onSaved: (v) {
-              formData.name = v;
+              _personModel.name = v;
             },
             validator: (v) {
               return v.isEmpty ? S.of(context).required : null;
             },
           ),
           CryInput(
-            value: formData.nickName,
+            value: _personModel.nickName,
             label: S.of(context).personNickname,
             onSaved: (v) {
-              formData.nickName = v;
+              _personModel.nickName = v;
             },
           ),
           CrySelect(
             label: S.of(context).personGender,
-            value: formData.gender,
+            value: _personModel.gender,
             dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_GENDER),
             onSaved: (v) {
-              formData.gender = v;
+              _personModel.gender = v;
             },
           ),
           CrySelectDate(
             context,
-            value: formData.birthday,
+            value: _personModel.birthday,
             label: S.of(context).personBirthday,
             onSaved: (v) {
-              formData.birthday = v;
+              _personModel.birthday = v;
             },
           ),
           CrySelect(
             label: S.of(context).personDepartment,
-            value: formData.deptId,
+            value: _personModel.deptId,
             dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT),
             onSaved: (v) {
-              formData.deptId = v;
+              _personModel.deptId = v;
             },
           ),
         ],
@@ -97,7 +97,7 @@ class PersonEditState extends State<PersonEdit> {
               return;
             }
             form.save();
-            PersonApi.saveOrUpdate(formData.toJson()).then((res) {
+            PersonApi.saveOrUpdate(_personModel.toMap()).then((res) {
               Navigator.pop(context, true);
               CryUtils.message(S.of(context).saved);
             });
@@ -114,7 +114,7 @@ class PersonEditState extends State<PersonEdit> {
     );
     var result = Scaffold(
       appBar: AppBar(
-        title: Text(widget.person == null ? S.of(context).add : S.of(context).modify),
+        title: Text(widget.personModel == null ? S.of(context).add : S.of(context).modify),
       ),
       body: SingleChildScrollView(
         child: Column(
