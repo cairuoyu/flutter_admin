@@ -7,7 +7,6 @@ import 'package:flutter_admin/constants/constant.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/common/lang_switch.dart';
 import 'package:flutter_admin/utils/store_util.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_admin/api/user_api.dart';
 import 'package:flutter_admin/models/user.dart';
 import '../generated/l10n.dart';
@@ -53,10 +52,9 @@ class _LoginState extends State<Login> {
             children: [LangSwitch()],
           ),
           Center(child: appName),
-          SizedBox(
-            height: 20.0,
-          ),
+          SizedBox(height: 20.0),
           _buildLoginForm(),
+          SizedBox(height: 20.0),
           Column(
             children: [
               Text(S.of(context).admin + '：admin/admin'),
@@ -70,90 +68,86 @@ class _LoginState extends State<Login> {
 
   Container _buildLoginForm() {
     return Container(
-      padding: EdgeInsets.all(20.0),
       child: Stack(
         children: <Widget>[
           Center(
-            child: ClipPath(
-              clipper: WaveClipperTwo(reverse: true),
-              child: Container(
-                width: 500,
-                height: 400,
-                padding: EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(40.0)),
-                  color: Colors.white,
-                ),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(height: 40),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-                        child: TextFormField(
-                          initialValue: user.userName,
-                          style: TextStyle(color: Colors.black),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: S.of(context).username,
-                            icon: Icon(
-                              Icons.people,
-                              color: Colors.blue,
-                            ),
+            child: Container(
+              width: 500,
+              height: 360,
+              margin: EdgeInsets.only(top: 40),
+              padding: EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                color: Colors.white,
+              ),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+                      child: TextFormField(
+                        initialValue: user.userName,
+                        style: TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: S.of(context).username,
+                          icon: Icon(
+                            Icons.people,
+                            color: Colors.blue,
                           ),
-                          onSaved: (v) {
-                            user.userName = v;
-                          },
-                          validator: (v) {
-                            return v.isEmpty ? S.of(context).usernameRequired : null;
-                          },
                         ),
+                        onSaved: (v) {
+                          user.userName = v;
+                        },
+                        validator: (v) {
+                          return v.isEmpty ? S.of(context).usernameRequired : null;
+                        },
                       ),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-                        child: TextFormField(
-                          obscureText: true,
-                          initialValue: user.password,
-                          style: TextStyle(color: Colors.black),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: S.of(context).password,
-                            icon: Icon(
-                              Icons.lock,
-                              color: Colors.blue,
-                            ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+                      child: TextFormField(
+                        obscureText: true,
+                        initialValue: user.password,
+                        style: TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: S.of(context).password,
+                          icon: Icon(
+                            Icons.lock,
+                            color: Colors.blue,
                           ),
-                          onSaved: (v) {
-                            user.password = v;
-                          },
-                          validator: (v) {
-                            return v.isEmpty ? S.of(context).passwordRequired : null;
-                          },
                         ),
+                        onSaved: (v) {
+                          user.password = v;
+                        },
+                        validator: (v) {
+                          return v.isEmpty ? S.of(context).passwordRequired : null;
+                        },
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          TextButton(
-                            child: Text(
-                              S.of(context).register,
-                              style: TextStyle(color: Colors.blue),
-                            ),
-                            onPressed: _register,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        TextButton(
+                          child: Text(
+                            S.of(context).register,
+                            style: TextStyle(color: Colors.blue),
                           ),
-                          TextButton(
-                            child: Text(
-                              S.of(context).forgetPassword,
-                              style: TextStyle(color: Colors.black45),
-                            ),
-                            onPressed: () {},
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
+                          onPressed: _register,
+                        ),
+                        TextButton(
+                          child: Text(
+                            S.of(context).forgetPassword,
+                            style: TextStyle(color: Colors.black45),
+                          ),
+                          onPressed: () {},
+                        )
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
