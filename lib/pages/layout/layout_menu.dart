@@ -12,17 +12,17 @@ import 'package:get/get.dart';
 
 class LayoutMenu extends StatefulWidget {
   LayoutMenu({
-    Key key,
+    Key? key,
     this.onClick,
   }) : super(key: key);
-  final Function onClick;
+  final Function? onClick;
 
   @override
   _LayoutMenuState createState() => _LayoutMenuState();
 }
 
 class _LayoutMenuState extends State<LayoutMenu> {
-  bool expandMenu;
+  bool? expandMenu;
   bool expandAll = true;
   LayoutController layoutController = Get.find();
 
@@ -39,7 +39,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
         padding: EdgeInsets.zero,
         icon: Icon(Icons.chevron_left),
         onPressed: () {
-          expandMenu = !expandMenu;
+          expandMenu = !expandMenu!;
           setState(() {});
         },
       ),
@@ -72,7 +72,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
         padding: EdgeInsets.zero,
         icon: Icon(Icons.chevron_right),
         onPressed: () {
-          expandMenu = !expandMenu;
+          expandMenu = !expandMenu!;
           setState(() {});
         },
       ),
@@ -84,29 +84,26 @@ class _LayoutMenuState extends State<LayoutMenu> {
       children: Utils.isMenuDisplayTypeDrawer(context)
           ? menuBody
           : [
-              expandMenu ? menuHeaderCollapse : menuHeaderExpand,
+              expandMenu! ? menuHeaderCollapse : menuHeaderExpand,
               ...menuBody,
             ],
     );
     return Utils.isMenuDisplayTypeDrawer(context)
         ? Drawer(child: menu)
         : SizedBox(
-            width: expandMenu ? 300 : 60,
+            width: expandMenu! ? 300 : 60,
             child: menu,
           );
   }
 
-  List<Widget> _getMenuListTile(List<TreeVO<Menu>> data, String currentOpenedTabPageId) {
-    if (data == null) {
-      return [];
-    }
+  List<Widget> _getMenuListTile(List<TreeVO<Menu>> data, String? currentOpenedTabPageId) {
     List<Widget> listTileList = data.map<Widget>((TreeVO<Menu> treeVO) {
-      IconData iconData = Utils.toIconData(treeVO.data.icon);
-      String name = Utils.isLocalEn(context) ? treeVO.data.nameEn ?? '' : treeVO.data.name ?? '';
-      Text title = Text(expandMenu ? name : '');
-      if (treeVO.children != null && treeVO.children.length > 0) {
+      IconData iconData = Utils.toIconData(treeVO.data!.icon);
+      String name = Utils.isLocalEn(context) ? treeVO.data!.nameEn ?? '' : treeVO.data!.name ?? '';
+      Text title = Text(expandMenu! ? name : '');
+      if (treeVO.children.length > 0) {
         return ExpansionTile(
-          key: Key(treeVO.data.id),
+          key: Key(treeVO.data!.id!),
           initiallyExpanded: expandAll,
           leading: Icon(iconData),
           children: _getMenuListTile(treeVO.children, currentOpenedTabPageId),
@@ -114,12 +111,12 @@ class _LayoutMenuState extends State<LayoutMenu> {
         );
       } else {
         return ListTile(
-          tileColor: currentOpenedTabPageId == treeVO.data.id ? Colors.blue.shade100 : null,
+          tileColor: currentOpenedTabPageId == treeVO.data!.id ? Colors.blue.shade100 : null,
           leading: Icon(iconData,color: context.theme.primaryColor),
           title: title,
           onTap: () {
-            if (currentOpenedTabPageId != treeVO.data.id && widget.onClick != null) {
-              widget.onClick(treeVO.data);
+            if (currentOpenedTabPageId != treeVO.data!.id && widget.onClick != null) {
+              widget.onClick!(treeVO.data);
               setState(() {});
             }
           },

@@ -1,18 +1,18 @@
 import 'dart:convert';
 
 class DictItem {
-  String id;
-  String dictId;
+  String? id;
+  String? dictId;
 
-  String code;
+  String? code;
 
-  String name;
+  String? name;
 
-  String createTime;
+  String? createTime;
 
-  String updateTime;
+  String? updateTime;
 
-  String createrId;
+  String? createrId;
 
   DictItem({
     this.id,
@@ -25,13 +25,13 @@ class DictItem {
   });
 
   DictItem copyWith({
-    String id,
-    String dictId,
-    String code,
-    String name,
-    String createTime,
-    String updateTime,
-    String createrId,
+    String? id,
+    String? dictId,
+    String? code,
+    String? name,
+    String? createTime,
+    String? updateTime,
+    String? createrId,
   }) {
     return DictItem(
       id: id ?? this.id,
@@ -57,8 +57,7 @@ class DictItem {
   }
 
   factory DictItem.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-  
+
     return DictItem(
       id: map['id'],
       dictId: map['dictId'],

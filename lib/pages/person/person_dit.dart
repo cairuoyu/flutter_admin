@@ -13,9 +13,9 @@ import 'package:flutter_admin/utils/dict_util.dart';
 import '../../generated/l10n.dart';
 
 class PersonEdit extends StatefulWidget {
-  final PersonModel personModel;
+  final PersonModel? personModel;
 
-  const PersonEdit({Key key, this.personModel}) : super(key: key);
+  const PersonEdit({Key? key, this.personModel}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -25,7 +25,7 @@ class PersonEdit extends StatefulWidget {
 
 class PersonEditState extends State<PersonEdit> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  PersonModel _personModel = PersonModel();
+  PersonModel? _personModel = PersonModel();
 
   @override
   void initState() {
@@ -42,44 +42,44 @@ class PersonEditState extends State<PersonEdit> {
       child: Wrap(
         children: <Widget>[
           CryInput(
-            value: _personModel.name,
-            label: S.of(context).personName,
+            value: _personModel!.name,
+            label: S.of(context)!.personName,
             onSaved: (v) {
-              _personModel.name = v;
+              _personModel!.name = v;
             },
             validator: (v) {
-              return v.isEmpty ? S.of(context).required : null;
+              return v!.isEmpty ? S.of(context)!.required : null;
             },
           ),
           CryInput(
-            value: _personModel.nickName,
-            label: S.of(context).personNickname,
+            value: _personModel!.nickName,
+            label: S.of(context)!.personNickname,
             onSaved: (v) {
-              _personModel.nickName = v;
+              _personModel!.nickName = v;
             },
           ),
           CrySelect(
-            label: S.of(context).personGender,
-            value: _personModel.gender,
+            label: S.of(context)!.personGender,
+            value: _personModel!.gender,
             dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_GENDER),
             onSaved: (v) {
-              _personModel.gender = v;
+              _personModel!.gender = v;
             },
           ),
           CrySelectDate(
             context,
-            value: _personModel.birthday,
-            label: S.of(context).personBirthday,
+            value: _personModel!.birthday,
+            label: S.of(context)!.personBirthday,
             onSaved: (v) {
-              _personModel.birthday = v;
+              _personModel!.birthday = v;
             },
           ),
           CrySelect(
-            label: S.of(context).personDepartment,
-            value: _personModel.deptId,
+            label: S.of(context)!.personDepartment,
+            value: _personModel!.deptId,
             dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT),
             onSaved: (v) {
-              _personModel.deptId = v;
+              _personModel!.deptId = v;
             },
           ),
         ],
@@ -89,22 +89,22 @@ class PersonEditState extends State<PersonEdit> {
       alignment: MainAxisAlignment.center,
       children: <Widget>[
         CryButton(
-          label: S.of(context).save,
+          label: S.of(context)!.save,
           iconData: Icons.save,
           onPressed: () {
-            FormState form = formKey.currentState;
+            FormState form = formKey.currentState!;
             if (!form.validate()) {
               return;
             }
             form.save();
-            PersonApi.saveOrUpdate(_personModel.toMap()).then((res) {
+            PersonApi.saveOrUpdate(_personModel!.toMap()).then((res) {
               Navigator.pop(context, true);
-              CryUtils.message(S.of(context).saved);
+              CryUtils.message(S.of(context)!.saved);
             });
           },
         ),
         CryButton(
-          label: S.of(context).cancel,
+          label: S.of(context)!.cancel,
           iconData: Icons.cancel,
           onPressed: () {
             Navigator.pop(context);
@@ -114,7 +114,7 @@ class PersonEditState extends State<PersonEdit> {
     );
     var result = Scaffold(
       appBar: AppBar(
-        title: Text(widget.personModel == null ? S.of(context).add : S.of(context).modify),
+        title: Text(widget.personModel == null ? S.of(context)!.add : S.of(context)!.modify),
       ),
       body: SingleChildScrollView(
         child: Column(

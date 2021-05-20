@@ -9,9 +9,9 @@ import 'package:flutter_admin/models/message.dart';
 import 'package:flutter_admin/models/message_replay_model.dart';
 
 class MessageReplayList extends StatefulWidget {
-  final String messageId;
+  final String? messageId;
 
-  const MessageReplayList({Key key, this.messageId}) : super(key: key);
+  const MessageReplayList({Key? key, this.messageId}) : super(key: key);
 
   @override
   MessageReplayListState createState() => MessageReplayListState();
@@ -41,10 +41,10 @@ class MessageReplayListState extends State<MessageReplayList> {
           leading: messageReplayModel.avatarUrl == null
               ? Icon(Icons.person)
               : CircleAvatar(
-                  backgroundImage: NetworkImage(messageReplayModel.avatarUrl),
+                  backgroundImage: NetworkImage(messageReplayModel.avatarUrl!),
                   radius: 12.0,
                 ),
-          title: Text(messageReplayModel.content),
+          title: Text(messageReplayModel.content!),
           trailing: Text(messageReplayModel.createTime ?? '--'),
         );
       },
@@ -69,7 +69,7 @@ class MessageReplayListState extends State<MessageReplayList> {
     if (!anyMore) {
       return;
     }
-    page.current++;
+    page.current = page.current! + 1;
     loadData();
   }
 
@@ -77,7 +77,7 @@ class MessageReplayListState extends State<MessageReplayList> {
     RequestBodyApi requestBodyApi = RequestBodyApi(page: page, params: Message(id: widget.messageId).toMap());
     ResponseBodyApi responseBodyApi = await MessageApi.replayPage(requestBodyApi.toMap());
     page = PageModel.fromMap(responseBodyApi.data);
-    messageReplayModelList = [...messageReplayModelList, ...page.records.map((e) => MessageReplayModel.fromMap(e)).toList()];
+    messageReplayModelList = [...messageReplayModelList, ...page.records!.map((e) => MessageReplayModel.fromMap(e as Map<String?, dynamic>)).toList()];
     if (page.current == page.pages) {
       anyMore = false;
     }

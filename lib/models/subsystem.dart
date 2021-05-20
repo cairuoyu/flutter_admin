@@ -1,27 +1,27 @@
 import 'dart:convert';
 
 class Subsystem {
-  String id;
+  String? id;
 
-  String code;
+  String? code;
 
-  String name;
+  String? name;
 
-  String url;
+  String? url;
 
-  String orderBy;
+  String? orderBy;
 
-  String remark;
+  String? remark;
 
-  String state;
+  String? state;
 
-  String createTime;
+  String? createTime;
 
-  String updateTime;
+  String? updateTime;
 
-  String createrId;
+  String? createrId;
 
-  String updateId;
+  String? updateId;
   Subsystem({
     this.id,
     this.code,
@@ -37,17 +37,17 @@ class Subsystem {
   });
 
   Subsystem copyWith({
-    String id,
-    String code,
-    String name,
-    String url,
-    String orderBy,
-    String remark,
-    String state,
-    String createTime,
-    String updateTime,
-    String createrId,
-    String updateId,
+    String? id,
+    String? code,
+    String? name,
+    String? url,
+    String? orderBy,
+    String? remark,
+    String? state,
+    String? createTime,
+    String? updateTime,
+    String? createrId,
+    String? updateId,
   }) {
     return Subsystem(
       id: id ?? this.id,
@@ -80,9 +80,8 @@ class Subsystem {
     };
   }
 
-  factory Subsystem.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-  
+  factory Subsystem.fromMap(Map<String?, dynamic> map) {
+
     return Subsystem(
       id: map['id'],
       code: map['code'],

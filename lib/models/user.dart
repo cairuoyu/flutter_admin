@@ -1,7 +1,7 @@
 class User {
 
-  String userName;
-  String password;
+  String? userName;
+  String? password;
 
 //<editor-fold desc="Data Methods" defaultstate="collapsed">
 
@@ -11,8 +11,8 @@ class User {
   });
 
   User copyWith({
-    String userName,
-    String password,
+    String? userName,
+    String? password,
   }) {
     return new User(
       userName: userName ?? this.userName,
@@ -33,8 +33,8 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return new User(
-      userName: map['userName'] as String,
-      password: map['password'] as String,
+      userName: map['userName'] as String?,
+      password: map['password'] as String?,
     );
   }
 

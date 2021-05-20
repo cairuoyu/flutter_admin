@@ -95,7 +95,7 @@ class _DeptSelectorState extends State<DeptSelector> {
   }
 
   query() {
-    queryFormKey.currentState.save();
+    queryFormKey.currentState!.save();
     _loadData();
   }
 
@@ -114,14 +114,14 @@ class _DeptSelectorState extends State<DeptSelector> {
   }
 
   TreeNode toTreeNode(TreeVO<Dept> treeVO) {
-    var key = ValueKey(treeVO.data.id);
+    var key = ValueKey(treeVO.data!.id);
     var content = Expanded(
       child: ListTile(
         hoverColor: Colors.blue.shade100,
         onTap: () {
           Navigator.pop(context, treeVO.data);
         },
-        title: Text(treeVO.data.name ?? '--'),
+        title: Text(treeVO.data!.name ?? '--'),
       ),
     );
 

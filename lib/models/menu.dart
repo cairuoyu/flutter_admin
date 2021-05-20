@@ -4,20 +4,20 @@ import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter_admin/models/tab_page.dart';
 
 class Menu extends TreeData {
-  String id;
-  String pid;
-  String subsystemId;
-  bool checked;
-  String name;
-  String nameEn;
-  String icon;
-  String url;
-  String pname;
-  int orderBy;
-  String module;
-  String remark;
-  String createTime;
-  String updateTime;
+  String? id;
+  String? pid;
+  String? subsystemId;
+  bool? checked;
+  String? name;
+  String? nameEn;
+  String? icon;
+  String? url;
+  String? pname;
+  int? orderBy;
+  String? module;
+  String? remark;
+  String? createTime;
+  String? updateTime;
 
   toTabPage() {
     return TabPage(
@@ -46,20 +46,20 @@ class Menu extends TreeData {
   }) : super(id, pid);
 
   Menu copyWith({
-    String id,
-    String pid,
-    String subsystemId,
-    bool checked,
-    String name,
-    String nameEn,
-    String icon,
-    String url,
-    String pname,
-    int orderBy,
-    String module,
-    String remark,
-    String createTime,
-    String updateTime,
+    String? id,
+    String? pid,
+    String? subsystemId,
+    bool? checked,
+    String? name,
+    String? nameEn,
+    String? icon,
+    String? url,
+    String? pname,
+    int? orderBy,
+    String? module,
+    String? remark,
+    String? createTime,
+    String? updateTime,
   }) {
     return Menu(
       id: id ?? this.id,
@@ -99,7 +99,6 @@ class Menu extends TreeData {
   }
 
   factory Menu.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
 
     return Menu(
       id: map['id'],

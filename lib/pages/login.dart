@@ -57,8 +57,8 @@ class _LoginState extends State<Login> {
           SizedBox(height: 20.0),
           Column(
             children: [
-              Text(S.of(context).admin + '：admin/admin'),
-              Text(S.of(context).loginTip),
+              Text(S.of(context)!.admin + '：admin/admin'),
+              Text(S.of(context)!.loginTip),
             ],
           )
         ],
@@ -92,7 +92,7 @@ class _LoginState extends State<Login> {
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: S.of(context).username,
+                          labelText: S.of(context)!.username,
                           icon: Icon(
                             Icons.people,
                             color: Colors.blue,
@@ -102,7 +102,7 @@ class _LoginState extends State<Login> {
                           user.userName = v;
                         },
                         validator: (v) {
-                          return v.isEmpty ? S.of(context).usernameRequired : null;
+                          return v!.isEmpty ? S.of(context)!.usernameRequired : null;
                         },
                       ),
                     ),
@@ -114,7 +114,7 @@ class _LoginState extends State<Login> {
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: S.of(context).password,
+                          labelText: S.of(context)!.password,
                           icon: Icon(
                             Icons.lock,
                             color: Colors.blue,
@@ -124,7 +124,7 @@ class _LoginState extends State<Login> {
                           user.password = v;
                         },
                         validator: (v) {
-                          return v.isEmpty ? S.of(context).passwordRequired : null;
+                          return v!.isEmpty ? S.of(context)!.passwordRequired : null;
                         },
                       ),
                     ),
@@ -133,14 +133,14 @@ class _LoginState extends State<Login> {
                       children: <Widget>[
                         TextButton(
                           child: Text(
-                            S.of(context).register,
+                            S.of(context)!.register,
                             style: TextStyle(color: Colors.blue),
                           ),
                           onPressed: _register,
                         ),
                         TextButton(
                           child: Text(
-                            S.of(context).forgetPassword,
+                            S.of(context)!.forgetPassword,
                             style: TextStyle(color: Colors.black45),
                           ),
                           onPressed: () {},
@@ -172,7 +172,7 @@ class _LoginState extends State<Login> {
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0))),
                 ),
-                child: Text(S.of(context).login, style: TextStyle(color: Colors.white70, fontSize: 20)),
+                child: Text(S.of(context)!.login, style: TextStyle(color: Colors.white70, fontSize: 20)),
               ),
             ),
           ),
@@ -186,14 +186,14 @@ class _LoginState extends State<Login> {
   }
 
   _login() async {
-    var form = formKey.currentState;
+    var form = formKey.currentState!;
     if (!form.validate()) {
       return;
     }
     form.save();
 
     ResponseBodyApi responseBodyApi = await UserApi.login(user.toMap());
-    if (!responseBodyApi.success) {
+    if (!responseBodyApi.success!) {
       return;
     }
     StoreUtil.write(Constant.KEY_TOKEN, responseBodyApi.data);
@@ -205,25 +205,25 @@ class _LoginState extends State<Login> {
     Cry.pushNamed('/');
   }
 
-  Future<bool> _loadCurrentUserInfo() async {
+  Future<bool?> _loadCurrentUserInfo() async {
     ResponseBodyApi responseBodyApi = await UserInfoApi.getCurrentUserInfo();
-    if (responseBodyApi.success) {
+    if (responseBodyApi.success!) {
       StoreUtil.write(Constant.KEY_CURRENT_USER_INFO, responseBodyApi.data);
     }
     return responseBodyApi.success;
   }
 
-  Future<bool> _loadMenuData() async {
+  Future<bool?> _loadMenuData() async {
     ResponseBodyApi responseBodyApi = await MenuApi.listAuth();
-    if (responseBodyApi.success) {
+    if (responseBodyApi.success!) {
       StoreUtil.write(Constant.KEY_MENU_LIST, responseBodyApi.data);
     }
     return responseBodyApi.success;
   }
 
-  Future<bool> _loadDict() async {
+  Future<bool?> _loadDict() async {
     ResponseBodyApi responseBodyApi = await DictApi.map();
-    if (responseBodyApi.success) {
+    if (responseBodyApi.success!) {
       StoreUtil.write(Constant.KEY_DICT_ITEM_LIST, responseBodyApi.data);
     }
     return responseBodyApi.success;

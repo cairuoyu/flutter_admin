@@ -6,14 +6,14 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 class SAreaAgeGenderCartesian extends StatefulWidget {
   SAreaAgeGenderCartesian(this.listData);
 
-  final List<SAreaAgeGender> listData;
+  final List<SAreaAgeGender>? listData;
 
   @override
   _SAreaAgeGenderCartesianState createState() => _SAreaAgeGenderCartesianState();
 }
 
 class _SAreaAgeGenderCartesianState extends State<SAreaAgeGenderCartesian> {
-  ChartTypeCartesian type = ChartTypeCartesian.column;
+  ChartTypeCartesian? type = ChartTypeCartesian.column;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class _SAreaAgeGenderCartesianState extends State<SAreaAgeGenderCartesian> {
             title: Text(v.toString().split('.').last),
             value: v,
             groupValue: type,
-            onChanged: (v) {
+            onChanged: (dynamic v) {
               setState(() {
                 type = v;
               });
@@ -50,7 +50,7 @@ class _SAreaAgeGenderCartesianState extends State<SAreaAgeGenderCartesian> {
       children: [
         SizedBox(
           width: 600,
-          child: Row(children: list),
+          child: Row(children: list as List<Widget>),
         ),
         Container(height: 20, child: VerticalDivider(color: Colors.grey)),
       ],
@@ -83,14 +83,14 @@ class _SAreaAgeGenderCartesianState extends State<SAreaAgeGenderCartesian> {
   List<ColumnSeries<SAreaAgeGender, String>> _getColumnSeries() {
     return <ColumnSeries<SAreaAgeGender, String>>[
       ColumnSeries<SAreaAgeGender, String>(
-        dataSource: widget.listData,
+        dataSource: widget.listData!,
         xValueMapper: (SAreaAgeGender sales, _) => sales.area,
         yValueMapper: (SAreaAgeGender sales, _) => sales.ageG1,
         width: 0.5,
         name: '男性',
       ),
       ColumnSeries<SAreaAgeGender, String>(
-        dataSource: widget.listData,
+        dataSource: widget.listData!,
         xValueMapper: (SAreaAgeGender sales, _) => sales.area,
         yValueMapper: (SAreaAgeGender sales, _) => sales.ageG2,
         width: 0.5,
@@ -102,14 +102,14 @@ class _SAreaAgeGenderCartesianState extends State<SAreaAgeGenderCartesian> {
   List<StackedColumnSeries<SAreaAgeGender, String>> _getStackedColumnSeries() {
     return <StackedColumnSeries<SAreaAgeGender, String>>[
       StackedColumnSeries<SAreaAgeGender, String>(
-        dataSource: widget.listData,
+        dataSource: widget.listData!,
         xValueMapper: (SAreaAgeGender sales, _) => sales.area,
         yValueMapper: (SAreaAgeGender sales, _) => sales.ageG1,
         width: 0.5,
         name: '男性',
       ),
       StackedColumnSeries<SAreaAgeGender, String>(
-        dataSource: widget.listData,
+        dataSource: widget.listData!,
         xValueMapper: (SAreaAgeGender sales, _) => sales.area,
         yValueMapper: (SAreaAgeGender sales, _) => sales.ageG2,
         width: 0.5,
@@ -121,7 +121,7 @@ class _SAreaAgeGenderCartesianState extends State<SAreaAgeGenderCartesian> {
   List<LineSeries<SAreaAgeGender, String>> _getLineSeries() {
     return <LineSeries<SAreaAgeGender, String>>[
       LineSeries<SAreaAgeGender, String>(
-        dataSource: widget.listData,
+        dataSource: widget.listData!,
         xValueMapper: (SAreaAgeGender sales, _) => sales.area,
         yValueMapper: (SAreaAgeGender sales, _) => sales.age,
         name: '总数',
@@ -129,7 +129,7 @@ class _SAreaAgeGenderCartesianState extends State<SAreaAgeGenderCartesian> {
         color: Colors.black,
       ),
       LineSeries<SAreaAgeGender, String>(
-        dataSource: widget.listData,
+        dataSource: widget.listData!,
         xValueMapper: (SAreaAgeGender sales, _) => sales.area,
         yValueMapper: (SAreaAgeGender sales, _) => sales.ageG1,
         name: '男性',
@@ -137,7 +137,7 @@ class _SAreaAgeGenderCartesianState extends State<SAreaAgeGenderCartesian> {
         color: Colors.blue,
       ),
       LineSeries<SAreaAgeGender, String>(
-        dataSource: widget.listData,
+        dataSource: widget.listData!,
         xValueMapper: (SAreaAgeGender sales, _) => sales.area,
         yValueMapper: (SAreaAgeGender sales, _) => sales.ageG2,
         name: '女性',

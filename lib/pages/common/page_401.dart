@@ -4,7 +4,7 @@ import 'package:cry/routes/cry.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
 class Page401 extends StatelessWidget {
-  const Page401({Key key}) : super(key: key);
+  const Page401({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

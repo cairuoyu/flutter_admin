@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 class TabPage {
-  String id;
-  String name;
-  String nameEn;
-  String url;
-  Widget widget;
+  String? id;
+  String? name;
+  String? nameEn;
+  String? url;
+  Widget? widget;
 
   TabPage({
     this.id,
@@ -18,11 +18,11 @@ class TabPage {
   });
 
   TabPage copyWith({
-    String id,
-    String name,
-    String nameEn,
-    String url,
-    Widget widget,
+    String? id,
+    String? name,
+    String? nameEn,
+    String? url,
+    Widget? widget,
   }) {
     return TabPage(
       id: id ?? this.id,
@@ -44,7 +44,6 @@ class TabPage {
   }
 
   factory TabPage.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
 
     return TabPage(
       id: map['id'],

@@ -1,147 +1,147 @@
 import 'dart:convert';
 
 class SAreaAgeGender {
-  String id;
+  String? id;
 
-  String area;
+  String? area;
 
-  int age;
+  int? age;
 
-  int ageG1;
+  int? ageG1;
 
-  int ageG2;
+  int? ageG2;
 
-  int age1;
+  int? age1;
 
-  int age1G1;
+  int? age1G1;
 
-  int age1G2;
+  int? age1G2;
 
-  int age2;
+  int? age2;
 
-  int age2G1;
+  int? age2G1;
 
-  int age2G2;
+  int? age2G2;
 
-  int age3;
+  int? age3;
 
-  int age3G1;
+  int? age3G1;
 
-  int age3G2;
+  int? age3G2;
 
-  int age4;
+  int? age4;
 
-  int age4G1;
+  int? age4G1;
 
-  int age4G2;
+  int? age4G2;
 
-  int age5;
+  int? age5;
 
-  int age5G1;
+  int? age5G1;
 
-  int age5G2;
+  int? age5G2;
 
-  int age6;
+  int? age6;
 
-  int age6G1;
+  int? age6G1;
 
-  int age6G2;
+  int? age6G2;
 
-  int age7;
+  int? age7;
 
-  int age7G1;
+  int? age7G1;
 
-  int age7G2;
+  int? age7G2;
 
-  int age8;
+  int? age8;
 
-  int age8G1;
+  int? age8G1;
 
-  int age8G2;
+  int? age8G2;
 
-  int age9;
+  int? age9;
 
-  int age9G1;
+  int? age9G1;
 
-  int age9G2;
+  int? age9G2;
 
-  int age10;
+  int? age10;
 
-  int age10G1;
+  int? age10G1;
 
-  int age10G2;
+  int? age10G2;
 
-  int age11;
+  int? age11;
 
-  int age11G1;
+  int? age11G1;
 
-  int age11G2;
+  int? age11G2;
 
-  int age12;
+  int? age12;
 
-  int age12G1;
+  int? age12G1;
 
-  int age12G2;
+  int? age12G2;
 
-  int age13;
+  int? age13;
 
-  int age13G1;
+  int? age13G1;
 
-  int age13G2;
+  int? age13G2;
 
-  int age14;
+  int? age14;
 
-  int age14G1;
+  int? age14G1;
 
-  int age14G2;
+  int? age14G2;
 
-  int age15;
+  int? age15;
 
-  int age15G1;
+  int? age15G1;
 
-  int age15G2;
+  int? age15G2;
 
-  int age16;
+  int? age16;
 
-  int age16G1;
+  int? age16G1;
 
-  int age16G2;
+  int? age16G2;
 
-  int age17;
+  int? age17;
 
-  int age17G1;
+  int? age17G1;
 
-  int age17G2;
+  int? age17G2;
 
-  int age18;
+  int? age18;
 
-  int age18G1;
+  int? age18G1;
 
-  int age18G2;
+  int? age18G2;
 
-  int age19;
+  int? age19;
 
-  int age19G1;
+  int? age19G1;
 
-  int age19G2;
+  int? age19G2;
 
-  int age20;
+  int? age20;
 
-  int age20G1;
+  int? age20G1;
 
-  int age20G2;
+  int? age20G2;
 
-  int age21;
+  int? age21;
 
-  int age21G1;
+  int? age21G1;
 
-  int age21G2;
+  int? age21G2;
 
-  int age22;
+  int? age22;
 
-  int age22G1;
+  int? age22G1;
 
-  int age22G2;
+  int? age22G2;
 
   SAreaAgeGender({
     this.id,
@@ -218,77 +218,77 @@ class SAreaAgeGender {
   });
 
   SAreaAgeGender copyWith({
-    String id,
-    String area,
-    int age,
-    int ageG1,
-    int ageG2,
-    int age1,
-    int age1G1,
-    int age1G2,
-    int age2,
-    int age2G1,
-    int age2G2,
-    int age3,
-    int age3G1,
-    int age3G2,
-    int age4,
-    int age4G1,
-    int age4G2,
-    int age5,
-    int age5G1,
-    int age5G2,
-    int age6,
-    int age6G1,
-    int age6G2,
-    int age7,
-    int age7G1,
-    int age7G2,
-    int age8,
-    int age8G1,
-    int age8G2,
-    int age9,
-    int age9G1,
-    int age9G2,
-    int age10,
-    int age10G1,
-    int age10G2,
-    int age11,
-    int age11G1,
-    int age11G2,
-    int age12,
-    int age12G1,
-    int age12G2,
-    int age13,
-    int age13G1,
-    int age13G2,
-    int age14,
-    int age14G1,
-    int age14G2,
-    int age15,
-    int age15G1,
-    int age15G2,
-    int age16,
-    int age16G1,
-    int age16G2,
-    int age17,
-    int age17G1,
-    int age17G2,
-    int age18,
-    int age18G1,
-    int age18G2,
-    int age19,
-    int age19G1,
-    int age19G2,
-    int age20,
-    int age20G1,
-    int age20G2,
-    int age21,
-    int age21G1,
-    int age21G2,
-    int age22,
-    int age22G1,
-    int age22G2,
+    String? id,
+    String? area,
+    int? age,
+    int? ageG1,
+    int? ageG2,
+    int? age1,
+    int? age1G1,
+    int? age1G2,
+    int? age2,
+    int? age2G1,
+    int? age2G2,
+    int? age3,
+    int? age3G1,
+    int? age3G2,
+    int? age4,
+    int? age4G1,
+    int? age4G2,
+    int? age5,
+    int? age5G1,
+    int? age5G2,
+    int? age6,
+    int? age6G1,
+    int? age6G2,
+    int? age7,
+    int? age7G1,
+    int? age7G2,
+    int? age8,
+    int? age8G1,
+    int? age8G2,
+    int? age9,
+    int? age9G1,
+    int? age9G2,
+    int? age10,
+    int? age10G1,
+    int? age10G2,
+    int? age11,
+    int? age11G1,
+    int? age11G2,
+    int? age12,
+    int? age12G1,
+    int? age12G2,
+    int? age13,
+    int? age13G1,
+    int? age13G2,
+    int? age14,
+    int? age14G1,
+    int? age14G2,
+    int? age15,
+    int? age15G1,
+    int? age15G2,
+    int? age16,
+    int? age16G1,
+    int? age16G2,
+    int? age17,
+    int? age17G1,
+    int? age17G2,
+    int? age18,
+    int? age18G1,
+    int? age18G2,
+    int? age19,
+    int? age19G1,
+    int? age19G2,
+    int? age20,
+    int? age20G1,
+    int? age20G2,
+    int? age21,
+    int? age21G1,
+    int? age21G2,
+    int? age22,
+    int? age22G1,
+    int? age22G2,
   }) {
     return SAreaAgeGender(
       id: id ?? this.id,
@@ -442,8 +442,6 @@ class SAreaAgeGender {
   }
 
   factory SAreaAgeGender.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
     return SAreaAgeGender(
       id: map['id'],
       area: map['area'],

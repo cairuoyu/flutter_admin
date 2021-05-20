@@ -16,9 +16,9 @@ import 'package:flutter_admin/utils/adaptive_util.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
 
 class MenuList extends StatefulWidget {
-  final Subsystem subsystem;
+  final Subsystem? subsystem;
 
-  MenuList({Key key, this.subsystem}) : super(key: key);
+  MenuList({Key? key, this.subsystem}) : super(key: key);
 
   @override
   _MenuListState createState() => _MenuListState();
@@ -28,7 +28,7 @@ class _MenuListState extends State<MenuList> {
   bool isEdit = false;
   bool showTree = true;
   Menu menu = Menu();
-  List<TreeVO<Menu>> treeVOList;
+  List<TreeVO<Menu>>? treeVOList;
 
   @override
   void initState() {
@@ -77,7 +77,7 @@ class _MenuListState extends State<MenuList> {
         : right;
     var result = Scaffold(
       appBar: AppBar(
-        title: Text(widget.subsystem.name ?? '' + ' -- ' + S.of(context).menuManagement),
+        title: Text(widget.subsystem!.name ?? '' + ' -- ' + S.of(context)!.menuManagement),
         actions: [
           CryButton(
             label: showTree ? '表格树' : '树',
@@ -96,7 +96,7 @@ class _MenuListState extends State<MenuList> {
   }
 
   _loadData() async {
-    ResponseBodyApi responseBodyApi = await MenuApi.list(RequestBodyApi(params: Menu(subsystemId: widget.subsystem.id).toMap()).toMap());
+    ResponseBodyApi responseBodyApi = await MenuApi.list(RequestBodyApi(params: Menu(subsystemId: widget.subsystem!.id).toMap()).toMap());
     var data = responseBodyApi.data;
     List<Menu> list = List.from(data).map((e) => Menu.fromMap(e)).toList();
     this.treeVOList = TreeUtil.toTreeVOList(list);
@@ -104,22 +104,19 @@ class _MenuListState extends State<MenuList> {
   }
 
   _onEdit(Menu menu) {
-    if (menu == null) {
-      menu = Menu();
-    }
-    menu.subsystemId = widget.subsystem.id;
+    menu.subsystemId = widget.subsystem!.id;
     this.menu = menu;
     this.isEdit = true;
     setState(() {});
   }
 
   _onDelete(List<String> ids) {
-    cryConfirm(context, S.of(context).confirmDelete, (context) async {
+    cryConfirm(context, S.of(context)!.confirmDelete, (context) async {
       ResponseBodyApi responseBodyApi = await MenuApi.removeByIds(ids);
-      if (!responseBodyApi.success) {
+      if (!responseBodyApi.success!) {
         return;
       }
-      CryUtils.message(S.of(context).success);
+      CryUtils.message(S.of(context)!.success);
       _loadData();
     });
   }

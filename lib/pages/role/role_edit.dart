@@ -8,9 +8,9 @@ import 'package:flutter_admin/models/role.dart';
 import 'package:cry/utils/cry_utils.dart';
 
 class RoleEdit extends StatefulWidget {
-  final Role role;
+  final Role? role;
 
-  RoleEdit({Key key, this.role}) : super(key: key);
+  RoleEdit({Key? key, this.role}) : super(key: key);
 
   @override
   _RoleEditState createState() => _RoleEditState();
@@ -18,7 +18,7 @@ class RoleEdit extends StatefulWidget {
 
 class _RoleEditState extends State<RoleEdit> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  Role _role;
+  late Role _role;
 
   @override
   void initState() {
@@ -43,12 +43,12 @@ class _RoleEditState extends State<RoleEdit> {
         children: [
           CryInput(
             value: _role.name,
-            label: S.of(context).name,
+            label: S.of(context)!.name,
             onSaved: (v) {
               _role.name = v;
             },
             validator: (v) {
-              return v.isEmpty ? S.of(context).required : null;
+              return v!.isEmpty ? S.of(context)!.required : null;
             },
           ),
         ],
@@ -56,7 +56,7 @@ class _RoleEditState extends State<RoleEdit> {
     );
     var result = Scaffold(
       appBar: AppBar(
-        title: Text(widget.role == null ? S.of(context).add : S.of(context).modify),
+        title: Text(widget.role == null ? S.of(context)!.add : S.of(context)!.modify),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -73,15 +73,15 @@ class _RoleEditState extends State<RoleEdit> {
   }
 
   save() async {
-    var form = formKey.currentState;
+    var form = formKey.currentState!;
     if (!form.validate()) {
       return;
     }
     form.save();
     ResponseBodyApi responseBodyApi = await RoleApi.saveOrUpdate(_role.toMap());
-    if (responseBodyApi.success) {
+    if (responseBodyApi.success!) {
       Navigator.pop(context, true);
-      CryUtils.message(S.of(context).success);
+      CryUtils.message(S.of(context)!.success);
     }
   }
 }

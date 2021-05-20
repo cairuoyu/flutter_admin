@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 class TodoModel {
-  String title;
-  String titleEn;
-  String trailing;
+  String? title;
+  String? titleEn;
+  String? trailing;
 
   TodoModel({
     this.title,
@@ -12,9 +12,9 @@ class TodoModel {
   });
 
   TodoModel copyWith({
-    String title,
-    String titleEn,
-    String trailing,
+    String? title,
+    String? titleEn,
+    String? trailing,
   }) {
     return TodoModel(
       title: title ?? this.title,
@@ -32,7 +32,6 @@ class TodoModel {
   }
 
   factory TodoModel.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
 
     return TodoModel(
       title: map['title'],

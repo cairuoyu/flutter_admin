@@ -32,7 +32,7 @@ class UserInfoMine extends StatefulWidget {
 }
 
 class _UserInfoMineState extends State<UserInfoMine> {
-  UserInfo userInfo;
+  UserInfo? userInfo;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -50,50 +50,50 @@ class _UserInfoMineState extends State<UserInfoMine> {
         fileList: [this.userInfo?.avatarUrl],
         onUpload: (imageBytes) {
           String filename = "test.png"; //todo
-          String mimeType = mime(Path.basename(filename));
+          String mimeType = mime(Path.basename(filename))!;
           var mediaType = MediaType.parse(mimeType);
           MultipartFile file = MultipartFile.fromBytes(imageBytes, contentType: mediaType, filename: filename);
           FormData formData = FormData.fromMap({"file": file});
           FileApi.upload(formData).then((res) {
-            this.userInfo.avatarUrl = res.data;
+            this.userInfo!.avatarUrl = res.data;
           });
         },
       ),
     );
     List<Widget> propList = <Widget>[
       CryInput(
-        label: S.of(context).personName,
-        value: userInfo.name,
-        onSaved: (v) => {userInfo.name = v},
-        validator: (v) => v.isEmpty ? S.of(context).required : null,
+        label: S.of(context)!.personName,
+        value: userInfo!.name,
+        onSaved: (v) => {userInfo!.name = v},
+        validator: (v) => v!.isEmpty ? S.of(context)!.required : null,
       ),
       CryInput(
-        label: S.of(context).personNickname,
-        value: userInfo.nickName,
-        onSaved: (v) => {userInfo.nickName = v},
+        label: S.of(context)!.personNickname,
+        value: userInfo!.nickName,
+        onSaved: (v) => {userInfo!.nickName = v},
       ),
       CrySelectDate(
         context,
-        label: S.of(context).personBirthday,
-        value: userInfo.birthday,
-        onSaved: (v) => {userInfo.birthday = v},
+        label: S.of(context)!.personBirthday,
+        value: userInfo!.birthday,
+        onSaved: (v) => {userInfo!.birthday = v},
       ),
       CrySelect(
-        label: S.of(context).personGender,
+        label: S.of(context)!.personGender,
         dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_GENDER),
-        value: userInfo.gender,
-        onSaved: (v) => {userInfo.gender = v},
+        value: userInfo!.gender,
+        onSaved: (v) => {userInfo!.gender = v},
       ),
       CrySelectCustomWidget(
         context,
-        label: S.of(context).personDepartment,
-        initialValue: userInfo.deptId,
-        initialValueLabel: userInfo.deptName,
+        label: S.of(context)!.personDepartment,
+        initialValue: userInfo!.deptId,
+        initialValueLabel: userInfo!.deptName,
         popWidget: DeptSelector(),
         getValueLabel: (Dept d) => d.name,
         getValue: (Dept d) => d.id,
-        onSaved: (v) {
-          userInfo.deptId = v;
+        onSaved: (dynamic v) {
+          userInfo!.deptId = v;
         },
       ),
     ];
@@ -101,19 +101,19 @@ class _UserInfoMineState extends State<UserInfoMine> {
     var buttonBar = CryButtonBar(
       children: <Widget>[
         CryButton(
-          label: S.of(context).save,
+          label: S.of(context)!.save,
           onPressed: () {
-            FormState form = formKey.currentState;
+            FormState form = formKey.currentState!;
             if (!form.validate()) {
               return;
             }
             form.save();
-            UserInfoApi.saveOrUpdate(this.userInfo.toMap()).then((ResponseBodyApi res) {
-              if (!res.success) {
+            UserInfoApi.saveOrUpdate(this.userInfo!.toMap()).then((ResponseBodyApi res) {
+              if (!res.success!) {
                 return;
               }
-              StoreUtil.write(Constant.KEY_CURRENT_USER_INFO, this.userInfo.toMap());
-              CryUtils.message(S.of(context).saved);
+              StoreUtil.write(Constant.KEY_CURRENT_USER_INFO, this.userInfo!.toMap());
+              CryUtils.message(S.of(context)!.saved);
             });
           },
           iconData: Icons.save,

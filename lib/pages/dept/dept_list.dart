@@ -40,7 +40,7 @@ class _DeptListState extends State<DeptList> {
       child: Wrap(
         children: [
           CryInput(
-            label: S.of(context).name,
+            label: S.of(context)!.name,
             value: dept.name,
             onSaved: (v) {
               dept.name = v;
@@ -64,7 +64,7 @@ class _DeptListState extends State<DeptList> {
         CryButtons.add(context, () => toEdit(null)),
         CryButton(
           iconData: Icons.vertical_align_center,
-          label: S.of(context).collapse,
+          label: S.of(context)!.collapse,
           onPressed: () {
             setState(() {
               treeController.collapseAll();
@@ -73,7 +73,7 @@ class _DeptListState extends State<DeptList> {
         ),
         CryButton(
           iconData: Icons.expand,
-          label: S.of(context).expand,
+          label: S.of(context)!.expand,
           onPressed: () {
             setState(() {
               treeController.expandAll();
@@ -101,7 +101,7 @@ class _DeptListState extends State<DeptList> {
   }
 
   query() {
-    queryFormKey.currentState.save();
+    queryFormKey.currentState!.save();
     _loadData();
   }
 
@@ -123,27 +123,27 @@ class _DeptListState extends State<DeptList> {
     _loadData();
   }
 
-  toEdit(Dept dept) async {
+  toEdit(Dept? dept) async {
     await Cry.push(DeptEdit(dept: dept));
     _loadData();
   }
 
   TreeNode toTreeNode(TreeVO<Dept> treeVO) {
-    var key = ValueKey(treeVO.data.id);
+    var key = ValueKey(treeVO.data!.id);
     var content = Expanded(
       child: ListTile(
-        title: Text(treeVO.data.name ?? '--'),
+        title: Text(treeVO.data!.name ?? '--'),
         hoverColor: Colors.blue.shade100,
         onTap: () {},
         trailing: PopupMenuButton(
-          onSelected: (v) {
+          onSelected: (dynamic v) {
             if (v == OperationType.add) {
-              toEdit(Dept(pid: treeVO.data.id));
+              toEdit(Dept(pid: treeVO.data!.id));
             } else if (v == OperationType.edit) {
               toEdit(treeVO.data);
             } else if (v == OperationType.delete) {
-              cryConfirm(context, S.of(context).confirmDelete, (context) async {
-                delete([treeVO.data.id]);
+              cryConfirm(context, S.of(context)!.confirmDelete, (context) async {
+                delete([treeVO.data!.id]);
               });
             }
           },

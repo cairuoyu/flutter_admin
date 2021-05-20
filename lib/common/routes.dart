@@ -24,8 +24,8 @@ import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
 
 class Routes {
-  static List<GetPage> pages;
-  static List<GetPage> layoutPages;
+  static List<GetPage>? pages;
+  static List<GetPage>? layoutPages;
 
   static Map<String, Widget> layoutPagesMap = {
     '/dashboard': Dashboard(),
@@ -81,7 +81,7 @@ class Routes {
 
 class AuthMiddleware extends GetMiddleware {
   @override
-  RouteSettings redirect(String route) {
+  RouteSettings? redirect(String? route) {
     return Utils.isLogin() ? null : RouteSettings(name: '/login');
   }
 }

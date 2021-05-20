@@ -1,19 +1,19 @@
 
 class Article {
-  String id;
-  String title;
-  String titleSub;
-  String author;
-  String status;
-  String publishTime;
-  String publishTimeStart;
-  String publishTimeEnd;
-  String fileUrl;
-  int orderBy;
-  String createTime;
-  String updateTime;
-  String createrId;
-  String updateId;
+  String? id;
+  String? title;
+  String? titleSub;
+  String? author;
+  String? status;
+  String? publishTime;
+  String? publishTimeStart;
+  String? publishTimeEnd;
+  String? fileUrl;
+  int? orderBy;
+  String? createTime;
+  String? updateTime;
+  String? createrId;
+  String? updateId;
 
   Article({
     this.id,
@@ -33,20 +33,20 @@ class Article {
   });
 
   Article copyWith({
-    String id,
-    String title,
-    String titleSub,
-    String author,
-    String status,
-    String publishTime,
-    String publishTimeStart,
-    String publishTimeEnd,
-    String fileUrl,
-    int orderBy,
-    String createTime,
-    String updateTime,
-    String createrId,
-    String updateId,
+    String? id,
+    String? title,
+    String? titleSub,
+    String? author,
+    String? status,
+    String? publishTime,
+    String? publishTimeStart,
+    String? publishTimeEnd,
+    String? fileUrl,
+    int? orderBy,
+    String? createTime,
+    String? updateTime,
+    String? createrId,
+    String? updateId,
   }) {
     return new Article(
       id: id ?? this.id,
@@ -108,22 +108,22 @@ class Article {
       createrId.hashCode ^
       updateId.hashCode;
 
-  factory Article.fromMap(Map<String, dynamic> map) {
+  factory Article.fromMap(Map<String?, dynamic> map) {
     return new Article(
-      id: map['id'] as String,
-      title: map['title'] as String,
-      titleSub: map['titleSub'] as String,
-      author: map['author'] as String,
-      status: map['status'] as String,
-      publishTime: map['publishTime'] as String,
-      publishTimeStart: map['publishTimeStart'] as String,
-      publishTimeEnd: map['publishTimeEnd'] as String,
-      fileUrl: map['fileUrl'] as String,
-      orderBy: map['orderBy'] as int,
-      createTime: map['createTime'] as String,
-      updateTime: map['updateTime'] as String,
-      createrId: map['createrId'] as String,
-      updateId: map['updateId'] as String,
+      id: map['id'] as String?,
+      title: map['title'] as String?,
+      titleSub: map['titleSub'] as String?,
+      author: map['author'] as String?,
+      status: map['status'] as String?,
+      publishTime: map['publishTime'] as String?,
+      publishTimeStart: map['publishTimeStart'] as String?,
+      publishTimeEnd: map['publishTimeEnd'] as String?,
+      fileUrl: map['fileUrl'] as String?,
+      orderBy: map['orderBy'] as int?,
+      createTime: map['createTime'] as String?,
+      updateTime: map['updateTime'] as String?,
+      createrId: map['createrId'] as String?,
+      updateId: map['updateId'] as String?,
     );
   }
 

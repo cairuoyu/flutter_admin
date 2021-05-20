@@ -7,12 +7,12 @@ import 'package:flutter_admin/utils/utils.dart';
 class LayoutAppBar extends AppBar {
   LayoutAppBar(
     BuildContext context, {
-    Key key,
-    int type,
+    Key? key,
+    int? type,
     openSetting,
     openMenu,
     dispose,
-    UserInfo userInfo,
+    required UserInfo userInfo,
   }) : super(
           key: key,
           automaticallyImplyLeading: false,
@@ -65,8 +65,8 @@ class LayoutAppBar extends AppBar {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: PopupMenuButton(
-                tooltip: S.of(context).information,
-                onSelected: (v) {
+                tooltip: S.of(context)!.information,
+                onSelected: (dynamic v) {
                   if (v == 'info') {
                     Utils.openTab('/userInfoMine');
                   } else if (v == 'logout') {
@@ -79,7 +79,7 @@ class LayoutAppBar extends AppBar {
                   child: userInfo.avatarUrl == null
                       ? Icon(Icons.person)
                       : CircleAvatar(
-                          backgroundImage: NetworkImage(userInfo.avatarUrl),
+                          backgroundImage: NetworkImage(userInfo.avatarUrl!),
                           radius: 12.0,
                         ),
                 ),
@@ -88,7 +88,7 @@ class LayoutAppBar extends AppBar {
                     value: 'info',
                     child: ListTile(
                       leading: const Icon(Icons.info),
-                      title: Text(S.of(context).myInformation),
+                      title: Text(S.of(context)!.myInformation),
                     ),
                   ),
                   const PopupMenuDivider(),
@@ -96,7 +96,7 @@ class LayoutAppBar extends AppBar {
                     value: 'logout',
                     child: ListTile(
                       leading: const Icon(Icons.logout),
-                      title: Text(S.of(context).logout),
+                      title: Text(S.of(context)!.logout),
                     ),
                   ),
                 ],

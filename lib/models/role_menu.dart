@@ -1,16 +1,16 @@
 import 'dart:convert';
 
 class RoleMenu {
-  final String menuId;
-  final String roleId;
+  final String? menuId;
+  final String? roleId;
   RoleMenu({
     this.menuId,
     this.roleId,
   });
 
   RoleMenu copyWith({
-    String menuId,
-    String roleId,
+    String? menuId,
+    String? roleId,
   }) {
     return RoleMenu(
       menuId: menuId ?? this.menuId,
@@ -26,8 +26,6 @@ class RoleMenu {
   }
 
   factory RoleMenu.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-  
     return RoleMenu(
       menuId: map['menuId'],
       roleId: map['roleId'],

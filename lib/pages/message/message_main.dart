@@ -9,8 +9,8 @@ class MessageMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var tabs = [
-      Tab(child: Text(S.of(context).leaveMessage)),
-      Tab(child: Text(S.of(context).allMessage)),
+      Tab(child: Text(S.of(context)!.leaveMessage)),
+      Tab(child: Text(S.of(context)!.allMessage)),
     ];
     var tabViews = [
       KeepAliveWrapper(child: MessageEdit()),

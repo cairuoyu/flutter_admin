@@ -1,27 +1,27 @@
 import 'dart:convert';
 
 class UserInfo {
-  bool selected;
-  String id;
-  String userId;
-  String nickName;
-  String avatarUrl;
-  String gender;
-  String country;
-  String province;
-  String city;
-  String name;
-  String school;
-  String major;
-  String birthday;
-  String entrance;
-  String hometown;
-  String memo;
-  String deptId;
-  String deptName;
-  String createTime;
-  String updateTime;
-  String userName;
+  bool? selected;
+  String? id;
+  String? userId;
+  String? nickName;
+  String? avatarUrl;
+  String? gender;
+  String? country;
+  String? province;
+  String? city;
+  String? name;
+  String? school;
+  String? major;
+  String? birthday;
+  String? entrance;
+  String? hometown;
+  String? memo;
+  String? deptId;
+  String? deptName;
+  String? createTime;
+  String? updateTime;
+  String? userName;
 
   UserInfo({
     this.selected,
@@ -48,27 +48,27 @@ class UserInfo {
   });
 
   UserInfo copyWith({
-    bool selected,
-    String id,
-    String userId,
-    String nickName,
-    String avatarUrl,
-    String gender,
-    String country,
-    String province,
-    String city,
-    String name,
-    String school,
-    String major,
-    String birthday,
-    String entrance,
-    String hometown,
-    String memo,
-    String deptId,
-    String deptName,
-    String createTime,
-    String updateTime,
-    String userName,
+    bool? selected,
+    String? id,
+    String? userId,
+    String? nickName,
+    String? avatarUrl,
+    String? gender,
+    String? country,
+    String? province,
+    String? city,
+    String? name,
+    String? school,
+    String? major,
+    String? birthday,
+    String? entrance,
+    String? hometown,
+    String? memo,
+    String? deptId,
+    String? deptName,
+    String? createTime,
+    String? updateTime,
+    String? userName,
   }) {
     return UserInfo(
       selected: selected ?? this.selected,
@@ -121,9 +121,7 @@ class UserInfo {
     };
   }
 
-  factory UserInfo.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
+  factory UserInfo.fromMap(Map<String?, dynamic> map) {
     return UserInfo(
       selected: map['selected'],
       id: map['id'],

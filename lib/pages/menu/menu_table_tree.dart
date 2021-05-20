@@ -9,9 +9,9 @@ import 'package:flutter_admin/utils/tree_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
 class MenuTableTree extends StatefulWidget {
-  final List<TreeVO<Menu>> treeVOList;
-  final Function onEdit;
-  final Function onDelete;
+  final List<TreeVO<Menu>>? treeVOList;
+  final Function? onEdit;
+  final Function? onDelete;
 
   MenuTableTree({
     this.treeVOList,
@@ -32,18 +32,18 @@ class _MenuTableTreeState extends State<MenuTableTree> {
   @override
   Widget build(BuildContext context) {
     List<CryTreeTableColumnData> columnData = [
-      CryTreeTableColumnData(label:S.of(context).name,getCell: (Menu v) => Text(v.name)),
-      CryTreeTableColumnData(label:S.of(context).englishName,getCell:  (Menu v) => Text(v.nameEn)),
-      CryTreeTableColumnData(label:'URL',getCell:  (Menu v) => Text(v.url)),
+      CryTreeTableColumnData(label:S.of(context)!.name,getCell: (Menu v) => Text(v.name!)),
+      CryTreeTableColumnData(label:S.of(context)!.englishName,getCell:  (Menu v) => Text(v.nameEn!)),
+      CryTreeTableColumnData(label:'URL',getCell:  (Menu v) => Text(v.url!)),
       CryTreeTableColumnData(label:'Icon',getCell:  (Menu v) => Icon(Utils.toIconData(v.icon))),
-      CryTreeTableColumnData(label:S.of(context).sequenceNumber, getCell: (Menu v) => Text(v.orderBy?.toString()), width: 180),
-      CryTreeTableColumnData(label:S.of(context).remarks,getCell:  (Menu v) => Text(v.remark), width: 300)
+      CryTreeTableColumnData(label:S.of(context)!.sequenceNumber, getCell: (Menu v) => Text(v.orderBy.toString()), width: 180),
+      CryTreeTableColumnData(label:S.of(context)!.remarks,getCell:  (Menu v) => Text(v.remark!), width: 300)
     ];
     var treeTable = CryTreeTable(
       columnData: columnData,
       data: widget.treeVOList,
       onSelected: (v) => _onSelected(v),
-      getRowOper: (TreeVO<Menu> v, TreeVO<Menu> parent) => _getRowOper(v, parent),
+      getRowOper: (TreeVO<Menu> v, TreeVO<Menu>? parent) => _getRowOper(v, parent),
       tableWidth: 1500,
       selectType: CryTreeTableSelectType.childrenCascade,
     );
@@ -66,13 +66,13 @@ class _MenuTableTreeState extends State<MenuTableTree> {
     var selected = TreeUtil.getSelected(widget.treeVOList);
     var result = CryButtonBar(
       children: <Widget>[
-        CryButtons.add(context, () => widget.onEdit(Menu())),
+        CryButtons.add(context, () => widget.onEdit!(Menu())),
         CryButtons.delete(
           context,
           selected.length >= 1
               ? () {
-                  List ids = selected.map((e) => e.data.id).toList();
-                  widget.onDelete(ids);
+                  List ids = selected.map((e) => e.data!.id).toList();
+                  widget.onDelete!(ids);
                 }
               : null,
         ),
@@ -81,13 +81,13 @@ class _MenuTableTreeState extends State<MenuTableTree> {
     return result;
   }
 
-  List<Widget> _getRowOper(TreeVO<Menu> vo, TreeVO<Menu> parent) {
+  List<Widget> _getRowOper(TreeVO<Menu> vo, TreeVO<Menu>? parent) {
     List<Widget> columnList = [];
-    Menu menu = vo.data;
+    Menu? menu = vo.data;
     columnList.add(
       IconButton(
         icon: Icon(Icons.add),
-        onPressed: () => widget.onEdit(Menu(pname: vo.data.name, pid: vo.data.id)),
+        onPressed: () => widget.onEdit!(Menu(pname: vo.data!.name, pid: vo.data!.id)),
       ),
     );
     columnList.add(
@@ -95,9 +95,9 @@ class _MenuTableTreeState extends State<MenuTableTree> {
         icon: Icon(Icons.edit),
         onPressed: () {
           if (parent != null) {
-            menu.pname = parent.data.name;
+            menu!.pname = parent.data!.name;
           }
-          widget.onEdit(menu);
+          widget.onEdit!(menu);
         },
       ),
     );

@@ -26,10 +26,10 @@ class ImageUpload extends StatefulWidget {
 
 class ImageUploadState extends State<ImageUpload> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  PickedFile pickedFile;
+  PickedFile? pickedFile;
   final ImagePicker imagePicker = ImagePicker();
   ImageModel imageModel = ImageModel();
-  Uint8List imageBytes;
+  Uint8List? imageBytes;
 
   @override
   void initState() {
@@ -43,30 +43,30 @@ class ImageUploadState extends State<ImageUpload> {
       child: Wrap(
         children: <Widget>[
           CryInput(
-            label: S.of(context).imageTitle,
+            label: S.of(context)!.imageTitle,
             value: imageModel.title,
             onSaved: (v) => {imageModel.title = v},
             validator: (v) {
-              return v.isEmpty ? S.of(context).required : null;
+              return v!.isEmpty ? S.of(context)!.required : null;
             },
           ),
           CryInput(
-            label: S.of(context).imageMemo,
+            label: S.of(context)!.imageMemo,
             value: imageModel.memo,
             onSaved: (v) => {imageModel.memo = v},
           ),
         ],
       ),
     );
-    List buttons = <Widget>[
+    List<Widget> buttons = <Widget>[
       CryButton(
-        label: S.of(context).gallery,
+        label: S.of(context)!.gallery,
         iconData: Icons.photo,
         onPressed: () => pickImage(ImageSource.gallery),
       ),
       CryButtons.save(context, pickedFile == null ? null : () => save()),
       Text(
-        S.of(context).sizeLimit,
+        S.of(context)!.sizeLimit,
         style: TextStyle(color: Colors.red),
       ),
     ];
@@ -74,7 +74,7 @@ class ImageUploadState extends State<ImageUpload> {
       buttons.insert(
         0,
         CryButton(
-          label: S.of(context).camera,
+          label: S.of(context)!.camera,
           iconData: Icons.camera,
           onPressed: () => pickImage(ImageSource.camera),
         ),
@@ -101,9 +101,9 @@ class ImageUploadState extends State<ImageUpload> {
     if (pickedFile == null) {
       return;
     }
-    imageBytes = await pickedFile.readAsBytes();
-    if (imageBytes.length > 1000 * 1000 * 10) {
-      cryAlert(context, S.of(context).sizeLimit);
+    imageBytes = await pickedFile!.readAsBytes();
+    if (imageBytes!.length > 1000 * 1000 * 10) {
+      cryAlert(context, S.of(context)!.sizeLimit);
       pickedFile = null;
       imageBytes = null;
       setState(() {});
@@ -111,27 +111,27 @@ class ImageUploadState extends State<ImageUpload> {
     }
 
     setState(() {
-      formKey.currentState.save();
+      formKey.currentState!.save();
     });
   }
 
   save() async {
-    FormState form = formKey.currentState;
+    FormState form = formKey.currentState!;
     if (!form.validate()) {
       return;
     }
     form.save();
     String filename = "test.png"; //todo
-    String mimeType = mime(Path.basename(filename));
+    String mimeType = mime(Path.basename(filename))!;
     var mediaType = MediaType.parse(mimeType);
-    var file = MultipartFile.fromBytes(imageBytes, contentType: mediaType, filename: filename);
+    var file = MultipartFile.fromBytes(imageBytes!, contentType: mediaType, filename: filename);
     Map map = imageModel.toMap();
     map['file'] = file;
-    FormData formData = FormData.fromMap(map);
+    FormData formData = FormData.fromMap(map as Map<String, dynamic>);
 
     ResponseBodyApi responseBodyApi = await ImageApi.upload(formData);
-    if (responseBodyApi.success) {
-      Utils.toPortal(context, S.of(context).saved, S.of(context).goToThePortal);
+    if (responseBodyApi.success!) {
+      Utils.toPortal(context, S.of(context)!.saved, S.of(context)!.goToThePortal);
       setState(() {
         this.pickedFile = null;
       });
@@ -141,9 +141,9 @@ class ImageUploadState extends State<ImageUpload> {
   Widget previewImage() {
     if (pickedFile != null) {
       if (kIsWeb) {
-        return Image.network(pickedFile.path);
+        return Image.network(pickedFile!.path);
       } else {
-        return Image.file(File(pickedFile.path));
+        return Image.file(File(pickedFile!.path));
       }
     } else {
       return Container();

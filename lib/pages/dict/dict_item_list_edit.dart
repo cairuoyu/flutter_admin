@@ -15,12 +15,12 @@ import 'package:quiver/strings.dart';
 class DictItemListEdit extends StatefulWidget {
   DictItemListEdit(
     this.dict, {
-    Key key,
+    Key? key,
     this.onSave,
   }) : super(key: key);
 
-  final Dict dict;
-  final Function onSave;
+  final Dict? dict;
+  final Function? onSave;
 
   @override
   DictItemListEditState createState() => DictItemListEditState();
@@ -37,7 +37,7 @@ class DictItemListEditState extends State<DictItemListEdit> {
   }
 
   init() async {
-    ResponseBodyApi responseBodyApi = await DictItemApi.list(DictItem(dictId: widget.dict.id).toMap());
+    ResponseBodyApi responseBodyApi = await DictItemApi.list(DictItem(dictId: widget.dict!.id).toMap());
     this.dictItemList = List.from(responseBodyApi.data).map((e) => DictItem.fromMap(e)).toList();
     this.setState(() {});
   }
@@ -51,9 +51,9 @@ class DictItemListEditState extends State<DictItemListEdit> {
     var table = DataTable(
       columns: [
         DataColumn(label: Text('#')),
-        DataColumn(label: Text(S.of(context).operating)),
-        DataColumn(label: Text(S.of(context).dictItemCode)),
-        DataColumn(label: Text(S.of(context).dictItemName)),
+        DataColumn(label: Text(S.of(context)!.operating)),
+        DataColumn(label: Text(S.of(context)!.dictItemCode)),
+        DataColumn(label: Text(S.of(context)!.dictItemName)),
       ],
       rows: this.dictItemList.map((dictItem) {
         int rowIndex = i + 1;
@@ -106,30 +106,28 @@ class DictItemListEditState extends State<DictItemListEdit> {
   }
 
   _add() {
-    this.tableFormKey.currentState.save();
-    this.dictItemList.add(DictItem(dictId: widget.dict.id));
+    this.tableFormKey.currentState!.save();
+    this.dictItemList.add(DictItem(dictId: widget.dict!.id));
     this.setState(() {});
   }
 
   _delete(dictItem) {
-    this.tableFormKey.currentState.save();
+    this.tableFormKey.currentState!.save();
     this.dictItemList.remove(dictItem);
     this.setState(() {});
   }
 
   validate() {
-    this.tableFormKey.currentState.save();
-    if (this.dictItemList.firstWhere((element) => isEmpty(element.name) || isEmpty(element.code), orElse: () {
-          return null;
-        }) !=
-        null) {
-      CryUtils.message(S.of(context).completeTheTableData);
+    this.tableFormKey.currentState!.save();
+
+    if (this.dictItemList.any((element) => isEmpty(element.name) || isEmpty(element.code))) {
+      CryUtils.message(S.of(context)!.completeTheTableData);
       return false;
     }
     return true;
   }
 
   save() {
-    widget.onSave(this.dictItemList);
+    widget.onSave!(this.dictItemList);
   }
 }

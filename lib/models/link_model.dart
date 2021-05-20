@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 class LinkModel {
-  String title;
-  String titleEn;
-  String trailing;
+  String? title;
+  String? titleEn;
+  String? trailing;
 
   LinkModel({
     this.title,
@@ -12,9 +12,9 @@ class LinkModel {
   });
 
   LinkModel copyWith({
-    String title,
-    String titleEn,
-    String trailing,
+    String? title,
+    String? titleEn,
+    String? trailing,
   }) {
     return LinkModel(
       title: title ?? this.title,
@@ -32,7 +32,6 @@ class LinkModel {
   }
 
   factory LinkModel.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
 
     return LinkModel(
       title: map['title'],

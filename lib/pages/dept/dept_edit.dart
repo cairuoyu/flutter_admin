@@ -13,9 +13,9 @@ import 'package:cry/utils/cry_utils.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 
 class DeptEdit extends StatefulWidget {
-  final Dept dept;
+  final Dept? dept;
 
-  DeptEdit({Key key, this.dept}) : super(key: key);
+  DeptEdit({Key? key, this.dept}) : super(key: key);
 
   @override
   _DeptEditState createState() => _DeptEditState();
@@ -23,7 +23,7 @@ class DeptEdit extends StatefulWidget {
 
 class _DeptEditState extends State<DeptEdit> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  Dept dept;
+  late Dept dept;
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _DeptEditState extends State<DeptEdit> {
       child: Wrap(
         children: [
           CryInput(
-            label: S.of(context).name,
+            label: S.of(context)!.name,
             required: true,
             value: dept.name,
             onSaved: (v) {
@@ -46,14 +46,14 @@ class _DeptEditState extends State<DeptEdit> {
             },
           ),
           CryInput(
-            label: S.of(context).nameShort,
+            label: S.of(context)!.nameShort,
             value: dept.nameShort,
             onSaved: (v) {
               dept.nameShort = v;
             },
           ),
           CrySelect(
-            label: S.of(context).fun,
+            label: S.of(context)!.fun,
             dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT_FUN),
             value: dept.fun,
             onSaved: (v) {
@@ -61,21 +61,21 @@ class _DeptEditState extends State<DeptEdit> {
             },
           ),
           CryInput(
-            label: S.of(context).header,
+            label: S.of(context)!.header,
             value: dept.headerId,
             onSaved: (v) {
               dept.headerId = v;
             },
           ),
           CryInputNum(
-            label: S.of(context).sequenceNumber,
+            label: S.of(context)!.sequenceNumber,
             value: dept.orderBy,
             onSaved: (v) {
-              dept.orderBy = v;
+              dept.orderBy = v as int?;
             },
           ),
           CryInput(
-            label: S.of(context).remarks,
+            label: S.of(context)!.remarks,
             value: dept.remark,
             onSaved: (v) {
               dept.remark = v;
@@ -92,7 +92,7 @@ class _DeptEditState extends State<DeptEdit> {
       ],
     );
     var result = Scaffold(
-      appBar: AppBar(title: Text(S.of(context).add)),
+      appBar: AppBar(title: Text(S.of(context)!.add)),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -106,16 +106,16 @@ class _DeptEditState extends State<DeptEdit> {
   }
 
   save() async {
-    var form = formKey.currentState;
+    var form = formKey.currentState!;
     if (!form.validate()) {
       return;
     }
     form.save();
     var res = await DeptApi.saveOrUpdate(dept.toMap());
-    if (!res.success) {
+    if (!res.success!) {
       return;
     }
     Cry.pop();
-    CryUtils.message(S.of(context).success);
+    CryUtils.message(S.of(context)!.success);
   }
 }

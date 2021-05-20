@@ -14,14 +14,14 @@ import 'package:flutter_admin/models/user_info.dart';
 
 class RoleUserSelectList extends StatefulWidget {
   RoleUserSelectList({
-    Key key,
-    @required this.role,
+    Key? key,
+    required this.role,
     this.isSelected = false,
     this.title,
   }) : super(key: key);
-  final Role role;
+  final Role? role;
   final bool isSelected;
-  final String title;
+  final String? title;
 
   @override
   RoleUserSelectListState createState() => RoleUserSelectListState();
@@ -30,7 +30,7 @@ class RoleUserSelectList extends StatefulWidget {
 class RoleUserSelectListState extends State<RoleUserSelectList> {
   final GlobalKey<CryDataTableState> tableKey = GlobalKey<CryDataTableState>();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  PageModel page;
+  PageModel? page;
   UserInfo userInfo = UserInfo();
 
   @override
@@ -38,7 +38,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
     super.initState();
     page = PageModel(orders: [OrderItemModel(column: 'name')]);
 
-    WidgetsBinding.instance.addPostFrameCallback((c) {
+    WidgetsBinding.instance!.addPostFrameCallback((c) {
       query();
     });
   }
@@ -48,16 +48,16 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
     var buttonBar = CryButtonBar(
       children: [
         CryButton(
-          label: S.of(context).query,
+          label: S.of(context)!.query,
           iconData: Icons.search,
           padding: EdgeInsets.only(left: 20),
           onPressed: () {
-            formKey.currentState.save();
+            formKey.currentState!.save();
             this.query();
           },
         ),
         CryButton(
-          label: S.of(context).reset,
+          label: S.of(context)!.reset,
           iconData: Icons.refresh,
           padding: EdgeInsets.only(left: 20),
           onPressed: () {
@@ -74,7 +74,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
         children: <Widget>[
           CryInput(
             width: 400,
-            label: S.of(context).username,
+            label: S.of(context)!.username,
             value: userInfo.name,
             onSaved: (v) {
               userInfo.name = v;
@@ -87,14 +87,14 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
 
     CryDataTable table = CryDataTable(
       key: tableKey,
-      title: widget.title,
+      title: widget.title!,
       onPageChanged: (firstRowIndex) {
-        page.current = (firstRowIndex / page.size + 1) as int;
+        page!.current = (firstRowIndex / page!.size + 1) as int?;
         query();
       },
       onRowsPerPageChanged: (int size) {
-        page.size = size;
-        page.current = 1;
+        page!.size = size;
+        page!.current = 1;
         query();
       },
       onSelectChanged: (Map selected) {
@@ -102,16 +102,16 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
       },
       columns: [
         DataColumn(
-          label: Container(child: Text(S.of(context).username)),
+          label: Container(child: Text(S.of(context)!.username)),
           onSort: (int columnIndex, bool ascending) => _sort('userName'),
         ),
         DataColumn(
-          label: Container(child: Text(S.of(context).name)),
+          label: Container(child: Text(S.of(context)!.name)),
           onSort: (int columnIndex, bool ascending) => _sort('name'),
         ),
       ],
       getCells: (Map m) {
-        UserInfo userInfo = UserInfo.fromMap(m);
+        UserInfo userInfo = UserInfo.fromMap(m as Map<String?, dynamic>);
         return [
           DataCell(Container(width: 100, child: Text(userInfo.userName ?? '--'))),
           DataCell(Container(width: 100, child: Text(userInfo.name ?? '--'))),
@@ -135,12 +135,12 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
   }
 
   List<UserInfo> getSelectedList() {
-    List<UserInfo> selectedList = tableKey?.currentState?.getSelectedList(page)?.map<UserInfo>((e) => UserInfo.fromMap(e))?.toList() ?? [];
+    List<UserInfo> selectedList = tableKey.currentState?.getSelectedList(page!).map<UserInfo>((e) => UserInfo.fromMap(e as Map<String?, dynamic>)).toList() ?? [];
     return selectedList;
   }
 
   query() async {
-    Map params = {'roleId': widget.role.id, 'userName': this.userInfo.name};
+    Map params = {'roleId': widget.role!.id, 'userName': this.userInfo.name};
     RequestBodyApi requestBodyApi = RequestBodyApi();
     requestBodyApi.page = page;
     requestBodyApi.params = params;
@@ -152,12 +152,12 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
     }
     page = PageModel.fromMap(responseBodyApi.data);
 
-    tableKey.currentState.loadData(page);
+    tableKey.currentState!.loadData(page!);
   }
 
   _sort(column, {ascending}) {
-    page.orders[0].column = column;
-    page.orders[0].asc = ascending ?? !page.orders[0].asc;
+    page!.orders![0].column = column;
+    page!.orders![0].asc = ascending ?? !page!.orders![0].asc!;
     query();
   }
 }

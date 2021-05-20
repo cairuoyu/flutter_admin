@@ -3,7 +3,7 @@ import 'package:cry/vo/tree_vo.dart';
 class TreeUtil {
   static findChildren<T extends TreeData>(List<TreeVO<T>> list, TreeVO<T> treeVO) {
     for (TreeVO<T> v in list) {
-      if (v.data.pid == treeVO.data.id) {
+      if (v.data!.pid == treeVO.data!.id) {
         treeVO.children.add(v);
         v.parent = treeVO;
       }
@@ -12,7 +12,7 @@ class TreeUtil {
 
   static bool findParent<T extends TreeData>(List<TreeVO<T>> list, TreeVO<T> treeVO) {
     for (TreeVO<T> v in list) {
-      if (v.data.id == treeVO.data.pid) {
+      if (v.data!.id == treeVO.data!.pid) {
         v.children.add(treeVO);
         treeVO.parent = v;
         return true;
@@ -37,24 +37,23 @@ class TreeUtil {
   }
 
   static List<TreeVO<T>> toTreeVOList<T extends TreeData>(List<T> data) {
-    data ??= [];
     List<TreeVO<T>> result = [];
     data.forEach((element) {
       addTreeData(result, element);
     });
-    return result.where((element) => element.data.pid == null).toList();
+    return result.where((element) => element.data!.pid == null).toList();
   }
 
-  static List<TreeVO<T>> getSelected<T extends TreeData>(List<TreeVO<T>> data) {
+  static List<TreeVO<T>> getSelected<T extends TreeData>(List<TreeVO<T>>? data) {
     if (data == null) {
       return [];
     }
     var selected = <TreeVO<T>>[];
     data.forEach((element) {
-      if (element.checked) {
+      if (element.checked!) {
         selected.add(element);
       }
-      if (element.children != null && element.children.length > 0) {
+      if (element.children.length > 0) {
         selected.addAll(getSelected(element.children));
       }
     });

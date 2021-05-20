@@ -9,9 +9,9 @@ import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
 
 class MenuTree extends StatefulWidget {
-  final Function onEdit;
-  final Function onDelete;
-  final List<TreeVO<Menu>> treeVOList;
+  final Function? onEdit;
+  final Function? onDelete;
+  final List<TreeVO<Menu>>? treeVOList;
 
   MenuTree({
     this.treeVOList,
@@ -40,7 +40,7 @@ class _MenuTreeState extends State<MenuTree> {
 
   @override
   Widget build(BuildContext context) {
-    treeNodeList = toTreeNodeList(widget.treeVOList, null);
+    treeNodeList = toTreeNodeList(widget.treeVOList!, null);
     var treeView = Expanded(
       child: SingleChildScrollView(
         child: TreeView(
@@ -51,10 +51,10 @@ class _MenuTreeState extends State<MenuTree> {
     );
     var buttonBar = CryButtonBar(
       children: [
-        CryButtons.add(context, () => widget.onEdit(null)),
+        CryButtons.add(context, () => widget.onEdit!(Menu())),
         CryButton(
           iconData: Icons.vertical_align_center,
-          label: S.of(context).collapse,
+          label: S.of(context)!.collapse,
           onPressed: () {
             setState(() {
               treeController.collapseAll();
@@ -63,7 +63,7 @@ class _MenuTreeState extends State<MenuTree> {
         ),
         CryButton(
           iconData: Icons.expand,
-          label: S.of(context).expand,
+          label: S.of(context)!.expand,
           onPressed: () {
             setState(() {
               treeController.expandAll();
@@ -84,32 +84,32 @@ class _MenuTreeState extends State<MenuTree> {
     return result;
   }
 
-  List<TreeNode> toTreeNodeList(List<TreeVO<Menu>> treeVOList, TreeVO<Menu> parent) {
+  List<TreeNode> toTreeNodeList(List<TreeVO<Menu>> treeVOList, TreeVO<Menu>? parent) {
     return treeVOList.map((treeVO) => toTreeNode(treeVO, parent)).toList();
   }
 
-  TreeNode toTreeNode(TreeVO<Menu> treeVO, TreeVO<Menu> parent) {
-    Menu menu = treeVO.data;
+  TreeNode toTreeNode(TreeVO<Menu> treeVO, TreeVO<Menu>? parent) {
+    Menu? menu = treeVO.data;
     var trailing = SizedBox(
       width: 180,
       child: CryButtonBar(
         children: [
-          CryButtons.add(context, () => widget.onEdit(Menu(pname: menu.name, pid: menu.id)), showLabel: false),
+          CryButtons.add(context, () => widget.onEdit!(Menu(pname: menu!.name, pid: menu.id)), showLabel: false),
           CryButtons.edit(context, () {
             if (parent != null) {
-              menu.pname = parent.data.name;
+              menu!.pname = parent.data!.name;
             }
-            widget.onEdit(menu);
+            widget.onEdit!(menu);
           }, showLabel: false),
-          CryButtons.delete(context, () => widget.onDelete([menu.id]), showLabel: false),
+          CryButtons.delete(context, () => widget.onDelete!([menu!.id]), showLabel: false),
         ],
       ),
     );
-    var key = ValueKey(treeVO.data.id);
+    var key = ValueKey(treeVO.data!.id);
     var content = Expanded(
       child: ListTile(
-        leading: Icon(Utils.toIconData(treeVO.data.icon)),
-        title: Text(treeVO.data.name ?? '--'),
+        leading: Icon(Utils.toIconData(treeVO.data!.icon)),
+        title: Text(treeVO.data!.name ?? '--'),
         hoverColor: Colors.blue.shade100,
         onTap: () {},
         trailing: trailing,

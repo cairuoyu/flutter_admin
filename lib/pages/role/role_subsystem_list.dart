@@ -5,7 +5,7 @@ import 'package:flutter_admin/pages/role/role_menu_select.dart';
 import 'package:flutter_admin/pages/subsystem/subsystem_list.dart';
 
 class RoleSubsystemList extends StatelessWidget {
-  final Role role;
+  final Role? role;
 
   RoleSubsystemList({this.role});
 

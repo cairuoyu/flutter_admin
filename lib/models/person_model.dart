@@ -1,24 +1,24 @@
 class PersonModel {
 
-    bool selected;
-    String id;
-    String userId;
-    String nickName;
-    String avatarUrl;
-    String gender;
-    String country;
-    String province;
-    String city;
-    String name;
-    String school;
-    String major;
-    String birthday;
-    String entrance;
-    String hometown;
-    String memo;
-    String deptId;
-    String createTime;
-    String updateTime;
+    bool? selected;
+    String? id;
+    String? userId;
+    String? nickName;
+    String? avatarUrl;
+    String? gender;
+    String? country;
+    String? province;
+    String? city;
+    String? name;
+    String? school;
+    String? major;
+    String? birthday;
+    String? entrance;
+    String? hometown;
+    String? memo;
+    String? deptId;
+    String? createTime;
+    String? updateTime;
 
 //<editor-fold desc="Data Methods" defaultstate="collapsed">
 
@@ -45,25 +45,25 @@ class PersonModel {
   });
 
     PersonModel copyWith({
-    bool selected,
-    String id,
-    String userId,
-    String nickName,
-    String avatarUrl,
-    String gender,
-    String country,
-    String province,
-    String city,
-    String name,
-    String school,
-    String major,
-    String birthday,
-    String entrance,
-    String hometown,
-    String memo,
-    String deptId,
-    String createTime,
-    String updateTime,
+    bool? selected,
+    String? id,
+    String? userId,
+    String? nickName,
+    String? avatarUrl,
+    String? gender,
+    String? country,
+    String? province,
+    String? city,
+    String? name,
+    String? school,
+    String? major,
+    String? birthday,
+    String? entrance,
+    String? hometown,
+    String? memo,
+    String? deptId,
+    String? createTime,
+    String? updateTime,
   }) {
     return new PersonModel(
       selected: selected ?? this.selected,
@@ -140,27 +140,27 @@ class PersonModel {
       createTime.hashCode ^
       updateTime.hashCode;
 
-    factory PersonModel.fromMap(Map<String, dynamic> map) {
+    factory PersonModel.fromMap(Map<String?, dynamic> map) {
     return new PersonModel(
-      selected: map['selected'] as bool,
-      id: map['id'] as String,
-      userId: map['userId'] as String,
-      nickName: map['nickName'] as String,
-      avatarUrl: map['avatarUrl'] as String,
-      gender: map['gender'] as String,
-      country: map['country'] as String,
-      province: map['province'] as String,
-      city: map['city'] as String,
-      name: map['name'] as String,
-      school: map['school'] as String,
-      major: map['major'] as String,
-      birthday: map['birthday'] as String,
-      entrance: map['entrance'] as String,
-      hometown: map['hometown'] as String,
-      memo: map['memo'] as String,
-      deptId: map['deptId'] as String,
-      createTime: map['createTime'] as String,
-      updateTime: map['updateTime'] as String,
+      selected: map['selected'] as bool?,
+      id: map['id'] as String?,
+      userId: map['userId'] as String?,
+      nickName: map['nickName'] as String?,
+      avatarUrl: map['avatarUrl'] as String?,
+      gender: map['gender'] as String?,
+      country: map['country'] as String?,
+      province: map['province'] as String?,
+      city: map['city'] as String?,
+      name: map['name'] as String?,
+      school: map['school'] as String?,
+      major: map['major'] as String?,
+      birthday: map['birthday'] as String?,
+      entrance: map['entrance'] as String?,
+      hometown: map['hometown'] as String?,
+      memo: map['memo'] as String?,
+      deptId: map['deptId'] as String?,
+      createTime: map['createTime'] as String?,
+      updateTime: map['updateTime'] as String?,
     );
   }
 

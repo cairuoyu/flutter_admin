@@ -9,8 +9,10 @@ import 'package:flutter_admin/utils/store_util.dart';
 class CryDioInterceptors extends InterceptorsWrapper {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     print('REQUEST[${options.method}] => PATH: ${options.path}');
-    String token = StoreUtil.read(Constant.KEY_TOKEN);
-    options.headers[HttpHeaders.authorizationHeader] = token;
+    String? token = StoreUtil.read(Constant.KEY_TOKEN);
+    if (token != null) {
+      options.headers[HttpHeaders.authorizationHeader] = token;
+    }
     CryUtils.loading();
     return super.onRequest(options, handler);
   }
@@ -20,8 +22,8 @@ class CryDioInterceptors extends InterceptorsWrapper {
     CryUtils.loaded();
     print('RESPONSE[${response.statusCode}] => PATH: ${response.realUri}');
     ResponseBodyApi responseBodyApi = ResponseBodyApi.fromMap(response.data);
-    if (!responseBodyApi.success) {
-      CryUtils.message(responseBodyApi.message);
+    if (!responseBodyApi.success!) {
+      CryUtils.message(responseBodyApi.message!);
     }
     return super.onResponse(response, handler);
   }

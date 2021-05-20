@@ -11,7 +11,7 @@ import 'package:flutter_admin/pages/dict/dict_item_list_edit.dart';
 import 'package:cry/utils/cry_utils.dart';
 
 class DictEdit extends StatefulWidget {
-  final Dict dict;
+  final Dict? dict;
 
   DictEdit({this.dict});
 
@@ -20,7 +20,7 @@ class DictEdit extends StatefulWidget {
 }
 
 class _DictEditState extends State<DictEdit> {
-  Dict dict;
+  Dict? dict;
   List<DictItem> dictItemList = [];
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<DictItemListEditState> dictItemListEditKey = GlobalKey<DictItemListEditState>();
@@ -38,21 +38,21 @@ class _DictEditState extends State<DictEdit> {
       child: Wrap(
         children: [
           CryInput(
-            label: S.of(context).code,
-            value: dict.code,
+            label: S.of(context)!.code,
+            value: dict!.code,
             width: 400,
             required: true,
             onSaved: (v) {
-              this.dict.code = v;
+              this.dict!.code = v;
             },
           ),
           CryInput(
-            label: S.of(context).name,
-            value: dict.name,
+            label: S.of(context)!.name,
+            value: dict!.name,
             width: 400,
             required: true,
             onSaved: (v) {
-              this.dict.name = v;
+              this.dict!.name = v;
             },
           )
         ],
@@ -89,24 +89,24 @@ class _DictEditState extends State<DictEdit> {
   }
 
   _save() async {
-    if (!this.formKey.currentState.validate()) {
+    if (!this.formKey.currentState!.validate()) {
       return;
     }
-    if (!this.dictItemListEditKey.currentState.validate()) {
+    if (!this.dictItemListEditKey.currentState!.validate()) {
       return;
     }
-    this.formKey.currentState.save();
-    this.dictItemListEditKey.currentState.save();
+    this.formKey.currentState!.save();
+    this.dictItemListEditKey.currentState!.save();
 
-    var dict = this.dict.toMap();
+    var dict = this.dict!.toMap();
     var dictItemList = this.dictItemList.map((e) => e.toMap()).toList();
     var params = {"dict": dict, "dictItemList": dictItemList};
 
     ResponseBodyApi res = await DictApi.saveOrUpdate(params);
-    if (!res.success) {
+    if (!res.success!) {
       return;
     }
     Navigator.pop(context);
-    CryUtils.message(S.of(context).success);
+    CryUtils.message(S.of(context)!.success);
   }
 }

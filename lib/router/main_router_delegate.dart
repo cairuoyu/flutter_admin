@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:cry/routes/cry_router_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/common/routes.dart';
@@ -9,7 +10,7 @@ import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
 class MainRouterDelegate extends CryRouterDelegate {
-  MainRouterDelegate({Map pageMap}) : super(pageMap: pageMap);
+  MainRouterDelegate({required Map pageMap}) : super(pageMap: pageMap);
 
   @override
   RouteInformation get currentConfiguration {
@@ -31,14 +32,14 @@ class MainRouterDelegate extends CryRouterDelegate {
     pages.add(
       MaterialPage(
         key: UniqueKey(),
-        child: getPageChild(name),
+        child: getPageChild(name)!,
       ),
     );
 
     notifyListeners();
   }
 
-  Widget getPageChild(String name) {
+  Widget? getPageChild(String name) {
     if (!Utils.isLogin() && !Routes.whiteRoutes.contains(name)) {
       location = '/login';
       return Login();
@@ -52,10 +53,10 @@ class MainRouterDelegate extends CryRouterDelegate {
       return pageMap[name];
     }
 
-    TabPage tabPage = (Routes.defaultTabPage + Routes.otherTabPage).firstWhere((element) => element.url == name, orElse: () => null);
+    TabPage? tabPage = (Routes.defaultTabPage + Routes.otherTabPage).firstWhereOrNull((element) => element.url == name);
     if (tabPage == null) {
       var menuList = StoreUtil.getMenuList();
-      var menu = menuList.firstWhere((element) => element.url == name, orElse: () => null);
+      var menu = menuList.firstWhereOrNull((element) => element.url == name);
       if (menu == null) {
         location = '/404';
         return Page404();
@@ -63,9 +64,9 @@ class MainRouterDelegate extends CryRouterDelegate {
       tabPage = menu.toTabPage();
     }
 
-    List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
-    StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
-    int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
+    List<TabPage?> openedTabPageList = StoreUtil.readOpenedTabPageList();
+    StoreUtil.writeCurrentOpenedTabPageId(tabPage!.id);
+    int index = openedTabPageList.indexWhere((note) => note!.id == tabPage!.id);
     if (index <= -1) {
       openedTabPageList.add(tabPage);
       StoreUtil.writeOpenedTabPageList(openedTabPageList);

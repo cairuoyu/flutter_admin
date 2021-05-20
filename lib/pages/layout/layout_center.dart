@@ -10,7 +10,7 @@ import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
 
 class LayoutCenter extends StatefulWidget {
-  LayoutCenter({Key key}) : super(key: key);
+  LayoutCenter({Key? key}) : super(key: key);
 
   @override
   LayoutCenterState createState() => LayoutCenterState();
@@ -18,17 +18,17 @@ class LayoutCenter extends StatefulWidget {
 
 class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixin {
   Container content = Container();
-  TabController tabController;
+  TabController? tabController;
 
   @override
   void initState() {
     var openedTabPageList = StoreUtil.readOpenedTabPageList();
     var currentOpenedTabPageId = StoreUtil.readCurrentOpenedTabPageId();
-    int initialIndex = openedTabPageList.indexWhere((note) => note.id == currentOpenedTabPageId);
+    int initialIndex = openedTabPageList.indexWhere((note) => note!.id == currentOpenedTabPageId);
     tabController = TabController(vsync: this, length: openedTabPageList.length, initialIndex: initialIndex);
-    tabController.addListener(() {
-      if (tabController.indexIsChanging) {
-        StoreUtil.writeCurrentOpenedTabPageId(openedTabPageList[tabController.index].id);
+    tabController!.addListener(() {
+      if (tabController!.indexIsChanging) {
+        StoreUtil.writeCurrentOpenedTabPageId(openedTabPageList[tabController!.index]!.id);
       }
     });
 
@@ -42,10 +42,10 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
       controller: tabController,
       isScrollable: true,
       indicator: const UnderlineTabIndicator(),
-      tabs: openedTabPageList.map<Tab>((TabPage tabPage) {
+      tabs: openedTabPageList.map<Tab>((TabPage? tabPage) {
         var tabContent = Row(
           children: <Widget>[
-            Text(Utils.isLocalEn(context) ? tabPage.nameEn ?? '' : tabPage.name ?? ''),
+            Text(Utils.isLocalEn(context) ? tabPage!.nameEn ?? '' : tabPage!.name ?? ''),
             SizedBox(width: 3),
             if (!Routes.defaultTabPage.contains(tabPage))
               InkWell(
@@ -57,7 +57,7 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
         return Tab(
           child: CryMenu(
             child: tabContent,
-            onSelected: (v) {
+            onSelected: (dynamic v) {
               switch (v) {
                 case TabMenuOption.close:
                   Utils.closeTab(tabPage);
@@ -118,8 +118,8 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
       child: Expanded(
         child: TabBarView(
           controller: tabController,
-          children: openedTabPageList.map((TabPage tabPage) {
-            var page = tabPage.url != null ? Routes.layoutPagesMap[tabPage.url] ?? Container() : tabPage.widget ?? Container();
+          children: openedTabPageList.map((TabPage? tabPage) {
+            var page = tabPage!.url != null ? Routes.layoutPagesMap[tabPage.url!] ?? Container() : tabPage.widget ?? Container();
             return KeepAliveWrapper(child: page);
           }).toList(),
         ),

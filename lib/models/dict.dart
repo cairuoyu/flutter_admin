@@ -1,18 +1,17 @@
 import 'dart:convert';
 
 class Dict {
-  String id;
-  String code;
+  String? id;
+  String? code;
 
-  String name;
+  String? name;
 
-  String createTime;
+  String? createTime;
 
-  String updateTime;
+  String? updateTime;
 
-  String createrId;
-  String state;
-
+  String? createrId;
+  String? state;
   Dict({
     this.id,
     this.code,
@@ -22,15 +21,16 @@ class Dict {
     this.createrId,
     this.state,
   });
+  
 
   Dict copyWith({
-    String id,
-    String code,
-    String name,
-    String createTime,
-    String updateTime,
-    String createrId,
-    String state,
+    String? id,
+    String? code,
+    String? name,
+    String? createTime,
+    String? updateTime,
+    String? createrId,
+    String? state,
   }) {
     return Dict(
       id: id ?? this.id,
@@ -55,9 +55,7 @@ class Dict {
     };
   }
 
-  factory Dict.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-  
+  factory Dict.fromMap(Map<String?, dynamic> map) {
     return Dict(
       id: map['id'],
       code: map['code'],
@@ -79,17 +77,17 @@ class Dict {
   }
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
   
-    return o is Dict &&
-      o.id == id &&
-      o.code == code &&
-      o.name == name &&
-      o.createTime == createTime &&
-      o.updateTime == updateTime &&
-      o.createrId == createrId &&
-      o.state == state;
+    return other is Dict &&
+      other.id == id &&
+      other.code == code &&
+      other.name == name &&
+      other.createTime == createTime &&
+      other.updateTime == updateTime &&
+      other.createrId == createrId &&
+      other.state == state;
   }
 
   @override

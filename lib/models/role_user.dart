@@ -1,16 +1,16 @@
 import 'dart:convert';
 
 class RoleUser {
-  final String userId;
-  final String roleId;
+  final String? userId;
+  final String? roleId;
   RoleUser({
     this.userId,
     this.roleId,
   });
 
   RoleUser copyWith({
-    String userId,
-    String roleId,
+    String? userId,
+    String? roleId,
   }) {
     return RoleUser(
       userId: userId ?? this.userId,
@@ -26,8 +26,6 @@ class RoleUser {
   }
 
   factory RoleUser.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-  
     return RoleUser(
       userId: map['userId'],
       roleId: map['roleId'],

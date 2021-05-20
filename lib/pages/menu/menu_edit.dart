@@ -13,10 +13,10 @@ import 'package:flutter_admin/pages/common/icon_selector.dart';
 import 'package:cry/utils/cry_utils.dart';
 
 class MenuEdit extends StatefulWidget {
-  MenuEdit({Key key, this.menu, this.onSave, this.onClose}) : super(key: key);
-  final Menu menu;
-  final Function onSave;
-  final Function onClose;
+  MenuEdit({Key? key, this.menu, this.onSave, this.onClose}) : super(key: key);
+  final Menu? menu;
+  final Function? onSave;
+  final Function? onClose;
 
   @override
   _MenuEditState createState() => _MenuEditState();
@@ -24,7 +24,7 @@ class MenuEdit extends StatefulWidget {
 
 class _MenuEditState extends State<MenuEdit> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  Menu menu;
+  late Menu menu;
 
   @override
   void initState() {
@@ -39,25 +39,25 @@ class _MenuEditState extends State<MenuEdit> {
         CryButtons.save(
           context,
           () {
-            FormState form = formKey.currentState;
+            FormState form = formKey.currentState!;
             if (!form.validate()) {
               return;
             }
             form.save();
             MenuApi.saveOrUpdate(menu.toJson()).then((ResponseBodyApi res) {
-              if (!res.success) {
+              if (!res.success!) {
                 return;
               }
-              CryUtils.message(S.of(context).saved);
+              CryUtils.message(S.of(context)!.saved);
               if (widget.onSave != null) {
-                widget.onSave();
+                widget.onSave!();
               }
             });
           },
         ),
         CryButtons.cancel(context, () {
           if (widget.onClose != null) {
-            widget.onClose();
+            widget.onClose!();
           }
         }),
       ],
@@ -71,25 +71,25 @@ class _MenuEditState extends State<MenuEdit> {
             children: <Widget>[
               CryInput(
                 enable: false,
-                value: menu.pname ?? S.of(context).root,
-                label: S.of(context).parentMenu,
+                value: menu.pname ?? S.of(context)!.root,
+                label: S.of(context)!.parentMenu,
                 onSaved: (v) {
                   menu.pname = v;
                 },
               ),
               CryInput(
                 value: menu.name,
-                label: S.of(context).name,
+                label: S.of(context)!.name,
                 onSaved: (v) {
                   menu.name = v;
                 },
                 validator: (v) {
-                  return v.isEmpty ? S.of(context).required : null;
+                  return v!.isEmpty ? S.of(context)!.required : null;
                 },
               ),
               CryInput(
                 value: menu.nameEn,
-                label: S.of(context).englishName,
+                label: S.of(context)!.englishName,
                 onSaved: (v) {
                   menu.nameEn = v;
                 },
@@ -115,14 +115,14 @@ class _MenuEditState extends State<MenuEdit> {
               ),
               CryInputNum(
                 value: menu.orderBy,
-                label: S.of(context).sequenceNumber,
-                onSaved: (num v) {
-                  menu.orderBy = v;
+                label: S.of(context)!.sequenceNumber,
+                onSaved: (num? v) {
+                  menu.orderBy = v as int?;
                 },
               ),
               CryInput(
                 value: menu.remark,
-                label: S.of(context).remarks,
+                label: S.of(context)!.remarks,
                 onSaved: (v) {
                   menu.remark = v;
                 },

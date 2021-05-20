@@ -1,11 +1,11 @@
 class Video {
 
-    String title;
-    String url;
-    String categoryId;
-    String thumbs;
-    String memo;
-    String createTime;
+    String? title;
+    String? url;
+    String? categoryId;
+    String? thumbs;
+    String? memo;
+    String? createTime;
 
 //<editor-fold desc="Data Methods" defaultstate="collapsed">
 
@@ -19,12 +19,12 @@ class Video {
   });
 
     Video copyWith({
-    String title,
-    String url,
-    String categoryId,
-    String thumbs,
-    String memo,
-    String createTime,
+    String? title,
+    String? url,
+    String? categoryId,
+    String? thumbs,
+    String? memo,
+    String? createTime,
   }) {
     return new Video(
       title: title ?? this.title,
@@ -58,12 +58,12 @@ class Video {
 
     factory Video.fromMap(Map<String, dynamic> map) {
     return new Video(
-      title: map['title'] as String,
-      url: map['url'] as String,
-      categoryId: map['categoryId'] as String,
-      thumbs: map['thumbs'] as String,
-      memo: map['memo'] as String,
-      createTime: map['createTime'] as String,
+      title: map['title'] as String?,
+      url: map['url'] as String?,
+      categoryId: map['categoryId'] as String?,
+      thumbs: map['thumbs'] as String?,
+      memo: map['memo'] as String?,
+      createTime: map['createTime'] as String?,
     );
   }
 

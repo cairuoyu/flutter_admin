@@ -6,7 +6,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 class SAreaAgeGenderCircular extends StatefulWidget {
   SAreaAgeGenderCircular(this.listData);
 
-  final List<SAreaAgeGender> listData;
+  final List<SAreaAgeGender>? listData;
 
   @override
   _SAreaAgeGenderCircularState createState() => _SAreaAgeGenderCircularState();
@@ -14,13 +14,13 @@ class SAreaAgeGenderCircular extends StatefulWidget {
 
 class _SAreaAgeGenderCircularState extends State<SAreaAgeGenderCircular> {
   bool isPointRadiusMapper = false;
-  ChartTypeCircular type = ChartTypeCircular.pie;
-  int maxAge;
+  ChartTypeCircular? type = ChartTypeCircular.pie;
+  int? maxAge;
 
   @override
   void initState() {
     super.initState();
-    maxAge = widget.listData[0].age;
+    maxAge = widget.listData![0].age;
   }
 
   @override
@@ -44,7 +44,7 @@ class _SAreaAgeGenderCircularState extends State<SAreaAgeGenderCircular> {
             title: Text(v.toString().split('.').last),
             value: v,
             groupValue: type,
-            onChanged: (v) {
+            onChanged: (dynamic v) {
               setState(() {
                 type = v;
               });
@@ -57,7 +57,7 @@ class _SAreaAgeGenderCircularState extends State<SAreaAgeGenderCircular> {
       children: [
         SizedBox(
           width: 500,
-          child: Row(children: list),
+          child: Row(children: list as List<Widget>),
         ),
         Container(height: 20, child: VerticalDivider(color: Colors.grey)),
         SizedBox(
@@ -97,7 +97,7 @@ class _SAreaAgeGenderCircularState extends State<SAreaAgeGenderCircular> {
         dataLabelMapper: (SAreaAgeGender data, _) => data.area,
         // pointRadiusMapper: _getPointRadiusMapper,
         dataLabelSettings: DataLabelSettings(isVisible: true, labelPosition: ChartDataLabelPosition.outside),
-        maximumValue: maxAge.toDouble(),
+        maximumValue: maxAge!.toDouble(),
         innerRadius: '1%',
       )
     ];
@@ -134,6 +134,6 @@ class _SAreaAgeGenderCircularState extends State<SAreaAgeGenderCircular> {
   }
 
   String _getPointRadiusMapper(SAreaAgeGender data, int index) {
-    return this.isPointRadiusMapper ? (data.age / maxAge * 100).toString() + '%' : '100%';
+    return this.isPointRadiusMapper ? (data.age! / maxAge! * 100).toString() + '%' : '100%';
   }
 }

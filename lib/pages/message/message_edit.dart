@@ -28,14 +28,14 @@ class _MessageEditState extends State<MessageEdit> {
       child: Column(
         children: [
           CryInput(
-            label: S.of(context).title,
+            label: S.of(context)!.title,
             required: true,
             onSaved: (v) {
               this._message.title = v;
             },
           ),
           CryInput(
-            label: S.of(context).content,
+            label: S.of(context)!.content,
             required: true,
             maxLines: 12,
             onSaved: (v) {
@@ -57,12 +57,12 @@ class _MessageEditState extends State<MessageEdit> {
   }
 
   save() async {
-    if (!this.formKey.currentState.validate()) {
+    if (!this.formKey.currentState!.validate()) {
       return;
     }
-    this.formKey.currentState.save();
+    this.formKey.currentState!.save();
     await MessageApi.save(this._message.toMap());
-    CryUtils.message(S.of(context).success);
+    CryUtils.message(S.of(context)!.success);
     this.setState(() {});
   }
 }

@@ -3,7 +3,7 @@ import 'package:cry/cry_button.dart';
 import 'package:cry/routes/cry.dart';
 
 class Page404 extends StatelessWidget {
-  const Page404({Key key}) : super(key: key);
+  const Page404({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

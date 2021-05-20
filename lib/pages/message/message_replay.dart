@@ -10,9 +10,9 @@ import 'package:flutter_admin/models/message_replay_model.dart';
 import 'package:cry/utils/cry_utils.dart';
 
 class MessageReplay extends StatefulWidget {
-  final Message message;
+  final Message? message;
 
-  const MessageReplay({Key key, this.message}) : super(key: key);
+  const MessageReplay({Key? key, this.message}) : super(key: key);
 
   @override
   _MessageReplayState createState() => _MessageReplayState();
@@ -24,7 +24,7 @@ class _MessageReplayState extends State<MessageReplay> {
 
   @override
   void initState() {
-    messageReplayModel.messageId = widget.message.id;
+    messageReplayModel.messageId = widget.message!.id;
     super.initState();
   }
 
@@ -51,7 +51,7 @@ class _MessageReplayState extends State<MessageReplay> {
       ],
     );
     var result = Scaffold(
-      appBar: AppBar(title: Text(S.of(context).replay + '-' + widget.message.title)),
+      appBar: AppBar(title: Text(S.of(context)!.replay + '-' + widget.message!.title!)),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -65,14 +65,14 @@ class _MessageReplayState extends State<MessageReplay> {
   }
 
   commit() async {
-    if (!formKey.currentState.validate()) {
+    if (!formKey.currentState!.validate()) {
       return;
     }
-    formKey.currentState.save();
+    formKey.currentState!.save();
     var result = await MessageApi.replayCommit(messageReplayModel.toMap());
-    if (result.success) {
+    if (result.success!) {
       Cry.pop();
-      CryUtils.message(S.of(context).success);
+      CryUtils.message(S.of(context)!.success);
     }
   }
 }

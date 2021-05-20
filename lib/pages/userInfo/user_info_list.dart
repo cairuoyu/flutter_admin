@@ -19,7 +19,7 @@ import 'package:flutter_admin/pages/userInfo/user_info_edit.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 
 class UserInfoList extends StatefulWidget {
-  UserInfoList({Key key}) : super(key: key);
+  UserInfoList({Key? key}) : super(key: key);
 
   @override
   _UserInfoListState createState() => _UserInfoListState();
@@ -34,7 +34,7 @@ class _UserInfoListState extends State<UserInfoList> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((c) {
+    WidgetsBinding.instance!.addPostFrameCallback((c) {
       _query();
     });
   }
@@ -47,7 +47,7 @@ class _UserInfoListState extends State<UserInfoList> {
         children: <Widget>[
           CryInput(
             width: 400,
-            label: S.of(context).name,
+            label: S.of(context)!.name,
             value: userInfo.name,
             onSaved: (v) {
               userInfo.name = v;
@@ -57,12 +57,12 @@ class _UserInfoListState extends State<UserInfoList> {
             context,
             width: 400,
             initialValue: Dept(id: userInfo.id, name: userInfo.deptName),
-            label: S.of(context).personDepartment,
+            label: S.of(context)!.personDepartment,
             popWidget: DeptSelector(),
             getValueLabel: (Dept d) => d.name,
             getValue: (Dept d) => d,
-            onSaved: (Dept v) {
-              userInfo.deptId = v.id;
+            onSaved: (Dept? v) {
+              userInfo.deptId = v!.id;
               userInfo.deptName = v.name;
             },
           ),
@@ -71,9 +71,9 @@ class _UserInfoListState extends State<UserInfoList> {
     );
     CryDataTable table = CryDataTable(
       key: tableKey,
-      title: S.of(context).userList,
+      title: S.of(context)!.userList,
       onPageChanged: (firstRowIndex) {
-        page.current = (firstRowIndex / page.size + 1) as int;
+        page.current = (firstRowIndex / page.size + 1) as int?;
         _loadData();
       },
       onRowsPerPageChanged: (int size) {
@@ -86,52 +86,52 @@ class _UserInfoListState extends State<UserInfoList> {
       },
       columns: [
         DataColumn(
-          label: Text(S.of(context).operating),
+          label: Text(S.of(context)!.operating),
         ),
         DataColumn(
-          label: Text(S.of(context).username),
+          label: Text(S.of(context)!.username),
           onSort: (int columnIndex, bool ascending) => _sort('user_name'),
         ),
         DataColumn(
-          label: Text(S.of(context).name),
+          label: Text(S.of(context)!.name),
           onSort: (int columnIndex, bool ascending) => _sort('name'),
         ),
         DataColumn(
-          label: Text(S.of(context).personNickname),
+          label: Text(S.of(context)!.personNickname),
           onSort: (int columnIndex, bool ascending) => _sort('nick_name'),
         ),
         DataColumn(
-          label: Text(S.of(context).personGender),
+          label: Text(S.of(context)!.personGender),
           onSort: (int columnIndex, bool ascending) => _sort('gender'),
         ),
         DataColumn(
-          label: Text(S.of(context).hometown),
+          label: Text(S.of(context)!.hometown),
           onSort: (int columnIndex, bool ascending) => _sort('hometown'),
         ),
         DataColumn(
-          label: Text(S.of(context).personBirthday),
+          label: Text(S.of(context)!.personBirthday),
           onSort: (int columnIndex, bool ascending) => _sort('birthday'),
         ),
         DataColumn(
-          label: Text(S.of(context).personDepartment),
+          label: Text(S.of(context)!.personDepartment),
           onSort: (int columnIndex, bool ascending) => _sort('dept_id'),
         ),
         DataColumn(
-          label: Text(S.of(context).creationTime),
+          label: Text(S.of(context)!.creationTime),
           onSort: (int columnIndex, bool ascending) => _sort('create_time'),
         ),
         DataColumn(
-          label: Text(S.of(context).updateTime),
+          label: Text(S.of(context)!.updateTime),
           onSort: (int columnIndex, bool ascending) => _sort('update_time'),
         ),
       ],
       getCells: (Map m) {
-        UserInfo userInfo = UserInfo.fromMap(m);
+        UserInfo userInfo = UserInfo.fromMap(m as Map<String?, dynamic>);
         return [
           DataCell(
             CryButtonBar(
               children: [
-                CryButton(iconData: Icons.edit, tip: S.of(context).modify, onPressed: () => _edit(userInfo)),
+                CryButton(iconData: Icons.edit, tip: S.of(context)!.modify, onPressed: () => _edit(userInfo)),
               ],
             ),
           ),
@@ -141,7 +141,7 @@ class _UserInfoListState extends State<UserInfoList> {
           DataCell(Text(DictUtil.getDictItemName(
             userInfo.gender,
             ConstantDict.CODE_GENDER,
-          ))),
+          )!)),
           DataCell(Text(userInfo.hometown?? '--')),
           DataCell(Text(userInfo.birthday ?? '--')),
           DataCell(Text(userInfo.deptName ?? '--')),
@@ -150,7 +150,7 @@ class _UserInfoListState extends State<UserInfoList> {
         ];
       },
     );
-    List<UserInfo> selectedList = tableKey?.currentState?.getSelectedList(page)?.map<UserInfo>((e) => UserInfo.fromMap(e))?.toList() ?? [];
+    List<UserInfo> selectedList = tableKey.currentState?.getSelectedList(page).map<UserInfo>((e) => UserInfo.fromMap(e as Map<String?, dynamic>)).toList() ?? [];
     CryButtonBar buttonBar = CryButtonBar(
       children: <Widget>[
         CryButtons.query(context, () => _query()),
@@ -174,7 +174,7 @@ class _UserInfoListState extends State<UserInfoList> {
     return result;
   }
 
-  _edit(UserInfo userInfo) async {
+  _edit(UserInfo? userInfo) async {
     var result = await Cry.push(UserInfoEdit(userInfo: userInfo));
     if (result != null) {
       userInfo == null ? _sort('create_time', ascending: false) : _sort('update_time', ascending: false);
@@ -183,7 +183,7 @@ class _UserInfoListState extends State<UserInfoList> {
 
   _reset() {
     userInfo = UserInfo();
-    formKey.currentState.reset();
+    formKey.currentState!.reset();
     _loadData();
   }
 
@@ -196,12 +196,12 @@ class _UserInfoListState extends State<UserInfoList> {
   _loadData() async {
     ResponseBodyApi responseBodyApi = await UserInfoApi.page(RequestBodyApi(page: page, params: userInfo.toMap()).toMap());
     page = responseBodyApi.data != null ? PageModel.fromMap(responseBodyApi.data) : PageModel();
-    tableKey.currentState.loadData(page);
+    tableKey.currentState!.loadData(page);
   }
 
   _sort(column, {ascending}) {
-    page.orders[0].column = column;
-    page.orders[0].asc = ascending ?? !page.orders[0].asc;
+    page.orders![0].column = column;
+    page.orders![0].asc = ascending ?? !page.orders![0].asc!;
     _query();
   }
 }

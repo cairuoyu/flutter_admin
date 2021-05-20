@@ -44,8 +44,8 @@ class MessageListState extends State<MessageList> {
         return ListTile(
             onTap: () => Cry.push(MessageView(message: message)),
             leading: Text((index + 1).toString()),
-            title: Text(message.title),
-            subtitle: Text(message.content),
+            title: Text(message.title!),
+            subtitle: Text(message.content!),
             trailing: SizedBox(
               width: 110,
               child: CryButtonBar(
@@ -66,12 +66,12 @@ class MessageListState extends State<MessageList> {
   }
 
   _delete(List<Message> list) {
-    if (list == null || list.length == 0) {
+    if (list.length == 0) {
       return;
     }
-    cryConfirm(context, S.of(context).confirmDelete, (context) async {
+    cryConfirm(context, S.of(context)!.confirmDelete, (context) async {
       var res = await MessageApi.removeByIds(list.map((e) => e.id).toList());
-      if (!res.success) {
+      if (!res.success!) {
         return;
       }
       reloadData();
@@ -89,7 +89,7 @@ class MessageListState extends State<MessageList> {
     if (!anyMore) {
       return;
     }
-    page.current++;
+    page.current = page.current! + 1;
     loadData();
   }
 
@@ -97,7 +97,7 @@ class MessageListState extends State<MessageList> {
     RequestBodyApi requestBodyApi = RequestBodyApi(page: page);
     ResponseBodyApi responseBodyApi = await MessageApi.page(requestBodyApi.toMap());
     page = PageModel.fromMap(responseBodyApi.data);
-    messageList = [...messageList, ...page.records.map((e) => Message.fromMap(e)).toList()];
+    messageList = [...messageList, ...page.records!.map((e) => Message.fromMap(e as Map<String?, dynamic>)).toList()];
     if (page.current == page.pages) {
       anyMore = false;
     }

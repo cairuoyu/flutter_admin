@@ -14,9 +14,9 @@ import 'package:flutter_admin/utils/utils.dart';
 import 'package:dio/dio.dart';
 
 class ArticleEdit extends StatefulWidget {
-  final Article article;
+  final Article? article;
 
-  const ArticleEdit({Key key, this.article}) : super(key: key);
+  const ArticleEdit({Key? key, this.article}) : super(key: key);
 
   @override
   _ArticleEditState createState() => _ArticleEditState();
@@ -24,7 +24,7 @@ class ArticleEdit extends StatefulWidget {
 
 class _ArticleEditState extends State<ArticleEdit> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  Article article;
+  late Article article;
 
   @override
   void initState() {
@@ -42,25 +42,25 @@ class _ArticleEditState extends State<ArticleEdit> {
           Wrap(
             children: [
               CryInput(
-                label: S.of(context).title,
+                label: S.of(context)!.title,
                 value: article.title,
                 required: true,
                 onSaved: (v) => article.title = v,
               ),
               CryInput(
-                label: S.of(context).subTitle,
+                label: S.of(context)!.subTitle,
                 value: article.titleSub,
                 onSaved: (v) => article.titleSub = v,
               ),
               CryInput(
-                label: S.of(context).author,
+                label: S.of(context)!.author,
                 value: article.author,
                 onSaved: (v) => article.author = v,
                 width: 300,
               ),
               CrySelectDate(
                 context,
-                label: S.of(context).publishTime,
+                label: S.of(context)!.publishTime,
                 value: article.publishTime,
                 onSaved: (v) => article.publishTime = v,
                 width: 200,
@@ -74,7 +74,7 @@ class _ArticleEditState extends State<ArticleEdit> {
               var res = await FileApi.upload(formData);
               article.fileUrl = res.data;
             },
-            buttonLabel: S.of(context).uploadArticle,
+            buttonLabel: S.of(context)!.uploadArticle,
             allowedExtensions: ['md', 'txt'],
           ),
         ],
@@ -82,11 +82,11 @@ class _ArticleEditState extends State<ArticleEdit> {
     );
     var result = Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).add),
+        title: Text(S.of(context)!.add),
         actions: [
           CryButtons.save(context, save),
           CryButtons.commit(context, audit),
-          CryButton(label: S.of(context).publish, onPressed: public, iconData: Icons.public),
+          CryButton(label: S.of(context)!.publish, onPressed: public, iconData: Icons.public),
         ],
       ),
       body: form,
@@ -105,19 +105,19 @@ class _ArticleEditState extends State<ArticleEdit> {
   public() async {
     var res = await action((data) async => await ArticleApi.public(data));
     if (res.success) {
-      Utils.toPortal(context, '发布成功', S.of(context).goToThePortal);
+      Utils.toPortal(context, '发布成功', S.of(context)!.goToThePortal);
     }
   }
 
   action(action) async {
-    if (!formKey.currentState.validate()) {
+    if (!formKey.currentState!.validate()) {
       return;
     }
-    formKey.currentState.save();
+    formKey.currentState!.save();
 
     ResponseBodyApi res = await action(article.toMap());
-    if (res.success) {
-      CryUtils.message(S.of(context).success);
+    if (res.success!) {
+      CryUtils.message(S.of(context)!.success);
       Navigator.pop(context,true);
     }
     return res;

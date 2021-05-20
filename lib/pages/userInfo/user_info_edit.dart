@@ -17,15 +17,15 @@ import '../../generated/l10n.dart';
 class UserInfoEdit extends StatefulWidget {
   UserInfoEdit({this.userInfo});
 
-  final UserInfo userInfo;
+  final UserInfo? userInfo;
 
   @override
   _UserInfoEditState createState() => _UserInfoEditState();
 }
 
 class _UserInfoEditState extends State<UserInfoEdit> {
-  UserInfo userInfo;
-  bool isAdd;
+  late UserInfo userInfo;
+  bool? isAdd;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -44,19 +44,19 @@ class _UserInfoEditState extends State<UserInfoEdit> {
       child: Wrap(
         children: <Widget>[
           CryInput(
-            label: S.of(context).username,
+            label: S.of(context)!.username,
             value: userInfo.userName,
             onSaved: (v) => {userInfo.userName = v},
-            validator: (v) => this.isAdd && v.isEmpty ? S.of(context).required : null,
+            validator: (v) => this.isAdd! && v!.isEmpty ? S.of(context)!.required : null,
             enable: this.isAdd,
           ),
           CryInput(
-            label: S.of(context).personName,
+            label: S.of(context)!.personName,
             value: userInfo.name,
             onSaved: (v) => {userInfo.name = v},
           ),
           CryInput(
-            label: S.of(context).personNickname,
+            label: S.of(context)!.personNickname,
             value: userInfo.nickName,
             onSaved: (v) => {userInfo.nickName = v},
           ),
@@ -64,7 +64,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
             context,
             initialValue: userInfo.hometown,
             initialValueLabel: userInfo.hometown,
-            label: S.of(context).hometown,
+            label: S.of(context)!.hometown,
             key: UniqueKey(),
             popWidget: CryCascade(
               data: hometownData,
@@ -72,31 +72,31 @@ class _UserInfoEditState extends State<UserInfoEdit> {
             ),
             getValue: (List<CascadeModel> v) => v.map((e) => e.name).toList().join(','),
             getValueLabel: (List<CascadeModel> v) => v.map((e) => e.name).toList().join(','),
-            onSaved: (v) {
+            onSaved: (dynamic v) {
               userInfo.hometown = v;
             },
           ),
           CrySelectDate(
             context,
-            label: S.of(context).personBirthday,
+            label: S.of(context)!.personBirthday,
             value: userInfo.birthday,
             onSaved: (v) => {userInfo.birthday = v},
           ),
           CrySelect(
-            label: S.of(context).personGender,
+            label: S.of(context)!.personGender,
             dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_GENDER),
             value: userInfo.gender,
             onSaved: (v) => {userInfo.gender = v},
           ),
           CrySelectCustomWidget(
             context,
-            label: S.of(context).personDepartment,
+            label: S.of(context)!.personDepartment,
             initialValue: userInfo.deptId,
             initialValueLabel: userInfo.deptName,
             popWidget: DeptSelector(),
             getValueLabel: (Dept d) => d.name,
             getValue: (Dept d) => d.id,
-            onSaved: (v) {
+            onSaved: (dynamic v) {
               userInfo.deptId = v;
             },
           ),
@@ -107,25 +107,25 @@ class _UserInfoEditState extends State<UserInfoEdit> {
       alignment: MainAxisAlignment.center,
       children: <Widget>[
         CryButton(
-          label: S.of(context).save,
+          label: S.of(context)!.save,
           onPressed: () {
-            FormState form = formKey.currentState;
+            FormState form = formKey.currentState!;
             if (!form.validate()) {
               return;
             }
             form.save();
             UserInfoApi.saveOrUpdate(userInfo.toMap()).then((ResponseBodyApi res) {
-              if (!res.success) {
+              if (!res.success!) {
                 return;
               }
               Navigator.pop(context, true);
-              CryUtils.message(S.of(context).saved);
+              CryUtils.message(S.of(context)!.saved);
             });
           },
           iconData: Icons.save,
         ),
         CryButton(
-          label: S.of(context).cancel,
+          label: S.of(context)!.cancel,
           onPressed: () {
             Navigator.pop(context);
           },
@@ -135,7 +135,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
     );
     var result = Scaffold(
       appBar: AppBar(
-        title: Text(this.isAdd ? S.of(context).add : S.of(context).modify),
+        title: Text(this.isAdd! ? S.of(context)!.add : S.of(context)!.modify),
       ),
       body: SingleChildScrollView(
         child: Column(

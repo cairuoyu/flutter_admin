@@ -16,26 +16,26 @@ class Utils {
     Cry.popAndPushNamed(url);
   }
 
-  static closeTab(TabPage tabPage) {
-    List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
-    int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
+  static closeTab(TabPage? tabPage) {
+    List<TabPage?> openedTabPageList = StoreUtil.readOpenedTabPageList();
+    int index = openedTabPageList.indexWhere((note) => note!.id == tabPage!.id);
     if (index >= openedTabPageList.length) {
       return;
     }
     openedTabPageList.removeAt(index);
     var length = openedTabPageList.length;
-    String url;
+    String? url;
     if (length == 0) {
       StoreUtil.writeCurrentOpenedTabPageId(null);
       url = '/';
-    } else if (StoreUtil.readCurrentOpenedTabPageId() == tabPage.id) {
-      StoreUtil.writeCurrentOpenedTabPageId(openedTabPageList.first.id);
-      url = openedTabPageList.first.url;
+    } else if (StoreUtil.readCurrentOpenedTabPageId() == tabPage!.id) {
+      StoreUtil.writeCurrentOpenedTabPageId(openedTabPageList.first!.id);
+      url = openedTabPageList.first!.url;
     } else {
-      url = openedTabPageList.first.url;
+      url = openedTabPageList.first!.url;
     }
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
-    Cry.popAndPushNamed(url);
+    Cry.popAndPushNamed(url!);
   }
 
   static closeAllTab() {
@@ -44,33 +44,33 @@ class Utils {
   }
 
   static closeOtherTab(TabPage tabPage) {
-    List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
-    openedTabPageList.removeWhere((element) => element.id != tabPage.id && !Routes.defaultTabPage.contains(element));
+    List<TabPage?> openedTabPageList = StoreUtil.readOpenedTabPageList();
+    openedTabPageList.removeWhere((element) => element!.id != tabPage.id && !Routes.defaultTabPage.contains(element));
     StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
-    Cry.popAndPushNamed(tabPage.url);
+    Cry.popAndPushNamed(tabPage.url!);
   }
 
   static closeAllToTheRightTab(TabPage tabPage) {
-    List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
-    int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
+    List<TabPage?> openedTabPageList = StoreUtil.readOpenedTabPageList();
+    int index = openedTabPageList.indexWhere((note) => note!.id == tabPage.id);
     openedTabPageList.removeWhere((element) => openedTabPageList.indexOf(element) > index && !Routes.defaultTabPage.contains(element));
     StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
-    Cry.popAndPushNamed(tabPage.url);
+    Cry.popAndPushNamed(tabPage.url!);
   }
 
   static closeAllToTheLeftTab(TabPage tabPage) {
-    List<TabPage> openedTabPageList = StoreUtil.readOpenedTabPageList();
-    int index = openedTabPageList.indexWhere((note) => note.id == tabPage.id);
+    List<TabPage?> openedTabPageList = StoreUtil.readOpenedTabPageList();
+    int index = openedTabPageList.indexWhere((note) => note!.id == tabPage.id);
     openedTabPageList.removeWhere((element) => openedTabPageList.indexOf(element) < index && !Routes.defaultTabPage.contains(element));
     StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
-    Cry.popAndPushNamed(tabPage.url);
+    Cry.popAndPushNamed(tabPage.url!);
   }
 
   static isLocalEn(BuildContext context) {
-    return (Get.locale ?? Get.deviceLocale).languageCode == 'en';
+    return (Get.locale ?? Get.deviceLocale)!.languageCode == 'en';
   }
 
   static isMenuDisplayTypeDrawer(BuildContext context) {
@@ -78,13 +78,13 @@ class Utils {
     return layoutController.menuDisplayType == MenuDisplayType.drawer;
   }
 
-  static getThemeData({Color themeColor, String fontFamily, bool isDark = false}) {
+  static getThemeData({Color? themeColor, String? fontFamily, bool isDark = false}) {
     LayoutController layoutController = Get.find();
     if (fontFamily != null) {
       layoutController.fontFamily = fontFamily;
     }
     if (themeColor == null) {
-      themeColor = Get.theme?.primaryColor ?? Colors.blue;
+      themeColor = Get.theme.primaryColor;
     }
     return ThemeData(
       brightness: isDark ? Brightness.dark : Brightness.light,
@@ -138,7 +138,7 @@ class Utils {
     );
   }
 
-  static toIconData(String icon) {
+  static toIconData(String? icon) {
     if (icon == null || icon == '') {
       return Icons.menu;
     }

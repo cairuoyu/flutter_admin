@@ -19,7 +19,7 @@ class _IconSelectorState extends State<IconSelector> {
           children: [
             Icon(e.value),
             SizedBox(height: 10),
-            Text(e.key ?? ''),
+            Text(e.key),
           ],
         ),
       );

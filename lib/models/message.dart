@@ -1,22 +1,22 @@
 import 'dart:convert';
 
 class Message {
-  String id;
-  String title;
+  String? id;
+  String? title;
 
-  String content;
+  String? content;
 
-  String state;
+  String? state;
 
-  num commentCount;
+  num? commentCount;
 
-  num appreciateCount;
+  num? appreciateCount;
 
-  String createrId;
+  String? createrId;
 
-  String createTime;
+  String? createTime;
 
-  String updateTime;
+  String? updateTime;
   Message({
     this.id,
     this.title,
@@ -30,15 +30,15 @@ class Message {
   });
 
   Message copyWith({
-    String id,
-    String title,
-    String content,
-    String state,
-    num commentCount,
-    num appreciateCount,
-    String createrId,
-    String createTime,
-    String updateTime,
+    String? id,
+    String? title,
+    String? content,
+    String? state,
+    num? commentCount,
+    num? appreciateCount,
+    String? createrId,
+    String? createTime,
+    String? updateTime,
   }) {
     return Message(
       id: id ?? this.id,
@@ -67,9 +67,8 @@ class Message {
     };
   }
 
-  factory Message.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-  
+  factory Message.fromMap(Map<String?, dynamic> map) {
+
     return Message(
       id: map['id'],
       title: map['title'],

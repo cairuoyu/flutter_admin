@@ -11,9 +11,9 @@ import 'package:flutter_admin/models/subsystem_vo.dart';
 typedef OpenSubsystemBuilder<S> = Widget Function(Subsystem subsystem);
 
 class SubsystemList extends StatefulWidget {
-  final OpenSubsystemBuilder openSubsystemBuilder;
+  final OpenSubsystemBuilder? openSubsystemBuilder;
 
-  SubsystemList({Key key, this.openSubsystemBuilder}) : super(key: key);
+  SubsystemList({Key? key, this.openSubsystemBuilder}) : super(key: key);
 
   @override
   _SubsystemListState createState() => _SubsystemListState();
@@ -35,15 +35,15 @@ class _SubsystemListState extends State<SubsystemList> {
       return Container();
     }
     var listView = CryListView(
-      title: S.of(context).menuTile,
+      title: S.of(context)!.menuTile,
       count: subsystemList.length,
       getCell: (index) {
         Subsystem subsystem = subsystemList[index];
         return ListTile(
-          onTap: () => Cry.push(widget.openSubsystemBuilder(subsystem)),
+          onTap: () => Cry.push(widget.openSubsystemBuilder!(subsystem)),
           leading: Text((index + 1).toString()),
-          title: Text(subsystem.name),
-          subtitle: Text(subsystem.code),
+          title: Text(subsystem.name!),
+          subtitle: Text(subsystem.code!),
         );
       },
     );

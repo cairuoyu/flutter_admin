@@ -16,18 +16,18 @@ import 'package:flutter_admin/utils/tree_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
 class RoleMenuSelect extends StatefulWidget {
-  final Function onEdit;
-  final VoidCallback reloadData;
-  final List<TreeVO<Menu>> treeVOList;
-  final Role role;
-  final Subsystem subsystem;
+  final Function? onEdit;
+  final VoidCallback? reloadData;
+  final List<TreeVO<Menu>>? treeVOList;
+  final Role? role;
+  final Subsystem? subsystem;
 
   RoleMenuSelect({
     this.subsystem,
     this.onEdit,
     this.treeVOList,
     this.reloadData,
-    @required this.role,
+    required this.role,
   });
 
   @override
@@ -35,7 +35,7 @@ class RoleMenuSelect extends StatefulWidget {
 }
 
 class _RoleMenuSelectState extends State<RoleMenuSelect> {
-  List<TreeVO<Menu>> data;
+  List<TreeVO<Menu>>? data;
   final GlobalKey<CryTreeTableState> treeTableKey = GlobalKey<CryTreeTableState>();
 
   @override
@@ -47,12 +47,12 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
   @override
   Widget build(BuildContext context) {
     List<CryTreeTableColumnData> columnData = [
-      CryTreeTableColumnData(label: S.of(context).name, getCell: (Menu v) => Text(v.name)),
-      CryTreeTableColumnData(label: S.of(context).englishName, getCell: (Menu v) => Text(v.nameEn)),
-      CryTreeTableColumnData(label: 'URL', getCell: (Menu v) => Text(v.url)),
+      CryTreeTableColumnData(label: S.of(context)!.name, getCell: (Menu v) => Text(v.name!)),
+      CryTreeTableColumnData(label: S.of(context)!.englishName, getCell: (Menu v) => Text(v.nameEn!)),
+      CryTreeTableColumnData(label: 'URL', getCell: (Menu v) => Text(v.url!)),
       CryTreeTableColumnData(label: 'Icon', getCell: (Menu v) => Icon(Utils.toIconData(v.icon))),
-      CryTreeTableColumnData(label: S.of(context).sequenceNumber, getCell: (Menu v) => Text(v.orderBy?.toString()), width: 180),
-      CryTreeTableColumnData(label: S.of(context).remarks, getCell: (Menu v) => Text(v.remark), width: 300)
+      CryTreeTableColumnData(label: S.of(context)!.sequenceNumber, getCell: (Menu v) => Text(v.orderBy.toString()), width: 180),
+      CryTreeTableColumnData(label: S.of(context)!.remarks, getCell: (Menu v) => Text(v.remark!), width: 300)
     ];
 
     var treeTable = CryTreeTable<Menu>(
@@ -65,11 +65,11 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
     );
     var result = Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).selectMenus),
+        title: Text(S.of(context)!.selectMenus),
         actions: [
           CryButton(
             iconData: Icons.save,
-            label: S.of(context).save,
+            label: S.of(context)!.save,
             onPressed: () => save(),
           ),
         ],
@@ -84,16 +84,16 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
   }
 
   save() async {
-    List<Menu> selectedList = treeTableKey.currentState.getSelectedData();
-    List roleMenuList = selectedList.map((e) => RoleMenu(roleId: widget.role.id, menuId: e.id).toMap()).toList();
-    ResponseBodyApi res = await RoleMenuApi.saveBatch({'roleId': widget.role.id, 'subsystemId': widget.subsystem.id, 'roleMenuList': roleMenuList});
-    if (res.success) {
-      CryUtils.message(S.of(context).saved);
+    List<Menu?> selectedList = treeTableKey.currentState!.getSelectedData() as List<Menu?>;
+    List roleMenuList = selectedList.map((e) => RoleMenu(roleId: widget.role!.id, menuId: e!.id).toMap()).toList();
+    ResponseBodyApi res = await RoleMenuApi.saveBatch({'roleId': widget.role!.id, 'subsystemId': widget.subsystem!.id, 'roleMenuList': roleMenuList});
+    if (res.success!) {
+      CryUtils.message(S.of(context)!.saved);
     }
   }
 
   _loadData() async {
-    ResponseBodyApi responseBodyApi = await RoleApi.getMenu(RequestBodyApi(params: {'roleId': widget.role.id, 'subsystemId': widget.subsystem.id}).toMap());
+    ResponseBodyApi responseBodyApi = await RoleApi.getMenu(RequestBodyApi(params: {'roleId': widget.role!.id, 'subsystemId': widget.subsystem!.id}).toMap());
     var data = responseBodyApi.data;
     List<Menu> list = List.from(data).map((e) => Menu.fromMap(e)).toList();
     this.data = TreeUtil.toTreeVOList(list);

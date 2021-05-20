@@ -1,9 +1,9 @@
 class TaskStatisticalModel {
-  String timeName;
-  int upcomingCount;
-  int inProgressCount;
-  int doneCount;
-  int finishCount;
+  String? timeName;
+  int? upcomingCount;
+  int? inProgressCount;
+  int? doneCount;
+  int? finishCount;
 
 //<editor-fold desc="Data Methods" defaultstate="collapsed">
 
@@ -16,11 +16,11 @@ class TaskStatisticalModel {
   });
 
   TaskStatisticalModel copyWith({
-    String timeName,
-    int upcomingCount,
-    int inProgressCount,
-    int doneCount,
-    int finishCount,
+    String? timeName,
+    int? upcomingCount,
+    int? inProgressCount,
+    int? doneCount,
+    int? finishCount,
   }) {
     return new TaskStatisticalModel(
       timeName: timeName ?? this.timeName,
@@ -52,11 +52,11 @@ class TaskStatisticalModel {
 
   factory TaskStatisticalModel.fromMap(Map<String, dynamic> map) {
     return new TaskStatisticalModel(
-      timeName: map['timeName'] as String,
-      upcomingCount: map['upcomingCount'] as int,
-      inProgressCount: map['inProgressCount'] as int,
-      doneCount: map['doneCount'] as int,
-      finishCount: map['finishCount'] as int,
+      timeName: map['timeName'] as String?,
+      upcomingCount: map['upcomingCount'] as int?,
+      inProgressCount: map['inProgressCount'] as int?,
+      doneCount: map['doneCount'] as int?,
+      finishCount: map['finishCount'] as int?,
     );
   }
 

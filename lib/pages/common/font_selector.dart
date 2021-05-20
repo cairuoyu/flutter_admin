@@ -11,7 +11,7 @@ class FontSelector extends StatefulWidget {
 }
 
 class _FontSelectorState extends State<FontSelector> {
-  String currentFontFamily;
+  String? currentFontFamily;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class _FontSelectorState extends State<FontSelector> {
     return DropdownButtonFormField<String>(
       decoration: InputDecoration(
         border: OutlineInputBorder(),
-        labelText: S.of(context).font,
+        labelText: S.of(context)!.font,
         icon: Icon(
           Icons.font_download,
           color: Colors.blue,

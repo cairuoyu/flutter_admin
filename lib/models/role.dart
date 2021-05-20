@@ -1,11 +1,11 @@
 class Role {
 
-    bool selected;
-    String id;
-    String name;
-    String nameEn;
-    String createTime;
-    String updateTime;
+    bool? selected;
+    String? id;
+    String? name;
+    String? nameEn;
+    String? createTime;
+    String? updateTime;
 
 //<editor-fold desc="Data Methods" defaultstate="collapsed">
 
@@ -19,12 +19,12 @@ class Role {
   });
 
     Role copyWith({
-    bool selected,
-    String id,
-    String name,
-    String nameEn,
-    String createTime,
-    String updateTime,
+    bool? selected,
+    String? id,
+    String? name,
+    String? nameEn,
+    String? createTime,
+    String? updateTime,
   }) {
     return new Role(
       selected: selected ?? this.selected,
@@ -56,14 +56,14 @@ class Role {
     @override
   int get hashCode => selected.hashCode ^ id.hashCode ^ name.hashCode ^ nameEn.hashCode ^ createTime.hashCode ^ updateTime.hashCode;
 
-    factory Role.fromMap(Map<String, dynamic> map) {
+    factory Role.fromMap(Map<String?, dynamic> map) {
     return new Role(
-      selected: map['selected'] as bool,
-      id: map['id'] as String,
-      name: map['name'] as String,
-      nameEn: map['nameEn'] as String,
-      createTime: map['createTime'] as String,
-      updateTime: map['updateTime'] as String,
+      selected: map['selected'] as bool?,
+      id: map['id'] as String?,
+      name: map['name'] as String?,
+      nameEn: map['nameEn'] as String?,
+      createTime: map['createTime'] as String?,
+      updateTime: map['updateTime'] as String?,
     );
   }
 

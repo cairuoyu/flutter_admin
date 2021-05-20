@@ -12,12 +12,12 @@ class SAreaAgeGenderMain extends StatefulWidget {
 }
 
 class _SAreaAgeGenderMainState extends State<SAreaAgeGenderMain> {
-  List<SAreaAgeGender> listData;
+  List<SAreaAgeGender>? listData;
 
   bool isPointRadiusMapper = false;
   ChartTypeCircular type = ChartTypeCircular.pie;
-  List<Tab> tabList;
-  List<Widget> tabViewList;
+  late List<Tab> tabList;
+  late List<Widget> tabViewList;
 
   @override
   void initState() {

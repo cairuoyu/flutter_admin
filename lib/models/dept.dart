@@ -3,29 +3,29 @@ import 'dart:convert';
 import 'package:cry/vo/tree_vo.dart';
 
 class Dept extends TreeData {
-  String id;
+  String? id;
 
-  String name;
+  String? name;
 
-  String nameShort;
+  String? nameShort;
 
-  String pid;
+  String? pid;
 
-  String headerId;
+  String? headerId;
 
-  String fun;
+  String? fun;
 
-  String remark;
+  String? remark;
 
-  int orderBy;
+  int? orderBy;
 
-  String createTime;
+  String? createTime;
 
-  String updateTime;
+  String? updateTime;
 
-  String createrId;
+  String? createrId;
 
-  String updateId;
+  String? updateId;
 
   Dept({
     this.id,
@@ -43,18 +43,18 @@ class Dept extends TreeData {
   }) : super(id, pid);
 
   Dept copyWith({
-    String id,
-    String name,
-    String nameShort,
-    String pid,
-    String headerId,
-    String fun,
-    String remark,
-    int orderBy,
-    String createTime,
-    String updateTime,
-    String createrId,
-    String updateId,
+    String? id,
+    String? name,
+    String? nameShort,
+    String? pid,
+    String? headerId,
+    String? fun,
+    String? remark,
+    int? orderBy,
+    String? createTime,
+    String? updateTime,
+    String? createrId,
+    String? updateId,
   }) {
     return Dept(
       id: id ?? this.id,
@@ -90,8 +90,6 @@ class Dept extends TreeData {
   }
 
   factory Dept.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
     return Dept(
       id: map['id'],
       name: map['name'],

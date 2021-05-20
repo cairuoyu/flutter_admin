@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class LangSwitch extends StatefulWidget {
-  LangSwitch({Key key}) : super(key: key);
+  LangSwitch({Key? key}) : super(key: key);
 
   @override
   LangSwitchState createState() => LangSwitchState();
@@ -19,7 +19,7 @@ class LangSwitchState extends State<LangSwitch> {
         SelectOptionVO(value: 'en', label: 'english'),
         SelectOptionVO(value: 'zh', label: '中文'),
       ],
-      defaultValue: (Get.locale ?? Get.deviceLocale).languageCode,
+      defaultValue: (Get.locale ?? Get.deviceLocale)!.languageCode,
       afterOnPress: (v) {
         Get.updateLocale(Locale(v));
       },

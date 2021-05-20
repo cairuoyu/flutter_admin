@@ -28,7 +28,7 @@ class _LayoutState extends State {
   Widget build(BuildContext context) => GetBuilder<LayoutController>(builder: (_) => getBuild(context));
 
   Widget getBuild(BuildContext context) {
-    var layoutMenu = LayoutMenu(onClick: (Menu menu) => Utils.openTab(menu.url));
+    var layoutMenu = LayoutMenu(onClick: (Menu menu) => Utils.openTab(menu.url!));
     Row body = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -46,10 +46,10 @@ class _LayoutState extends State {
         type: 2,
         userInfo: StoreUtil.getCurrentUserInfo(),
         openMenu: () {
-          scaffoldStateKey.currentState.openDrawer();
+          scaffoldStateKey.currentState!.openDrawer();
         },
         openSetting: () {
-          scaffoldStateKey.currentState.openEndDrawer();
+          scaffoldStateKey.currentState!.openEndDrawer();
         },
         dispose: () {
           this.dispose();

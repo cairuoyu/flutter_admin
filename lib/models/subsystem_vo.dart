@@ -2,10 +2,10 @@ import 'dart:convert';
 
 
 class SubsystemVO {
-  String name;
-  String code;
-  bool isEnable;
-  bool isDisable;
+  String? name;
+  String? code;
+  bool? isEnable;
+  bool? isDisable;
   SubsystemVO({
     this.name,
     this.code,
@@ -14,10 +14,10 @@ class SubsystemVO {
   });
 
   SubsystemVO copyWith({
-    String name,
-    String code,
-    bool isEnable,
-    bool isDisable,
+    String? name,
+    String? code,
+    bool? isEnable,
+    bool? isDisable,
   }) {
     return SubsystemVO(
       name: name ?? this.name,
@@ -37,8 +37,7 @@ class SubsystemVO {
   }
 
   factory SubsystemVO.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-  
+
     return SubsystemVO(
       name: map['name'],
       code: map['code'],

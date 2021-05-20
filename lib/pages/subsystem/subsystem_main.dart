@@ -18,7 +18,7 @@ import 'package:flutter_admin/models/subsystem_vo.dart';
 import 'package:flutter_admin/pages/subsystem/subsystem_edit.dart';
 
 class SubsystemMain extends StatefulWidget {
-  SubsystemMain({Key key}) : super(key: key);
+  SubsystemMain({Key? key}) : super(key: key);
 
   @override
   _SubsystemMain createState() => _SubsystemMain();
@@ -43,7 +43,7 @@ class _SubsystemMain extends State<SubsystemMain> {
       child: Wrap(
         children: [
           CryInput(
-            label: S.of(context).code,
+            label: S.of(context)!.code,
             width: 400,
             value: subsystemVO.code,
             onSaved: (v) {
@@ -51,7 +51,7 @@ class _SubsystemMain extends State<SubsystemMain> {
             },
           ),
           CryInput(
-            label: S.of(context).name,
+            label: S.of(context)!.name,
             width: 400,
             value: subsystemVO.name,
             onSaved: (v) {
@@ -60,16 +60,16 @@ class _SubsystemMain extends State<SubsystemMain> {
           ),
           Wrap(
             children: [
-              CryCheckbox(S.of(context).enable, subsystemVO.isEnable, (v) {
+              CryCheckbox(S.of(context)!.enable, subsystemVO.isEnable!, (v) {
                 this.subsystemVO.isEnable = v;
               }),
-              CryCheckbox(S.of(context).disable, subsystemVO.isDisable, (v) => this.subsystemVO.isDisable = v),
+              CryCheckbox(S.of(context)!.disable, subsystemVO.isDisable!, (v) => this.subsystemVO.isDisable = v),
             ],
           ),
         ],
       ),
     );
-    List<Subsystem> selectedList = tableKey?.currentState?.getSelectedList(page)?.map<Subsystem>((e) => Subsystem.fromMap(e))?.toList() ?? [];
+    List<Subsystem> selectedList = tableKey.currentState?.getSelectedList(page).map<Subsystem>((e) => Subsystem.fromMap(e as Map<String?, dynamic>)).toList() ?? [];
     var buttonBar = CryButtonBar(
       children: [
         CryButtons.query(context, () => _query()),
@@ -83,9 +83,9 @@ class _SubsystemMain extends State<SubsystemMain> {
       child: SingleChildScrollView(
         child: CryDataTable(
           key: tableKey,
-          title: S.of(context).subsystemList,
+          title: S.of(context)!.subsystemList,
           onPageChanged: (firstRowIndex) {
-            page.current = (firstRowIndex / page.size + 1) as int;
+            page.current = (firstRowIndex / page.size + 1) as int?;
             _loadData();
           },
           onRowsPerPageChanged: (int size) {
@@ -97,16 +97,16 @@ class _SubsystemMain extends State<SubsystemMain> {
             this.setState(() {});
           },
           columns: [
-            DataColumn(label: Text(S.of(context).code)),
-            DataColumn(label: Text(S.of(context).name)),
+            DataColumn(label: Text(S.of(context)!.code)),
+            DataColumn(label: Text(S.of(context)!.name)),
             DataColumn(label: Text('URL')),
-            DataColumn(label: Text(S.of(context).sequenceNumber)),
-            DataColumn(label: Text(S.of(context).remarks)),
-            DataColumn(label: Text(S.of(context).enable)),
-            DataColumn(label: Text(S.of(context).operating)),
+            DataColumn(label: Text(S.of(context)!.sequenceNumber)),
+            DataColumn(label: Text(S.of(context)!.remarks)),
+            DataColumn(label: Text(S.of(context)!.enable)),
+            DataColumn(label: Text(S.of(context)!.operating)),
           ],
           getCells: (Map m) {
-            Subsystem subsystem = Subsystem.fromMap(m);
+            Subsystem subsystem = Subsystem.fromMap(m as Map<String?, dynamic>);
             return [
               DataCell(Text(subsystem.code ?? '--')),
               DataCell(Text(subsystem.name ?? '--')),
@@ -155,16 +155,16 @@ class _SubsystemMain extends State<SubsystemMain> {
   }
 
   _delete(List<Subsystem> subsystemList) {
-    cryConfirm(context, S.of(context).confirmDelete, (context) async {
+    cryConfirm(context, S.of(context)!.confirmDelete, (context) async {
       ResponseBodyApi responseBodyApi = await SubsystemApi.removeByIds(subsystemList.map((e) => e.id).toList());
-      if (!responseBodyApi.success) {
+      if (!responseBodyApi.success!) {
         return;
       }
       this._loadData();
     });
   }
 
-  _edit(Subsystem subsystem) async {
+  _edit(Subsystem? subsystem) async {
     var content = SubsystemEdit(subsystem: subsystem);
     await Cry.push(content);
     // showDialog(
@@ -183,6 +183,6 @@ class _SubsystemMain extends State<SubsystemMain> {
   _loadData() async {
     ResponseBodyApi responseBodyApi = await SubsystemApi.page(RequestBodyApi(page: page, params: this.subsystemVO.toMap()).toMap());
     page = PageModel.fromMap(responseBodyApi.data);
-    tableKey.currentState.loadData(page);
+    tableKey.currentState!.loadData(page);
   }
 }

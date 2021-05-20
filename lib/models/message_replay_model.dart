@@ -1,9 +1,9 @@
 class MessageReplayModel{
-  String id;
-  String messageId;
-  String content;
-  String createTime;
-  String avatarUrl;
+  String? id;
+  String? messageId;
+  String? content;
+  String? createTime;
+  String? avatarUrl;
 
 //<editor-fold desc="Data Methods" defaultstate="collapsed">
 
@@ -17,11 +17,11 @@ class MessageReplayModel{
   });
 
   MessageReplayModel copyWith({
-    String id,
-    String messageId,
-    String content,
-    String createTime,
-    String avatarUrl,
+    String? id,
+    String? messageId,
+    String? content,
+    String? createTime,
+    String? avatarUrl,
   }) {
     return new MessageReplayModel(
       id: id ?? this.id,
@@ -51,13 +51,13 @@ class MessageReplayModel{
   @override
   int get hashCode => id.hashCode ^ messageId.hashCode ^ content.hashCode ^ createTime.hashCode ^ avatarUrl.hashCode;
 
-  factory MessageReplayModel.fromMap(Map<String, dynamic> map) {
+  factory MessageReplayModel.fromMap(Map<String?, dynamic> map) {
     return new MessageReplayModel(
-      id: map['id'] as String,
-      messageId: map['messageId'] as String,
-      content: map['content'] as String,
-      createTime: map['createTime'] as String,
-      avatarUrl: map['avatarUrl'] as String,
+      id: map['id'] as String?,
+      messageId: map['messageId'] as String?,
+      content: map['content'] as String?,
+      createTime: map['createTime'] as String?,
+      avatarUrl: map['avatarUrl'] as String?,
     );
   }
 
