@@ -110,8 +110,8 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
           onSort: (int columnIndex, bool ascending) => _sort('name'),
         ),
       ],
-      getCells: (Map m) {
-        UserInfo userInfo = UserInfo.fromMap(m as Map<String?, dynamic>);
+      getCells: (m) {
+        UserInfo userInfo = UserInfo.fromMap(m);
         return [
           DataCell(Container(width: 100, child: Text(userInfo.userName ?? '--'))),
           DataCell(Container(width: 100, child: Text(userInfo.name ?? '--'))),

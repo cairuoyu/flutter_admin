@@ -67,8 +67,8 @@ class _RoleListState extends State<RoleList> {
           onSort: (int columnIndex, bool ascending) => _sort('name', ascending),
         ),
       ],
-      getCells: (Map m) {
-        Role role = Role.fromMap(m as Map<String?, dynamic>);
+      getCells: (m) {
+        Role role = Role.fromMap(m);
         return [
           DataCell(
             CryButtonBar(

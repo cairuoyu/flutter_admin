@@ -125,8 +125,8 @@ class _UserInfoListState extends State<UserInfoList> {
           onSort: (int columnIndex, bool ascending) => _sort('update_time'),
         ),
       ],
-      getCells: (Map m) {
-        UserInfo userInfo = UserInfo.fromMap(m as Map<String?, dynamic>);
+      getCells: (m) {
+        UserInfo userInfo = UserInfo.fromMap(m);
         return [
           DataCell(
             CryButtonBar(

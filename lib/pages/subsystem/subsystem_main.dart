@@ -105,8 +105,8 @@ class _SubsystemMain extends State<SubsystemMain> {
             DataColumn(label: Text(S.of(context)!.enable)),
             DataColumn(label: Text(S.of(context)!.operating)),
           ],
-          getCells: (Map m) {
-            Subsystem subsystem = Subsystem.fromMap(m as Map<String?, dynamic>);
+          getCells: (m) {
+            Subsystem subsystem = Subsystem.fromMap(m);
             return [
               DataCell(Text(subsystem.code ?? '--')),
               DataCell(Text(subsystem.name ?? '--')),
