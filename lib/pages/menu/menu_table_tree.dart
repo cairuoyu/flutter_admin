@@ -10,8 +10,8 @@ import 'package:flutter_admin/utils/utils.dart';
 
 class MenuTableTree extends StatefulWidget {
   final List<TreeVO<Menu>>? treeVOList;
-  final Function? onEdit;
-  final Function? onDelete;
+  final Function(Menu)? onEdit;
+  final Function(List<String>)? onDelete;
 
   MenuTableTree({
     this.treeVOList,
@@ -71,7 +71,7 @@ class _MenuTableTreeState extends State<MenuTableTree> {
           context,
           selected.length >= 1
               ? () {
-                  List ids = selected.map((e) => e.data!.id).toList();
+                  List<String> ids = selected.map((e) => e.data!.id!).toList();
                   widget.onDelete!(ids);
                 }
               : null,
@@ -83,7 +83,7 @@ class _MenuTableTreeState extends State<MenuTableTree> {
 
   List<Widget> _getRowOper(TreeVO<Menu> vo, TreeVO<Menu>? parent) {
     List<Widget> columnList = [];
-    Menu? menu = vo.data;
+    Menu menu = vo.data!;
     columnList.add(
       IconButton(
         icon: Icon(Icons.add),
@@ -95,7 +95,7 @@ class _MenuTableTreeState extends State<MenuTableTree> {
         icon: Icon(Icons.edit),
         onPressed: () {
           if (parent != null) {
-            menu!.pname = parent.data!.name;
+            menu.pname = parent.data!.name;
           }
           widget.onEdit!(menu);
         },

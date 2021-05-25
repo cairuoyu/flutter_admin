@@ -17,17 +17,6 @@ class MainRouterDelegate extends CryRouterDelegate {
     return RouteInformation(location: location ?? '/');
   }
 
-  push(Widget widget) {
-    pages.add(
-      MaterialPage(
-        key: UniqueKey(),
-        child: widget,
-      ),
-    );
-
-    notifyListeners();
-  }
-
   pushNamed(String name) {
     pages.add(
       MaterialPage(
