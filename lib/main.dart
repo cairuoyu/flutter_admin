@@ -3,7 +3,7 @@ import 'package:cry/constants/cry_constant.dart';
 import 'package:cry/generated/l10n.dart' as cryS;
 import 'package:cry/routes/cry_route_Information_parser.dart';
 import 'package:flutter/material.dart';
-import 'package:cry/routes/cry.dart';
+import 'package:cry/cry.dart';
 import 'package:flutter_admin/common/cry_dio_interceptors.dart';
 import 'package:flutter_admin/pages/layout/layout.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';

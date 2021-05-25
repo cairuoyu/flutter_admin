@@ -40,7 +40,7 @@ class _RoleListState extends State<RoleList> {
     CryDataTable table = CryDataTable(
       key: tableKey,
       onPageChanged: (firstRowIndex) {
-        page!.current = (firstRowIndex / page!.size + 1) as int?;
+        page!.current = (firstRowIndex ~/ page!.size + 1);
         _query();
       },
       onRowsPerPageChanged: (int size) {
@@ -84,7 +84,7 @@ class _RoleListState extends State<RoleList> {
         ];
       },
     );
-    List<Role> selectedList = tableKey.currentState?.getSelectedList(page!).map<Role>((e) => Role.fromMap(e as Map<String?, dynamic>)).toList() ?? [];
+    List<Role> selectedList = tableKey.currentState?.getSelectedList(page!).map<Role>((e) => Role.fromMap(e)).toList() ?? [];
     var buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -187,8 +187,8 @@ class _RoleListState extends State<RoleList> {
   }
 
   _sort(column, ascending) {
-    page!.orders![0].column = column;
-    page!.orders![0].asc = !page!.orders![0].asc!;
+    page!.orders[0].column = column;
+    page!.orders[0].asc = !page!.orders[0].asc!;
     _query();
   }
 }

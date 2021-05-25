@@ -64,7 +64,7 @@ class _DictList extends State<DictList> {
         ],
       ),
     );
-    List<Dict> selectedList = tableKey.currentState?.getSelectedList(page).map<Dict>((e) => Dict.fromMap(e as Map<String, dynamic>)).toList() ?? [];
+    List<Dict> selectedList = tableKey.currentState?.getSelectedList(page).map<Dict>((e) => Dict.fromMap(e)).toList() ?? [];
     var buttonBar = CryButtonBar(
       children: [
         CryButtons.query(context, () => _query()),
@@ -82,7 +82,7 @@ class _DictList extends State<DictList> {
           key: tableKey,
           title: S.of(context)!.dictList,
           onPageChanged: (firstRowIndex) {
-            page.current = (firstRowIndex / page.size + 1) as int?;
+            page.current = (firstRowIndex ~/ page.size + 1);
             _loadData();
           },
           onRowsPerPageChanged: (int size) {

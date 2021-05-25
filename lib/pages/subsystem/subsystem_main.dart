@@ -8,7 +8,7 @@ import 'package:cry/model/order_item_model.dart';
 import 'package:cry/model/page_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/subsystem_api.dart';
-import 'package:cry/routes/cry.dart';
+import 'package:cry/cry.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/subsystem.dart';
@@ -69,7 +69,7 @@ class _SubsystemMain extends State<SubsystemMain> {
         ],
       ),
     );
-    List<Subsystem> selectedList = tableKey.currentState?.getSelectedList(page).map<Subsystem>((e) => Subsystem.fromMap(e as Map<String?, dynamic>)).toList() ?? [];
+    List<Subsystem> selectedList = tableKey.currentState?.getSelectedList(page).map<Subsystem>((e) => Subsystem.fromMap(e)).toList() ?? [];
     var buttonBar = CryButtonBar(
       children: [
         CryButtons.query(context, () => _query()),
@@ -85,7 +85,7 @@ class _SubsystemMain extends State<SubsystemMain> {
           key: tableKey,
           title: S.of(context)!.subsystemList,
           onPageChanged: (firstRowIndex) {
-            page.current = (firstRowIndex / page.size + 1) as int?;
+            page.current = (firstRowIndex ~/ page.size + 1);
             _loadData();
           },
           onRowsPerPageChanged: (int size) {

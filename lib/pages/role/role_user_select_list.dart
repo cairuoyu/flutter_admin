@@ -89,7 +89,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
       key: tableKey,
       title: widget.title!,
       onPageChanged: (firstRowIndex) {
-        page!.current = (firstRowIndex / page!.size + 1) as int?;
+        page!.current = (firstRowIndex ~/ page!.size + 1);
         query();
       },
       onRowsPerPageChanged: (int size) {
@@ -135,7 +135,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
   }
 
   List<UserInfo> getSelectedList() {
-    List<UserInfo> selectedList = tableKey.currentState?.getSelectedList(page!).map<UserInfo>((e) => UserInfo.fromMap(e as Map<String?, dynamic>)).toList() ?? [];
+    List<UserInfo> selectedList = tableKey.currentState?.getSelectedList(page!).map<UserInfo>((e) => UserInfo.fromMap(e)).toList() ?? [];
     return selectedList;
   }
 
@@ -156,8 +156,8 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
   }
 
   _sort(column, {ascending}) {
-    page!.orders![0].column = column;
-    page!.orders![0].asc = ascending ?? !page!.orders![0].asc!;
+    page!.orders[0].column = column;
+    page!.orders[0].asc = ascending ?? !page!.orders[0].asc!;
     query();
   }
 }

@@ -69,7 +69,7 @@ class MessageReplayListState extends State<MessageReplayList> {
     if (!anyMore) {
       return;
     }
-    page.current = page.current! + 1;
+    page.current = page.current + 1;
     loadData();
   }
 
@@ -77,7 +77,7 @@ class MessageReplayListState extends State<MessageReplayList> {
     RequestBodyApi requestBodyApi = RequestBodyApi(page: page, params: Message(id: widget.messageId).toMap());
     ResponseBodyApi responseBodyApi = await MessageApi.replayPage(requestBodyApi.toMap());
     page = PageModel.fromMap(responseBodyApi.data);
-    messageReplayModelList = [...messageReplayModelList, ...page.records!.map((e) => MessageReplayModel.fromMap(e as Map<String?, dynamic>)).toList()];
+    messageReplayModelList = [...messageReplayModelList, ...page.records.map((e) => MessageReplayModel.fromMap(e)).toList()];
     if (page.current == page.pages) {
       anyMore = false;
     }

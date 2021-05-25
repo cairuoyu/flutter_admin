@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/user_info_api.dart';
 import 'package:cry/cry_button.dart';
 import 'package:cry/cry_data_table.dart';
-import 'package:cry/routes/cry.dart';
+import 'package:cry/cry.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:cry/model/page_model.dart';
@@ -73,7 +73,7 @@ class _UserInfoListState extends State<UserInfoList> {
       key: tableKey,
       title: S.of(context)!.userList,
       onPageChanged: (firstRowIndex) {
-        page.current = (firstRowIndex / page.size + 1) as int?;
+        page.current = (firstRowIndex ~/ page.size + 1);
         _loadData();
       },
       onRowsPerPageChanged: (int size) {
@@ -142,7 +142,7 @@ class _UserInfoListState extends State<UserInfoList> {
             userInfo.gender,
             ConstantDict.CODE_GENDER,
           )!)),
-          DataCell(Text(userInfo.hometown?? '--')),
+          DataCell(Text(userInfo.hometown ?? '--')),
           DataCell(Text(userInfo.birthday ?? '--')),
           DataCell(Text(userInfo.deptName ?? '--')),
           DataCell(Text(userInfo.createTime ?? '--')),
@@ -150,7 +150,7 @@ class _UserInfoListState extends State<UserInfoList> {
         ];
       },
     );
-    List<UserInfo> selectedList = tableKey.currentState?.getSelectedList(page).map<UserInfo>((e) => UserInfo.fromMap(e as Map<String?, dynamic>)).toList() ?? [];
+    List<UserInfo> selectedList = tableKey.currentState?.getSelectedList(page).map<UserInfo>((e) => UserInfo.fromMap(e)).toList() ?? [];
     CryButtonBar buttonBar = CryButtonBar(
       children: <Widget>[
         CryButtons.query(context, () => _query()),
@@ -200,8 +200,8 @@ class _UserInfoListState extends State<UserInfoList> {
   }
 
   _sort(column, {ascending}) {
-    page.orders![0].column = column;
-    page.orders![0].asc = ascending ?? !page.orders![0].asc!;
+    page.orders[0].column = column;
+    page.orders[0].asc = ascending ?? !page.orders[0].asc!;
     _query();
   }
 }

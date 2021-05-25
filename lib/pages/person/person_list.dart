@@ -1,4 +1,3 @@
-
 import 'package:cry/cry_button_bar.dart';
 import 'package:cry/form1/cry_input.dart';
 import 'package:cry/form1/cry_select.dart';
@@ -26,7 +25,7 @@ class PersonList extends StatefulWidget {
 
 class PersonListState extends State {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  int? rowsPerPage = 10;
+  int rowsPerPage = 10;
   MyDS myDS = new MyDS();
   PersonModel formData = PersonModel();
 
@@ -143,12 +142,14 @@ class PersonListState extends State {
         children: <Widget>[
           PaginatedDataTable(
             header: Text(S.of(context)!.userList),
-            rowsPerPage: rowsPerPage!,
+            rowsPerPage: rowsPerPage,
             onRowsPerPageChanged: (int? value) {
               setState(() {
-                rowsPerPage = value;
-                myDS.page.size = rowsPerPage;
-                myDS.loadData();
+                if (value != null) {
+                  rowsPerPage = value;
+                  myDS.page.size = rowsPerPage;
+                  myDS.loadData();
+                }
               });
             },
             availableRowsPerPage: <int>[2, 5, 10, 20],
@@ -219,8 +220,8 @@ class MyDS extends DataTableSource {
   PageModel page = PageModel(orders: [OrderItemModel(column: 'create_time', asc: false)]);
 
   sort(column, ascending) {
-    page.orders![0].column = column;
-    page.orders![0].asc = !page.orders![0].asc!;
+    page.orders[0].column = column;
+    page.orders[0].asc = !page.orders[0].asc!;
     loadData();
   }
 
@@ -229,8 +230,8 @@ class MyDS extends DataTableSource {
     ResponseBodyApi responseBodyApi = await PersonApi.page(requestBodyApi.toMap());
     page = PageModel.fromMap(responseBodyApi.data);
 
-    dataList = page.records!.map<PersonModel>((v) {
-      PersonModel personModel = PersonModel.fromMap(v as Map<String?, dynamic>);
+    dataList = page.records.map<PersonModel>((v) {
+      PersonModel personModel = PersonModel.fromMap(v);
       personModel.selected = false;
       return personModel;
     }).toList();
@@ -245,12 +246,12 @@ class MyDS extends DataTableSource {
 
   @override
   DataRow? getRow(int index) {
-    var dataIndex = index - page.size! * (page.current! - 1);
+    var dataIndex = index - page.size * (page.current - 1);
 
     if (dataIndex >= dataList.length) {
       return null;
     }
-    PersonModel personModel = dataList[dataIndex as int];
+    PersonModel personModel = dataList[dataIndex];
 
     return DataRow.byIndex(
       index: index,
@@ -303,7 +304,7 @@ class MyDS extends DataTableSource {
   bool get isRowCountApproximate => false;
 
   @override
-  int get rowCount => page.total as int;
+  int get rowCount => page.total;
 
   @override
   int get selectedRowCount => selectedCount;

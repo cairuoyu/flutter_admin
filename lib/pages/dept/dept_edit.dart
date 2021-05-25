@@ -5,7 +5,7 @@ import 'package:cry/form/cry_input_num.dart';
 import 'package:cry/form/cry_select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/dept_api.dart';
-import 'package:cry/routes/cry.dart';
+import 'package:cry/cry.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dept.dart';

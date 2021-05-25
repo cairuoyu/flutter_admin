@@ -1,6 +1,6 @@
 import 'package:cry/cry_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:cry/routes/cry.dart';
+import 'package:cry/cry.dart';
 import 'package:flutter_admin/common/routes.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/constants/enum.dart';

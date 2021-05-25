@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/user_api.dart';
-import 'package:cry/routes/cry.dart';
+import 'package:cry/cry.dart';
 import 'package:flutter_admin/models/user.dart';
 import 'package:cry/utils/cry_utils.dart';
 import '../generated/l10n.dart';

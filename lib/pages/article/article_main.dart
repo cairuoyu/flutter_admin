@@ -1,10 +1,9 @@
+import 'package:cry/cry.dart';
 import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/form/cry_select.dart';
 import 'package:cry/form/cry_select_date.dart';
-import 'package:cry/routes/cry.dart';
-import 'package:cry/utils/cry_utils.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
@@ -228,7 +227,7 @@ class ArticleDataSource extends DataGridSource {
     }
     var responseBodyApi = await ArticleApi.page(RequestBodyApi(page: pageModel, params: this.params).toMap());
     pageModel = responseBodyApi.data != null ? PageModel.fromMap(responseBodyApi.data) : PageModel();
-    List<Article> list = pageModel.records!.map((element) => Article.fromMap(element as Map<String?, dynamic>)).toList();
+    List<Article> list = pageModel.records.map((element) => Article.fromMap(element)).toList();
     _rows = list.map<DataGridRow>((v) {
       return DataGridRow(cells: [
         DataGridCell(columnName: 'article', value: v),
@@ -253,8 +252,8 @@ class ArticleDataSource extends DataGridSource {
     return DataGridRowAdapter(cells: [
       CryButtonBar(
         children: [
-          CryButtons.edit(CryUtils.context, () => edit(article: article), showLabel: false),
-          CryButtons.delete(CryUtils.context, () => delete([article.id]), showLabel: false),
+          CryButtons.edit(Cry.context, () => edit(article: article), showLabel: false),
+          CryButtons.delete(Cry.context, () => delete([article.id]), showLabel: false),
         ],
       ),
       Container(
@@ -309,7 +308,7 @@ class ArticleDataSource extends DataGridSource {
   }
 
   delete(ids) async {
-    cryConfirm(CryUtils.context, S.of(CryUtils.context)!.confirmDelete, (context) async {
+    cryConfirm(Cry.context, S.of(Cry.context)!.confirmDelete, (context) async {
       await ArticleApi.removeByIds(ids);
       loadData();
     });

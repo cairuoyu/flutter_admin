@@ -1,4 +1,4 @@
-import 'package:cry/cry.dart';
+import 'package:cry/cry_all.dart';
 import 'package:cry/data/location.dart';
 import 'package:cry/model/cascade_model.dart';
 import 'package:flutter/cupertino.dart';
