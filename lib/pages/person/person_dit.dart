@@ -43,23 +43,23 @@ class PersonEditState extends State<PersonEdit> {
         children: <Widget>[
           CryInput(
             value: _personModel!.name,
-            label: S.of(context)!.personName,
+            label: S.of(context).personName,
             onSaved: (v) {
               _personModel!.name = v;
             },
             validator: (v) {
-              return v!.isEmpty ? S.of(context)!.required : null;
+              return v!.isEmpty ? S.of(context).required : null;
             },
           ),
           CryInput(
             value: _personModel!.nickName,
-            label: S.of(context)!.personNickname,
+            label: S.of(context).personNickname,
             onSaved: (v) {
               _personModel!.nickName = v;
             },
           ),
           CrySelect(
-            label: S.of(context)!.personGender,
+            label: S.of(context).personGender,
             value: _personModel!.gender,
             dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_GENDER),
             onSaved: (v) {
@@ -69,13 +69,13 @@ class PersonEditState extends State<PersonEdit> {
           CrySelectDate(
             context,
             value: _personModel!.birthday,
-            label: S.of(context)!.personBirthday,
+            label: S.of(context).personBirthday,
             onSaved: (v) {
               _personModel!.birthday = v;
             },
           ),
           CrySelect(
-            label: S.of(context)!.personDepartment,
+            label: S.of(context).personDepartment,
             value: _personModel!.deptId,
             dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT),
             onSaved: (v) {
@@ -89,7 +89,7 @@ class PersonEditState extends State<PersonEdit> {
       alignment: MainAxisAlignment.center,
       children: <Widget>[
         CryButton(
-          label: S.of(context)!.save,
+          label: S.of(context).save,
           iconData: Icons.save,
           onPressed: () {
             FormState form = formKey.currentState!;
@@ -99,12 +99,12 @@ class PersonEditState extends State<PersonEdit> {
             form.save();
             PersonApi.saveOrUpdate(_personModel!.toMap()).then((res) {
               Navigator.pop(context, true);
-              CryUtils.message(S.of(context)!.saved);
+              CryUtils.message(S.of(context).saved);
             });
           },
         ),
         CryButton(
-          label: S.of(context)!.cancel,
+          label: S.of(context).cancel,
           iconData: Icons.cancel,
           onPressed: () {
             Navigator.pop(context);
@@ -114,7 +114,7 @@ class PersonEditState extends State<PersonEdit> {
     );
     var result = Scaffold(
       appBar: AppBar(
-        title: Text(widget.personModel == null ? S.of(context)!.add : S.of(context)!.modify),
+        title: Text(widget.personModel == null ? S.of(context).add : S.of(context).modify),
       ),
       body: SingleChildScrollView(
         child: Column(

@@ -25,8 +25,8 @@ class LayoutSetting extends StatelessWidget {
     );
     var menuDisplayType = CryToggleButtons(
       [
-        SelectOptionVO(value: MenuDisplayType.drawer, label: S.of(context)!.drawer),
-        SelectOptionVO(value: MenuDisplayType.side, label: S.of(context)!.side),
+        SelectOptionVO(value: MenuDisplayType.drawer, label: S.of(context).drawer),
+        SelectOptionVO(value: MenuDisplayType.side, label: S.of(context).side),
       ],
       defaultValue: layoutController.menuDisplayType,
       afterOnPress: (Object? v) {
@@ -42,23 +42,23 @@ class LayoutSetting extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text(S.of(context)!.mySettings),
+            child: Text(S.of(context).mySettings),
             decoration: BoxDecoration(
               color: Get.theme.primaryColor,
             ),
           ),
           ListTile(
-            title: Text(S.of(context)!.language),
+            title: Text(S.of(context).language),
             trailing: LangSwitch(),
           ),
           Divider(thickness: 1),
           ListTile(
-            title: Text(S.of(context)!.menuDisplay),
+            title: Text(S.of(context).menuDisplay),
             trailing: menuDisplayType,
           ),
           Divider(thickness: 1),
           ListTile(
-            title: Text(S.of(context)!.nightMode),
+            title: Text(S.of(context).nightMode),
             trailing: themeMode,
           ),
           Divider(thickness: 1),

@@ -38,7 +38,7 @@ class _DeptEditState extends State<DeptEdit> {
       child: Wrap(
         children: [
           CryInput(
-            label: S.of(context)!.name,
+            label: S.of(context).name,
             required: true,
             value: dept.name,
             onSaved: (v) {
@@ -46,14 +46,14 @@ class _DeptEditState extends State<DeptEdit> {
             },
           ),
           CryInput(
-            label: S.of(context)!.nameShort,
+            label: S.of(context).nameShort,
             value: dept.nameShort,
             onSaved: (v) {
               dept.nameShort = v;
             },
           ),
           CrySelect(
-            label: S.of(context)!.fun,
+            label: S.of(context).fun,
             dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT_FUN),
             value: dept.fun,
             onSaved: (v) {
@@ -61,21 +61,21 @@ class _DeptEditState extends State<DeptEdit> {
             },
           ),
           CryInput(
-            label: S.of(context)!.header,
+            label: S.of(context).header,
             value: dept.headerId,
             onSaved: (v) {
               dept.headerId = v;
             },
           ),
           CryInputNum(
-            label: S.of(context)!.sequenceNumber,
+            label: S.of(context).sequenceNumber,
             value: dept.orderBy,
             onSaved: (v) {
               dept.orderBy = v as int?;
             },
           ),
           CryInput(
-            label: S.of(context)!.remarks,
+            label: S.of(context).remarks,
             value: dept.remark,
             onSaved: (v) {
               dept.remark = v;
@@ -92,7 +92,7 @@ class _DeptEditState extends State<DeptEdit> {
       ],
     );
     var result = Scaffold(
-      appBar: AppBar(title: Text(S.of(context)!.add)),
+      appBar: AppBar(title: Text(S.of(context).add)),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -116,6 +116,6 @@ class _DeptEditState extends State<DeptEdit> {
       return;
     }
     Cry.pop();
-    CryUtils.message(S.of(context)!.success);
+    CryUtils.message(S.of(context).success);
   }
 }

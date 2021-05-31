@@ -69,7 +69,7 @@ class MessageListState extends State<MessageList> {
     if (list.length == 0) {
       return;
     }
-    cryConfirm(context, S.of(context)!.confirmDelete, (context) async {
+    cryConfirm(context, S.of(context).confirmDelete, (context) async {
       var res = await MessageApi.removeByIds(list.map((e) => e.id).toList());
       if (!res.success!) {
         return;

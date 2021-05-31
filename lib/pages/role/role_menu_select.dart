@@ -47,12 +47,12 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
   @override
   Widget build(BuildContext context) {
     List<CryTreeTableColumnData> columnData = [
-      CryTreeTableColumnData(label: S.of(context)!.name, getCell: (Menu v) => Text(v.name!)),
-      CryTreeTableColumnData(label: S.of(context)!.englishName, getCell: (Menu v) => Text(v.nameEn!)),
+      CryTreeTableColumnData(label: S.of(context).name, getCell: (Menu v) => Text(v.name!)),
+      CryTreeTableColumnData(label: S.of(context).englishName, getCell: (Menu v) => Text(v.nameEn!)),
       CryTreeTableColumnData(label: 'URL', getCell: (Menu v) => Text(v.url!)),
       CryTreeTableColumnData(label: 'Icon', getCell: (Menu v) => Icon(Utils.toIconData(v.icon))),
-      CryTreeTableColumnData(label: S.of(context)!.sequenceNumber, getCell: (Menu v) => Text(v.orderBy.toString()), width: 180),
-      CryTreeTableColumnData(label: S.of(context)!.remarks, getCell: (Menu v) => Text(v.remark!), width: 300)
+      CryTreeTableColumnData(label: S.of(context).sequenceNumber, getCell: (Menu v) => Text(v.orderBy.toString()), width: 180),
+      CryTreeTableColumnData(label: S.of(context).remarks, getCell: (Menu v) => Text(v.remark!), width: 300)
     ];
 
     var treeTable = CryTreeTable<Menu>(
@@ -65,11 +65,11 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
     );
     var result = Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context)!.selectMenus),
+        title: Text(S.of(context).selectMenus),
         actions: [
           CryButton(
             iconData: Icons.save,
-            label: S.of(context)!.save,
+            label: S.of(context).save,
             onPressed: () => save(),
           ),
         ],
@@ -88,7 +88,7 @@ class _RoleMenuSelectState extends State<RoleMenuSelect> {
     List roleMenuList = selectedList.map((e) => RoleMenu(roleId: widget.role!.id, menuId: e!.id).toMap()).toList();
     ResponseBodyApi res = await RoleMenuApi.saveBatch({'roleId': widget.role!.id, 'subsystemId': widget.subsystem!.id, 'roleMenuList': roleMenuList});
     if (res.success!) {
-      CryUtils.message(S.of(context)!.saved);
+      CryUtils.message(S.of(context).saved);
     }
   }
 

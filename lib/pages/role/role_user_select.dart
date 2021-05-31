@@ -27,32 +27,32 @@ class _RoleUserSelectState extends State<RoleUserSelect> {
 
   @override
   Widget build(BuildContext context) {
-    var table1 = RoleUserSelectList(key: tableKey1, title: S.of(context)!.unselectedUsers, role: widget.role);
-    var table2 = RoleUserSelectList(key: tableKey2, title: S.of(context)!.selectedUsers, role: widget.role, isSelected: true);
+    var table1 = RoleUserSelectList(key: tableKey1, title: S.of(context).unselectedUsers, role: widget.role);
+    var table2 = RoleUserSelectList(key: tableKey2, title: S.of(context).selectedUsers, role: widget.role, isSelected: true);
     var transfer = CryTransfer(
       left: table1,
       right: table2,
       toRight: () async {
         List<UserInfo> selectedList = tableKey1.currentState!.getSelectedList();
         if (selectedList.isEmpty) {
-          CryUtils.message(S.of(context)!.selectUnselectedUsers);
+          CryUtils.message(S.of(context).selectUnselectedUsers);
           return;
         }
         List roleUserList = selectedList.map((e) => RoleUser(userId: e.userId, roleId: widget.role!.id).toMap()).toList();
         await RoleUserApi.saveBatch(roleUserList);
-        CryUtils.message(S.of(context)!.saved);
+        CryUtils.message(S.of(context).saved);
         tableKey1.currentState!.query();
         tableKey2.currentState!.query();
       },
       toLeft: () async {
         List<UserInfo> selectedList = tableKey2.currentState!.getSelectedList();
         if (selectedList.isEmpty) {
-          CryUtils.message(S.of(context)!.selectSelectedUsers);
+          CryUtils.message(S.of(context).selectSelectedUsers);
           return;
         }
         List roleUserList = selectedList.map((e) => RoleUser(roleId: widget.role!.id, userId: e.userId).toMap()).toList();
         await RoleUserApi.removeBatch(roleUserList);
-        CryUtils.message(S.of(context)!.saved);
+        CryUtils.message(S.of(context).saved);
         tableKey1.currentState!.query();
         tableKey2.currentState!.query();
       },
@@ -60,7 +60,7 @@ class _RoleUserSelectState extends State<RoleUserSelect> {
 
     var result = Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context)!.selectUsers),
+        title: Text(S.of(context).selectUsers),
       ),
       body: SingleChildScrollView(
         child: Column(

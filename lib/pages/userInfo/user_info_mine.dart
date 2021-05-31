@@ -62,31 +62,31 @@ class _UserInfoMineState extends State<UserInfoMine> {
     );
     List<Widget> propList = <Widget>[
       CryInput(
-        label: S.of(context)!.personName,
+        label: S.of(context).personName,
         value: userInfo!.name,
         onSaved: (v) => {userInfo!.name = v},
-        validator: (v) => v!.isEmpty ? S.of(context)!.required : null,
+        validator: (v) => v!.isEmpty ? S.of(context).required : null,
       ),
       CryInput(
-        label: S.of(context)!.personNickname,
+        label: S.of(context).personNickname,
         value: userInfo!.nickName,
         onSaved: (v) => {userInfo!.nickName = v},
       ),
       CrySelectDate(
         context,
-        label: S.of(context)!.personBirthday,
+        label: S.of(context).personBirthday,
         value: userInfo!.birthday,
         onSaved: (v) => {userInfo!.birthday = v},
       ),
       CrySelect(
-        label: S.of(context)!.personGender,
+        label: S.of(context).personGender,
         dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_GENDER),
         value: userInfo!.gender,
         onSaved: (v) => {userInfo!.gender = v},
       ),
       CrySelectCustomWidget(
         context,
-        label: S.of(context)!.personDepartment,
+        label: S.of(context).personDepartment,
         initialValue: userInfo!.deptId,
         initialValueLabel: userInfo!.deptName,
         popWidget: DeptSelector(),
@@ -101,7 +101,7 @@ class _UserInfoMineState extends State<UserInfoMine> {
     var buttonBar = CryButtonBar(
       children: <Widget>[
         CryButton(
-          label: S.of(context)!.save,
+          label: S.of(context).save,
           onPressed: () {
             FormState form = formKey.currentState!;
             if (!form.validate()) {
@@ -113,7 +113,7 @@ class _UserInfoMineState extends State<UserInfoMine> {
                 return;
               }
               StoreUtil.write(Constant.KEY_CURRENT_USER_INFO, this.userInfo!.toMap());
-              CryUtils.message(S.of(context)!.saved);
+              CryUtils.message(S.of(context).saved);
             });
           },
           iconData: Icons.save,

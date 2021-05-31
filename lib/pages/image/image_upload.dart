@@ -43,15 +43,15 @@ class ImageUploadState extends State<ImageUpload> {
       child: Wrap(
         children: <Widget>[
           CryInput(
-            label: S.of(context)!.imageTitle,
+            label: S.of(context).imageTitle,
             value: imageModel.title,
             onSaved: (v) => {imageModel.title = v},
             validator: (v) {
-              return v!.isEmpty ? S.of(context)!.required : null;
+              return v!.isEmpty ? S.of(context).required : null;
             },
           ),
           CryInput(
-            label: S.of(context)!.imageMemo,
+            label: S.of(context).imageMemo,
             value: imageModel.memo,
             onSaved: (v) => {imageModel.memo = v},
           ),
@@ -60,13 +60,13 @@ class ImageUploadState extends State<ImageUpload> {
     );
     List<Widget> buttons = <Widget>[
       CryButton(
-        label: S.of(context)!.gallery,
+        label: S.of(context).gallery,
         iconData: Icons.photo,
         onPressed: () => pickImage(ImageSource.gallery),
       ),
       CryButtons.save(context, pickedFile == null ? null : () => save()),
       Text(
-        S.of(context)!.sizeLimit,
+        S.of(context).sizeLimit,
         style: TextStyle(color: Colors.red),
       ),
     ];
@@ -74,7 +74,7 @@ class ImageUploadState extends State<ImageUpload> {
       buttons.insert(
         0,
         CryButton(
-          label: S.of(context)!.camera,
+          label: S.of(context).camera,
           iconData: Icons.camera,
           onPressed: () => pickImage(ImageSource.camera),
         ),
@@ -103,7 +103,7 @@ class ImageUploadState extends State<ImageUpload> {
     }
     imageBytes = await pickedFile!.readAsBytes();
     if (imageBytes!.length > 1000 * 1000 * 10) {
-      cryAlert(context, S.of(context)!.sizeLimit);
+      cryAlert(context, S.of(context).sizeLimit);
       pickedFile = null;
       imageBytes = null;
       setState(() {});
@@ -131,7 +131,7 @@ class ImageUploadState extends State<ImageUpload> {
 
     ResponseBodyApi responseBodyApi = await ImageApi.upload(formData);
     if (responseBodyApi.success!) {
-      Utils.toPortal(context, S.of(context)!.saved, S.of(context)!.goToThePortal);
+      Utils.toPortal(context, S.of(context).saved, S.of(context).goToThePortal);
       setState(() {
         this.pickedFile = null;
       });

@@ -55,13 +55,13 @@ class _RoleListState extends State<RoleList> {
         DataColumn(
           label: Container(
             alignment: Alignment.center,
-            child: Text(S.of(context)!.operating),
+            child: Text(S.of(context).operating),
             width: 240,
           ),
         ),
         DataColumn(
           label: Container(
-            child: Text(S.of(context)!.name),
+            child: Text(S.of(context).name),
             width: 800,
           ),
           onSort: (int columnIndex, bool ascending) => _sort('name', ascending),
@@ -73,10 +73,10 @@ class _RoleListState extends State<RoleList> {
           DataCell(
             CryButtonBar(
               children: [
-                CryButton(iconData: Icons.edit, tip: S.of(context)!.modify, onPressed: () => _edit(role)),
-                CryButton(iconData: Icons.delete, tip: S.of(context)!.delete, onPressed: () => _delete([role])),
-                CryButton(iconData: Icons.person, tip: S.of(context)!.selectUsers, onPressed: () => _selectUser(role)),
-                CryButton(iconData: Icons.menu, tip: S.of(context)!.selectMenus, onPressed: () => _selectMenu(role)),
+                CryButton(iconData: Icons.edit, tip: S.of(context).modify, onPressed: () => _edit(role)),
+                CryButton(iconData: Icons.delete, tip: S.of(context).delete, onPressed: () => _delete([role])),
+                CryButton(iconData: Icons.person, tip: S.of(context).selectUsers, onPressed: () => _selectUser(role)),
+                CryButton(iconData: Icons.menu, tip: S.of(context).selectMenus, onPressed: () => _selectMenu(role)),
               ],
             ),
           ),
@@ -89,21 +89,21 @@ class _RoleListState extends State<RoleList> {
       alignment: MainAxisAlignment.start,
       children: <Widget>[
         CryButton(
-          label: S.of(context)!.query,
+          label: S.of(context).query,
           iconData: Icons.search,
           onPressed: () {
             _query();
           },
         ),
         CryButton(
-          label: S.of(context)!.add,
+          label: S.of(context).add,
           iconData: Icons.add,
           onPressed: () {
             _edit(null);
           },
         ),
         CryButton(
-          label: S.of(context)!.delete,
+          label: S.of(context).delete,
           iconData: Icons.delete,
           onPressed: selectedList.length == 0
               ? null
@@ -170,7 +170,7 @@ class _RoleListState extends State<RoleList> {
     if (roleList.length == 0) {
       return;
     }
-    cryConfirm(context, S.of(context)!.confirmDelete, (context) async {
+    cryConfirm(context, S.of(context).confirmDelete, (context) async {
       await RoleApi.removeByIds(roleList.map((e) => e.id).toList());
       _query();
     });

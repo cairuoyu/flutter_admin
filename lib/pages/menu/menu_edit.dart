@@ -48,7 +48,7 @@ class _MenuEditState extends State<MenuEdit> {
               if (!res.success!) {
                 return;
               }
-              CryUtils.message(S.of(context)!.saved);
+              CryUtils.message(S.of(context).saved);
               if (widget.onSave != null) {
                 widget.onSave!();
               }
@@ -71,25 +71,25 @@ class _MenuEditState extends State<MenuEdit> {
             children: <Widget>[
               CryInput(
                 enable: false,
-                value: menu.pname ?? S.of(context)!.root,
-                label: S.of(context)!.parentMenu,
+                value: menu.pname ?? S.of(context).root,
+                label: S.of(context).parentMenu,
                 onSaved: (v) {
                   menu.pname = v;
                 },
               ),
               CryInput(
                 value: menu.name,
-                label: S.of(context)!.name,
+                label: S.of(context).name,
                 onSaved: (v) {
                   menu.name = v;
                 },
                 validator: (v) {
-                  return v!.isEmpty ? S.of(context)!.required : null;
+                  return v!.isEmpty ? S.of(context).required : null;
                 },
               ),
               CryInput(
                 value: menu.nameEn,
-                label: S.of(context)!.englishName,
+                label: S.of(context).englishName,
                 onSaved: (v) {
                   menu.nameEn = v;
                 },
@@ -115,14 +115,14 @@ class _MenuEditState extends State<MenuEdit> {
               ),
               CryInputNum(
                 value: menu.orderBy,
-                label: S.of(context)!.sequenceNumber,
+                label: S.of(context).sequenceNumber,
                 onSaved: (num? v) {
                   menu.orderBy = v as int?;
                 },
               ),
               CryInput(
                 value: menu.remark,
-                label: S.of(context)!.remarks,
+                label: S.of(context).remarks,
                 onSaved: (v) {
                   menu.remark = v;
                 },

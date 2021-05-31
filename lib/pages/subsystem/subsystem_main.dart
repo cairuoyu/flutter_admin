@@ -43,7 +43,7 @@ class _SubsystemMain extends State<SubsystemMain> {
       child: Wrap(
         children: [
           CryInput(
-            label: S.of(context)!.code,
+            label: S.of(context).code,
             width: 400,
             value: subsystemVO.code,
             onSaved: (v) {
@@ -51,7 +51,7 @@ class _SubsystemMain extends State<SubsystemMain> {
             },
           ),
           CryInput(
-            label: S.of(context)!.name,
+            label: S.of(context).name,
             width: 400,
             value: subsystemVO.name,
             onSaved: (v) {
@@ -60,10 +60,10 @@ class _SubsystemMain extends State<SubsystemMain> {
           ),
           Wrap(
             children: [
-              CryCheckbox(S.of(context)!.enable, subsystemVO.isEnable!, (v) {
+              CryCheckbox(S.of(context).enable, subsystemVO.isEnable!, (v) {
                 this.subsystemVO.isEnable = v;
               }),
-              CryCheckbox(S.of(context)!.disable, subsystemVO.isDisable!, (v) => this.subsystemVO.isDisable = v),
+              CryCheckbox(S.of(context).disable, subsystemVO.isDisable!, (v) => this.subsystemVO.isDisable = v),
             ],
           ),
         ],
@@ -83,7 +83,7 @@ class _SubsystemMain extends State<SubsystemMain> {
       child: SingleChildScrollView(
         child: CryDataTable(
           key: tableKey,
-          title: S.of(context)!.subsystemList,
+          title: S.of(context).subsystemList,
           onPageChanged: (firstRowIndex) {
             page.current = (firstRowIndex ~/ page.size + 1);
             _loadData();
@@ -97,13 +97,13 @@ class _SubsystemMain extends State<SubsystemMain> {
             this.setState(() {});
           },
           columns: [
-            DataColumn(label: Text(S.of(context)!.code)),
-            DataColumn(label: Text(S.of(context)!.name)),
+            DataColumn(label: Text(S.of(context).code)),
+            DataColumn(label: Text(S.of(context).name)),
             DataColumn(label: Text('URL')),
-            DataColumn(label: Text(S.of(context)!.sequenceNumber)),
-            DataColumn(label: Text(S.of(context)!.remarks)),
-            DataColumn(label: Text(S.of(context)!.enable)),
-            DataColumn(label: Text(S.of(context)!.operating)),
+            DataColumn(label: Text(S.of(context).sequenceNumber)),
+            DataColumn(label: Text(S.of(context).remarks)),
+            DataColumn(label: Text(S.of(context).enable)),
+            DataColumn(label: Text(S.of(context).operating)),
           ],
           getCells: (m) {
             Subsystem subsystem = Subsystem.fromMap(m);
@@ -155,7 +155,7 @@ class _SubsystemMain extends State<SubsystemMain> {
   }
 
   _delete(List<Subsystem> subsystemList) {
-    cryConfirm(context, S.of(context)!.confirmDelete, (context) async {
+    cryConfirm(context, S.of(context).confirmDelete, (context) async {
       ResponseBodyApi responseBodyApi = await SubsystemApi.removeByIds(subsystemList.map((e) => e.id).toList());
       if (!responseBodyApi.success!) {
         return;

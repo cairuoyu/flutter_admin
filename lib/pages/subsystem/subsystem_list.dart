@@ -35,7 +35,7 @@ class _SubsystemListState extends State<SubsystemList> {
       return Container();
     }
     var listView = CryListView(
-      title: S.of(context)!.menuTile,
+      title: S.of(context).menuTile,
       count: subsystemList.length,
       getCell: (index) {
         Subsystem subsystem = subsystemList[index];

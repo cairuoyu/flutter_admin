@@ -77,7 +77,7 @@ class _MenuListState extends State<MenuList> {
         : right;
     var result = Scaffold(
       appBar: AppBar(
-        title: Text(widget.subsystem!.name ?? '' + ' -- ' + S.of(context)!.menuManagement),
+        title: Text(widget.subsystem!.name ?? '' + ' -- ' + S.of(context).menuManagement),
         actions: [
           CryButton(
             label: showTree ? '表格树' : '树',
@@ -111,12 +111,12 @@ class _MenuListState extends State<MenuList> {
   }
 
   _onDelete(List<String> ids) {
-    cryConfirm(context, S.of(context)!.confirmDelete, (context) async {
+    cryConfirm(context, S.of(context).confirmDelete, (context) async {
       ResponseBodyApi responseBodyApi = await MenuApi.removeByIds(ids);
       if (!responseBodyApi.success!) {
         return;
       }
-      CryUtils.message(S.of(context)!.success);
+      CryUtils.message(S.of(context).success);
       _loadData();
     });
   }

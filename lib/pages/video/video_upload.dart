@@ -45,15 +45,15 @@ class VideoUploadState extends State<VideoUpload> {
       child: Wrap(
         children: <Widget>[
           CryInput(
-            label: S.of(context)!.videoTitle,
+            label: S.of(context).videoTitle,
             value: video.title,
             onSaved: (v) => {video.title = v},
             validator: (v) {
-              return v!.isEmpty ? S.of(context)!.required : null;
+              return v!.isEmpty ? S.of(context).required : null;
             },
           ),
           CryInput(
-            label: S.of(context)!.videoMemo,
+            label: S.of(context).videoMemo,
             value: video.memo,
             onSaved: (v) => {video.memo = v},
           ),
@@ -63,13 +63,13 @@ class VideoUploadState extends State<VideoUpload> {
     var bb = CryButtonBar(
       children: <Widget>[
         CryButton(
-          label: S.of(context)!.selectVideo,
+          label: S.of(context).selectVideo,
           onPressed: () => pickVideo(),
           iconData: Icons.video_library,
         ),
         CryButtons.save(context, pickedFile == null ? null : () => save()),
         Text(
-          S.of(context)!.sizeLimit,
+          S.of(context).sizeLimit,
           style: TextStyle(color: Colors.red),
         ),
       ],
@@ -96,7 +96,7 @@ class VideoUploadState extends State<VideoUpload> {
     }
     videoBytes = await pickedFile!.readAsBytes();
     if (videoBytes!.length > 1000 * 1000 * 10) {
-      cryAlert(context, S.of(context)!.sizeLimit);
+      cryAlert(context, S.of(context).sizeLimit);
       pickedFile = null;
       videoBytes = null;
       controller = null;
@@ -138,7 +138,7 @@ class VideoUploadState extends State<VideoUpload> {
 
     ResponseBodyApi responseBodyApi = await VideoApi.upload(formData);
     if (responseBodyApi.success!) {
-      Utils.toPortal(context, S.of(context)!.saved, S.of(context)!.goToThePortal);
+      Utils.toPortal(context, S.of(context).saved, S.of(context).goToThePortal);
       setState(() {
 //        this.disposeController();
       });

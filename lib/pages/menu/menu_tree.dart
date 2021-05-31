@@ -54,7 +54,7 @@ class _MenuTreeState extends State<MenuTree> {
         if (widget.onEdit != null) CryButtons.add(context, () => widget.onEdit!(Menu())),
         CryButton(
           iconData: Icons.vertical_align_center,
-          label: S.of(context)!.collapse,
+          label: S.of(context).collapse,
           onPressed: () {
             setState(() {
               treeController.collapseAll();
@@ -63,7 +63,7 @@ class _MenuTreeState extends State<MenuTree> {
         ),
         CryButton(
           iconData: Icons.expand,
-          label: S.of(context)!.expand,
+          label: S.of(context).expand,
           onPressed: () {
             setState(() {
               treeController.expandAll();

@@ -45,7 +45,7 @@ class _MessageViewState extends State<MessageView> {
     );
     var result = Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context)!.view),
+        title: Text(S.of(context).view),
       ),
       body: body,
       // body: SingleChildScrollView(child: body),

@@ -51,9 +51,9 @@ class DictItemListEditState extends State<DictItemListEdit> {
     var table = DataTable(
       columns: [
         DataColumn(label: Text('#')),
-        DataColumn(label: Text(S.of(context)!.operating)),
-        DataColumn(label: Text(S.of(context)!.dictItemCode)),
-        DataColumn(label: Text(S.of(context)!.dictItemName)),
+        DataColumn(label: Text(S.of(context).operating)),
+        DataColumn(label: Text(S.of(context).dictItemCode)),
+        DataColumn(label: Text(S.of(context).dictItemName)),
       ],
       rows: this.dictItemList.map((dictItem) {
         int rowIndex = i + 1;
@@ -121,7 +121,7 @@ class DictItemListEditState extends State<DictItemListEdit> {
     this.tableFormKey.currentState!.save();
 
     if (this.dictItemList.any((element) => isEmpty(element.name) || isEmpty(element.code))) {
-      CryUtils.message(S.of(context)!.completeTheTableData);
+      CryUtils.message(S.of(context).completeTheTableData);
       return false;
     }
     return true;

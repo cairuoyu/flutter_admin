@@ -47,7 +47,7 @@ class _UserInfoListState extends State<UserInfoList> {
         children: <Widget>[
           CryInput(
             width: 400,
-            label: S.of(context)!.name,
+            label: S.of(context).name,
             value: userInfo.name,
             onSaved: (v) {
               userInfo.name = v;
@@ -57,7 +57,7 @@ class _UserInfoListState extends State<UserInfoList> {
             context,
             width: 400,
             initialValue: Dept(id: userInfo.id, name: userInfo.deptName),
-            label: S.of(context)!.personDepartment,
+            label: S.of(context).personDepartment,
             popWidget: DeptSelector(),
             getValueLabel: (Dept d) => d.name,
             getValue: (Dept d) => d,
@@ -71,7 +71,7 @@ class _UserInfoListState extends State<UserInfoList> {
     );
     CryDataTable table = CryDataTable(
       key: tableKey,
-      title: S.of(context)!.userList,
+      title: S.of(context).userList,
       onPageChanged: (firstRowIndex) {
         page.current = (firstRowIndex ~/ page.size + 1);
         _loadData();
@@ -86,42 +86,42 @@ class _UserInfoListState extends State<UserInfoList> {
       },
       columns: [
         DataColumn(
-          label: Text(S.of(context)!.operating),
+          label: Text(S.of(context).operating),
         ),
         DataColumn(
-          label: Text(S.of(context)!.username),
+          label: Text(S.of(context).username),
           onSort: (int columnIndex, bool ascending) => _sort('user_name'),
         ),
         DataColumn(
-          label: Text(S.of(context)!.name),
+          label: Text(S.of(context).name),
           onSort: (int columnIndex, bool ascending) => _sort('name'),
         ),
         DataColumn(
-          label: Text(S.of(context)!.personNickname),
+          label: Text(S.of(context).personNickname),
           onSort: (int columnIndex, bool ascending) => _sort('nick_name'),
         ),
         DataColumn(
-          label: Text(S.of(context)!.personGender),
+          label: Text(S.of(context).personGender),
           onSort: (int columnIndex, bool ascending) => _sort('gender'),
         ),
         DataColumn(
-          label: Text(S.of(context)!.hometown),
+          label: Text(S.of(context).hometown),
           onSort: (int columnIndex, bool ascending) => _sort('hometown'),
         ),
         DataColumn(
-          label: Text(S.of(context)!.personBirthday),
+          label: Text(S.of(context).personBirthday),
           onSort: (int columnIndex, bool ascending) => _sort('birthday'),
         ),
         DataColumn(
-          label: Text(S.of(context)!.personDepartment),
+          label: Text(S.of(context).personDepartment),
           onSort: (int columnIndex, bool ascending) => _sort('dept_id'),
         ),
         DataColumn(
-          label: Text(S.of(context)!.creationTime),
+          label: Text(S.of(context).creationTime),
           onSort: (int columnIndex, bool ascending) => _sort('create_time'),
         ),
         DataColumn(
-          label: Text(S.of(context)!.updateTime),
+          label: Text(S.of(context).updateTime),
           onSort: (int columnIndex, bool ascending) => _sort('update_time'),
         ),
       ],
@@ -131,7 +131,7 @@ class _UserInfoListState extends State<UserInfoList> {
           DataCell(
             CryButtonBar(
               children: [
-                CryButton(iconData: Icons.edit, tip: S.of(context)!.modify, onPressed: () => _edit(userInfo)),
+                CryButton(iconData: Icons.edit, tip: S.of(context).modify, onPressed: () => _edit(userInfo)),
               ],
             ),
           ),

@@ -32,7 +32,7 @@ class _RegisterState extends State {
 
   Widget _buildPageContent() {
     var appName = Text(
-      S.of(context)!.register,
+      S.of(context).register,
       style: TextStyle(fontSize: 16, color: Colors.green),
       textScaleFactor: 3.2,
     );
@@ -66,13 +66,13 @@ class _RegisterState extends State {
               style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: S.of(context)!.username,
+                labelText: S.of(context).username,
               ),
               onSaved: (v) {
                 user.userName = v;
               },
               validator: (v) {
-                return v!.isEmpty ? S.of(context)!.usernameRequired : null;
+                return v!.isEmpty ? S.of(context).usernameRequired : null;
               },
             ),
           ),
@@ -83,13 +83,13 @@ class _RegisterState extends State {
               obscureText: true,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: S.of(context)!.password,
+                labelText: S.of(context).password,
               ),
               onSaved: (v) {
                 user.password = v;
               },
               validator: (v) {
-                return v!.isEmpty ? S.of(context)!.passwordRequired : null;
+                return v!.isEmpty ? S.of(context).passwordRequired : null;
               },
             ),
           ),
@@ -101,13 +101,13 @@ class _RegisterState extends State {
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 // helperText: '两次密码必须一致',
-                labelText: S.of(context)!.confirmPassword,
+                labelText: S.of(context).confirmPassword,
               ),
               onSaved: (v) {
                 password2 = v;
               },
               validator: (v) {
-                return password2 == user.password ? null : S.of(context)!.passwordMismatch;
+                return password2 == user.password ? null : S.of(context).passwordMismatch;
               },
             ),
           ),
@@ -116,7 +116,7 @@ class _RegisterState extends State {
             children: <Widget>[
               TextButton(
                 child: Text(
-                  S.of(context)!.haveAccountLogin,
+                  S.of(context).haveAccountLogin,
                   style: TextStyle(color: Colors.blue),
                 ),
                 onPressed: _login,
@@ -136,7 +136,7 @@ class _RegisterState extends State {
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0))),
                 ),
-                child: Text(S.of(context)!.register, style: TextStyle(color: Colors.white70, fontSize: 20)),
+                child: Text(S.of(context).register, style: TextStyle(color: Colors.white70, fontSize: 20)),
               ),
             ),
           ),
@@ -170,7 +170,7 @@ class _RegisterState extends State {
           return;
         }
         _login();
-        CryUtils.message(S.of(context)!.registerSuccess);
+        CryUtils.message(S.of(context).registerSuccess);
       });
     }
   }

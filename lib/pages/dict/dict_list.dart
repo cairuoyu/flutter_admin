@@ -46,7 +46,7 @@ class _DictList extends State<DictList> {
       child: Wrap(
         children: [
           CryInput(
-            label: S.of(context)!.code,
+            label: S.of(context).code,
             width: 400,
             value: dict.code,
             onSaved: (v) {
@@ -54,7 +54,7 @@ class _DictList extends State<DictList> {
             },
           ),
           CryInput(
-            label: S.of(context)!.name,
+            label: S.of(context).name,
             width: 400,
             value: dict.name,
             onSaved: (v) {
@@ -71,16 +71,16 @@ class _DictList extends State<DictList> {
         CryButtons.reset(context, () => _reset()),
         CryButtons.add(context, () => _edit(null)),
         CryButtons.delete(context, selectedList.isEmpty ? null : () => _delete(selectedList)),
-        CryButton(iconData: Icons.file_download, label: S.of(context)!.downloadTemplate, onPressed: _downloadTemplate),
-        CryButton(iconData: Icons.redo, label: S.of(context)!.importExcel, onPressed: _importExcel),
-        CryButton(iconData: Icons.reply, label: S.of(context)!.exportExcel, onPressed: _exportExcel),
+        CryButton(iconData: Icons.file_download, label: S.of(context).downloadTemplate, onPressed: _downloadTemplate),
+        CryButton(iconData: Icons.redo, label: S.of(context).importExcel, onPressed: _importExcel),
+        CryButton(iconData: Icons.reply, label: S.of(context).exportExcel, onPressed: _exportExcel),
       ],
     );
     var table = Expanded(
       child: SingleChildScrollView(
         child: CryDataTable(
           key: tableKey,
-          title: S.of(context)!.dictList,
+          title: S.of(context).dictList,
           onPageChanged: (firstRowIndex) {
             page.current = (firstRowIndex ~/ page.size + 1);
             _loadData();
@@ -97,10 +97,10 @@ class _DictList extends State<DictList> {
             this.setState(() {});
           },
           columns: [
-            DataColumn(label: Text(S.of(context)!.operating)),
-            DataColumn(label: Text(S.of(context)!.code)),
-            DataColumn(label: Text(S.of(context)!.name)),
-            DataColumn(label: Text(S.of(context)!.enable)),
+            DataColumn(label: Text(S.of(context).operating)),
+            DataColumn(label: Text(S.of(context).code)),
+            DataColumn(label: Text(S.of(context).name)),
+            DataColumn(label: Text(S.of(context).enable)),
           ],
           getCells: (m) {
             Dict dict = Dict.fromMap(m);
@@ -148,7 +148,7 @@ class _DictList extends State<DictList> {
     var data = FormData.fromMap({'file': file});
     await DictApi.importExcel(data);
     this._loadData();
-    CryUtils.message(S.of(context)!.success);
+    CryUtils.message(S.of(context).success);
   }
 
   _exportExcel() async {
@@ -171,7 +171,7 @@ class _DictList extends State<DictList> {
   }
 
   _delete(List<Dict> dictList) {
-    cryConfirm(context, S.of(context)!.confirmDelete, (context) async {
+    cryConfirm(context, S.of(context).confirmDelete, (context) async {
       await DictApi.removeByIds(dictList.map((e) => e.id).toList());
       this._loadData();
     });

@@ -57,8 +57,8 @@ class _LoginState extends State<Login> {
           SizedBox(height: 20.0),
           Column(
             children: [
-              Text(S.of(context)!.admin + '：admin/admin'),
-              Text(S.of(context)!.loginTip),
+              Text(S.of(context).admin + '：admin/admin'),
+              Text(S.of(context).loginTip),
             ],
           )
         ],
@@ -92,7 +92,7 @@ class _LoginState extends State<Login> {
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: S.of(context)!.username,
+                          labelText: S.of(context).username,
                           icon: Icon(
                             Icons.people,
                             color: Colors.blue,
@@ -102,7 +102,7 @@ class _LoginState extends State<Login> {
                           user.userName = v;
                         },
                         validator: (v) {
-                          return v!.isEmpty ? S.of(context)!.usernameRequired : null;
+                          return v!.isEmpty ? S.of(context).usernameRequired : null;
                         },
                       ),
                     ),
@@ -114,7 +114,7 @@ class _LoginState extends State<Login> {
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: S.of(context)!.password,
+                          labelText: S.of(context).password,
                           icon: Icon(
                             Icons.lock,
                             color: Colors.blue,
@@ -124,7 +124,7 @@ class _LoginState extends State<Login> {
                           user.password = v;
                         },
                         validator: (v) {
-                          return v!.isEmpty ? S.of(context)!.passwordRequired : null;
+                          return v!.isEmpty ? S.of(context).passwordRequired : null;
                         },
                       ),
                     ),
@@ -133,14 +133,14 @@ class _LoginState extends State<Login> {
                       children: <Widget>[
                         TextButton(
                           child: Text(
-                            S.of(context)!.register,
+                            S.of(context).register,
                             style: TextStyle(color: Colors.blue),
                           ),
                           onPressed: _register,
                         ),
                         TextButton(
                           child: Text(
-                            S.of(context)!.forgetPassword,
+                            S.of(context).forgetPassword,
                             style: TextStyle(color: Colors.black45),
                           ),
                           onPressed: () {},
@@ -172,7 +172,7 @@ class _LoginState extends State<Login> {
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0))),
                 ),
-                child: Text(S.of(context)!.login, style: TextStyle(color: Colors.white70, fontSize: 20)),
+                child: Text(S.of(context).login, style: TextStyle(color: Colors.white70, fontSize: 20)),
               ),
             ),
           ),

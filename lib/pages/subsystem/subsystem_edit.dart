@@ -44,22 +44,22 @@ class _SubsystemEditState extends State<SubsystemEdit> {
         children: [
           CryInput(
             value: _subsystem.code,
-            label: S.of(context)!.code,
+            label: S.of(context).code,
             onSaved: (v) {
               _subsystem.code = v;
             },
             validator: (v) {
-              return v!.isEmpty ? S.of(context)!.required : null;
+              return v!.isEmpty ? S.of(context).required : null;
             },
           ),
           CryInput(
             value: _subsystem.name,
-            label: S.of(context)!.name,
+            label: S.of(context).name,
             onSaved: (v) {
               _subsystem.name = v;
             },
             validator: (v) {
-              return v!.isEmpty ? S.of(context)!.required : null;
+              return v!.isEmpty ? S.of(context).required : null;
             },
           ),
           CryInput(
@@ -71,21 +71,21 @@ class _SubsystemEditState extends State<SubsystemEdit> {
           ),
           CryInput(
             value: _subsystem.orderBy,
-            label: S.of(context)!.sequenceNumber,
+            label: S.of(context).sequenceNumber,
             onSaved: (v) {
               _subsystem.orderBy = v;
             },
           ),
           CryInput(
             value: _subsystem.remark,
-            label: S.of(context)!.remarks,
+            label: S.of(context).remarks,
             onSaved: (v) {
               _subsystem.remark = v;
             },
           ),
           SwitchListTile(
             value: _subsystem.state == ConstantDict.CODE_YESNO_YES,
-            title: Text(S.of(context)!.enable),
+            title: Text(S.of(context).enable),
             onChanged: (v) {
               setState(() {
                 formKey.currentState!.save();
@@ -123,7 +123,7 @@ class _SubsystemEditState extends State<SubsystemEdit> {
     ResponseBodyApi responseBodyApi = await SubsystemApi.saveOrUpdate(_subsystem.toMap());
     if (responseBodyApi.success!) {
       Navigator.pop(context, true);
-      CryUtils.message(S.of(context)!.success);
+      CryUtils.message(S.of(context).success);
     }
   }
 }

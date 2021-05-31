@@ -51,7 +51,7 @@ class _MessageReplayState extends State<MessageReplay> {
       ],
     );
     var result = Scaffold(
-      appBar: AppBar(title: Text(S.of(context)!.replay + '-' + widget.message!.title!)),
+      appBar: AppBar(title: Text(S.of(context).replay + '-' + widget.message!.title!)),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -72,7 +72,7 @@ class _MessageReplayState extends State<MessageReplay> {
     var result = await MessageApi.replayCommit(messageReplayModel.toMap());
     if (result.success!) {
       Cry.pop();
-      CryUtils.message(S.of(context)!.success);
+      CryUtils.message(S.of(context).success);
     }
   }
 }

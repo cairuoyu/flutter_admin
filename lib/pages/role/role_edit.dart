@@ -43,12 +43,12 @@ class _RoleEditState extends State<RoleEdit> {
         children: [
           CryInput(
             value: _role.name,
-            label: S.of(context)!.name,
+            label: S.of(context).name,
             onSaved: (v) {
               _role.name = v;
             },
             validator: (v) {
-              return v!.isEmpty ? S.of(context)!.required : null;
+              return v!.isEmpty ? S.of(context).required : null;
             },
           ),
         ],
@@ -56,7 +56,7 @@ class _RoleEditState extends State<RoleEdit> {
     );
     var result = Scaffold(
       appBar: AppBar(
-        title: Text(widget.role == null ? S.of(context)!.add : S.of(context)!.modify),
+        title: Text(widget.role == null ? S.of(context).add : S.of(context).modify),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -81,7 +81,7 @@ class _RoleEditState extends State<RoleEdit> {
     ResponseBodyApi responseBodyApi = await RoleApi.saveOrUpdate(_role.toMap());
     if (responseBodyApi.success!) {
       Navigator.pop(context, true);
-      CryUtils.message(S.of(context)!.success);
+      CryUtils.message(S.of(context).success);
     }
   }
 }

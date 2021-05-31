@@ -40,7 +40,7 @@ class _DeptListState extends State<DeptList> {
       child: Wrap(
         children: [
           CryInput(
-            label: S.of(context)!.name,
+            label: S.of(context).name,
             value: dept.name,
             onSaved: (v) {
               dept.name = v;
@@ -64,7 +64,7 @@ class _DeptListState extends State<DeptList> {
         CryButtons.add(context, () => toEdit(null)),
         CryButton(
           iconData: Icons.vertical_align_center,
-          label: S.of(context)!.collapse,
+          label: S.of(context).collapse,
           onPressed: () {
             setState(() {
               treeController.collapseAll();
@@ -73,7 +73,7 @@ class _DeptListState extends State<DeptList> {
         ),
         CryButton(
           iconData: Icons.expand,
-          label: S.of(context)!.expand,
+          label: S.of(context).expand,
           onPressed: () {
             setState(() {
               treeController.expandAll();
@@ -142,7 +142,7 @@ class _DeptListState extends State<DeptList> {
             } else if (v == OperationType.edit) {
               toEdit(treeVO.data);
             } else if (v == OperationType.delete) {
-              cryConfirm(context, S.of(context)!.confirmDelete, (context) async {
+              cryConfirm(context, S.of(context).confirmDelete, (context) async {
                 delete([treeVO.data!.id]);
               });
             }

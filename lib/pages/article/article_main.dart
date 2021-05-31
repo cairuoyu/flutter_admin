@@ -48,7 +48,7 @@ class _ArticleMainState extends State<ArticleMain> {
         alignment: WrapAlignment.start,
         children: [
           CryInput(
-            label: S.of(context)!.title,
+            label: S.of(context).title,
             value: article.title,
             width: 400,
             onSaved: (v) {
@@ -56,7 +56,7 @@ class _ArticleMainState extends State<ArticleMain> {
             },
           ),
           CryInput(
-            label: S.of(context)!.subTitle,
+            label: S.of(context).subTitle,
             value: article.titleSub,
             width: 400,
             onSaved: (v) {
@@ -64,7 +64,7 @@ class _ArticleMainState extends State<ArticleMain> {
             },
           ),
           CrySelect(
-            label: S.of(context)!.status,
+            label: S.of(context).status,
             value: article.status,
             width: 200,
             dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_ARTICLE_STATUS),
@@ -74,7 +74,7 @@ class _ArticleMainState extends State<ArticleMain> {
           ),
           CrySelectDate(
             context,
-            label: S.of(context)!.publishTimeStart,
+            label: S.of(context).publishTimeStart,
             value: article.publishTimeStart,
             width: 200,
             onSaved: (v) {
@@ -83,7 +83,7 @@ class _ArticleMainState extends State<ArticleMain> {
           ),
           CrySelectDate(
             context,
-            label: S.of(context)!.publishTimeEnd,
+            label: S.of(context).publishTimeEnd,
             value: article.publishTimeEnd,
             width: 200,
             onSaved: (v) {
@@ -102,7 +102,7 @@ class _ArticleMainState extends State<ArticleMain> {
             padding: EdgeInsets.all(8.0),
             alignment: Alignment.centerLeft,
             child: Text(
-              S.of(context)!.operating,
+              S.of(context).operating,
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -125,7 +125,7 @@ class _ArticleMainState extends State<ArticleMain> {
             padding: EdgeInsets.all(8.0),
             alignment: Alignment.centerLeft,
             child: Text(
-              S.of(context)!.title,
+              S.of(context).title,
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -137,7 +137,7 @@ class _ArticleMainState extends State<ArticleMain> {
             padding: EdgeInsets.all(8.0),
             alignment: Alignment.centerLeft,
             child: Text(
-              S.of(context)!.subTitle,
+              S.of(context).subTitle,
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -148,7 +148,7 @@ class _ArticleMainState extends State<ArticleMain> {
             padding: EdgeInsets.all(8.0),
             alignment: Alignment.centerLeft,
             child: Text(
-              S.of(context)!.author,
+              S.of(context).author,
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -160,7 +160,7 @@ class _ArticleMainState extends State<ArticleMain> {
             padding: EdgeInsets.all(8.0),
             alignment: Alignment.centerLeft,
             child: Text(
-              S.of(context)!.publishTime,
+              S.of(context).publishTime,
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -172,7 +172,7 @@ class _ArticleMainState extends State<ArticleMain> {
             padding: EdgeInsets.all(8.0),
             alignment: Alignment.centerLeft,
             child: Text(
-              S.of(context)!.status,
+              S.of(context).status,
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -308,7 +308,7 @@ class ArticleDataSource extends DataGridSource {
   }
 
   delete(ids) async {
-    cryConfirm(Cry.context, S.of(Cry.context)!.confirmDelete, (context) async {
+    cryConfirm(Cry.context, S.of(Cry.context).confirmDelete, (context) async {
       await ArticleApi.removeByIds(ids);
       loadData();
     });

@@ -48,7 +48,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
     var buttonBar = CryButtonBar(
       children: [
         CryButton(
-          label: S.of(context)!.query,
+          label: S.of(context).query,
           iconData: Icons.search,
           padding: EdgeInsets.only(left: 20),
           onPressed: () {
@@ -57,7 +57,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
           },
         ),
         CryButton(
-          label: S.of(context)!.reset,
+          label: S.of(context).reset,
           iconData: Icons.refresh,
           padding: EdgeInsets.only(left: 20),
           onPressed: () {
@@ -74,7 +74,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
         children: <Widget>[
           CryInput(
             width: 400,
-            label: S.of(context)!.username,
+            label: S.of(context).username,
             value: userInfo.name,
             onSaved: (v) {
               userInfo.name = v;
@@ -102,11 +102,11 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
       },
       columns: [
         DataColumn(
-          label: Container(child: Text(S.of(context)!.username)),
+          label: Container(child: Text(S.of(context).username)),
           onSort: (int columnIndex, bool ascending) => _sort('userName'),
         ),
         DataColumn(
-          label: Container(child: Text(S.of(context)!.name)),
+          label: Container(child: Text(S.of(context).name)),
           onSort: (int columnIndex, bool ascending) => _sort('name'),
         ),
       ],

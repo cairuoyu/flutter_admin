@@ -32,12 +32,12 @@ class _MenuTableTreeState extends State<MenuTableTree> {
   @override
   Widget build(BuildContext context) {
     List<CryTreeTableColumnData> columnData = [
-      CryTreeTableColumnData(label: S.of(context)!.name, getCell: (Menu v) => Text(v.name!)),
-      CryTreeTableColumnData(label: S.of(context)!.englishName, getCell: (Menu v) => Text(v.nameEn!)),
+      CryTreeTableColumnData(label: S.of(context).name, getCell: (Menu v) => Text(v.name!)),
+      CryTreeTableColumnData(label: S.of(context).englishName, getCell: (Menu v) => Text(v.nameEn!)),
       CryTreeTableColumnData(label: 'URL', getCell: (Menu v) => Text(v.url!)),
       CryTreeTableColumnData(label: 'Icon', getCell: (Menu v) => Icon(Utils.toIconData(v.icon))),
-      CryTreeTableColumnData(label: S.of(context)!.sequenceNumber, getCell: (Menu v) => Text(v.orderBy.toString()), width: 180),
-      CryTreeTableColumnData(label: S.of(context)!.remarks, getCell: (Menu v) => Text(v.remark!), width: 300)
+      CryTreeTableColumnData(label: S.of(context).sequenceNumber, getCell: (Menu v) => Text(v.orderBy.toString()), width: 180),
+      CryTreeTableColumnData(label: S.of(context).remarks, getCell: (Menu v) => Text(v.remark!), width: 300)
     ];
     var treeTable = CryTreeTable<Menu>(
       columnData: columnData,

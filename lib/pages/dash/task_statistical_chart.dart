@@ -24,14 +24,14 @@ class _TaskStatisticalChartState extends State<TaskStatisticalChart> {
   List<SplineSeries<TaskStatisticalModel, String>> _getSeries() {
     return <SplineSeries<TaskStatisticalModel, String>>[
       SplineSeries<TaskStatisticalModel, String>(
-        name: S.of(context)!.dashUpcoming,
+        name: S.of(context).dashUpcoming,
         dataSource: taskStatisticalList,
         xValueMapper: (TaskStatisticalModel sales, _) => sales.timeName,
         yValueMapper: (TaskStatisticalModel sales, _) => sales.upcomingCount,
         markerSettings: MarkerSettings(isVisible: true),
       ),
       SplineSeries<TaskStatisticalModel, String>(
-        name: S.of(context)!.dashInProgress,
+        name: S.of(context).dashInProgress,
         dataSource: taskStatisticalList,
         markerSettings: MarkerSettings(isVisible: true),
         xValueMapper: (TaskStatisticalModel sales, _) => sales.timeName,

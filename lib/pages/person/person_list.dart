@@ -78,14 +78,14 @@ class PersonListState extends State {
       child: Wrap(
         children: <Widget>[
           CryInput(
-            label: S.of(context)!.personName,
+            label: S.of(context).personName,
             value: formData.name,
             onSaved: (v) {
               formData.name = v;
             },
           ),
           CrySelect(
-            label: S.of(context)!.personDepartment,
+            label: S.of(context).personDepartment,
             value: formData.deptId,
             dataList: DictUtil.getDictSelectOptionList(ConstantDict.CODE_DEPT),
             onSaved: (v) {
@@ -98,11 +98,11 @@ class PersonListState extends State {
 
     var buttonBar = CryButtonBar(
       children: <Widget>[
-        CryButton(label: S.of(context)!.query, iconData: Icons.search, onPressed: () => _query()),
-        CryButton(label: S.of(context)!.reset, iconData: Icons.refresh, onPressed: () => _reset()),
-        CryButton(label: S.of(context)!.add, iconData: Icons.add, onPressed: () => _edit()),
+        CryButton(label: S.of(context).query, iconData: Icons.search, onPressed: () => _query()),
+        CryButton(label: S.of(context).reset, iconData: Icons.refresh, onPressed: () => _reset()),
+        CryButton(label: S.of(context).add, iconData: Icons.add, onPressed: () => _edit()),
         CryButton(
-          label: S.of(context)!.modify,
+          label: S.of(context).modify,
           iconData: Icons.edit,
           onPressed: myDS.selectedCount != 1
               ? null
@@ -117,12 +117,12 @@ class PersonListState extends State {
                 },
         ),
         CryButton(
-          label: S.of(context)!.delete,
+          label: S.of(context).delete,
           iconData: Icons.delete,
           onPressed: myDS.selectedCount < 1
               ? null
               : () {
-                  cryConfirm(context, S.of(context)!.confirmDelete, (context) async {
+                  cryConfirm(context, S.of(context).confirmDelete, (context) async {
                     List ids = myDS.dataList.where((v) {
                       return v.selected!;
                     }).map<String?>((v) {
@@ -141,7 +141,7 @@ class PersonListState extends State {
         padding: const EdgeInsets.all(10.0),
         children: <Widget>[
           PaginatedDataTable(
-            header: Text(S.of(context)!.userList),
+            header: Text(S.of(context).userList),
             rowsPerPage: rowsPerPage,
             onRowsPerPageChanged: (int? value) {
               setState(() {
@@ -156,35 +156,35 @@ class PersonListState extends State {
             onPageChanged: myDS.onPageChanged,
             columns: <DataColumn>[
               DataColumn(
-                label: Text(S.of(context)!.name),
+                label: Text(S.of(context).name),
                 onSort: (int columnIndex, bool ascending) => myDS.sort('name', ascending),
               ),
               DataColumn(
-                label: Text(S.of(context)!.personNickname),
+                label: Text(S.of(context).personNickname),
                 onSort: (int columnIndex, bool ascending) => myDS.sort('nick_name', ascending),
               ),
               DataColumn(
-                label: Text(S.of(context)!.personGender),
+                label: Text(S.of(context).personGender),
                 onSort: (int columnIndex, bool ascending) => myDS.sort('gender', ascending),
               ),
               DataColumn(
-                label: Text(S.of(context)!.personBirthday),
+                label: Text(S.of(context).personBirthday),
                 onSort: (int columnIndex, bool ascending) => myDS.sort('birthday', ascending),
               ),
               DataColumn(
-                label: Text(S.of(context)!.personDepartment),
+                label: Text(S.of(context).personDepartment),
                 onSort: (int columnIndex, bool ascending) => myDS.sort('dept_id', ascending),
               ),
               DataColumn(
-                label: Text(S.of(context)!.creationTime),
+                label: Text(S.of(context).creationTime),
                 onSort: (int columnIndex, bool ascending) => myDS.sort('create_time', ascending),
               ),
               DataColumn(
-                label: Text(S.of(context)!.updateTime),
+                label: Text(S.of(context).updateTime),
                 onSort: (int columnIndex, bool ascending) => myDS.sort('update_time', ascending),
               ),
               DataColumn(
-                label: Text(S.of(context)!.operating),
+                label: Text(S.of(context).operating),
               ),
             ],
             source: myDS,
@@ -288,7 +288,7 @@ class MyDS extends DataTableSource {
             IconButton(
               icon: Icon(Icons.delete),
               onPressed: () {
-                cryConfirm(context, S.of(context)!.confirmDelete, (context) async {
+                cryConfirm(context, S.of(context).confirmDelete, (context) async {
                   await PersonApi.removeByIds([personModel.id]);
                   loadData();
                 });

@@ -38,7 +38,7 @@ class _DictEditState extends State<DictEdit> {
       child: Wrap(
         children: [
           CryInput(
-            label: S.of(context)!.code,
+            label: S.of(context).code,
             value: dict!.code,
             width: 400,
             required: true,
@@ -47,7 +47,7 @@ class _DictEditState extends State<DictEdit> {
             },
           ),
           CryInput(
-            label: S.of(context)!.name,
+            label: S.of(context).name,
             value: dict!.name,
             width: 400,
             required: true,
@@ -107,6 +107,6 @@ class _DictEditState extends State<DictEdit> {
       return;
     }
     Navigator.pop(context);
-    CryUtils.message(S.of(context)!.success);
+    CryUtils.message(S.of(context).success);
   }
 }
