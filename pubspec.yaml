@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  cry: 1.1.6
+  cry: 1.1.7
   font_awesome_flutter: ^9.0.0
   flutter_colorpicker: ^0.4.0
   url_launcher: ^6.0.3
