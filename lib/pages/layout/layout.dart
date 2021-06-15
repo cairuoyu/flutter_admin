@@ -51,9 +51,6 @@ class _LayoutState extends State {
         openSetting: () {
           scaffoldStateKey.currentState!.openEndDrawer();
         },
-        dispose: () {
-          this.dispose();
-        },
       ),
     );
     return subWidget;

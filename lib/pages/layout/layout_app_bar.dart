@@ -11,7 +11,6 @@ class LayoutAppBar extends AppBar {
     int? type,
     openSetting,
     openMenu,
-    dispose,
     required UserInfo userInfo,
   }) : super(
           key: key,
@@ -70,7 +69,6 @@ class LayoutAppBar extends AppBar {
                   if (v == 'info') {
                     Utils.openTab('/userInfoMine');
                   } else if (v == 'logout') {
-                    // dispose();
                     Utils.logout();
                     Cry.pushNamedAndRemove('/login');
                   }

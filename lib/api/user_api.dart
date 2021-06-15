@@ -8,7 +8,6 @@ class UserApi {
   }
 
   static Future<ResponseBodyApi> login(data) async {
-    // String basic = 'Basic ' + base64.encode(utf8.encode('$login:$pwd'));
     ResponseBodyApi responseBodyApi = await HttpUtil.post('/user/login', data: data, requestToken: false);
     return responseBodyApi;
   }

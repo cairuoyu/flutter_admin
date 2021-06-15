@@ -117,7 +117,6 @@ class _LayoutMenuState extends State<LayoutMenu> {
           onTap: () {
             if (currentOpenedTabPageId != treeVO.data!.id && widget.onClick != null) {
               widget.onClick!(treeVO.data);
-              // setState(() {});
             }
           },
         );
