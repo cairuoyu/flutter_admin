@@ -6,12 +6,12 @@
 
 > [简体中文](./README.md) | English
 
-> A Background Management System Implemented Using Flutter
+> A Background Management System Implemented Using Flutter.This project for the front end, the corresponding back-end to https://github.com/cairuoyu/flutter_admin_backend
 
 > As a template, example and demonstration for developing multi-terminal applications such as Web, Android, IOS, Windows, MacOS and Linux based on Flutter, this project provides a variety of implementation methods in terms of functions and is constantly being improved. With this project, you can learn Flutter efficiently or quickly develop a new cross-end application.
 
 ---
-## Functional technology
+## Functional
 * User Registration
 * Login And Logout
 * Function Menu
@@ -36,7 +36,7 @@
 * Import or Export Excle
 
 
-## 技术
+## Technology
 | Name               | Technology                                                   |
 | ------------------ | ------------------------------------------------------------ |
 | Permissions        | JWT                                                          |
@@ -128,7 +128,7 @@ http://www.cairuoyu.com/flutter_admin
 
 ## Join Discussion Group
 ### Add me to WeChat to pull you into the group
-![image](http://cairuoyu.com/screenshots/qrcode_wechat_cry.jpg)
+![image](http://cairuoyu.com/screenshots/qrcode_wechat_cry.png)
 
 ### QQ
 851796663
