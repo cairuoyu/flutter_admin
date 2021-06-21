@@ -1,3 +1,9 @@
+/// @author: cairuoyu
+/// @Copyright: https://github.com/cairuoyu/flutter_admin
+/// @date: 2021/6/21
+/// @version: 1.0
+/// @description: 文章编辑
+
 import 'package:cry/cry_button.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/cry_file.dart';

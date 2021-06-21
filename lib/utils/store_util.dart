@@ -1,3 +1,9 @@
+/// @author: cairuoyu
+/// @Copyright: https://github.com/cairuoyu/flutter_admin
+/// @date: 2021/6/21
+/// @version: 1.0
+/// @description: 存储工具类
+
 import 'package:flutter_admin/common/routes.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/models/menu.dart';

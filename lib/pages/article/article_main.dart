@@ -1,3 +1,9 @@
+/// @author: cairuoyu
+/// @Copyright: https://github.com/cairuoyu/flutter_admin
+/// @date: 2021/6/21
+/// @version: 1.0
+/// @description:
+
 import 'package:cry/cry.dart';
 import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_dialog.dart';

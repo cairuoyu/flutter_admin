@@ -1,3 +1,9 @@
+/// @author: cairuoyu
+/// @Copyright: https://github.com/cairuoyu/flutter_admin
+/// @date: 2021/6/21
+/// @version: 1.0
+/// @description:
+
 class ConstantDict {
   static const CODE_DEPT_FUN = 'deptFun';
   static const CODE_GENDER = 'gender';

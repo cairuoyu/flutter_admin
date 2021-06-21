@@ -1,3 +1,9 @@
+/// @author: cairuoyu
+/// @Copyright: https://github.com/cairuoyu/flutter_admin
+/// @date: 2021/6/21
+/// @version: 1.0
+/// @description: 树工具类
+
 import 'package:cry/vo/tree_vo.dart';
 
 class TreeUtil {

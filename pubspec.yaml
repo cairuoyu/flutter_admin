@@ -1,6 +1,6 @@
 name: flutter_admin
 description: 一个基于flutter的后台管理系统 - A management system based on flutter
-publish_to: 'none'
+publish_to: 'https://github.com/cairuoyu/flutter_admin'
 version: 1.0.0+1
 
 environment:
@@ -57,4 +57,4 @@ flutter:
         - asset: assets/fonts/AGENCYR.TTF
 
 flutter_intl:
-  enabled: true
+  enabled: false

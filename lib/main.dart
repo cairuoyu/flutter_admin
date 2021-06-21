@@ -1,3 +1,9 @@
+/// @author: cairuoyu
+/// @Copyright: https://github.com/cairuoyu/flutter_admin
+/// @date: 2021/6/21
+/// @version: 1.0
+/// @description: 入口
+
 import 'package:cry/common/application_context.dart';
 import 'package:cry/constants/cry_constant.dart';
 import 'package:cry/generated/l10n.dart' as cryS;

@@ -1,3 +1,9 @@
+/// @author: cairuoyu
+/// @Copyright: https://github.com/cairuoyu/flutter_admin
+/// @date: 2021/6/21
+/// @version: 1.0
+/// @description:
+
 class Constant {
   static const String KEY_TOKEN = "token";
   static const String KEY_DICT_ITEM_LIST = "dictItemList";
