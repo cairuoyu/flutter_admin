@@ -16,10 +16,29 @@ import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:collection/collection.dart';
 
 class Utils {
-  static openTab(String url) {
-    Cry.popAndPushNamed(url);
+  static openTab(String name) {
+    TabPage? tabPage = (Routes.defaultTabPage + Routes.otherTabPage).firstWhereOrNull((element) => element.url == name);
+    if (tabPage == null) {
+      var menuList = StoreUtil.getMenuList();
+      var menu = menuList.firstWhereOrNull((element) => element.url == name);
+      if (menu == null) {
+        return;
+      }
+      tabPage = menu.toTabPage();
+    }
+
+    List<TabPage?> openedTabPageList = StoreUtil.readOpenedTabPageList();
+    StoreUtil.writeCurrentOpenedTabPageId(tabPage!.id);
+    int index = openedTabPageList.indexWhere((note) => note!.id == tabPage!.id);
+    if (index <= -1) {
+      openedTabPageList.add(tabPage);
+      StoreUtil.writeOpenedTabPageList(openedTabPageList);
+    }
+    LayoutController layoutController = Get.find();
+    layoutController.update();
   }
 
   static closeTab(TabPage? tabPage) {
