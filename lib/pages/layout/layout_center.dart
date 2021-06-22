@@ -36,14 +36,16 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
   Widget build(BuildContext context) {
     var openedTabPageList = StoreUtil.readOpenedTabPageList();
     var currentOpenedTabPageId = StoreUtil.readCurrentOpenedTabPageId();
-    int initialIndex = openedTabPageList.indexWhere((note) => note!.id == currentOpenedTabPageId);
-    tabController = TabController(vsync: this, length: openedTabPageList.length, initialIndex: tabController?.index ?? 0);
+    int preIndex = tabController?.index ?? 0;
+    int initialIndex = preIndex < openedTabPageList.length ? preIndex : 0;
+    tabController = TabController(vsync: this, length: openedTabPageList.length, initialIndex: initialIndex);
     tabController!.addListener(() {
       if (tabController!.indexIsChanging) {
         StoreUtil.writeCurrentOpenedTabPageId(openedTabPageList[tabController!.index]!.id);
       }
     });
-    tabController!.animateTo(initialIndex);
+    int index = openedTabPageList.indexWhere((note) => note!.id == currentOpenedTabPageId);
+    tabController!.animateTo(index);
 
     TabBar tabBar = TabBar(
       controller: tabController,

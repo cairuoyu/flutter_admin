@@ -7,7 +7,6 @@
 
 import 'package:cry/cry_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:cry/cry.dart';
 import 'package:flutter_admin/common/routes.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/constants/enum.dart';
@@ -45,28 +44,22 @@ class Utils {
   static closeTab(TabPage? tabPage) {
     List<TabPage?> openedTabPageList = StoreUtil.readOpenedTabPageList();
     int index = openedTabPageList.indexWhere((note) => note!.id == tabPage!.id);
-    if (index >= openedTabPageList.length) {
+    if (index <= 0) {
       return;
     }
-    openedTabPageList.removeAt(index);
-    var length = openedTabPageList.length;
-    String? url;
-    if (length == 0) {
-      StoreUtil.writeCurrentOpenedTabPageId(null);
-      url = '/';
-    } else if (StoreUtil.readCurrentOpenedTabPageId() == tabPage!.id) {
+    if (StoreUtil.readCurrentOpenedTabPageId() == tabPage!.id) {
       StoreUtil.writeCurrentOpenedTabPageId(openedTabPageList.first!.id);
-      url = openedTabPageList.first!.url;
-    } else {
-      url = openedTabPageList.first!.url;
     }
+    openedTabPageList.removeAt(index);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
-    Cry.popAndPushNamed(url!);
+    LayoutController layoutController = Get.find();
+    layoutController.update();
   }
 
   static closeAllTab() {
     StoreUtil.init();
-    Cry.popAndPushNamed('/');
+    LayoutController layoutController = Get.find();
+    layoutController.update();
   }
 
   static closeOtherTab(TabPage tabPage) {
@@ -74,7 +67,8 @@ class Utils {
     openedTabPageList.removeWhere((element) => element!.id != tabPage.id && !Routes.defaultTabPage.contains(element));
     StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
-    Cry.popAndPushNamed(tabPage.url!);
+    LayoutController layoutController = Get.find();
+    layoutController.update();
   }
 
   static closeAllToTheRightTab(TabPage tabPage) {
@@ -83,7 +77,8 @@ class Utils {
     openedTabPageList.removeWhere((element) => openedTabPageList.indexOf(element) > index && !Routes.defaultTabPage.contains(element));
     StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
-    Cry.popAndPushNamed(tabPage.url!);
+    LayoutController layoutController = Get.find();
+    layoutController.update();
   }
 
   static closeAllToTheLeftTab(TabPage tabPage) {
@@ -92,7 +87,8 @@ class Utils {
     openedTabPageList.removeWhere((element) => openedTabPageList.indexOf(element) < index && !Routes.defaultTabPage.contains(element));
     StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
-    Cry.popAndPushNamed(tabPage.url!);
+    LayoutController layoutController = Get.find();
+    layoutController.update();
   }
 
   static isLocalEn(BuildContext context) {
