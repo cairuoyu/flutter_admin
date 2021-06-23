@@ -11,6 +11,7 @@ import 'package:cry/cry_dialog.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/form/cry_select.dart';
 import 'package:cry/form/cry_select_date.dart';
+import 'package:cry/utils/cry_utils.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
@@ -316,13 +317,18 @@ class ArticleDataSource extends DataGridSource {
 
   delete(ids) async {
     cryConfirm(Cry.context, S.of(Cry.context).confirmDelete, (context) async {
-      await ArticleApi.removeByIds(ids);
-      loadData();
+      if ((await ArticleApi.removeByIds(ids)).success!) {
+        loadData();
+        CryUtils.message(S.of(Cry.context).success);
+      }
     });
   }
 
   edit({Article? article}) async {
-    var result = await Cry.push(ArticleEdit(article: article));
+    var result = await showDialog(
+      context: Cry.context,
+      builder: (BuildContext context) => ArticleEdit(article: article),
+    );
     if (result ?? false) {
       loadData();
     }
