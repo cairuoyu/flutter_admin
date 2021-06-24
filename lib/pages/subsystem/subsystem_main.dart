@@ -13,6 +13,7 @@ import 'package:cry/form/cry_checkbox.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/model/order_item_model.dart';
 import 'package:cry/model/page_model.dart';
+import 'package:cry/utils/cry_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/subsystem_api.dart';
 import 'package:cry/cry.dart';
@@ -167,6 +168,7 @@ class _SubsystemMain extends State<SubsystemMain> {
       if (!responseBodyApi.success!) {
         return;
       }
+      CryUtils.message(S.of(context).success);
       this._loadData();
     });
   }

@@ -5,10 +5,12 @@
 /// @version: 1.0
 /// @description:
 
+import 'package:cry/cry.dart';
 import 'package:cry/cry_button_bar.dart';
 import 'package:cry/form1/cry_input.dart';
 import 'package:cry/form1/cry_select.dart';
 import 'package:cry/model/order_item_model.dart';
+import 'package:cry/utils/cry_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/person_api.dart';
@@ -135,8 +137,11 @@ class PersonListState extends State {
                     }).map<String?>((v) {
                       return v.id;
                     }).toList();
-                    await PersonApi.removeByIds(ids);
-                    _query();
+                    var result = await PersonApi.removeByIds(ids);
+                    if (result.success) {
+                      _query();
+                      CryUtils.message(S.of(Cry.context).success);
+                    }
                   });
                 },
         ),
@@ -296,8 +301,11 @@ class MyDS extends DataTableSource {
               icon: Icon(Icons.delete),
               onPressed: () {
                 cryConfirm(context, S.of(context).confirmDelete, (context) async {
-                  await PersonApi.removeByIds([personModel.id]);
-                  loadData();
+                  var result = await PersonApi.removeByIds([personModel.id]);
+                  if (result.success) {
+                    loadData();
+                    CryUtils.message(S.of(Cry.context).success);
+                  }
                 });
               },
             ),

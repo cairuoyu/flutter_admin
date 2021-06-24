@@ -179,8 +179,11 @@ class _DictList extends State<DictList> {
 
   _delete(List<Dict> dictList) {
     cryConfirm(context, S.of(context).confirmDelete, (context) async {
-      await DictApi.removeByIds(dictList.map((e) => e.id).toList());
-      this._loadData();
+      var result = await DictApi.removeByIds(dictList.map((e) => e.id).toList());
+      if (result.success) {
+        this._loadData();
+        CryUtils.message(S.of(context).success);
+      }
     });
   }
 

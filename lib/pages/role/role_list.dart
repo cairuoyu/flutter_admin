@@ -10,6 +10,7 @@ import 'package:cry/cry_data_table.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:cry/model/order_item_model.dart';
 import 'package:cry/model/request_body_api.dart';
+import 'package:cry/utils/cry_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/role_api.dart';
 import 'package:cry/cry_button.dart';
@@ -178,8 +179,11 @@ class _RoleListState extends State<RoleList> {
       return;
     }
     cryConfirm(context, S.of(context).confirmDelete, (context) async {
-      await RoleApi.removeByIds(roleList.map((e) => e.id).toList());
-      _query();
+      var result = await RoleApi.removeByIds(roleList.map((e) => e.id).toList());
+      if (result.success) {
+        _query();
+        CryUtils.message(S.of(context).success);
+      }
     });
   }
 

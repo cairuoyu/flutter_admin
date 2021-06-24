@@ -12,6 +12,7 @@ import 'package:cry/cry_dialog.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
+import 'package:cry/utils/cry_utils.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/dept_api.dart';
@@ -126,8 +127,11 @@ class _DeptListState extends State<DeptList> {
   }
 
   delete(List ids) async {
-    await DeptApi.removeByIds(ids);
-    _loadData();
+    var result = await DeptApi.removeByIds(ids);
+    if (result.success) {
+      _loadData();
+      CryUtils.message(S.of(Cry.context).success);
+    }
   }
 
   toEdit(Dept? dept) async {

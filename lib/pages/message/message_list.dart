@@ -12,6 +12,7 @@ import 'package:cry/cry_dialog.dart';
 import 'package:cry/cry_list_view.dart';
 import 'package:cry/model/order_item_model.dart';
 import 'package:cry/model/page_model.dart';
+import 'package:cry/utils/cry_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/message_api.dart';
 import 'package:cry/cry.dart';
@@ -30,7 +31,7 @@ class MessageList extends StatefulWidget {
 class MessageListState extends State<MessageList> {
   List<Message> messageList = [];
   Message message = Message();
-  PageModel page = PageModel(orders: [OrderItemModel(column: 'create_time', asc: false)]);
+  PageModel page = PageModel(orders: [OrderItemModel(column: 'create_time', asc: false)], size: 50);
   bool anyMore = true;
 
   @override
@@ -81,6 +82,7 @@ class MessageListState extends State<MessageList> {
       if (!res.success!) {
         return;
       }
+      CryUtils.message(S.of(context).success);
       reloadData();
     });
   }
