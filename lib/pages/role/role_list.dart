@@ -21,6 +21,7 @@ import 'package:flutter_admin/models/role.dart';
 import 'package:flutter_admin/pages/role/role_edit.dart';
 import 'package:flutter_admin/pages/role/role_subsystem_list.dart';
 import 'package:flutter_admin/pages/role/role_user_select.dart';
+import 'package:flutter_admin/utils/utils.dart';
 
 class RoleList extends StatefulWidget {
   RoleList({Key? key}) : super(key: key);
@@ -136,27 +137,11 @@ class _RoleListState extends State<RoleList> {
   }
 
   _selectMenu(Role role) {
-    Navigator.push<void>(
-      context,
-      MaterialPageRoute(
-        builder: (context) => RoleSubsystemList(
-          role: role,
-        ),
-        fullscreenDialog: true,
-      ),
-    );
+    Utils.fullscreenDialog(RoleSubsystemList(role: role));
   }
 
   _selectUser(Role role) {
-    Navigator.push<void>(
-      context,
-      MaterialPageRoute(
-        builder: (context) => RoleUserSelect(
-          role: role,
-        ),
-        fullscreenDialog: true,
-      ),
-    );
+    Utils.fullscreenDialog(RoleUserSelect(role: role));
   }
 
   _edit(Role? role) {

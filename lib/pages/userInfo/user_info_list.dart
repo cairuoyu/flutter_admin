@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/user_info_api.dart';
 import 'package:cry/cry_button.dart';
 import 'package:cry/cry_data_table.dart';
-import 'package:cry/cry.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:cry/model/page_model.dart';
@@ -24,6 +23,7 @@ import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/pages/common/dept_selector.dart';
 import 'package:flutter_admin/pages/userInfo/user_info_edit.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
+import 'package:flutter_admin/utils/utils.dart';
 
 class UserInfoList extends StatefulWidget {
   UserInfoList({Key? key}) : super(key: key);
@@ -182,8 +182,8 @@ class _UserInfoListState extends State<UserInfoList> {
   }
 
   _edit(UserInfo? userInfo) async {
-    var result = await Cry.push(UserInfoEdit(userInfo: userInfo));
-    if (result != null) {
+    var result = await Utils.fullscreenDialog(UserInfoEdit(userInfo: userInfo));
+    if (result ?? false) {
       userInfo == null ? _sort('create_time', ascending: false) : _sort('update_time', ascending: false);
     }
   }

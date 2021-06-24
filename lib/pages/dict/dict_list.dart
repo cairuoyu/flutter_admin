@@ -187,16 +187,11 @@ class _DictList extends State<DictList> {
     });
   }
 
-  _edit(Dict? dict) {
-    Navigator.push<void>(
-      context,
-      MaterialPageRoute(
-        builder: (context) => DictEdit(
-          dict: dict,
-        ),
-        fullscreenDialog: true,
-      ),
-    ).then((value) => this._loadData());
+  _edit(Dict? dict) async {
+    var result = await Utils.fullscreenDialog(DictEdit(dict: dict));
+    if (result ?? false) {
+      this._loadData();
+    }
   }
 
   _loadData() async {

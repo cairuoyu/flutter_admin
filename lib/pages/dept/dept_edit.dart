@@ -12,7 +12,6 @@ import 'package:cry/form/cry_input_num.dart';
 import 'package:cry/form/cry_select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/dept_api.dart';
-import 'package:cry/cry.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dept.dart';
@@ -95,7 +94,7 @@ class _DeptEditState extends State<DeptEdit> {
     var buttonBar = CryButtonBar(
       children: [
         CryButtons.save(context, () => save()),
-        CryButtons.cancel(context, () => Cry.pop()),
+        CryButtons.cancel(context, () => Navigator.pop(context)),
       ],
     );
     var result = Scaffold(
@@ -122,7 +121,7 @@ class _DeptEditState extends State<DeptEdit> {
     if (!res.success!) {
       return;
     }
-    Cry.pop();
+    Navigator.pop(context, true);
     CryUtils.message(S.of(context).success);
   }
 }

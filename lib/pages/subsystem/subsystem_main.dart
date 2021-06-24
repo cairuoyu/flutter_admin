@@ -16,7 +16,6 @@ import 'package:cry/model/page_model.dart';
 import 'package:cry/utils/cry_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/subsystem_api.dart';
-import 'package:cry/cry.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/subsystem.dart';
@@ -24,6 +23,7 @@ import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/models/subsystem_vo.dart';
 import 'package:flutter_admin/pages/subsystem/subsystem_edit.dart';
+import 'package:flutter_admin/utils/utils.dart';
 
 class SubsystemMain extends StatefulWidget {
   SubsystemMain({Key? key}) : super(key: key);
@@ -174,19 +174,10 @@ class _SubsystemMain extends State<SubsystemMain> {
   }
 
   _edit(Subsystem? subsystem) async {
-    var content = SubsystemEdit(subsystem: subsystem);
-    await Cry.push(content);
-    // showDialog(
-    //   context: context,
-    //   builder: (BuildContext context) => Dialog(
-    //     child: content,
-    //   ),
-    // );
-    // await Get.defaultDialog(
-    //   title: subsystem == null ? S.of(context).add : S.of(context).modify,
-    //   content: content,
-    // );
-    // _loadData();
+    var result = await Utils.fullscreenDialog(SubsystemEdit(subsystem: subsystem));
+    if (result ?? false) {
+      _loadData();
+    }
   }
 
   _loadData() async {

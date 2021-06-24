@@ -5,6 +5,7 @@
 /// @version: 1.0
 /// @description: 常用工具类
 
+import 'package:cry/cry.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/common/routes.dart';
@@ -19,6 +20,16 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:collection/collection.dart';
 
 class Utils {
+  static fullscreenDialog(Widget widget) {
+    return Navigator.push<void>(
+      Cry.context,
+      MaterialPageRoute(
+        builder: (_) => widget,
+        fullscreenDialog: true,
+      ),
+    );
+  }
+
   static openTab(String name) {
     TabPage? tabPage = (Routes.defaultTabPage + Routes.otherTabPage).firstWhereOrNull((element) => element.url == name);
     if (tabPage == null) {

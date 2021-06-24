@@ -22,6 +22,7 @@ import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dept.dart';
 import 'package:flutter_admin/pages/dept/dept_edit.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
+import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
 
 class DeptList extends StatefulWidget {
@@ -135,8 +136,10 @@ class _DeptListState extends State<DeptList> {
   }
 
   toEdit(Dept? dept) async {
-    await Cry.push(DeptEdit(dept: dept));
-    _loadData();
+    var result = await Utils.fullscreenDialog(DeptEdit(dept: dept));
+    if (result ?? false) {
+      _loadData();
+    }
   }
 
   TreeNode toTreeNode(TreeVO<Dept> treeVO) {

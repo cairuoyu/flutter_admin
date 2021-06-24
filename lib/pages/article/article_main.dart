@@ -15,6 +15,7 @@ import 'package:cry/utils/cry_utils.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
+import 'package:flutter_admin/utils/utils.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/model/page_model.dart';
@@ -325,10 +326,7 @@ class ArticleDataSource extends DataGridSource {
   }
 
   edit({Article? article}) async {
-    var result = await showDialog(
-      context: Cry.context,
-      builder: (BuildContext context) => ArticleEdit(article: article),
-    );
+    var result = await Utils.fullscreenDialog(ArticleEdit(article: article));
     if (result ?? false) {
       loadData();
     }

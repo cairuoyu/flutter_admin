@@ -113,7 +113,7 @@ class _DictEditState extends State<DictEdit> {
     if (!res.success!) {
       return;
     }
-    Navigator.pop(context);
+    Navigator.pop(context, true);
     CryUtils.message(S.of(context).success);
   }
 }

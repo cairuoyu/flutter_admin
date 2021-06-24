@@ -10,7 +10,6 @@ import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/message_api.dart';
-import 'package:cry/cry.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/message.dart';
 import 'package:flutter_admin/models/message_replay_model.dart';
@@ -54,7 +53,7 @@ class _MessageReplayState extends State<MessageReplay> {
     var buttonBar = CryButtonBar(
       children: [
         CryButtons.commit(context, commit),
-        CryButtons.cancel(context, () => Cry.pop()),
+        CryButtons.cancel(context, () => Navigator.pop(context)),
       ],
     );
     var result = Scaffold(
@@ -78,7 +77,7 @@ class _MessageReplayState extends State<MessageReplay> {
     formKey.currentState!.save();
     var result = await MessageApi.replayCommit(messageReplayModel.toMap());
     if (result.success!) {
-      Cry.pop();
+      Navigator.pop(context);
       CryUtils.message(S.of(context).success);
     }
   }

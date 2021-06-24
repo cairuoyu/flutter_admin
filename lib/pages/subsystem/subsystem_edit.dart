@@ -5,6 +5,7 @@
 /// @version: 1.0
 /// @description:
 
+import 'package:cry/cry.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/form/cry_input.dart';
 import 'package:flutter/material.dart';
@@ -129,7 +130,7 @@ class _SubsystemEditState extends State<SubsystemEdit> {
     form.save();
     ResponseBodyApi responseBodyApi = await SubsystemApi.saveOrUpdate(_subsystem.toMap());
     if (responseBodyApi.success!) {
-      Navigator.pop(context, true);
+      Navigator.pop(Cry.context, true);
       CryUtils.message(S.of(context).success);
     }
   }
