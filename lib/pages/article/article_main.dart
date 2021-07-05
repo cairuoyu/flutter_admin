@@ -250,7 +250,7 @@ class ArticleDataSource extends DataGridSource {
 
   @override
   Future<bool> handlePageChange(int oldPageIndex, int newPageIndex) async {
-    pageModel.current = newPageIndex;
+    pageModel.current = newPageIndex + 1;
     await loadData();
     return true;
   }

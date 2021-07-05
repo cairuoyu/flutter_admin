@@ -27,10 +27,13 @@ class _LoginState extends State<Login> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   User user = new User();
   String error = "";
+  FocusNode focusNodeUserName = FocusNode();
+  FocusNode focusNodePassword = FocusNode();
 
   @override
   void initState() {
     super.initState();
+    focusNodeUserName.requestFocus();
   }
 
   @override
@@ -95,6 +98,7 @@ class _LoginState extends State<Login> {
                     Container(
                       padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
                       child: TextFormField(
+                        focusNode: focusNodeUserName,
                         initialValue: user.userName,
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
@@ -111,11 +115,15 @@ class _LoginState extends State<Login> {
                         validator: (v) {
                           return v!.isEmpty ? S.of(context).usernameRequired : null;
                         },
+                        onFieldSubmitted: (v) {
+                          focusNodePassword.requestFocus();
+                        },
                       ),
                     ),
                     Container(
                       padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
                       child: TextFormField(
+                        focusNode: focusNodePassword,
                         obscureText: true,
                         initialValue: user.password,
                         style: TextStyle(color: Colors.black),
@@ -132,6 +140,9 @@ class _LoginState extends State<Login> {
                         },
                         validator: (v) {
                           return v!.isEmpty ? S.of(context).passwordRequired : null;
+                        },
+                        onFieldSubmitted: (v) {
+                          _login();
                         },
                       ),
                     ),
@@ -201,6 +212,7 @@ class _LoginState extends State<Login> {
 
     ResponseBodyApi responseBodyApi = await UserApi.login(user.toMap());
     if (!responseBodyApi.success!) {
+      focusNodePassword.requestFocus();
       return;
     }
     StoreUtil.write(Constant.KEY_TOKEN, responseBodyApi.data);
