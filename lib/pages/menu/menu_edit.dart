@@ -18,6 +18,7 @@ import 'package:flutter_admin/models/menu.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/common/icon_selector.dart';
 import 'package:cry/utils/cry_utils.dart';
+import 'menu_selector.dart';
 
 class MenuEdit extends StatefulWidget {
   MenuEdit({Key? key, this.menu, this.onSave, this.onClose}) : super(key: key);
@@ -76,12 +77,18 @@ class _MenuEditState extends State<MenuEdit> {
           key: formKey,
           child: Wrap(
             children: <Widget>[
-              CryInput(
-                enable: false,
-                value: menu.pname ?? S.of(context).root,
+              CrySelectCustomWidget<String>(
+                context,
                 label: S.of(context).parentMenu,
+                initialValue: menu.pid,
+                initialValueLabel: menu.pname ?? '根节点',
+                popWidget: MenuSelector(
+                  subsystemId: menu.subsystemId!,
+                ),
+                getValueLabel: (v) => v.name,
+                getValue: (v) => v.id,
                 onSaved: (v) {
-                  menu.pname = v;
+                  menu.pid = v;
                 },
               ),
               CryInput(
