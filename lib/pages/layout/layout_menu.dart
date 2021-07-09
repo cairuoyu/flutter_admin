@@ -6,7 +6,6 @@
 /// @description:
 
 import 'package:cry/cry_button.dart';
-import 'package:cry/cry_button_bar.dart';
 import 'package:cry/utils/adaptive_util.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
@@ -41,47 +40,73 @@ class _LayoutMenuState extends State<LayoutMenu> {
   @override
   Widget build(BuildContext context) {
     this.expandMenu ??= isDisplayDesktop(context) || Utils.isMenuDisplayTypeDrawer(context);
-    ListTile menuHeaderCollapse = ListTile(
-      leading: IconButton(
-        padding: EdgeInsets.zero,
-        icon: Icon(Icons.chevron_left),
-        onPressed: () {
-          expandMenu = !expandMenu!;
-          setState(() {});
-        },
+    var menuHeaderCollapse = Container(
+      height: 46,
+      child: Row(
+        children: [
+          CryButton(
+            iconData: Icons.chevron_left,
+            onPressed: () {
+              expandMenu = !expandMenu!;
+              setState(() {});
+            },
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                CryButton(
+                  iconData: Icons.expand,
+                  onPressed: () {
+                    setState(() {
+                      expandAll = true;
+                    });
+                  },
+                ),
+                CryButton(
+                  iconData: Icons.vertical_align_center,
+                  onPressed: () {
+                    setState(() {
+                      expandAll = false;
+                    });
+                  },
+                ),
+              ],
+              mainAxisAlignment: MainAxisAlignment.end,
+            ),
+          ),
+        ],
       ),
-      trailing: SizedBox(
-        width: 120,
-        child: CryButtonBar(
-          children: [
-            CryButton(
-              iconData: Icons.expand,
-              onPressed: () {
-                setState(() {
-                  expandAll = true;
-                });
-              },
-            ),
-            CryButton(
-              iconData: Icons.vertical_align_center,
-              onPressed: () {
-                setState(() {
-                  expandAll = false;
-                });
-              },
-            ),
-          ],
-        ),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black54,
+            offset: Offset(2.0, 2.0),
+            blurRadius: 4.0,
+          )
+        ],
       ),
     );
-    ListTile menuHeaderExpand = ListTile(
-      title: IconButton(
+
+    var menuHeaderExpand = Container(
+      height: 46,
+      child: IconButton(
         padding: EdgeInsets.zero,
         icon: Icon(Icons.chevron_right),
         onPressed: () {
           expandMenu = !expandMenu!;
           setState(() {});
         },
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black54,
+            offset: Offset(2.0, 2.0),
+            blurRadius: 4.0,
+          )
+        ],
       ),
     );
     var currentOpenedTabPageId = StoreUtil.readCurrentOpenedTabPageId();
@@ -119,7 +144,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
       } else {
         return ListTile(
           tileColor: currentOpenedTabPageId == treeVO.data!.id ? Colors.blue.shade100 : null,
-          leading: Icon(iconData,color: context.theme.primaryColor),
+          leading: Icon(iconData, color: context.theme.primaryColor),
           title: title,
           onTap: () {
             if (currentOpenedTabPageId != treeVO.data!.id && widget.onClick != null) {
