@@ -6,12 +6,12 @@
 /// @description:
 
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/pages/dash/task_statistical_chart.dart';
 import 'package:flutter_admin/utils/adaptive_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_admin/data/data_dashboard.dart';
-import '../../generated/l10n.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -19,54 +19,52 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDesktop = isDisplayDesktop(context);
-    var a = Column(
-      children: <Widget>[
-        _getOverview(context, isDesktop),
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: _buildTitledContainer(
-              S.of(context).dashTotal,
-              child: Container(
-                height: 300,
-                child: TaskStatisticalChart(),
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(16),
-          child: isDesktop
-              ? Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    _getAList(context, todoList, flex: 3, title: S.of(context).dashToDoList),
-                    SizedBox(width: 16),
-                    _getAList(context, linkList, flex: 1, title: S.of(context).dashTopLinks),
-                  ],
-                )
-              : Container(
-                  width: double.infinity,
-                  height: 850,
-                  child: Column(
-                    children: <Widget>[
-                      _getAList(context, todoList, flex: 1, title: S.of(context).dashToDoList),
-                      _getAList(context, linkList, flex: 1, title: S.of(context).dashTopLinks),
-                    ],
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverToBoxAdapter(
+            child: Column(
+              children: <Widget>[
+                _getOverview(context, isDesktop),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: _buildTitledContainer(
+                      S.of(context).dashTotal,
+                      child: Container(
+                        height: 300,
+                        child: TaskStatisticalChart(),
+                      ),
+                    ),
                   ),
                 ),
-        ),
-      ],
-    );
-    var b = CustomScrollView(
-      slivers: <Widget>[
-        SliverToBoxAdapter(
-          child: a,
-        ),
-      ],
-    );
-    return Scaffold(
-      body: b,
+                Padding(
+                  padding: EdgeInsets.all(16),
+                  child: isDesktop
+                      ? Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            _getAList(context, todoList, flex: 3, title: S.of(context).dashToDoList),
+                            SizedBox(width: 16),
+                            _getAList(context, linkList, flex: 1, title: S.of(context).dashTopLinks),
+                          ],
+                        )
+                      : Container(
+                          width: double.infinity,
+                          height: 850,
+                          child: Column(
+                            children: <Widget>[
+                              _getAList(context, todoList, flex: 1, title: S.of(context).dashToDoList),
+                              _getAList(context, linkList, flex: 1, title: S.of(context).dashTopLinks),
+                            ],
+                          ),
+                        ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -177,7 +175,7 @@ class Dashboard extends StatelessWidget {
         ),
       );
     });
-    var b = Expanded(
+    var result = Expanded(
       flex: flex,
       child: Container(
         height: (list.length + 1) * 50.0,
@@ -186,7 +184,7 @@ class Dashboard extends StatelessWidget {
         ),
       ),
     );
-    return b;
+    return result;
   }
 
   _getASizedBox(isDesktop) {

@@ -58,11 +58,11 @@ class Utils {
     if (index <= 0) {
       return;
     }
-    if (StoreUtil.readCurrentOpenedTabPageId() == tabPage!.id) {
-      StoreUtil.writeCurrentOpenedTabPageId(openedTabPageList.first!.id);
-    }
     openedTabPageList.removeAt(index);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
+    if (StoreUtil.readCurrentOpenedTabPageId() == tabPage!.id) {
+      StoreUtil.writeCurrentOpenedTabPageId(openedTabPageList.last!.id);
+    }
     LayoutController layoutController = Get.find();
     layoutController.update();
   }
