@@ -40,7 +40,7 @@ class MainRouterDelegate extends CryRouterDelegate {
       location = '/login';
       return Login();
     }
-    if (name == '/') {
+    if (name == '/' || (name == '/login' && Utils.isLogin())) {
       location = '/';
       return Layout();
     }
