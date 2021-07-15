@@ -32,13 +32,11 @@ class RoleList extends StatefulWidget {
 
 class _RoleListState extends State<RoleList> {
   final GlobalKey<CryDataTableState> tableKey = GlobalKey<CryDataTableState>();
-  PageModel? page;
+  PageModel page = PageModel(orders: [OrderItemModel(column: 'name')]);
 
   @override
   void initState() {
     super.initState();
-    page = PageModel(orders: [OrderItemModel(column: 'name')]);
-
     WidgetsBinding.instance!.addPostFrameCallback((c) {
       _query();
     });
@@ -49,12 +47,12 @@ class _RoleListState extends State<RoleList> {
     CryDataTable table = CryDataTable(
       key: tableKey,
       onPageChanged: (firstRowIndex) {
-        page!.current = (firstRowIndex ~/ page!.size + 1);
+        page.current = (firstRowIndex ~/ page.size + 1);
         _query();
       },
       onRowsPerPageChanged: (int size) {
-        page!.size = size;
-        page!.current = 1;
+        page.size = size;
+        page.current = 1;
         _query();
       },
       onSelectChanged: (Map selected) {
@@ -93,7 +91,7 @@ class _RoleListState extends State<RoleList> {
         ];
       },
     );
-    List<Role> selectedList = tableKey.currentState?.getSelectedList(page!).map<Role>((e) => Role.fromMap(e)).toList() ?? [];
+    List<Role> selectedList = tableKey.currentState?.getSelectedList(page).map<Role>((e) => Role.fromMap(e)).toList() ?? [];
     var buttonBar = ButtonBar(
       alignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -177,14 +175,14 @@ class _RoleListState extends State<RoleList> {
     requestBodyApi.page = page;
     ResponseBodyApi responseBodyApi = await RoleApi.page(requestBodyApi.toMap());
     page = responseBodyApi.data != null ? PageModel.fromMap(responseBodyApi.data) : PageModel();
-
-    tableKey.currentState!.loadData(page!);
-    // if (mounted) this.setState(() {});
+    setState(() {
+      tableKey.currentState!.loadData(page);
+    });
   }
 
   _sort(column, ascending) {
-    page!.orders[0].column = column;
-    page!.orders[0].asc = !page!.orders[0].asc!;
+    page.orders[0].column = column;
+    page.orders[0].asc = !page.orders[0].asc!;
     _query();
   }
 }

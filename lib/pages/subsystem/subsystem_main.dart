@@ -183,6 +183,8 @@ class _SubsystemMain extends State<SubsystemMain> {
   _loadData() async {
     ResponseBodyApi responseBodyApi = await SubsystemApi.page(RequestBodyApi(page: page, params: this.subsystemVO.toMap()).toMap());
     page = PageModel.fromMap(responseBodyApi.data);
-    tableKey.currentState!.loadData(page);
+    setState(() {
+      tableKey.currentState!.loadData(page);
+    });
   }
 }

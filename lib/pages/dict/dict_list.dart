@@ -197,6 +197,8 @@ class _DictList extends State<DictList> {
   _loadData() async {
     ResponseBodyApi responseBodyApi = await DictApi.page(RequestBodyApi(page: page, params: this.dict.toMap()).toMap());
     page = PageModel.fromMap(responseBodyApi.data);
-    tableKey.currentState!.loadData(page);
+    setState(() {
+      tableKey.currentState!.loadData(page);
+    });
   }
 }
