@@ -28,6 +28,7 @@ class LayoutMenu extends StatefulWidget {
 }
 
 class _LayoutMenuState extends State<LayoutMenu> {
+  final double headerHeight = 46;
   bool? expandMenu;
   bool expandAll = true;
   LayoutController layoutController = Get.find();
@@ -41,7 +42,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
   Widget build(BuildContext context) {
     this.expandMenu ??= isDisplayDesktop(context) || Utils.isMenuDisplayTypeDrawer(context);
     var menuHeaderCollapse = Container(
-      height: 46,
+      height: headerHeight,
       child: Row(
         children: [
           CryButton(
@@ -89,7 +90,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
     );
 
     var menuHeaderExpand = Container(
-      height: 46,
+      height: headerHeight,
       child: IconButton(
         padding: EdgeInsets.zero,
         icon: Icon(Icons.chevron_right),
@@ -109,23 +110,30 @@ class _LayoutMenuState extends State<LayoutMenu> {
         ],
       ),
     );
+    var menuHeader = expandMenu! ? menuHeaderCollapse : menuHeaderExpand;
     var currentOpenedTabPageId = StoreUtil.readCurrentOpenedTabPageId();
     List<Widget> menuBody = _getMenuListTile(TreeUtil.toTreeVOList(StoreUtil.getMenuList()), currentOpenedTabPageId);
-    ListView menu = ListView(
-      key: Key('builder ${expandAll.toString()}'),
-      children: Utils.isMenuDisplayTypeDrawer(context)
-          ? menuBody
-          : [
-              expandMenu! ? menuHeaderCollapse : menuHeaderExpand,
-              ...menuBody,
-            ],
-    );
-    return Utils.isMenuDisplayTypeDrawer(context)
-        ? Drawer(child: menu)
+    var result = Utils.isMenuDisplayTypeDrawer(context)
+        ? Drawer(
+            child: ListView(
+              key: Key('builder ${expandAll.toString()}'),
+              children: menuBody,
+            ),
+          )
         : SizedBox(
             width: expandMenu! ? 300 : 60,
-            child: menu,
+            child: Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                ListView(
+                  key: Key('builder ${expandAll.toString()}'),
+                  children: [SizedBox(height: headerHeight), ...menuBody],
+                ),
+                menuHeader,
+              ],
+            ),
           );
+    return result;
   }
 
   List<Widget> _getMenuListTile(List<TreeVO<Menu>> data, String? currentOpenedTabPageId) {
