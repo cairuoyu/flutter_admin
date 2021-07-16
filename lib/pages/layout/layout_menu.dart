@@ -41,17 +41,18 @@ class _LayoutMenuState extends State<LayoutMenu> {
   @override
   Widget build(BuildContext context) {
     this.expandMenu ??= isDisplayDesktop(context) || Utils.isMenuDisplayTypeDrawer(context);
-    var menuHeaderCollapse = Container(
+    var menuHeaderExpand = Container(
       height: headerHeight,
       child: Row(
         children: [
-          CryButton(
-            iconData: Icons.chevron_left,
-            onPressed: () {
-              expandMenu = !expandMenu!;
-              setState(() {});
-            },
-          ),
+          if (!Utils.isMenuDisplayTypeDrawer(context))
+            CryButton(
+              iconData: Icons.chevron_left,
+              onPressed: () {
+                expandMenu = !expandMenu!;
+                setState(() {});
+              },
+            ),
           Expanded(
             child: Row(
               children: [
@@ -89,7 +90,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
       ),
     );
 
-    var menuHeaderExpand = Container(
+    var menuHeaderCollapse = Container(
       height: headerHeight,
       child: IconButton(
         padding: EdgeInsets.zero,
@@ -110,28 +111,26 @@ class _LayoutMenuState extends State<LayoutMenu> {
         ],
       ),
     );
-    var menuHeader = expandMenu! ? menuHeaderCollapse : menuHeaderExpand;
-    var currentOpenedTabPageId = StoreUtil.readCurrentOpenedTabPageId();
-    List<Widget> menuBody = _getMenuListTile(TreeUtil.toTreeVOList(StoreUtil.getMenuList()), currentOpenedTabPageId);
+    var menuHeader = expandMenu! ? menuHeaderExpand : menuHeaderCollapse;
+    var menuBody = ListView(
+      key: Key('builder ${expandAll.toString()}'),
+      children: [
+        SizedBox(height: headerHeight),
+        ..._getMenuListTile(TreeUtil.toTreeVOList(StoreUtil.getMenuList()), StoreUtil.readCurrentOpenedTabPageId()),
+      ],
+    );
+    var menuStack = Stack(
+      alignment: Alignment.topCenter,
+      children: [
+        menuBody,
+        menuHeader,
+      ],
+    );
     var result = Utils.isMenuDisplayTypeDrawer(context)
-        ? Drawer(
-            child: ListView(
-              key: Key('builder ${expandAll.toString()}'),
-              children: menuBody,
-            ),
-          )
+        ? Drawer(child: menuStack)
         : SizedBox(
             width: expandMenu! ? 300 : 60,
-            child: Stack(
-              alignment: Alignment.topCenter,
-              children: [
-                ListView(
-                  key: Key('builder ${expandAll.toString()}'),
-                  children: [SizedBox(height: headerHeight), ...menuBody],
-                ),
-                menuHeader,
-              ],
-            ),
+            child: menuStack,
           );
     return result;
   }
