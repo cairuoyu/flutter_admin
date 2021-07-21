@@ -7,7 +7,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/generated/l10n.dart';
-import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:flutter_admin/data/data_font.dart';
@@ -18,12 +17,8 @@ class FontSelector extends StatefulWidget {
 }
 
 class _FontSelectorState extends State<FontSelector> {
-  String? currentFontFamily;
-
   @override
   Widget build(BuildContext context) {
-    LayoutController layoutController = Get.find();
-
     return DropdownButtonFormField<String>(
       decoration: InputDecoration(
         border: OutlineInputBorder(),
@@ -33,21 +28,19 @@ class _FontSelectorState extends State<FontSelector> {
           color: Colors.blue,
         ),
       ),
-      value: currentFontFamily ?? layoutController.fontFamily,
+      value: Utils.currentFontFamily,
       items: fontFamilyMap.entries.map((e) {
         return DropdownMenuItem<String>(
           value: e.key,
           child: Text(
-              e.value,
-              style: TextStyle(fontFamily: e.key,fontSize: 10),
+            e.value,
+            style: TextStyle(fontFamily: e.key, fontSize: 10),
           ),
         );
       }).toList(),
       onChanged: (v) {
         Get.changeTheme(Utils.getThemeData(fontFamily: v));
-        setState(() {
-          currentFontFamily = v;
-        });
+        setState(() {});
       },
     );
   }

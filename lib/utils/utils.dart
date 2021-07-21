@@ -112,9 +112,8 @@ class Utils {
   }
 
   static getThemeData({Color? themeColor, String? fontFamily, bool isDark = false}) {
-    LayoutController layoutController = Get.find();
     if (fontFamily != null) {
-      layoutController.fontFamily = fontFamily;
+      currentFontFamily = fontFamily;
     }
     if (themeColor == null) {
       themeColor = Get.theme.primaryColor;
@@ -128,9 +127,11 @@ class Utils {
       ),
       buttonTheme: ButtonThemeData(buttonColor: themeColor),
       elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(backgroundColor: MaterialStateProperty.all(themeColor))),
-      fontFamily: layoutController.fontFamily,
+      fontFamily: currentFontFamily,
     );
   }
+
+  static String currentFontFamily = "Roboto";
 
   static isLogin() {
     return StoreUtil.hasData(Constant.KEY_TOKEN);

@@ -10,7 +10,6 @@ import 'package:cry/utils/adaptive_util.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/models/menu.dart';
-import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
@@ -31,7 +30,6 @@ class _LayoutMenuState extends State<LayoutMenu> {
   final double headerHeight = 46;
   bool? expandMenu;
   bool expandAll = true;
-  LayoutController layoutController = Get.find();
 
   @override
   void initState() {
