@@ -30,13 +30,11 @@ flutter:
   fonts:
     - family: Roboto
       fonts:
-        - asset: assets/fonts/Roboto-Black.ttf
-#    - family: Roboto
-#      fonts:
-#        - asset: assets/fonts/STXINWEI.woff2
-#    - family: NotoSans
-#      fonts:
-#        - asset: assets/fonts/STXINGKA.woff2
+        - asset: assets/fonts/STXINWEI.woff2
+#        - asset: assets/fonts/Roboto-Black.ttf
+    - family: NotoSans
+      fonts:
+        - asset: assets/fonts/STXINGKA.woff2
     - family: RockSalt
       fonts:
         - asset: assets/fonts/RockSalt-Regular.ttf

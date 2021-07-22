@@ -97,7 +97,7 @@ flutter run -d windows
 ## 打包
 ```bash
 # Web
-flutter build web --web-renderer html --release
+flutter build web
 
 # Windows
 flutter build windows
