@@ -12,6 +12,7 @@ import 'package:flutter_admin/common/routes.dart';
 import 'package:flutter_admin/constants/enum.dart';
 import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/pages/common/keep_alive_wrapper.dart';
+import 'package:flutter_admin/pages/layout/layout_menu_controller.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
@@ -42,6 +43,8 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
     tabController!.addListener(() {
       if (tabController!.indexIsChanging) {
         StoreUtil.writeCurrentOpenedTabPageId(openedTabPageList[tabController!.index]!.id);
+        LayoutMenuController controller = Get.find();
+        controller.update();
       }
     });
     int index = openedTabPageList.indexWhere((note) => note!.id == currentOpenedTabPageId);

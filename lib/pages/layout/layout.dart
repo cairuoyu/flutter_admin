@@ -32,9 +32,9 @@ class _LayoutState extends State {
   }
 
   @override
-  Widget build(BuildContext context) => GetBuilder<LayoutController>(builder: (_) => getBuild(context));
+  Widget build(BuildContext context) => GetBuilder<LayoutController>(builder: (_) => _build(context));
 
-  Widget getBuild(BuildContext context) {
+  Widget _build(BuildContext context) {
     var layoutMenu = LayoutMenu(onClick: (Menu menu) => Utils.openTab(menu.url!));
     Row body = Row(
       crossAxisAlignment: CrossAxisAlignment.start,

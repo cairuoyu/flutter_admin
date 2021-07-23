@@ -15,6 +15,8 @@ import 'package:flutter_admin/utils/tree_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:get/get.dart';
 
+import 'layout_menu_controller.dart';
+
 class LayoutMenu extends StatefulWidget {
   LayoutMenu({
     Key? key,
@@ -37,7 +39,9 @@ class _LayoutMenuState extends State<LayoutMenu> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => GetBuilder<LayoutMenuController>(builder: (_) => _build(context));
+
+  Widget _build(BuildContext context) {
     this.expandMenu ??= isDisplayDesktop(context) || Utils.isMenuDisplayTypeDrawer(context);
     var menuHeaderExpand = Container(
       height: headerHeight,

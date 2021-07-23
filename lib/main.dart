@@ -21,19 +21,20 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'generated/l10n.dart';
+import 'pages/layout/layout_menu_controller.dart';
 import 'router/main_router_delegate.dart';
 
-void main() async {
-  await GetStorage.init();
-  await ApplicationContext.instance.init();
-  loadBean();
-  Get.put(LayoutController());
-
+void main() async{
+  await init();
   runApp(MyApp());
 }
 
-loadBean() {
+init() async {
+  await GetStorage.init();
+  await ApplicationContext.instance.init();
   ApplicationContext.instance.addBean(CryConstant.KEY_DIO_INTERCEPTORS, [CryDioInterceptors()]);
+  Get.put(LayoutController());
+  Get.put(LayoutMenuController());
 }
 
 class MyApp extends StatelessWidget {
