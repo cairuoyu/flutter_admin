@@ -10,6 +10,12 @@ import 'package:get/get.dart';
 
 class LayoutController extends GetxController {
   MenuDisplayType? menuDisplayType = MenuDisplayType.side;
+  bool isMaximize = false;
+
+  toggleMaximize() {
+    this.isMaximize = !this.isMaximize;
+    this.update();
+  }
 
   updateMenuDisplayType(v) {
     menuDisplayType = v;

@@ -36,30 +36,35 @@ class _LayoutState extends State {
 
   Widget _build(BuildContext context) {
     var layoutMenu = LayoutMenu(onClick: (Menu menu) => Utils.openTab(menu.url!));
+    LayoutController layoutController = Get.find();
     Row body = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Utils.isMenuDisplayTypeDrawer(context) ? Container() : layoutMenu,
+        Utils.isMenuDisplayTypeDrawer(context) || layoutController.isMaximize ? Container() : layoutMenu,
         LayoutCenter(key: layoutCenterKey),
       ],
     );
-    Scaffold subWidget = Scaffold(
-      key: scaffoldStateKey,
-      drawer: layoutMenu,
-      endDrawer: LayoutSetting(),
-      body: body,
-      appBar: LayoutAppBar(
-        context,
-        type: 2,
-        userInfo: StoreUtil.getCurrentUserInfo(),
-        openMenu: () {
-          scaffoldStateKey.currentState!.openDrawer();
-        },
-        openSetting: () {
-          scaffoldStateKey.currentState!.openEndDrawer();
-        },
-      ),
-    );
+    Scaffold subWidget = layoutController.isMaximize
+        ? Scaffold(
+            body: body,
+          )
+        : Scaffold(
+            key: scaffoldStateKey,
+            drawer: layoutMenu,
+            endDrawer: LayoutSetting(),
+            body: body,
+            appBar: LayoutAppBar(
+              context,
+              type: 2,
+              userInfo: StoreUtil.getCurrentUserInfo(),
+              openMenu: () {
+                scaffoldStateKey.currentState!.openDrawer();
+              },
+              openSetting: () {
+                scaffoldStateKey.currentState!.openEndDrawer();
+              },
+            ),
+          );
     return subWidget;
   }
 }

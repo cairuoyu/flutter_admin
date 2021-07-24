@@ -5,6 +5,7 @@
 /// @version: 1.0
 /// @description:
 
+import 'package:cry/cry_all.dart';
 import 'package:cry/cry_menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_admin/common/routes.dart';
 import 'package:flutter_admin/constants/enum.dart';
 import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/pages/common/keep_alive_wrapper.dart';
+import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/pages/layout/layout_menu_controller.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
@@ -138,28 +140,33 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
       ),
     );
 
+    LayoutController layoutController = Get.find();
     var result = Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  child: tabBar,
-                  decoration: BoxDecoration(
-                    color: context.theme.primaryColor,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black54,
-                        offset: Offset(2.0, 2.0),
-                        blurRadius: 4.0,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ],
+          Container(
+            child: Row(
+              children: <Widget>[
+                Expanded(child: tabBar),
+                IconButton(
+                  onPressed: () => layoutController.toggleMaximize(),
+                  icon: Icon(layoutController.isMaximize ? Icons.close_fullscreen : Icons.open_in_full),
+                  iconSize: 20,
+                  color: Colors.white,
+                )
+              ],
+            ),
+            decoration: BoxDecoration(
+              color: context.theme.primaryColor,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black54,
+                  offset: Offset(2.0, 2.0),
+                  blurRadius: 4.0,
+                )
+              ],
+            ),
           ),
           content,
         ],
