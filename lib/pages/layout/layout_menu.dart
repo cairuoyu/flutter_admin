@@ -43,43 +43,57 @@ class _LayoutMenuState extends State<LayoutMenu> {
 
   Widget _build(BuildContext context) {
     this.expandMenu ??= isDisplayDesktop(context) || Utils.isMenuDisplayTypeDrawer(context);
-    var menuHeaderExpand = Container(
-      height: headerHeight,
-      child: Row(
-        children: [
-          if (!Utils.isMenuDisplayTypeDrawer(context))
-            CryButton(
-              iconData: Icons.chevron_left,
-              onPressed: () {
-                expandMenu = !expandMenu!;
-                setState(() {});
-              },
-            ),
-          Expanded(
-            child: Row(
-              children: [
-                CryButton(
-                  iconData: Icons.expand,
-                  onPressed: () {
-                    setState(() {
-                      expandAll = true;
-                    });
-                  },
-                ),
-                CryButton(
-                  iconData: Icons.vertical_align_center,
-                  onPressed: () {
-                    setState(() {
-                      expandAll = false;
-                    });
-                  },
-                ),
-              ],
-              mainAxisAlignment: MainAxisAlignment.end,
-            ),
+    var menuHeaderExpand = Row(
+      children: [
+        if (!Utils.isMenuDisplayTypeDrawer(context))
+          CryButton(
+            iconData: Icons.chevron_left,
+            onPressed: () {
+              expandMenu = !expandMenu!;
+              setState(() {});
+            },
           ),
-        ],
-      ),
+        Expanded(
+          child: Row(
+            children: [
+              CryButton(
+                iconData: Icons.expand,
+                onPressed: () {
+                  setState(() {
+                    expandAll = true;
+                  });
+                },
+              ),
+              CryButton(
+                iconData: Icons.vertical_align_center,
+                onPressed: () {
+                  setState(() {
+                    expandAll = false;
+                  });
+                },
+              ),
+            ],
+            mainAxisAlignment: MainAxisAlignment.end,
+          ),
+        ),
+      ],
+    );
+
+    var menuHeaderCollapse = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CryButton(
+          iconData: Icons.chevron_right,
+          onPressed: () {
+            expandMenu = !expandMenu!;
+            setState(() {});
+          },
+        ),
+      ],
+    );
+    var menuHeader = Container(
+      height: headerHeight,
+      child: expandMenu! ? menuHeaderExpand : menuHeaderCollapse,
       decoration: BoxDecoration(
         color: Colors.blue.shade50,
         boxShadow: [
@@ -91,29 +105,6 @@ class _LayoutMenuState extends State<LayoutMenu> {
         ],
       ),
     );
-
-    var menuHeaderCollapse = Container(
-      height: headerHeight,
-      child: IconButton(
-        padding: EdgeInsets.zero,
-        icon: Icon(Icons.chevron_right),
-        onPressed: () {
-          expandMenu = !expandMenu!;
-          setState(() {});
-        },
-      ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black54,
-            offset: Offset(2.0, 2.0),
-            blurRadius: 4.0,
-          )
-        ],
-      ),
-    );
-    var menuHeader = expandMenu! ? menuHeaderExpand : menuHeaderCollapse;
     var menuBody = ListView(
       key: Key('builder ${expandAll.toString()}'),
       children: [
