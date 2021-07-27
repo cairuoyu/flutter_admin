@@ -60,12 +60,19 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
         var tabContent = Row(
           children: <Widget>[
             Text(Utils.isLocalEn(context) ? tabPage!.nameEn ?? '' : tabPage!.name ?? ''),
-            SizedBox(width: 3),
             if (!Routes.defaultTabPage.contains(tabPage))
-              InkWell(
-                child: Icon(Icons.close, size: 10),
-                onTap: () => Utils.closeTab(tabPage),
-              ),
+              Material(
+                type: MaterialType.transparency,
+                child: SizedBox(
+                  width: 25,
+                  child: IconButton(
+                    iconSize: 10,
+                    splashRadius: 10,
+                    onPressed: () => Utils.closeTab(tabPage),
+                    icon: Icon(Icons.close),
+                  ),
+                ),
+              )
           ],
         );
         return Tab(
