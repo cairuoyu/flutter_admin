@@ -32,7 +32,6 @@ import 'package:get/get.dart';
 
 class Routes {
   static List<GetPage>? pages;
-  static List<GetPage>? layoutPages;
 
   static Map<String, Widget> layoutPagesMap = {
     '/dashboard': Dashboard(),
@@ -65,7 +64,7 @@ class Routes {
   ];
 
   static init() {
-    layoutPages = layoutPagesMap.entries.map((e) => GetPage(name: e.key, page: () => e.value)).toList();
+    List<GetPage> layoutPages = layoutPagesMap.entries.map((e) => GetPage(name: e.key, page: () => e.value)).toList();
     pages = [
       GetPage(
         name: '/login',
