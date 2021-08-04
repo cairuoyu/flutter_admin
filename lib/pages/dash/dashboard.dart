@@ -5,10 +5,10 @@
 /// @version: 1.0
 /// @description:
 
+import 'package:cry/utils/adaptive_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/pages/dash/task_statistical_chart.dart';
-import 'package:flutter_admin/utils/adaptive_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_admin/data/data_dashboard.dart';

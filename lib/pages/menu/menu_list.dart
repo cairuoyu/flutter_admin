@@ -8,6 +8,7 @@
 import 'package:cry/cry_button.dart';
 import 'package:cry/cry_dialog.dart';
 import 'package:cry/model/request_body_api.dart';
+import 'package:cry/utils/adaptive_util.dart';
 import 'package:cry/utils/cry_utils.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,6 @@ import 'package:flutter_admin/models/subsystem.dart';
 import 'package:flutter_admin/pages/menu/menu_edit.dart';
 import 'package:flutter_admin/pages/menu/menu_table_tree.dart';
 import 'package:flutter_admin/pages/menu/menu_tree.dart';
-import 'package:flutter_admin/utils/adaptive_util.dart';
 import 'package:flutter_admin/utils/tree_util.dart';
 
 class MenuList extends StatefulWidget {
