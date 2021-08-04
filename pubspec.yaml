@@ -31,7 +31,6 @@ flutter:
     - family: Roboto
       fonts:
         - asset: assets/fonts/STXINWEI.woff2
-#        - asset: assets/fonts/Roboto-Black.ttf
     - family: NotoSans
       fonts:
         - asset: assets/fonts/STXINGKA.woff2

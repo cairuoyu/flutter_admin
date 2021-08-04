@@ -105,7 +105,7 @@ class _ArticleMainState extends State<ArticleMain> {
     var dataGrid = SfDataGrid(
       source: ds,
       columns: <GridColumn>[
-        GridTextColumn(
+        GridColumn(
           columnName: 'operation',
           label: Container(
             padding: EdgeInsets.all(8.0),
@@ -117,7 +117,7 @@ class _ArticleMainState extends State<ArticleMain> {
           ),
           width: 120,
         ),
-        GridTextColumn(
+        GridColumn(
           columnName: 'id',
           label: Container(
             padding: EdgeInsets.all(8.0),
@@ -127,8 +127,9 @@ class _ArticleMainState extends State<ArticleMain> {
               overflow: TextOverflow.ellipsis,
             ),
           ),
+          width: 270,
         ),
-        GridTextColumn(
+        GridColumn(
           columnName: 'title',
           label: Container(
             padding: EdgeInsets.all(8.0),
@@ -140,7 +141,7 @@ class _ArticleMainState extends State<ArticleMain> {
           ),
           columnWidthMode: ColumnWidthMode.fill,
         ),
-        GridTextColumn(
+        GridColumn(
           columnName: 'titleSub',
           label: Container(
             padding: EdgeInsets.all(8.0),
@@ -151,7 +152,7 @@ class _ArticleMainState extends State<ArticleMain> {
             ),
           ),
         ),
-        GridTextColumn(
+        GridColumn(
           columnName: 'author',
           label: Container(
             padding: EdgeInsets.all(8.0),
@@ -163,7 +164,7 @@ class _ArticleMainState extends State<ArticleMain> {
           ),
           width: 120,
         ),
-        GridTextColumn(
+        GridColumn(
           columnName: 'publishTime',
           label: Container(
             padding: EdgeInsets.all(8.0),
@@ -175,7 +176,7 @@ class _ArticleMainState extends State<ArticleMain> {
           ),
           width: 120,
         ),
-        GridTextColumn(
+        GridColumn(
           columnName: 'status',
           label: Container(
             padding: EdgeInsets.all(8.0),
@@ -267,7 +268,7 @@ class ArticleDataSource extends DataGridSource {
       ),
       Container(
         padding: const EdgeInsets.all(8),
-        alignment: Alignment.centerRight,
+        alignment: Alignment.centerLeft,
         child: Text(
           article.id!,
           overflow: TextOverflow.ellipsis,
@@ -275,7 +276,7 @@ class ArticleDataSource extends DataGridSource {
       ),
       Container(
         padding: const EdgeInsets.all(8),
-        alignment: Alignment.centerRight,
+        alignment: Alignment.centerLeft,
         child: Text(
           article.title ?? '--',
           overflow: TextOverflow.ellipsis,
@@ -283,7 +284,7 @@ class ArticleDataSource extends DataGridSource {
       ),
       Container(
         padding: const EdgeInsets.all(8),
-        alignment: Alignment.centerRight,
+        alignment: Alignment.centerLeft,
         child: Text(
           article.titleSub ?? '--',
           overflow: TextOverflow.ellipsis,
@@ -291,7 +292,7 @@ class ArticleDataSource extends DataGridSource {
       ),
       Container(
         padding: const EdgeInsets.all(8),
-        alignment: Alignment.centerRight,
+        alignment: Alignment.centerLeft,
         child: Text(
           article.author ?? '--',
           overflow: TextOverflow.ellipsis,
@@ -299,7 +300,7 @@ class ArticleDataSource extends DataGridSource {
       ),
       Container(
         padding: const EdgeInsets.all(8),
-        alignment: Alignment.centerRight,
+        alignment: Alignment.centerLeft,
         child: Text(
           article.publishTime ?? '--',
           overflow: TextOverflow.ellipsis,
@@ -307,7 +308,7 @@ class ArticleDataSource extends DataGridSource {
       ),
       Container(
         padding: const EdgeInsets.all(8),
-        alignment: Alignment.centerRight,
+        alignment: Alignment.centerLeft,
         child: Text(
           DictUtil.getDictItemName(article.status, ConstantDict.CODE_ARTICLE_STATUS)!,
           overflow: TextOverflow.ellipsis,
