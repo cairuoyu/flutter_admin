@@ -18,10 +18,10 @@ import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
 class MenuTree extends StatefulWidget {
   final Function(Menu)? onEdit;
   final Function(List<String>)? onDelete;
-  final List<TreeVO<Menu>>? treeVOList;
+  final List<TreeVO<Menu>> treeVOList;
 
   MenuTree({
-    this.treeVOList,
+    required this.treeVOList,
     this.onEdit,
     this.onDelete,
   });
@@ -47,7 +47,7 @@ class _MenuTreeState extends State<MenuTree> {
 
   @override
   Widget build(BuildContext context) {
-    treeNodeList = toTreeNodeList(widget.treeVOList!, null);
+    treeNodeList = toTreeNodeList(widget.treeVOList, null);
     var treeView = Expanded(
       child: SingleChildScrollView(
         child: TreeView(

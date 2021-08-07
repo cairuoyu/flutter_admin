@@ -8,20 +8,20 @@
 import 'package:cry/cry_button_bar.dart';
 import 'package:cry/cry_buttons.dart';
 import 'package:cry/cry_tree_table.dart';
+import 'package:cry/utils/tree_util.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
-import 'package:flutter_admin/utils/tree_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
 class MenuTableTree extends StatefulWidget {
-  final List<TreeVO<Menu>>? treeVOList;
+  final List<TreeVO<Menu>> treeVOList;
   final Function(Menu)? onEdit;
   final Function(List<String>)? onDelete;
 
   MenuTableTree({
-    this.treeVOList,
+    required this.treeVOList,
     this.onEdit,
     this.onDelete,
   });

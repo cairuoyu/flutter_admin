@@ -10,6 +10,7 @@ import 'package:cry/cry_dialog.dart';
 import 'package:cry/model/request_body_api.dart';
 import 'package:cry/utils/adaptive_util.dart';
 import 'package:cry/utils/cry_utils.dart';
+import 'package:cry/utils/tree_util.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/menu_api.dart';
@@ -20,7 +21,6 @@ import 'package:flutter_admin/models/subsystem.dart';
 import 'package:flutter_admin/pages/menu/menu_edit.dart';
 import 'package:flutter_admin/pages/menu/menu_table_tree.dart';
 import 'package:flutter_admin/pages/menu/menu_tree.dart';
-import 'package:flutter_admin/utils/tree_util.dart';
 
 class MenuList extends StatefulWidget {
   final Subsystem? subsystem;
@@ -66,12 +66,12 @@ class _MenuListState extends State<MenuList> {
       return menuEdit;
     }
     MenuTableTree menuTableTree = MenuTableTree(
-      treeVOList: treeVOList,
+      treeVOList: treeVOList!,
       onDelete: (v) => _onDelete(v),
       onEdit: (v) => _onEdit(v),
     );
     MenuTree menuTree = MenuTree(
-      treeVOList: treeVOList,
+      treeVOList: treeVOList!,
       onDelete: (v) => _onDelete(v),
       onEdit: (v) => _onEdit(v),
     );
