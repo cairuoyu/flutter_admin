@@ -81,14 +81,14 @@
 
 ## 安装
 ```bash
-flutter packages get
+flutter pub get
 flutter create .
 ```
 
 ## 运行
 ```bash
 # Web
-flutter run -d chrome --web-renderer html
+flutter run -d chrome
 
 # Windows
 flutter run -d windows
