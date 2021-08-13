@@ -5,9 +5,11 @@
 /// @version: 1.0
 /// @description:
 
+import 'package:cry/cry.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_admin/constants/constant.dart';
+import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
-import 'package:flutter_admin/pages/layout/layout_app_bar.dart';
 import 'package:flutter_admin/pages/layout/layout_center.dart';
 import 'package:flutter_admin/pages/layout/layout_menu.dart';
 import 'package:flutter_admin/pages/layout/layout_setting.dart';
@@ -53,18 +55,115 @@ class _LayoutState extends State {
             drawer: layoutMenu,
             endDrawer: LayoutSetting(),
             body: body,
-            appBar: LayoutAppBar(
-              context,
-              type: 2,
-              userInfo: StoreUtil.getCurrentUserInfo(),
-              openMenu: () {
-                scaffoldStateKey.currentState!.openDrawer();
-              },
-              openSetting: () {
-                scaffoldStateKey.currentState!.openEndDrawer();
-              },
-            ),
+            appBar: getAppBar(),
           );
     return subWidget;
+  }
+
+  getAppBar() {
+    var userInfo = StoreUtil.getCurrentUserInfo();
+    var subsystemList = StoreUtil.getSubsystemList();
+    var currentSubsystem = StoreUtil.getCurrentSubsystem();
+    return AppBar(
+      automaticallyImplyLeading: false,
+      leading: !Utils.isMenuDisplayTypeDrawer(context)
+          ? Tooltip(
+              message: 'Home',
+              child: IconButton(
+                icon: Icon(Icons.home),
+                onPressed: () {
+                  Utils.launchURL('http://www.cairuoyu.com');
+                },
+              ))
+          : Tooltip(
+              message: 'Menu',
+              child: IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  scaffoldStateKey.currentState!.openDrawer();
+                },
+              )),
+      title: Row(children: [
+        Text(currentSubsystem?.name ?? '--'),
+        PopupMenuButton(
+            tooltip: '选择子系统',
+            onSelected: (String v) async {
+              var subsystem = subsystemList.firstWhere((element) => element.id == v);
+              StoreUtil.write(Constant.KEY_CURRENT_SUBSYSTEM, subsystem.toMap());
+              await StoreUtil.loadMenuData();
+              StoreUtil.init();
+              setState(() {});
+            },
+            itemBuilder: (context) => subsystemList
+                .map<PopupMenuEntry<String>>(
+                  (e) => PopupMenuItem<String>(
+                    value: e.id,
+                    child: ListTile(
+                      title: Text(e.name ?? '--'),
+                    ),
+                  ),
+                )
+                .toList()),
+      ]),
+      actions: <Widget>[
+        Tooltip(
+          message: 'Setting',
+          child: IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              scaffoldStateKey.currentState!.openEndDrawer();
+            },
+          ),
+        ),
+        Tooltip(
+          message: 'Code',
+          child: IconButton(
+            icon: Icon(Icons.code),
+            onPressed: () {
+              Utils.launchURL("https://github.com/cairuoyu/flutter_admin");
+            },
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: PopupMenuButton(
+            tooltip: S.of(context).information,
+            onSelected: (dynamic v) {
+              if (v == 'info') {
+                Utils.openTab('/userInfoMine');
+              } else if (v == 'logout') {
+                Utils.logout();
+                Cry.pushNamedAndRemove('/login');
+              }
+            },
+            child: Align(
+              child: userInfo.avatarUrl == null
+                  ? Icon(Icons.person)
+                  : CircleAvatar(
+                      backgroundImage: NetworkImage(userInfo.avatarUrl!),
+                      radius: 12.0,
+                    ),
+            ),
+            itemBuilder: (context) => <PopupMenuEntry<String>>[
+              PopupMenuItem<String>(
+                value: 'info',
+                child: ListTile(
+                  leading: const Icon(Icons.info),
+                  title: Text(S.of(context).myInformation),
+                ),
+              ),
+              const PopupMenuDivider(),
+              PopupMenuItem<String>(
+                value: 'logout',
+                child: ListTile(
+                  leading: const Icon(Icons.logout),
+                  title: Text(S.of(context).logout),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }

@@ -6,8 +6,6 @@
 /// @description: 登录
 
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/api/dict_api.dart';
-import 'package:flutter_admin/api/menu_api.dart';
 import 'package:flutter_admin/api/user_info_api.dart';
 import 'package:cry/cry.dart';
 import 'package:flutter_admin/constants/constant.dart';
@@ -216,9 +214,10 @@ class _LoginState extends State<Login> {
       return;
     }
     StoreUtil.write(Constant.KEY_TOKEN, responseBodyApi.data);
-    await _loadDict();
-    await _loadMenuData();
     await _loadCurrentUserInfo();
+    await StoreUtil.loadDict();
+    await StoreUtil.loadSubsystem();
+    await StoreUtil.loadMenuData();
     StoreUtil.init();
 
     Cry.pushNamed('/');
@@ -232,19 +231,4 @@ class _LoginState extends State<Login> {
     return responseBodyApi.success;
   }
 
-  Future<bool?> _loadMenuData() async {
-    ResponseBodyApi responseBodyApi = await MenuApi.listAuth();
-    if (responseBodyApi.success!) {
-      StoreUtil.write(Constant.KEY_MENU_LIST, responseBodyApi.data);
-    }
-    return responseBodyApi.success;
-  }
-
-  Future<bool?> _loadDict() async {
-    ResponseBodyApi responseBodyApi = await DictApi.map();
-    if (responseBodyApi.success!) {
-      StoreUtil.write(Constant.KEY_DICT_ITEM_LIST, responseBodyApi.data);
-    }
-    return responseBodyApi.success;
-  }
 }

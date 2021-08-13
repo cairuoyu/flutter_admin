@@ -5,9 +5,14 @@
 /// @version: 1.0
 /// @description: 存储工具类
 
+import 'package:cry/model/response_body_api.dart';
+import 'package:flutter_admin/api/dict_api.dart';
+import 'package:flutter_admin/api/menu_api.dart';
+import 'package:flutter_admin/api/subsystem_api.dart';
 import 'package:flutter_admin/common/routes.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/models/menu.dart';
+import 'package:flutter_admin/models/subsystem.dart';
 import 'package:flutter_admin/models/tab_page.dart';
 import 'package:flutter_admin/models/user_info.dart';
 import 'package:get_storage/get_storage.dart';
@@ -60,5 +65,47 @@ class StoreUtil {
   static List<Menu> getMenuList() {
     var data = GetStorage().read(Constant.KEY_MENU_LIST);
     return data == null ? [] : List.from(data).map((e) => Menu.fromMap(e)).toList();
+  }
+
+  static List<Subsystem> getSubsystemList() {
+    var data = GetStorage().read(Constant.KEY_SUBSYSTEM_LIST);
+    return data == null ? [] : List.from(data).map((e) => Subsystem.fromMap(e)).toList();
+  }
+
+  static Subsystem? getCurrentSubsystem() {
+    var data = GetStorage().read(Constant.KEY_CURRENT_SUBSYSTEM);
+    return data == null ? null : Subsystem.fromMap(data);
+  }
+
+
+  static Future<bool?> loadDict() async {
+    ResponseBodyApi responseBodyApi = await DictApi.map();
+    if (responseBodyApi.success!) {
+      StoreUtil.write(Constant.KEY_DICT_ITEM_LIST, responseBodyApi.data);
+    }
+    return responseBodyApi.success;
+  }
+
+  static Future<bool?> loadSubsystem() async {
+    ResponseBodyApi responseBodyApi = await SubsystemApi.list(null);
+    if (responseBodyApi.success!) {
+      StoreUtil.write(Constant.KEY_SUBSYSTEM_LIST, responseBodyApi.data);
+      List<Subsystem> list = responseBodyApi.data == null ? [] : List.from(responseBodyApi.data).map((e) => Subsystem.fromMap(e)).toList();
+      if (list.isNotEmpty) {
+        StoreUtil.write(Constant.KEY_CURRENT_SUBSYSTEM, list[0].toMap());
+      }
+    }
+    return responseBodyApi.success;
+  }
+  static Future<bool?> loadMenuData() async {
+    var currentSubsystem = StoreUtil.getCurrentSubsystem();
+    if (currentSubsystem == null) {
+      return true;
+    }
+    ResponseBodyApi responseBodyApi = await MenuApi.listAuth(currentSubsystem.id);
+    if (responseBodyApi.success!) {
+      StoreUtil.write(Constant.KEY_MENU_LIST, responseBodyApi.data);
+    }
+    return responseBodyApi.success;
   }
 }

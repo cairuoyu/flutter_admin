@@ -9,8 +9,8 @@ import 'package:cry/model/response_body_api.dart';
 import 'package:cry/utils/http_util.dart';
 
 class MenuApi {
-  static Future<ResponseBodyApi> listAuth() async {
-    return await HttpUtil.post('/menu/listAuth');
+  static Future<ResponseBodyApi> listAuth(data) async {
+    return await HttpUtil.post('/menu/listAuth', data: data);
   }
 
   static Future<ResponseBodyApi> list(data) async {
