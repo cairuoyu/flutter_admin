@@ -37,7 +37,7 @@ class _LayoutState extends State {
   Widget build(BuildContext context) => GetBuilder<LayoutController>(builder: (_) => _build(context));
 
   Widget _build(BuildContext context) {
-    var layoutMenu = LayoutMenu(onClick: (Menu menu) => Utils.openTab(menu.url!));
+    var layoutMenu = LayoutMenu(onClick: (Menu menu) => Utils.openTab(menu.id!));
     LayoutController layoutController = Get.find();
     Row body = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -130,7 +130,7 @@ class _LayoutState extends State {
             tooltip: S.of(context).information,
             onSelected: (dynamic v) {
               if (v == 'info') {
-                Utils.openTab('/userInfoMine');
+                Utils.openTab('userInfoMine');
               } else if (v == 'logout') {
                 Utils.logout();
                 Cry.pushNamedAndRemove('/login');

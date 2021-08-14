@@ -30,11 +30,11 @@ class Utils {
     );
   }
 
-  static openTab(String name) {
-    TabPage? tabPage = (Routes.defaultTabPage + Routes.otherTabPage).firstWhereOrNull((element) => element.url == name);
+  static openTab(String id) {
+    TabPage? tabPage = (Routes.defaultTabPage + Routes.otherTabPage).firstWhereOrNull((element) => element.id == id);
     if (tabPage == null) {
       var menuList = StoreUtil.getMenuList();
-      var menu = menuList.firstWhereOrNull((element) => element.url == name);
+      var menu = menuList.firstWhereOrNull((element) => element.id == id);
       if (menu == null) {
         return;
       }
