@@ -6,7 +6,6 @@
 /// @description: 登录
 
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/api/user_info_api.dart';
 import 'package:cry/cry.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:cry/model/response_body_api.dart';
@@ -213,22 +212,14 @@ class _LoginState extends State<Login> {
       focusNodePassword.requestFocus();
       return;
     }
-    StoreUtil.write(Constant.KEY_TOKEN, responseBodyApi.data);
-    await _loadCurrentUserInfo();
+    StoreUtil.write(Constant.KEY_TOKEN, responseBodyApi.data[Constant.KEY_TOKEN]);
+    StoreUtil.write(Constant.KEY_CURRENT_USER_INFO, responseBodyApi.data[Constant.KEY_CURRENT_USER_INFO]);
     await StoreUtil.loadDict();
     await StoreUtil.loadSubsystem();
     await StoreUtil.loadMenuData();
     StoreUtil.init();
 
     Cry.pushNamed('/');
-  }
-
-  Future<bool?> _loadCurrentUserInfo() async {
-    ResponseBodyApi responseBodyApi = await UserInfoApi.getCurrentUserInfo();
-    if (responseBodyApi.success!) {
-      StoreUtil.write(Constant.KEY_CURRENT_USER_INFO, responseBodyApi.data);
-    }
-    return responseBodyApi.success;
   }
 
 }

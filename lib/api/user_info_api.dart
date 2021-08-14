@@ -13,10 +13,6 @@ class UserInfoApi {
     return HttpUtil.post('/userInfo/page', data: data);
   }
 
-  static Future<ResponseBodyApi> getCurrentUserInfo() {
-    return HttpUtil.post('/userInfo/getCurrentUserInfo');
-  }
-
   static saveOrUpdate(data) {
     return HttpUtil.post('/userInfo/saveOrUpdate', data: data);
   }
