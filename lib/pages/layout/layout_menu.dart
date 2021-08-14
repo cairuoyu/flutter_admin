@@ -143,6 +143,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
           leading: Icon(iconData),
           children: _getMenuListTile(treeVO.children, currentOpenedTabPageId),
           title: title,
+          childrenPadding: EdgeInsets.only(left: 30),
         );
       } else {
         return ListTile(

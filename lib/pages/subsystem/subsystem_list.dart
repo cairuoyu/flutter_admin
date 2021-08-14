@@ -5,6 +5,7 @@
 /// @version: 1.0
 /// @description:
 
+import 'package:cry/cry_all.dart';
 import 'package:cry/cry_list_view.dart';
 import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
@@ -42,7 +43,10 @@ class _SubsystemListState extends State<SubsystemList> {
       return Container();
     }
     var listView = CryListView(
-      title: S.of(context).menuTile,
+      appBar: AppBar(
+        title: Text(S.of(context).menuTile),
+        actions: [CryButtons.reset(context, () async => _loadData())],
+      ),
       count: subsystemList.length,
       getCell: (index) {
         Subsystem subsystem = subsystemList[index];
