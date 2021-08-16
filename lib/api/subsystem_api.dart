@@ -8,8 +8,8 @@
 import 'package:cry/utils/http_util.dart';
 
 class SubsystemApi {
-  static list(data) {
-    return HttpUtil.post('/subsystem/list', data: data);
+  static listEnable() {
+    return HttpUtil.post('/subsystem/listEnable');
   }
 
   static page(data) {

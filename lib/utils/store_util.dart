@@ -77,7 +77,6 @@ class StoreUtil {
     return data == null ? null : Subsystem.fromMap(data);
   }
 
-
   static Future<bool?> loadDict() async {
     ResponseBodyApi responseBodyApi = await DictApi.map();
     if (responseBodyApi.success!) {
@@ -87,7 +86,7 @@ class StoreUtil {
   }
 
   static Future<bool?> loadSubsystem() async {
-    ResponseBodyApi responseBodyApi = await SubsystemApi.list(null);
+    ResponseBodyApi responseBodyApi = await SubsystemApi.listEnable();
     if (responseBodyApi.success!) {
       StoreUtil.write(Constant.KEY_SUBSYSTEM_LIST, responseBodyApi.data);
       List<Subsystem> list = responseBodyApi.data == null ? [] : List.from(responseBodyApi.data).map((e) => Subsystem.fromMap(e)).toList();
@@ -97,6 +96,7 @@ class StoreUtil {
     }
     return responseBodyApi.success;
   }
+
   static Future<bool?> loadMenuData() async {
     var currentSubsystem = StoreUtil.getCurrentSubsystem();
     if (currentSubsystem == null) {

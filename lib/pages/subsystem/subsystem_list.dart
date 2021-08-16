@@ -7,13 +7,11 @@
 
 import 'package:cry/cry_all.dart';
 import 'package:cry/cry_list_view.dart';
-import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/subsystem_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/subsystem.dart';
-import 'package:flutter_admin/models/subsystem_vo.dart';
 import 'package:flutter_admin/utils/utils.dart';
 
 typedef OpenSubsystemBuilder<S> = Widget Function(Subsystem subsystem);
@@ -28,7 +26,6 @@ class SubsystemList extends StatefulWidget {
 }
 
 class _SubsystemListState extends State<SubsystemList> {
-  SubsystemVO subsystemVO = SubsystemVO();
   List<Subsystem> subsystemList = [];
 
   @override
@@ -62,7 +59,7 @@ class _SubsystemListState extends State<SubsystemList> {
   }
 
   _loadData() async {
-    ResponseBodyApi responseBodyApi = await SubsystemApi.list(RequestBodyApi(params: this.subsystemVO.toMap()).toMap());
+    ResponseBodyApi responseBodyApi = await SubsystemApi.listEnable();
     subsystemList = List.from(responseBodyApi.data).map((e) => Subsystem.fromMap(e)).toList();
     if (mounted) this.setState(() {});
   }
