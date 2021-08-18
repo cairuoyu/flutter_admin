@@ -1,8 +1,15 @@
+/// @author: cairuoyu
+/// @homepage: http://cairuoyu.com
+/// @github: https://github.com/cairuoyu/flutter_admin
+/// @date: 2021/6/21
+/// @version: 1.0
+/// @description:
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/common/routes.dart';
 import 'package:flutter_admin/models/tab_page.dart';
-import 'package:flutter_admin/pages/common/keep_alive_wrapper.dart';
+import 'package:flutter_admin/pages/common/IndexedStackLazy.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
@@ -23,7 +30,6 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
 
   @override
   Widget build(BuildContext context) {
-    print('layoutCenter--build');
     var openedTabPageList = StoreUtil.readOpenedTabPageList();
     var currentOpenedTabPageId = StoreUtil.readCurrentOpenedTabPageId();
     int currentIndex = openedTabPageList.indexWhere((note) => note!.id == currentOpenedTabPageId);
@@ -61,12 +67,14 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
 
     var content = Container(
       child: Expanded(
-        child: IndexedStack(
+        child: IndexedStackLazy(
           index: currentIndex,
           children: openedTabPageList.map((TabPage? tabPage) {
             var page = tabPage!.url != null ? Routes.layoutPagesMap[tabPage.url!] ?? Container() : tabPage.widget ?? Container();
-            return KeepAliveWrapper(child: page,key: Key('pageid ${tabPage.id}'),);
-            // return page;
+            return Container(
+              child: page,
+              key: Key('page-${tabPage.id}'),
+            );
           }).toList(),
         ),
       ),
