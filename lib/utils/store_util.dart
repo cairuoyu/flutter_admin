@@ -8,8 +8,8 @@
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/api/dict_api.dart';
 import 'package:flutter_admin/api/menu_api.dart';
+import 'package:flutter_admin/api/setting_default_tab.dart';
 import 'package:flutter_admin/api/subsystem_api.dart';
-import 'package:flutter_admin/common/routes.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/models/menu.dart';
 import 'package:flutter_admin/models/subsystem.dart';
@@ -35,8 +35,11 @@ class StoreUtil {
   }
 
   static init() {
-    writeOpenedTabPageList(Routes.defaultTabPage);
-    writeCurrentOpenedTabPageId(Routes.defaultTabPage.first.id);
+    var list = getDefaultTabs();
+    writeOpenedTabPageList(list);
+    if (list.length > 0) {
+      writeCurrentOpenedTabPageId(list.first.id);
+    }
   }
 
   static List<TabPage?> readOpenedTabPageList() {
@@ -77,6 +80,11 @@ class StoreUtil {
     return data == null ? null : Subsystem.fromMap(data);
   }
 
+  static List<TabPage> getDefaultTabs() {
+    var data = GetStorage().read(Constant.KEY_DEFAULT_TABS);
+    return data == null ? [] : List.from(data).map((e) => TabPage.fromMap(e)).toList();
+  }
+
   static Future<bool?> loadDict() async {
     ResponseBodyApi responseBodyApi = await DictApi.map();
     if (responseBodyApi.success!) {
@@ -105,6 +113,14 @@ class StoreUtil {
     ResponseBodyApi responseBodyApi = await MenuApi.listAuth(currentSubsystem.id);
     if (responseBodyApi.success!) {
       StoreUtil.write(Constant.KEY_MENU_LIST, responseBodyApi.data);
+    }
+    return responseBodyApi.success;
+  }
+
+  static Future<bool?> loadDefaultTabs() async {
+    ResponseBodyApi responseBodyApi = await SettingDefaultTabApi.list();
+    if (responseBodyApi.success!) {
+      StoreUtil.write(Constant.KEY_DEFAULT_TABS, responseBodyApi.data);
     }
     return responseBodyApi.success;
   }

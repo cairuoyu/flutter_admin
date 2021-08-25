@@ -49,7 +49,7 @@ class MainRouterDelegate extends CryRouterDelegate {
       return pageMap[name];
     }
 
-    TabPage? tabPage = (Routes.defaultTabPage + Routes.otherTabPage).firstWhereOrNull((element) => element.url == name);
+    TabPage? tabPage = (StoreUtil.getDefaultTabs() + Routes.otherTabPage).firstWhereOrNull((element) => element.url == name);
     if (tabPage == null) {
       var menuList = StoreUtil.getMenuList();
       var menu = menuList.firstWhereOrNull((element) => element.url == name);

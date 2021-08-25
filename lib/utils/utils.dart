@@ -31,7 +31,7 @@ class Utils {
   }
 
   static openTab(String id) {
-    TabPage? tabPage = (Routes.defaultTabPage + Routes.otherTabPage).firstWhereOrNull((element) => element.id == id);
+    TabPage? tabPage = (StoreUtil.getDefaultTabs() + Routes.otherTabPage).firstWhereOrNull((element) => element.id == id);
     if (tabPage == null) {
       var menuList = StoreUtil.getMenuList();
       var menu = menuList.firstWhereOrNull((element) => element.id == id);
@@ -55,13 +55,13 @@ class Utils {
   static closeTab(TabPage? tabPage) {
     List<TabPage?> openedTabPageList = StoreUtil.readOpenedTabPageList();
     int index = openedTabPageList.indexWhere((note) => note!.id == tabPage!.id);
-    if (index <= 0) {
+    if (index < 0) {
       return;
     }
     openedTabPageList.removeAt(index);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
     if (StoreUtil.readCurrentOpenedTabPageId() == tabPage!.id) {
-      StoreUtil.writeCurrentOpenedTabPageId(openedTabPageList.last!.id);
+      StoreUtil.writeCurrentOpenedTabPageId(openedTabPageList.length > 0 ? openedTabPageList.last!.id : null);
     }
     LayoutController layoutController = Get.find();
     layoutController.update();
@@ -75,7 +75,7 @@ class Utils {
 
   static closeOtherTab(TabPage tabPage) {
     List<TabPage?> openedTabPageList = StoreUtil.readOpenedTabPageList();
-    openedTabPageList.removeWhere((element) => element!.id != tabPage.id && !Routes.defaultTabPage.contains(element));
+    openedTabPageList.removeWhere((element) => element!.id != tabPage.id && !StoreUtil.getDefaultTabs().contains(element));
     StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
     LayoutController layoutController = Get.find();
@@ -85,7 +85,7 @@ class Utils {
   static closeAllToTheRightTab(TabPage tabPage) {
     List<TabPage?> openedTabPageList = StoreUtil.readOpenedTabPageList();
     int index = openedTabPageList.indexWhere((note) => note!.id == tabPage.id);
-    openedTabPageList.removeWhere((element) => openedTabPageList.indexOf(element) > index && !Routes.defaultTabPage.contains(element));
+    openedTabPageList.removeWhere((element) => openedTabPageList.indexOf(element) > index && !StoreUtil.getDefaultTabs().contains(element));
     StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
     LayoutController layoutController = Get.find();
@@ -95,7 +95,7 @@ class Utils {
   static closeAllToTheLeftTab(TabPage tabPage) {
     List<TabPage?> openedTabPageList = StoreUtil.readOpenedTabPageList();
     int index = openedTabPageList.indexWhere((note) => note!.id == tabPage.id);
-    openedTabPageList.removeWhere((element) => openedTabPageList.indexOf(element) < index && !Routes.defaultTabPage.contains(element));
+    openedTabPageList.removeWhere((element) => openedTabPageList.indexOf(element) < index && !StoreUtil.getDefaultTabs().contains(element));
     StoreUtil.writeCurrentOpenedTabPageId(tabPage.id);
     StoreUtil.writeOpenedTabPageList(openedTabPageList);
     LayoutController layoutController = Get.find();

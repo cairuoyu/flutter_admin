@@ -33,9 +33,13 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
   @override
   Widget build(BuildContext context) {
     var openedTabPageList = StoreUtil.readOpenedTabPageList();
+    if(openedTabPageList.length==0){
+      return Container();
+    }
     var currentOpenedTabPageId = StoreUtil.readCurrentOpenedTabPageId();
     int currentIndex = openedTabPageList.indexWhere((note) => note!.id == currentOpenedTabPageId);
     var tabController = TabController(vsync: this, length: openedTabPageList.length, initialIndex: currentIndex);
+    var defaultTabs = StoreUtil.getDefaultTabs();
 
     tabController.addListener(() {
       if (tabController.indexIsChanging) {
@@ -52,7 +56,7 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
         var tabContent = Row(
           children: <Widget>[
             Text(Utils.isLocalEn(context) ? tabPage!.nameEn ?? '' : tabPage!.name ?? ''),
-            if (!Routes.defaultTabPage.contains(tabPage))
+            if (!defaultTabs.contains(tabPage))
               Material(
                 type: MaterialType.transparency,
                 child: SizedBox(
@@ -90,7 +94,7 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
               }
             },
             itemBuilder: (context) => <PopupMenuEntry<TabMenuOption>>[
-              if (!Routes.defaultTabPage.contains(tabPage))
+              if (!defaultTabs.contains(tabPage))
                 PopupMenuItem(
                   value: TabMenuOption.close,
                   child: ListTile(

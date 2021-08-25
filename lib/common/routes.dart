@@ -22,7 +22,7 @@ import 'package:flutter_admin/pages/menu/menu_main.dart';
 import 'package:flutter_admin/pages/message/message_main.dart';
 import 'package:flutter_admin/pages/my_test.dart';
 import 'package:flutter_admin/pages/person/person_list.dart';
-import 'package:flutter_admin/pages/role/role_list.dart';
+import 'package:flutter_admin/pages/setting/setting_base.dart';
 import 'package:flutter_admin/pages/subsystem/subsystem_main.dart';
 import 'package:flutter_admin/pages/userInfo/user_info_list.dart';
 import 'package:flutter_admin/pages/userInfo/user_info_mine.dart';
@@ -36,7 +36,7 @@ class Routes {
   static Map<String, Widget> layoutPagesMap = {
     '/dashboard': Dashboard(),
     '/sAreaAgeGenderMain': SAreaAgeGenderMain(),
-    '/roleList': RoleList(),
+    '/roleList': SettingBase(),
     '/personList': PersonList(),
     '/menuList': MenuMain(),
     '/userInfoList': UserInfoList(),
@@ -56,9 +56,6 @@ class Routes {
   };
   static List<String> whiteRoutes = ['/register'];
 
-  static List<TabPage> defaultTabPage = [
-    TabPage(id: 'dashboard', url: '/dashboard', name: 'Dashboard', nameEn: 'Dashboard'),
-  ];
   static List<TabPage> otherTabPage = [
     TabPage(id: 'userInfoMine', url: '/userInfoMine', name: '我的信息', nameEn: 'My Info'),
   ];
