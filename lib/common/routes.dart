@@ -22,6 +22,7 @@ import 'package:flutter_admin/pages/menu/menu_main.dart';
 import 'package:flutter_admin/pages/message/message_main.dart';
 import 'package:flutter_admin/pages/my_test.dart';
 import 'package:flutter_admin/pages/person/person_list.dart';
+import 'package:flutter_admin/pages/role/role_list.dart';
 import 'package:flutter_admin/pages/setting/setting_base.dart';
 import 'package:flutter_admin/pages/subsystem/subsystem_main.dart';
 import 'package:flutter_admin/pages/userInfo/user_info_list.dart';
@@ -36,7 +37,7 @@ class Routes {
   static Map<String, Widget> layoutPagesMap = {
     '/dashboard': Dashboard(),
     '/sAreaAgeGenderMain': SAreaAgeGenderMain(),
-    '/roleList': SettingBase(),
+    '/roleList': RoleList(),
     '/personList': PersonList(),
     '/menuList': MenuMain(),
     '/userInfoList': UserInfoList(),
@@ -51,6 +52,7 @@ class Routes {
     '/dictList': DictList(),
     '/message': MessageMain(),
     '/subsystemList': SubsystemMain(),
+    '/settingBase': SettingBase(),
     '/secondLevel': OnlyText('二级菜单页面'),
     '/threeLevel': OnlyText('三级菜单页面'),
   };
