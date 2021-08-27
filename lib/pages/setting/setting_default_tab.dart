@@ -1,5 +1,6 @@
 import 'package:cry/cry.dart';
 import 'package:cry/cry_all.dart';
+import 'package:cry/utils/cry_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/setting_default_tab.dart';
 import 'package:flutter_admin/generated/l10n.dart';
@@ -89,24 +90,30 @@ class _SettingDefaultTabState extends State<SettingDefaultTab> {
           ),
           CryInput(
             label: 'nameEn',
+            required: true,
             onSaved: (v) {
               tabPage.nameEn = v;
             },
           ),
           CryInput(
             label: 'url',
+            required: true,
             onSaved: (v) {
               tabPage.url = v;
             },
           ),
           ButtonBar(
             children: [
-              CryButtons.save(context, () async {
+              CryButtons.add(context, () async {
                 if (!formKey.currentState!.validate()) {
                   return;
                 }
                 formKey.currentState!.save();
-                await SettingDefaultTabApi.saveOrUpdate(tabPage.toMap());
+                var res = await SettingDefaultTabApi.saveOrUpdate(tabPage.toMap());
+                if (!res.success!) {
+                  return;
+                }
+                CryUtils.message(S.of(context).success);
                 tabPage = TabPage();
                 setState(() {});
                 ds.loadData();
@@ -178,8 +185,14 @@ class _DataSource extends DataGridSource {
   }
 
   delete(List<String> ids) async {
-    await SettingDefaultTabApi.removeByIds(ids);
-    loadData();
+    cryConfirm(Cry.context, S.of(Cry.context).confirmDelete, (context) async {
+      var res = await SettingDefaultTabApi.removeByIds(ids);
+      if (!res.success) {
+        return;
+      }
+      CryUtils.message(S.of(Cry.context).success);
+      loadData();
+    });
   }
 
   @override

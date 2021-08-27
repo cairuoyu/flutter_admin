@@ -1,4 +1,3 @@
-import 'package:cry/cry_all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/pages/setting/setting_default_tab.dart';
 
@@ -22,7 +21,6 @@ class _SettingBaseState extends State<SettingBase> {
             );
           },
           body: SettingDefaultTab(),
-          // body:d,
         ),
         ExpansionPanelRadio(
           canTapOnHeader: true,
@@ -46,7 +44,6 @@ class _SettingBaseState extends State<SettingBase> {
           child: list,
         ),
       ),
-      floatingActionButton: CryButtons.save(context, () {}),
     );
     return result;
   }
