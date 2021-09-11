@@ -115,15 +115,6 @@ class _LayoutState extends State {
             },
           ),
         ),
-        Tooltip(
-          message: 'Code',
-          child: IconButton(
-            icon: Icon(Icons.code),
-            onPressed: () {
-              Utils.launchURL("https://github.com/cairuoyu/flutter_admin");
-            },
-          ),
-        ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: PopupMenuButton(
@@ -162,6 +153,70 @@ class _LayoutState extends State {
               ),
             ],
           ),
+        ),
+        PopupMenuButton(
+          onSelected: (dynamic v) {
+            switch (v) {
+              case 'code':
+                Utils.launchURL("https://github.com/cairuoyu/flutter_admin");
+                break;
+              case 'version':
+                showDialog<void>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text(S.of(context).information),
+                      scrollable: true,
+                      content: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Flutter admin版本：1.4.0'),
+                          SizedBox(height: 20),
+                          Text('Flutter SDK版本：2.2.0'),
+                        ],
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text(S.of(context).cancel),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+                break;
+              case 'feedback':
+                Utils.openTab('message');
+                break;
+            }
+          },
+          itemBuilder: (context) => <PopupMenuEntry<String>>[
+            PopupMenuItem<String>(
+              value: 'code',
+              child: ListTile(
+                leading: const Icon(Icons.code),
+                title: Text('源码'),
+              ),
+            ),
+            const PopupMenuDivider(),
+            PopupMenuItem<String>(
+              value: 'version',
+              child: ListTile(
+                leading: const Icon(Icons.vertical_split),
+                title: Text('版本'),
+              ),
+            ),
+            const PopupMenuDivider(),
+            PopupMenuItem<String>(
+              value: 'feedback',
+              child: ListTile(
+                leading: const Icon(Icons.feedback),
+                title: Text('反馈'),
+              ),
+            ),
+          ],
         ),
       ],
     );

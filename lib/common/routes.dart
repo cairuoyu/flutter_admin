@@ -60,6 +60,7 @@ class Routes {
 
   static List<TabPage> otherTabPage = [
     TabPage(id: 'userInfoMine', url: '/userInfoMine', name: '我的信息', nameEn: 'My Info'),
+    TabPage(id: 'message', url: '/message', name: '反馈', nameEn: 'Feedback'),
   ];
 
   static init() {
