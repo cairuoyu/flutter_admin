@@ -6,6 +6,7 @@
 /// @description:
 
 import 'package:cry/cry.dart';
+import 'package:cry/cry_all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/generated/l10n.dart';
@@ -160,16 +161,20 @@ class _LayoutState extends State {
               case 'code':
                 Utils.launchURL("https://github.com/cairuoyu/flutter_admin");
                 break;
-              case 'version':
+              case 'about':
                 showDialog<void>(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text(S.of(context).information),
+                      title: Text('Flutter admin'),
                       scrollable: true,
                       content: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Text('Author：CaiRuoyu'),
+                          SizedBox(height: 20),
+                          Text('Github：https://github.com/cairuoyu/flutter_admin'),
+                          SizedBox(height: 20),
                           Text('Flutter admin版本：1.4.0'),
                           SizedBox(height: 20),
                           Text('Flutter SDK版本：2.2.0'),
@@ -190,6 +195,10 @@ class _LayoutState extends State {
               case 'feedback':
                 Utils.openTab('message');
                 break;
+              case 'privacy':
+                var privacy = StoreUtil.getPrivacy();
+                cryAlert(context, privacy);
+                break;
             }
           },
           itemBuilder: (context) => <PopupMenuEntry<String>>[
@@ -202,18 +211,26 @@ class _LayoutState extends State {
             ),
             const PopupMenuDivider(),
             PopupMenuItem<String>(
-              value: 'version',
-              child: ListTile(
-                leading: const Icon(Icons.vertical_split),
-                title: Text('版本'),
-              ),
-            ),
-            const PopupMenuDivider(),
-            PopupMenuItem<String>(
               value: 'feedback',
               child: ListTile(
                 leading: const Icon(Icons.feedback),
                 title: Text('反馈'),
+              ),
+            ),
+            const PopupMenuDivider(),
+            PopupMenuItem<String>(
+              value: 'about',
+              child: ListTile(
+                leading: const Icon(Icons.vertical_split),
+                title: Text('关于'),
+              ),
+            ),
+            const PopupMenuDivider(),
+            PopupMenuItem<String>(
+              value: 'privacy',
+              child: ListTile(
+                leading: const Icon(Icons.privacy_tip),
+                title: Text('隐私'),
               ),
             ),
           ],

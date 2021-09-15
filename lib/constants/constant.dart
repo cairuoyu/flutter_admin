@@ -15,4 +15,5 @@ class Constant {
   static const String KEY_OPENED_TAB_PAGE_LIST = "openedTabPageList";
   static const String KEY_CURRENT_OPENED_TAB_PAGE_ID = "currentOpenedTabPageId";
   static const String KEY_DEFAULT_TABS= "defaultTabs";
+  static const String KEY_PRIVACY= "privacy";
 }

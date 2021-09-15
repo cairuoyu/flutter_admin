@@ -27,6 +27,7 @@ flutter:
   uses-material-design: true
   assets:
     - config/
+    - assets/PRIVACY
   fonts:
 #    - family: Roboto
 #      fonts:

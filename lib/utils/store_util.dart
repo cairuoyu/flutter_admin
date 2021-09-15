@@ -6,6 +6,7 @@
 /// @description: 存储工具类
 
 import 'package:cry/model/response_body_api.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_admin/api/dict_api.dart';
 import 'package:flutter_admin/api/menu_api.dart';
 import 'package:flutter_admin/api/setting_default_tab.dart';
@@ -123,5 +124,14 @@ class StoreUtil {
       StoreUtil.write(Constant.KEY_DEFAULT_TABS, responseBodyApi.data);
     }
     return responseBodyApi.success;
+  }
+
+  static Future<void> loadPrivacy() async {
+    var privacy = await rootBundle.loadString('assets/PRIVACY');
+    StoreUtil.write(Constant.KEY_PRIVACY, privacy);
+  }
+
+  static String getPrivacy() {
+    return StoreUtil.read(Constant.KEY_PRIVACY);
   }
 }

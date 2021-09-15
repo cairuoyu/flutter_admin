@@ -39,7 +39,7 @@
 ## Technology
 | Name               | Technology                                                   |
 | ------------------ | ------------------------------------------------------------ |
-| Permissions        | JWT                                                          |
+| Authentication        | JWT                                                          |
 | Routing management | Flutter Navigator 2                                          |
 | State management   | GetX                                                         |
 | Cache management   | GetStorage                                                   |
