@@ -177,7 +177,7 @@ class _LayoutState extends State {
                           SizedBox(height: 20),
                           Text('Flutter admin版本：1.4.0'),
                           SizedBox(height: 20),
-                          Text('Flutter SDK版本：2.2.0'),
+                          Text('Flutter SDK版本：stable, 2.5.1'),
                         ],
                       ),
                       actions: <Widget>[
