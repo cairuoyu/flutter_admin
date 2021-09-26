@@ -5,6 +5,7 @@
 /// @version: 1.0
 /// @description:
 
+import 'package:cry/common/application_context.dart';
 import 'package:cry/cry.dart';
 import 'package:cry/cry_all.dart';
 import 'package:flutter/material.dart';
@@ -162,41 +163,25 @@ class _LayoutState extends State {
                 Utils.launchURL("https://github.com/cairuoyu/flutter_admin");
                 break;
               case 'about':
-                showDialog<void>(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Flutter admin'),
-                      scrollable: true,
-                      content: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Author：CaiRuoyu'),
-                          SizedBox(height: 20),
-                          Text('Github：https://github.com/cairuoyu/flutter_admin'),
-                          SizedBox(height: 20),
-                          Text('Flutter admin版本：1.4.0'),
-                          SizedBox(height: 20),
-                          Text('Flutter SDK版本：stable, 2.5.1'),
-                        ],
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: Text(S.of(context).cancel),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    );
-                  },
+                var about = Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Author：CaiRuoyu'),
+                    SizedBox(height: 20),
+                    Text('Github：https://github.com/cairuoyu/flutter_admin'),
+                    SizedBox(height: 20),
+                    Text('Flutter admin版本：1.4.0'),
+                    SizedBox(height: 20),
+                    Text('Flutter SDK版本：stable, 2.5.1'),
+                  ],
                 );
+                cryAlertWidget(context, about);
                 break;
               case 'feedback':
                 Utils.openTab('message');
                 break;
               case 'privacy':
-                var privacy = StoreUtil.getPrivacy();
+                var privacy = ApplicationContext.instance.privacy;
                 cryAlert(context, privacy);
                 break;
             }

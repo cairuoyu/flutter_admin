@@ -16,7 +16,6 @@ import 'package:flutter_admin/pages/layout/layout.dart';
 import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/pages/login.dart';
 import 'package:flutter_admin/pages/register.dart';
-import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -33,7 +32,6 @@ void main() async{
 init() async {
   await GetStorage.init();
   await ApplicationContext.instance.init();
-  StoreUtil.loadPrivacy();
   ApplicationContext.instance.addBean(CryConstant.KEY_DIO_INTERCEPTORS, [CryDioInterceptors()]);
   Get.put(LayoutController());
   Get.put(LayoutMenuController());

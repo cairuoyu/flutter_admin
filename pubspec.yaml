@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  cry: 1.1.8
+  cry: 1.1.9
   font_awesome_flutter: ^9.0.0
   flutter_colorpicker: ^0.6.0
   url_launcher: ^6.0.3
@@ -27,7 +27,7 @@ flutter:
   uses-material-design: true
   assets:
     - config/
-    - assets/PRIVACY
+    - PRIVACY
   fonts:
 #    - family: Roboto
 #      fonts:
@@ -61,4 +61,4 @@ flutter:
         - asset: assets/fonts/AGENCYR.TTF
 
 flutter_intl:
-  enabled: false
+  enabled: true

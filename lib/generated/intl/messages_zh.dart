@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "author": MessageLookupByLibrary.simpleMessage("作者"),
         "camera": MessageLookupByLibrary.simpleMessage("相机"),
         "cancel": MessageLookupByLibrary.simpleMessage("取消"),
+        "close": MessageLookupByLibrary.simpleMessage("关闭"),
         "code": MessageLookupByLibrary.simpleMessage("代码"),
         "collapse": MessageLookupByLibrary.simpleMessage("合并"),
         "commit": MessageLookupByLibrary.simpleMessage("提交"),
