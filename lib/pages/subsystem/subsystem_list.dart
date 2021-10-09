@@ -13,6 +13,7 @@ import 'package:flutter_admin/api/subsystem_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/subsystem.dart';
 import 'package:flutter_admin/utils/utils.dart';
+import 'package:get/get.dart';
 
 typedef OpenSubsystemBuilder<S> = Widget Function(Subsystem subsystem);
 
@@ -41,6 +42,7 @@ class _SubsystemListState extends State<SubsystemList> {
     }
     var listView = CryListView(
       appBar: AppBar(
+        backgroundColor: Get.theme.primaryColor,
         title: Text(S.of(context).menuTile),
         actions: [CryButtons.reset(context, () async => _loadData())],
       ),

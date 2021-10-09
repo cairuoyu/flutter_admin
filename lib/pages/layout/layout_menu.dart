@@ -29,7 +29,7 @@ class LayoutMenu extends StatefulWidget {
 }
 
 class _LayoutMenuState extends State<LayoutMenu> {
-  final double headerHeight = 46;
+  final double headerHeight = 48;
   bool? expandMenu;
   bool expandAll = true;
 
@@ -83,6 +83,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CryButton(
+          iconColor: Colors.white,
           iconData: Icons.chevron_right,
           onPressed: () {
             expandMenu = !expandMenu!;
@@ -91,21 +92,12 @@ class _LayoutMenuState extends State<LayoutMenu> {
         ),
       ],
     );
-    var menuHeader = Container(
-      height: headerHeight,
-      child: Material(
-        type: MaterialType.transparency,
+    var menuHeader = Material(
+      type: MaterialType.transparency,
+      child: Container(
+        color: Colors.white,
+        height: headerHeight,
         child: expandMenu! ? menuHeaderExpand : menuHeaderCollapse,
-      ),
-      decoration: BoxDecoration(
-        color: Colors.blue.shade50,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black54,
-            offset: Offset(2.0, 2.0),
-            blurRadius: 4.0,
-          )
-        ],
       ),
     );
     var menuBody = ListView(
@@ -120,6 +112,11 @@ class _LayoutMenuState extends State<LayoutMenu> {
       children: [
         menuBody,
         menuHeader,
+        Divider(
+          thickness: 1,
+          color: Colors.black26,
+          height: headerHeight * 2 - 1,
+        ),
       ],
     );
     var result = Utils.isMenuDisplayTypeDrawer(context)

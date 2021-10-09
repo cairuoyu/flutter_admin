@@ -45,6 +45,11 @@ class _LayoutState extends State {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Utils.isMenuDisplayTypeDrawer(context) || layoutController.isMaximize ? Container() : layoutMenu,
+        VerticalDivider(
+          width: 2,
+          color: Colors.black12,
+          thickness: 2,
+        ),
         LayoutCenter(key: layoutCenterKey),
       ],
     );
@@ -67,6 +72,7 @@ class _LayoutState extends State {
     var subsystemList = StoreUtil.getSubsystemList();
     var currentSubsystem = StoreUtil.getCurrentSubsystem();
     return AppBar(
+      backgroundColor: context.theme.primaryColor,
       automaticallyImplyLeading: false,
       leading: !Utils.isMenuDisplayTypeDrawer(context)
           ? Tooltip(

@@ -152,6 +152,7 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
+            color: context.theme.primaryColor,
             child: Row(
               children: <Widget>[
                 Expanded(child: tabBar),
@@ -160,16 +161,6 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
                   icon: Icon(layoutController.isMaximize ? Icons.close_fullscreen : Icons.open_in_full),
                   iconSize: 20,
                   color: Colors.white,
-                )
-              ],
-            ),
-            decoration: BoxDecoration(
-              color: context.theme.primaryColor,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black54,
-                  offset: Offset(2.0, 2.0),
-                  blurRadius: 4.0,
                 )
               ],
             ),
