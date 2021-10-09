@@ -83,7 +83,6 @@ class _LayoutMenuState extends State<LayoutMenu> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CryButton(
-          iconColor: Colors.white,
           iconData: Icons.chevron_right,
           onPressed: () {
             expandMenu = !expandMenu!;

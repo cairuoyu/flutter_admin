@@ -61,4 +61,4 @@ flutter:
         - asset: assets/fonts/AGENCYR.TTF
 
 flutter_intl:
-  enabled: true
+  enabled: false

@@ -41,22 +41,21 @@ class _LayoutState extends State {
   Widget _build(BuildContext context) {
     var layoutMenu = LayoutMenu(onClick: (Menu menu) => Utils.openTab(menu.id!));
     LayoutController layoutController = Get.find();
-    Row body = Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Utils.isMenuDisplayTypeDrawer(context) || layoutController.isMaximize ? Container() : layoutMenu,
-        VerticalDivider(
-          width: 2,
-          color: Colors.black12,
-          thickness: 2,
-        ),
-        LayoutCenter(key: layoutCenterKey),
-      ],
-    );
+    var body = Utils.isMenuDisplayTypeDrawer(context) || layoutController.isMaximize
+        ? Row(children: [LayoutCenter(key: layoutCenterKey)])
+        : Row(
+            children: <Widget>[
+              layoutMenu,
+              VerticalDivider(
+                width: 2,
+                color: Colors.black12,
+                thickness: 2,
+              ),
+              LayoutCenter(key: layoutCenterKey),
+            ],
+          );
     Scaffold subWidget = layoutController.isMaximize
-        ? Scaffold(
-            body: body,
-          )
+        ? Scaffold(body: body)
         : Scaffold(
             key: scaffoldStateKey,
             drawer: layoutMenu,
@@ -102,16 +101,22 @@ class _LayoutState extends State {
               StoreUtil.init();
               setState(() {});
             },
-            itemBuilder: (context) => subsystemList
-                .map<PopupMenuEntry<String>>(
-                  (e) => PopupMenuItem<String>(
-                    value: e.id,
-                    child: ListTile(
-                      title: Text(e.name ?? '--'),
-                    ),
-                  ),
-                )
-                .toList()),
+            itemBuilder: (context) => subsystemList.map<PopupMenuEntry<String>>(
+                  (e) {
+                    var enabled = e.id != currentSubsystem?.id;
+
+                    return PopupMenuItem<String>(
+                      enabled: enabled,
+                      value: e.id,
+                      child: ListTile(
+                        title: Text(
+                          e.name ?? '--',
+                          style: TextStyle(color: enabled ? null : Colors.black12),
+                        ),
+                      ),
+                    );
+                  },
+                ).toList()),
       ]),
       actions: <Widget>[
         Tooltip(
