@@ -5,13 +5,13 @@
 /// @version: 1.0
 /// @description:
 
+import 'package:cry/common/keep_alive_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/s_area_age_gender.dart';
 import 'package:flutter_admin/constants/enum.dart';
 import 'package:flutter_admin/models/s_area_age_gender.dart';
 import 'package:flutter_admin/pages/charts/s_area_age_gender/s_area_age_gender_cartesian.dart';
 import 'package:flutter_admin/pages/charts/s_area_age_gender/s_area_age_gender_circular.dart';
-import 'package:flutter_admin/pages/common/keep_alive_wrapper.dart';
 
 class SAreaAgeGenderMain extends StatefulWidget {
   @override

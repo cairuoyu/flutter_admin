@@ -5,9 +5,9 @@
 /// @version: 1.0
 /// @description:
 
+import 'package:cry/common/keep_alive_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/generated/l10n.dart';
-import 'package:flutter_admin/pages/common/keep_alive_wrapper.dart';
 import 'package:flutter_admin/pages/message/message_edit.dart';
 import 'package:flutter_admin/pages/message/message_list.dart';
 import 'package:get/get.dart';
