@@ -20,8 +20,8 @@ dependencies:
   flutter_simple_treeview: ^3.0.0-nullsafety.1
   get: ^4.0.0-nullsafety.2
   get_storage: ^2.0.2
-  syncfusion_flutter_charts: ^19.1.63
-  syncfusion_flutter_datagrid: ^19.1.63-beta
+  syncfusion_flutter_charts: 19.3.44+1
+  syncfusion_flutter_datagrid: 19.3.44
 
 flutter:
   uses-material-design: true

@@ -118,8 +118,8 @@ class _SAreaAgeGenderCircularState extends State<SAreaAgeGenderCircular> {
           xValueMapper: (SAreaAgeGender data, _) => data.area,
           yValueMapper: (SAreaAgeGender data, _) => data.age,
           dataLabelMapper: (SAreaAgeGender data, _) => data.area,
-          startAngle: 100,
-          endAngle: 100,
+          // startAngle: 100,
+          // endAngle: 100,
           pointRadiusMapper: _getPointRadiusMapper,
           dataLabelSettings: DataLabelSettings(isVisible: true, labelPosition: ChartDataLabelPosition.outside))
     ];
@@ -133,8 +133,8 @@ class _SAreaAgeGenderCircularState extends State<SAreaAgeGenderCircular> {
           xValueMapper: (SAreaAgeGender data, _) => data.area,
           yValueMapper: (SAreaAgeGender data, _) => data.age,
           dataLabelMapper: (SAreaAgeGender data, _) => data.area,
-          startAngle: 100,
-          endAngle: 100,
+          // startAngle: 100,
+          // endAngle: 100,
           pointRadiusMapper: _getPointRadiusMapper,
           dataLabelSettings: DataLabelSettings(isVisible: true, labelPosition: ChartDataLabelPosition.outside))
     ];
