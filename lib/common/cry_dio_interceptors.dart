@@ -7,11 +7,15 @@
 
 import 'dart:io';
 
+import 'package:cry/cry.dart';
+import 'package:cry/cry_dialog.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:cry/utils/cry_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_admin/constants/constant.dart';
+import 'package:flutter_admin/constants/response_code_constant.dart';
 import 'package:flutter_admin/utils/store_util.dart';
+import 'package:flutter_admin/utils/utils.dart';
 
 class CryDioInterceptors extends InterceptorsWrapper {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
@@ -21,7 +25,7 @@ class CryDioInterceptors extends InterceptorsWrapper {
       options.headers[HttpHeaders.authorizationHeader] = token;
     }
     CryUtils.loading();
-    return super.onRequest(options, handler);
+    super.onRequest(options, handler);
   }
 
   @override
@@ -29,10 +33,17 @@ class CryDioInterceptors extends InterceptorsWrapper {
     CryUtils.loaded();
     print('RESPONSE[${response.statusCode}] => PATH: ${response.realUri}');
     ResponseBodyApi responseBodyApi = ResponseBodyApi.fromMap(response.data);
+    if (responseBodyApi.code == ResponseCodeConstant.SESSION_EXPIRE_CODE) {
+      cryConfirm(Cry.context, responseBodyApi.message!, (_) {
+        Utils.logout();
+        Cry.pushNamedAndRemove('/login');
+      });
+      return;
+    }
     if (!responseBodyApi.success!) {
       CryUtils.message(responseBodyApi.message!);
     }
-    return super.onResponse(response, handler);
+    super.onResponse(response, handler);
   }
 
   @override
@@ -42,6 +53,6 @@ class CryDioInterceptors extends InterceptorsWrapper {
     print(err.toString());
     String message = '请求出错：' + err.toString();
     CryUtils.message(message);
-    return super.onError(err, handler);
+    super.onError(err, handler);
   }
 }
