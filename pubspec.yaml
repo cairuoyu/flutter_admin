@@ -23,6 +23,10 @@ dependencies:
   syncfusion_flutter_charts: ^19.3.44+1
   syncfusion_flutter_datagrid: ^19.3.44
 
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
 flutter:
   uses-material-design: true
   assets:

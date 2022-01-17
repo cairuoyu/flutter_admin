@@ -115,8 +115,8 @@ class _DictList extends State<DictList> {
               DataCell(CryButtonBar(
                 children: dict.state == ConstantDict.CODE_YESNO_YES ? [] : [CryButton(iconData: Icons.edit, onPressed: () => _edit(dict))],
               )),
-              DataCell(Text(dict.code!)),
-              DataCell(Text(dict.name!)),
+              DataCell(Text(dict.code??'--')),
+              DataCell(Text(dict.name??'--')),
               DataCell(Text(
                 DictUtil.getDictItemName(dict.state, ConstantDict.CODE_YESNO)!,
                 style: dict.state == ConstantDict.CODE_YESNO_YES ? TextStyle(color: Colors.red) : null,

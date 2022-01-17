@@ -128,6 +128,7 @@ http://www.cairuoyu.com/flutter_admin
 
 ## Join Discussion Group
 ### Add me to WeChat to pull you into the group
+#### Please add a note when applying: flutter_admin
 ![image](http://cairuoyu.com/screenshots/qrcode_wechat_cry.png)
 
 ### QQ

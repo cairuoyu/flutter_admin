@@ -128,6 +128,7 @@ http://www.cairuoyu.com/flutter_admin
 
 ## 加入讨论组
 ### 加我微信拉你入群
+#### 申请时请添加备注：flutter_admin
 ![image](http://cairuoyu.com/screenshots/qrcode_wechat_cry.png)
 
 ### QQ
