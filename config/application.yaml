@@ -1,7 +1,9 @@
 cry:
+  profiles:
+    active: test
   api:
-    baseUrl: http://www.cairuoyu.com/api/p4/
+    baseUrl: ${api.baseUrl}
     connectTimeout: 10000
     receiveTimeout: 3000
   logger:
-    level: error
+    level: ${logger.level}

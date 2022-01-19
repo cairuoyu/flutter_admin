@@ -1,0 +1,3 @@
+api.baseUrl: http://localhost:9094/
+
+logger.level: debug

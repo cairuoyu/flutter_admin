@@ -1,0 +1,3 @@
+api.baseUrl: http://www.cairuoyu.com/api/p4/
+
+logger.level: info
