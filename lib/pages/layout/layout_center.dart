@@ -41,10 +41,11 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
     var tabController = TabController(vsync: this, length: openedTabPageList.length, initialIndex: currentIndex);
     var defaultTabs = StoreUtil.getDefaultTabs();
 
+    LayoutController layoutController = Get.find();
     tabController.addListener(() {
       if (tabController.indexIsChanging) {
         StoreUtil.writeCurrentOpenedTabPageId(openedTabPageList[tabController.index]!.id);
-        setState(() {});
+        layoutController.update();
       }
     });
 
@@ -146,7 +147,6 @@ class LayoutCenterState extends State<LayoutCenter> with TickerProviderStateMixi
       ),
     );
 
-    LayoutController layoutController = Get.find();
     var result = Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

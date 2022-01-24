@@ -121,9 +121,9 @@ class _LayoutMenuState extends State<LayoutMenu> {
     var result = Utils.isMenuDisplayTypeDrawer(context)
         ? Drawer(child: menuStack)
         : SizedBox(
-            width: expandMenu! ? 300 : 60,
-            child: menuStack,
-          );
+      width: expandMenu! ? 300 : 60,
+      child: menuStack,
+    );
     return result;
   }
 
@@ -133,9 +133,10 @@ class _LayoutMenuState extends State<LayoutMenu> {
       String name = Utils.isLocalEn(context) ? treeVO.data!.nameEn ?? '' : treeVO.data!.name ?? '';
       Text title = Text(expandMenu! ? name : '');
       if (treeVO.children.length > 0) {
+        bool hasChildrenOpened = treeVO.children.any((element) => currentOpenedTabPageId == element.data!.id);
         return ExpansionTile(
           key: Key(treeVO.data!.id!),
-          initiallyExpanded: expandAll,
+          initiallyExpanded: hasChildrenOpened || expandAll,
           leading: Icon(iconData),
           children: _getMenuListTile(treeVO.children, currentOpenedTabPageId),
           title: title,
