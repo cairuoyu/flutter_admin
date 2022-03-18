@@ -5,11 +5,17 @@
 /// @version: 1.0
 /// @description: 注册
 
+import 'dart:io';
+
+import 'package:camera/camera.dart';
+import 'package:cry/common/application_context.dart';
+import 'package:cry/common/face_recognition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/user_api.dart';
 import 'package:cry/cry.dart';
 import 'package:flutter_admin/models/user.dart';
 import 'package:cry/utils/cry_utils.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 import '../generated/l10n.dart';
 
 class Register extends StatefulWidget {
@@ -21,6 +27,10 @@ class _RegisterState extends State {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   User user = new User();
   String? password2 = "";
+  bool isFaceRecognition = false;
+  String? imagePath;
+  CameraImage? cameraImage;
+  Face? face;
 
   @override
   void initState() {
@@ -32,7 +42,23 @@ class _RegisterState extends State {
     return Theme(
       data: ThemeData(),
       child: Scaffold(
-        body: _buildPageContent(),
+        body: isFaceRecognition
+            ? FaceRecognition(
+                onFountFace: (CameraImage cameraImage, String imagePath, List<Face> faces) {
+                  setState(() {
+                    this.isFaceRecognition = false;
+                    this.imagePath = imagePath;
+                    this.cameraImage = cameraImage;
+                    this.face = faces[0];
+                  });
+                },
+                onBack: () {
+                  setState(() {
+                    this.isFaceRecognition = false;
+                  });
+                },
+              )
+            : _buildPageContent(),
       ),
     );
   }
@@ -75,6 +101,7 @@ class _RegisterState extends State {
                 border: OutlineInputBorder(),
                 labelText: S.of(context).username,
               ),
+              controller: TextEditingController(text: user.userName),
               onSaved: (v) {
                 user.userName = v;
               },
@@ -92,6 +119,7 @@ class _RegisterState extends State {
                 border: OutlineInputBorder(),
                 labelText: S.of(context).password,
               ),
+              controller: TextEditingController(text: user.password),
               onSaved: (v) {
                 user.password = v;
               },
@@ -110,6 +138,7 @@ class _RegisterState extends State {
                 // helperText: '两次密码必须一致',
                 labelText: S.of(context).confirmPassword,
               ),
+              controller: TextEditingController(text: password2),
               onSaved: (v) {
                 password2 = v;
               },
@@ -118,16 +147,34 @@ class _RegisterState extends State {
               },
             ),
           ),
+          if (this.imagePath != null) SizedBox(width: 100, child: Image.file(File(this.imagePath!))),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              TextButton(
-                child: Text(
-                  S.of(context).haveAccountLogin,
-                  style: TextStyle(color: Colors.blue),
-                ),
-                onPressed: _login,
-              )
+              Column(
+                children: [
+                  if (ApplicationContext.instance.cameras.length > 0)
+                    TextButton(
+                      child: Text(
+                        '注册人脸',
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          formKey.currentState!.save();
+                          this.isFaceRecognition = true;
+                        });
+                      },
+                    ),
+                  TextButton(
+                    child: Text(
+                      S.of(context).haveAccountLogin,
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                    onPressed: _login,
+                  )
+                ],
+              ),
             ],
           ),
           SizedBox(height: 20),

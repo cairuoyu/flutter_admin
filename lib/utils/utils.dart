@@ -17,7 +17,6 @@ import 'package:flutter_admin/pages/layout/layout_controller.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:collection/collection.dart';
 
 class Utils {
   static fullscreenDialog(Widget widget) {
