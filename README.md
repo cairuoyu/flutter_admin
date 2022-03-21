@@ -14,6 +14,7 @@
 ## 功能
 * 用户注册
 * 登录登出
+* 人脸检测
 * 功能菜单
 * Dashboard
 * 角色管理
@@ -39,7 +40,7 @@
 ## 技术
 | 名称     | 技术                                                         |
 | -------- | ------------------------------------------------------------ |
-| 认证     | JWT                                                          |
+| 基础包   | cry                                                          |
 | 路由管理 | Flutter Navigator 2                                          |
 | 状态管理 | GetX                                                         |
 | 缓存管理 | GetStorage                                                   |
@@ -47,6 +48,8 @@
 | 图表     | syncfusion_flutter_charts                                    |
 | 富文本   | flutter_markdown                                             |
 | 选择器   | image_picker、video_player、file_picker、flutter_colorpicker |
+| 人脸识别 | camera、google_ml_kit                                        |
+| 认证     | JWT                                                          |
 
 ## 代码结构
 ```
@@ -127,10 +130,17 @@ http://www.cairuoyu.com/flutter_admin
 ![image](http://cairuoyu.com/screenshots/flutter_admin_windows.png)
 
 ## 加入讨论组
+
 ### 加我微信拉你入群
 #### 申请时请添加备注：flutter_admin
 ![image](http://cairuoyu.com/screenshots/qrcode_wechat_cry.png)
 
 ### QQ
 851796663
+
+
+
+## 赞助
+
+![](http://cairuoyu.com/screenshots/pay.png)
 

@@ -14,6 +14,7 @@
 ## Functional
 * User Registration
 * Login And Logout
+* Face detection
 * Function Menu
 * Dashboard
 * Role Management
@@ -39,7 +40,7 @@
 ## Technology
 | Name               | Technology                                                   |
 | ------------------ | ------------------------------------------------------------ |
-| Authentication        | JWT                                                          |
+| Base               | cry                                                          |
 | Routing management | Flutter Navigator 2                                          |
 | State management   | GetX                                                         |
 | Cache management   | GetStorage                                                   |
@@ -47,6 +48,8 @@
 | The chart          | syncfusion_flutter_charts                                    |
 | The rich text      | flutter_markdown                                             |
 | Picker             | image_picker、video_player、file_picker、flutter_colorpicker |
+| Face detection | camera、google_ml_kit |
+| Authentication | JWT |
 
 
 ## The code structure
@@ -133,3 +136,7 @@ http://www.cairuoyu.com/flutter_admin
 
 ### QQ
 851796663
+
+## Donate
+
+![](http://cairuoyu.com/screenshots/pay.png)
