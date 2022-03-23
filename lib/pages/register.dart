@@ -10,6 +10,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:cry/common/application_context.dart';
 import 'package:cry/common/face_recognition.dart';
+import 'package:cry/common/face_service_import.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/user_api.dart';
 import 'package:cry/cry.dart';
@@ -219,6 +220,11 @@ class _RegisterState extends State {
     var form = formKey.currentState!;
     form.save();
     if (form.validate()) {
+      String faceData = '';
+      if (this.cameraImage != null && this.face != null) {
+        faceData = FaceService().toData(this.cameraImage!, this.face!);
+        user.face = faceData;
+      }
       UserApi.register(user.toMap()).then((v) {
         if (!v.success!) {
           return;
