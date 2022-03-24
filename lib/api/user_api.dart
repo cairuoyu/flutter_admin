@@ -18,4 +18,8 @@ class UserApi {
     ResponseBodyApi responseBodyApi = await HttpUtil.post('/user/login', data: data, requestToken: false);
     return responseBodyApi;
   }
+  static Future<ResponseBodyApi> loginByFace(data) async {
+    ResponseBodyApi responseBodyApi = await HttpUtil.post('/user/loginByFace', data: data, requestToken: false);
+    return responseBodyApi;
+  }
 }

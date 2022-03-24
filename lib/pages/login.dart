@@ -5,6 +5,9 @@
 /// @version: 1.0
 /// @description: 登录
 
+import 'package:cry/common/application_context.dart';
+import 'package:cry/common/face_recognition.dart';
+import 'package:cry/common/face_service_import.dart';
 import 'package:flutter/material.dart';
 import 'package:cry/cry.dart';
 import 'package:flutter_admin/constants/constant.dart';
@@ -14,6 +17,8 @@ import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/api/user_api.dart';
 import 'package:flutter_admin/models/user.dart';
 import '../generated/l10n.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:camera/camera.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -26,6 +31,7 @@ class _LoginState extends State<Login> {
   String error = "";
   FocusNode focusNodeUserName = FocusNode();
   FocusNode focusNodePassword = FocusNode();
+  bool isFaceRecognition = false;
 
   @override
   void initState() {
@@ -49,28 +55,47 @@ class _LoginState extends State<Login> {
       style: TextStyle(fontSize: 16, color: Colors.blue),
       textScaleFactor: 3.2,
     );
-    return Container(
-      color: Colors.cyan.shade100,
-      child: ListView(
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [LangSwitch()],
-          ),
-          Center(child: appName),
-          SizedBox(height: 20.0),
-          _buildLoginForm(),
-          SizedBox(height: 20.0),
-          Column(
-            children: [
-              Text(S.of(context).admin + '：admin/admin'),
-              Text(S.of(context).loginTip),
-            ],
+    return isFaceRecognition
+        ? FaceRecognition(
+            onFountFace: (CameraImage cameraImage, String imagePath, List<Face> faces) async {
+              String faceData = FaceService().toData(cameraImage, faces[0]);
+              var responseBodyApi = await UserApi.loginByFace(faceData);
+              if (!responseBodyApi.success!) {
+                setState(() {
+                  this.isFaceRecognition = false;
+                });
+                return;
+              }
+              _loginSuccess(responseBodyApi);
+            },
+            onBack: () {
+              setState(() {
+                this.isFaceRecognition = false;
+              });
+            },
           )
-        ],
-      ),
-    );
+        : Container(
+            color: Colors.cyan.shade100,
+            child: ListView(
+              children: <Widget>[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [LangSwitch()],
+                ),
+                Center(child: appName),
+                SizedBox(height: 20.0),
+                _buildLoginForm(),
+                SizedBox(height: 20.0),
+                Column(
+                  children: [
+                    Text(S.of(context).admin + '：admin/admin'),
+                    Text(S.of(context).loginTip),
+                  ],
+                )
+              ],
+            ),
+          );
   }
 
   Container _buildLoginForm() {
@@ -146,6 +171,18 @@ class _LoginState extends State<Login> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
+                        if (ApplicationContext.instance.cameras.length > 0)
+                          TextButton(
+                            child: Text(
+                              '人脸登录',
+                              style: TextStyle(color: Colors.blue),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                this.isFaceRecognition = true;
+                              });
+                            },
+                          ),
                         TextButton(
                           child: Text(
                             S.of(context).register,
@@ -212,6 +249,10 @@ class _LoginState extends State<Login> {
       focusNodePassword.requestFocus();
       return;
     }
+    _loginSuccess(responseBodyApi);
+  }
+
+  _loginSuccess(ResponseBodyApi responseBodyApi) async {
     StoreUtil.write(Constant.KEY_TOKEN, responseBodyApi.data[Constant.KEY_TOKEN]);
     StoreUtil.write(Constant.KEY_CURRENT_USER_INFO, responseBodyApi.data[Constant.KEY_CURRENT_USER_INFO]);
     await StoreUtil.loadDict();
@@ -222,5 +263,4 @@ class _LoginState extends State<Login> {
 
     Cry.pushNamed('/');
   }
-
 }
