@@ -18,6 +18,7 @@ import 'package:flutter_admin/models/user.dart';
 import 'package:cry/utils/cry_utils.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import '../generated/l10n.dart';
+import 'package:dio/dio.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -221,11 +222,19 @@ class _RegisterState extends State {
     form.save();
     if (form.validate()) {
       String faceData = '';
+      Map<String, dynamic> map = user.toMap();
+      map['file'] = null;
       if (this.cameraImage != null && this.face != null) {
         faceData = FaceService().toData(this.cameraImage!, this.face!);
-        user.face = faceData;
+        map['face'] = faceData;
+
+        var value = File(this.imagePath!).readAsBytesSync();
+        var file = MultipartFile.fromBytes(value, filename: 'test.png'); //todo
+        map['file'] = file;
       }
-      UserApi.register(user.toMap()).then((v) {
+      FormData formData = FormData.fromMap(map);
+
+      UserApi.register(formData).then((v) {
         if (!v.success!) {
           return;
         }
