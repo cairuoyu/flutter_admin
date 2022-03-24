@@ -32,7 +32,8 @@ class CryDioInterceptors extends InterceptorsWrapper {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     CryUtils.loaded();
-    CryLogger.info('RESPONSE[${response.statusCode}] => PATH: ${response.realUri}');
+    CryLogger.info('RESPONSE.statusCode[${response.statusCode}] => response.realUri: ${response.realUri}');
+    CryLogger.info('RESPONSE.data[${response.data}]');
     ResponseBodyApi responseBodyApi = ResponseBodyApi.fromMap(response.data);
     if (responseBodyApi.code == ResponseCodeConstant.SESSION_EXPIRE_CODE) {
       cryConfirm(Cry.context, responseBodyApi.message!, (_) {
