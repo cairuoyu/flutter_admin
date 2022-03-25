@@ -178,7 +178,7 @@ class _LayoutState extends State {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'images/app_download.png',
+                      'assets/images/app_download.png',
                       width: 150,
                     ),
                     SizedBox(height: 20),
