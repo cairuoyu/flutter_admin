@@ -131,7 +131,7 @@ class _LayoutState extends State {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: PopupMenuButton(
-            tooltip: S.of(context).information,
+            tooltip: userInfo.userName,
             onSelected: (dynamic v) {
               if (v == 'info') {
                 Utils.openTab('userInfoMine');
@@ -173,6 +173,25 @@ class _LayoutState extends State {
               case 'code':
                 Utils.launchURL("https://github.com/cairuoyu/flutter_admin");
                 break;
+              case 'android':
+                var about = Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'images/app_download.png',
+                      width: 150,
+                    ),
+                    SizedBox(height: 20),
+                    CryButton(
+                      label: '下载apk',
+                      onPressed: () {
+                        Utils.launchURL("http://www.cairuoyu.com/f/lib/app.apk");
+                      },
+                    ),
+                  ],
+                );
+                cryAlertWidget(context, about);
+                break;
               case 'about':
                 var about = Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -203,6 +222,14 @@ class _LayoutState extends State {
               child: ListTile(
                 leading: const Icon(Icons.code),
                 title: Text('源码'),
+              ),
+            ),
+            const PopupMenuDivider(),
+            PopupMenuItem<String>(
+              value: 'android',
+              child: ListTile(
+                leading: const Icon(Icons.android),
+                title: Text('android'),
               ),
             ),
             const PopupMenuDivider(),
