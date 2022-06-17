@@ -37,7 +37,7 @@ class _RoleListState extends State<RoleList> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((c) {
+    WidgetsBinding.instance.addPostFrameCallback((c) {
       _query();
     });
   }

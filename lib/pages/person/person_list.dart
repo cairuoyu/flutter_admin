@@ -74,7 +74,7 @@ class PersonListState extends State {
     myDS.addListener(() {
       if (mounted) this.setState(() {});
     });
-    WidgetsBinding.instance!.addPostFrameCallback((c) {
+    WidgetsBinding.instance.addPostFrameCallback((c) {
       _query();
     });
   }

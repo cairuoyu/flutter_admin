@@ -45,7 +45,7 @@ class RoleUserSelectListState extends State<RoleUserSelectList> {
     super.initState();
     page = PageModel(orders: [OrderItemModel(column: 'name')]);
 
-    WidgetsBinding.instance!.addPostFrameCallback((c) {
+    WidgetsBinding.instance.addPostFrameCallback((c) {
       query();
     });
   }

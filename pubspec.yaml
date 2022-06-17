@@ -12,7 +12,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   cry: 1.2.1
-  font_awesome_flutter: ^9.0.0
+  font_awesome_flutter: ^10.1.0
   flutter_colorpicker: ^1.0.3
   url_launcher: ^6.0.3
   mime_type: ^1.0.0
@@ -20,12 +20,15 @@ dependencies:
   flutter_simple_treeview: ^3.0.0-nullsafety.1
   get: ^4.0.0-nullsafety.2
   get_storage: ^2.0.2
-  syncfusion_flutter_charts: ^19.3.44+1
-  syncfusion_flutter_datagrid: ^19.3.44
+  syncfusion_flutter_charts: ^20.1.60+1
+  syncfusion_flutter_datagrid: ^20.1.60
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+dependency_overrides:
+  collection: 1.16.0
 
 flutter:
   uses-material-design: true

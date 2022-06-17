@@ -198,7 +198,7 @@ class Dashboard extends StatelessWidget {
     var boxList = <Widget>[
       _getABox('190', S.of(context).dashUpcoming, Colors.red, Icon(FontAwesomeIcons.list)),
       _getASizedBox(isDesktop),
-      _getABox('33', S.of(context).dashInProgress, Colors.blue, Icon(FontAwesomeIcons.footballBall)),
+      _getABox('33', S.of(context).dashInProgress, Colors.blue, Icon(FontAwesomeIcons.football)),
       _getASizedBox(isDesktop),
       _getABox('58', S.of(context).dashDone, Colors.green, Icon(FontAwesomeIcons.wind)),
       _getASizedBox(isDesktop),
