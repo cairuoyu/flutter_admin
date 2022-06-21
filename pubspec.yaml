@@ -22,6 +22,7 @@ dependencies:
   get_storage: ^2.0.2
   syncfusion_flutter_charts: ^20.1.60+1
   syncfusion_flutter_datagrid: ^20.1.60
+  camera: 0.9.7+1
 
 dev_dependencies:
   flutter_test:
