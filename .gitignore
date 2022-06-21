@@ -8,6 +8,8 @@
 /windows/
 /test/
 /integration_test/
+/macos/
+/linux/
 
 *.iml
 .metadata
