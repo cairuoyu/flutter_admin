@@ -40,7 +40,15 @@ class LayoutSetting extends StatelessWidget {
       },
     );
     var themeMode = Switch(
-      onChanged: (nightMode) => {Get.changeTheme(context.isDarkMode ? ThemeData.light() : ThemeData.dark())},
+      onChanged: (nightMode) => {
+        Get.changeTheme(context.isDarkMode
+            ? Utils.getThemeData(
+                brightness: Brightness.light,
+              )
+            : Utils.getThemeData(
+                brightness: Brightness.dark,
+              ))
+      },
       value: context.isDarkMode,
     );
     return Drawer(

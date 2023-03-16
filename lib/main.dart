@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
       title: 'FLUTTER_ADMIN',
       enableLog: false,
       theme: Utils.getThemeData(),
-      darkTheme: Utils.getThemeData(isDark: true),
+      darkTheme: Utils.getThemeData(brightness: Brightness.light),
       localizationsDelegates: [
         S.delegate,
         cryS.S.delegate,

@@ -110,27 +110,33 @@ class Utils {
     return layoutController.menuDisplayType == MenuDisplayType.drawer;
   }
 
-  static getThemeData({Color? themeColor, String? fontFamily, bool isDark = false}) {
+  static getThemeData({Color? themeColor, String? fontFamily, Brightness? brightness}) {
     if (fontFamily != null) {
       currentFontFamily = fontFamily;
     }
-    if (themeColor == null) {
-      themeColor = Get.theme.primaryColor;
+    if (themeColor != null) {
+      currentThemeColor = themeColor;
     }
+    if (brightness != null) {
+      currentBrightness = brightness;
+    }
+
     return ThemeData(
-      brightness: isDark ? Brightness.dark : Brightness.light,
-      primaryColor: themeColor,
-      iconTheme: IconThemeData(color: themeColor),
+      brightness: currentBrightness,
+      primaryColor: currentThemeColor,
+      iconTheme: IconThemeData(color: currentThemeColor),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: themeColor,
+        backgroundColor: currentThemeColor,
       ),
-      buttonTheme: ButtonThemeData(buttonColor: themeColor),
-      elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(backgroundColor: MaterialStateProperty.all(themeColor))),
+      buttonTheme: ButtonThemeData(buttonColor: currentThemeColor),
+      elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(backgroundColor: MaterialStateProperty.all(currentThemeColor))),
       fontFamily: currentFontFamily,
     );
   }
 
   static String currentFontFamily = "Roboto";
+  static Color currentThemeColor = Get.theme.primaryColor;
+  static Brightness currentBrightness = Brightness.light;
 
   static isLogin() {
     return StoreUtil.hasData(Constant.KEY_TOKEN);

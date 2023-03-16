@@ -94,7 +94,6 @@ class _LayoutMenuState extends State<LayoutMenu> {
     var menuHeader = Material(
       type: MaterialType.transparency,
       child: Container(
-        color: Colors.white,
         height: headerHeight,
         child: expandMenu! ? menuHeaderExpand : menuHeaderCollapse,
       ),
