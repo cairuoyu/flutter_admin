@@ -2,7 +2,7 @@
 ![GitHub](https://img.shields.io/github/license/cairuoyu/flutter_admin)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/cairuoyu/flutter_admin)
 ![GitHub repo size](https://img.shields.io/github/repo-size/cairuoyu/flutter_admin?color=yellow)
-![Flutter version](https://img.shields.io/badge/flutter-2.5.1-green)
+![Flutter version](https://img.shields.io/badge/flutter-3.7.7-green)
 
 >  简体中文 | [English](./README.en.md)
 
