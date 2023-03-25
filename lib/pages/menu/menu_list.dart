@@ -75,13 +75,13 @@ class _MenuListState extends State<MenuList> {
       onDelete: (v) => _onDelete(v),
       onEdit: (v) => _onEdit(v),
     );
-    var right = showTree ? menuTree : menuTableTree;
+    var menuList = showTree ? menuTree : menuTableTree;
     var body = this.isEdit && isDisplayDesktop(context)
         ? Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [isEdit ? SizedBox(width: 400.0, child: right) : right, menuEdit],
+            children: [isEdit ? SizedBox(width: 400.0, child: menuList) : menuList, Expanded(child: menuEdit)],
           )
-        : right;
+        : menuList;
     var result = Scaffold(
       appBar: AppBar(
         title: Text(widget.subsystem!.name ?? '' + ' -- ' + S.of(context).menuManagement),

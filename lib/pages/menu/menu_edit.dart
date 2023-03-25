@@ -145,18 +145,14 @@ class _MenuEditState extends State<MenuEdit> {
         )
       ],
     );
-    var result = Expanded(
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.white,
-          title: buttonBar,
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [form],
-          ),
-        ),
+    var result = Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        title: buttonBar,
+      ),
+      body: SingleChildScrollView(
+        child: form,
       ),
     );
     return result;
