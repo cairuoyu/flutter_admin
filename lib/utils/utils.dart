@@ -7,6 +7,7 @@
 
 import 'package:cry/cry.dart';
 import 'package:cry/cry_dialog.dart';
+import 'package:cry/utils/adaptive_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/common/routes.dart';
 import 'package:flutter_admin/constants/constant.dart';
@@ -107,7 +108,7 @@ class Utils {
 
   static isMenuDisplayTypeDrawer(BuildContext context) {
     LayoutController layoutController = Get.find();
-    return layoutController.menuDisplayType == MenuDisplayType.drawer;
+    return layoutController.menuDisplayType == MenuDisplayType.drawer || !isDisplayDesktop(context);
   }
 
   static getThemeData({Color? themeColor, String? fontFamily, Brightness? brightness}) {

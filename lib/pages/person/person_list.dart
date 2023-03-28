@@ -22,7 +22,7 @@ import 'package:cry/model/request_body_api.dart';
 import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 import '../../generated/l10n.dart';
-import 'person_dit.dart';
+import 'person_edit.dart';
 
 class PersonList extends StatefulWidget {
   @override

@@ -6,6 +6,7 @@
 /// @description:
 
 import 'package:cry/cry_toggle_buttons.dart';
+import 'package:cry/utils/adaptive_util.dart';
 import 'package:cry/vo/select_option_vo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/constants/enum.dart';
@@ -66,11 +67,12 @@ class LayoutSetting extends StatelessWidget {
             trailing: LangSwitch(),
           ),
           Divider(thickness: 1),
-          ListTile(
-            title: Text(S.of(context).menuDisplay),
-            trailing: menuDisplayType,
-          ),
-          Divider(thickness: 1),
+          if (isDisplayDesktop(context))
+            ListTile(
+              title: Text(S.of(context).menuDisplay),
+              trailing: menuDisplayType,
+            ),
+          if (isDisplayDesktop(context)) Divider(thickness: 1),
           ListTile(
             title: Text(S.of(context).nightMode),
             trailing: themeMode,

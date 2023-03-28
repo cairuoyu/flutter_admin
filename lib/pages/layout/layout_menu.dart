@@ -6,7 +6,6 @@
 /// @description:
 
 import 'package:cry/cry_button.dart';
-import 'package:cry/utils/adaptive_util.dart';
 import 'package:cry/utils/tree_util.dart';
 import 'package:cry/vo/tree_vo.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +29,7 @@ class LayoutMenu extends StatefulWidget {
 
 class _LayoutMenuState extends State<LayoutMenu> {
   final double headerHeight = 48;
-  bool? expandMenu;
+  bool expandMenu = true;
   bool expandAll = true;
 
   @override
@@ -42,14 +41,13 @@ class _LayoutMenuState extends State<LayoutMenu> {
   Widget build(BuildContext context) => GetBuilder<LayoutMenuController>(builder: (_) => _build(context));
 
   Widget _build(BuildContext context) {
-    this.expandMenu ??= isDisplayDesktop(context) || Utils.isMenuDisplayTypeDrawer(context);
     var menuHeaderExpand = Row(
       children: [
         if (!Utils.isMenuDisplayTypeDrawer(context))
           CryButton(
             iconData: Icons.chevron_left,
             onPressed: () {
-              expandMenu = !expandMenu!;
+              expandMenu = !expandMenu;
               setState(() {});
             },
           ),
@@ -85,7 +83,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
         CryButton(
           iconData: Icons.chevron_right,
           onPressed: () {
-            expandMenu = !expandMenu!;
+            expandMenu = !expandMenu;
             setState(() {});
           },
         ),
@@ -95,7 +93,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
       type: MaterialType.transparency,
       child: Container(
         height: headerHeight,
-        child: expandMenu! ? menuHeaderExpand : menuHeaderCollapse,
+        child: expandMenu ? menuHeaderExpand : menuHeaderCollapse,
       ),
     );
     var menuBody = ListView(
@@ -120,9 +118,9 @@ class _LayoutMenuState extends State<LayoutMenu> {
     var result = Utils.isMenuDisplayTypeDrawer(context)
         ? Drawer(child: menuStack)
         : SizedBox(
-      width: expandMenu! ? 300 : 60,
-      child: menuStack,
-    );
+            width: expandMenu ? 300 : 60,
+            child: menuStack,
+          );
     return result;
   }
 
@@ -130,7 +128,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
     List<Widget> listTileList = data.map<Widget>((TreeVO<Menu> treeVO) {
       IconData iconData = Utils.toIconData(treeVO.data!.icon);
       String name = Utils.isLocalEn(context) ? treeVO.data!.nameEn ?? '' : treeVO.data!.name ?? '';
-      Text title = Text(expandMenu! ? name : '');
+      Text title = Text(expandMenu ? name : '');
       if (treeVO.children.length > 0) {
         bool hasChildrenOpened = treeVO.children.any((element) => currentOpenedTabPageId == element.data!.id);
         return ExpansionTile(
@@ -139,7 +137,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
           leading: Icon(iconData),
           children: _getMenuListTile(treeVO.children, currentOpenedTabPageId),
           title: title,
-          childrenPadding: EdgeInsets.only(left: this.expandMenu! ? 30 : 0),
+          childrenPadding: EdgeInsets.only(left: this.expandMenu ? 30 : 0),
         );
       } else {
         return ListTile(
