@@ -30,12 +30,12 @@ class _MessageViewState extends State<MessageView> {
         children: [
           Text(
             widget.message!.title!,
-            style: textTheme.headline3,
+            style: textTheme.displaySmall,
           ),
           SizedBox(height: 20),
           Text(
             widget.message!.createTime!,
-            style: textTheme.caption,
+            style: textTheme.bodySmall,
           ),
           Divider(thickness: 2),
           SizedBox(height: 20),
@@ -44,7 +44,7 @@ class _MessageViewState extends State<MessageView> {
           Divider(thickness: 2),
           Text(
             'Replay',
-            style: textTheme.headline5,
+            style: textTheme.headlineSmall,
           ),
           Expanded(child: MessageReplayList(messageId: widget.message!.id)),
         ],
