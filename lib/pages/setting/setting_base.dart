@@ -17,7 +17,7 @@ class _SettingBaseState extends State<SettingBase> {
   @override
   Widget build(BuildContext context) {
     var list = ExpansionPanelList.radio(
-      initialOpenPanelValue: 1,
+      initialOpenPanelValue: 0,
       children: [
         ExpansionPanelRadio(
           canTapOnHeader: true,

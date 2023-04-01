@@ -87,61 +87,56 @@ class _SubsystemMain extends State<SubsystemMain> {
         CryButtons.delete(context, selectedList.isEmpty ? null : () => _delete(selectedList)),
       ],
     );
-    var table = Expanded(
-      child: SingleChildScrollView(
-        child: CryDataTable(
-          key: tableKey,
-          title: S.of(context).subsystemList,
-          onPageChanged: (firstRowIndex) {
-            page.current = (firstRowIndex ~/ page.size + 1);
-            _loadData();
-          },
-          onRowsPerPageChanged: (int size) {
-            page.size = size;
-            page.current = 1;
-            _loadData();
-          },
-          onSelectChanged: (v) {
-            this.setState(() {});
-          },
-          columns: [
-            DataColumn(label: Text(S.of(context).code)),
-            DataColumn(label: Text(S.of(context).name)),
-            DataColumn(label: Text('URL')),
-            DataColumn(label: Text(S.of(context).sequenceNumber)),
-            DataColumn(label: Text(S.of(context).remarks)),
-            DataColumn(label: Text(S.of(context).enable)),
-            DataColumn(label: Text(S.of(context).operating)),
-          ],
-          getCells: (m) {
-            Subsystem subsystem = Subsystem.fromMap(m);
-            return [
-              DataCell(Text(subsystem.code ?? '--')),
-              DataCell(Text(subsystem.name ?? '--')),
-              DataCell(Text(subsystem.url ?? '--')),
-              DataCell(Text(subsystem.orderBy ?? '--')),
-              DataCell(Text(subsystem.remark ?? '--')),
-              DataCell(Switch(
-                  value: subsystem.state == ConstantDict.CODE_YESNO_YES,
-                  onChanged: (v) async {
-                    subsystem.state = v ? ConstantDict.CODE_YESNO_YES : ConstantDict.CODE_YESNO_NO;
-                    await SubsystemApi.saveOrUpdate(subsystem.toMap());
-                    _loadData();
-                  })),
-              DataCell(ButtonBar(
-                children: [
-                  CryButtons.edit(context, () => _edit(subsystem), showLabel: false),
-                  CryButtons.delete(context, () => _delete([subsystem]), showLabel: false),
-                ],
-              )),
-            ];
-          },
-        ),
-      ),
+    CryDataTable table = CryDataTable(
+      key: tableKey,
+      title: S.of(context).subsystemList,
+      onPageChanged: (firstRowIndex) {
+        page.current = (firstRowIndex ~/ page.size + 1);
+        _loadData();
+      },
+      onRowsPerPageChanged: (int size) {
+        page.size = size;
+        page.current = 1;
+        _loadData();
+      },
+      onSelectChanged: (v) {
+        this.setState(() {});
+      },
+      columns: [
+        DataColumn(label: Text(S.of(context).code)),
+        DataColumn(label: Text(S.of(context).name)),
+        DataColumn(label: Text('URL')),
+        DataColumn(label: Text(S.of(context).sequenceNumber), numeric: true),
+        DataColumn(label: Text(S.of(context).remarks)),
+        DataColumn(label: Text(S.of(context).enable)),
+        DataColumn(label: Text(S.of(context).operating)),
+      ],
+      getCells: (m) {
+        Subsystem subsystem = Subsystem.fromMap(m);
+        return [
+          DataCell(Text(subsystem.code ?? '--')),
+          DataCell(Text(subsystem.name ?? '--')),
+          DataCell(Text(subsystem.url ?? '--')),
+          DataCell(Text(subsystem.orderBy ?? '--')),
+          DataCell(Text(subsystem.remark ?? '--')),
+          DataCell(Switch(
+              value: subsystem.state == ConstantDict.CODE_YESNO_YES,
+              onChanged: (v) async {
+                subsystem.state = v ? ConstantDict.CODE_YESNO_YES : ConstantDict.CODE_YESNO_NO;
+                await SubsystemApi.saveOrUpdate(subsystem.toMap());
+                _loadData();
+              })),
+          DataCell(ButtonBar(
+            children: [
+              CryButtons.edit(context, () => _edit(subsystem), showLabel: false),
+              CryButtons.delete(context, () => _delete([subsystem]), showLabel: false),
+            ],
+          )),
+        ];
+      },
     );
-    var result = Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    var result = Scrollbar(
+      child: ListView(
         children: [
           form,
           buttonBar,
