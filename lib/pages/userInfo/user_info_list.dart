@@ -93,9 +93,6 @@ class _UserInfoListState extends State<UserInfoList> {
       },
       columns: [
         DataColumn(
-          label: Text(S.of(context).operating),
-        ),
-        DataColumn(
           label: Text(S.of(context).username),
           onSort: (int columnIndex, bool ascending) => _sort('user_name'),
         ),
@@ -131,17 +128,13 @@ class _UserInfoListState extends State<UserInfoList> {
           label: Text(S.of(context).updateTime),
           onSort: (int columnIndex, bool ascending) => _sort('update_time'),
         ),
+        DataColumn(
+          label: Text(S.of(context).operating),
+        ),
       ],
       getCells: (m) {
         UserInfo userInfo = UserInfo.fromMap(m);
         return [
-          DataCell(
-            CryButtonBar(
-              children: [
-                CryButton(iconData: Icons.edit, tip: S.of(context).modify, onPressed: () => _edit(userInfo)),
-              ],
-            ),
-          ),
           DataCell(Text(userInfo.userName ?? '--')),
           DataCell(Text(userInfo.name ?? '--')),
           DataCell(Text(userInfo.nickName ?? '--')),
@@ -154,9 +147,17 @@ class _UserInfoListState extends State<UserInfoList> {
           DataCell(Text(userInfo.deptName ?? '--')),
           DataCell(Text(userInfo.createTime ?? '--')),
           DataCell(Text(userInfo.updateTime ?? '--')),
+          DataCell(
+            CryButtonBar(
+              children: [
+                CryButton(iconData: Icons.edit, tip: S.of(context).modify, onPressed: () => _edit(userInfo)),
+              ],
+            ),
+          ),
         ];
       },
     );
+
     List<UserInfo> selectedList = tableKey.currentState?.getSelectedList(page).map<UserInfo>((e) => UserInfo.fromMap(e)).toList() ?? [];
     CryButtonBar buttonBar = CryButtonBar(
       children: <Widget>[
@@ -166,17 +167,12 @@ class _UserInfoListState extends State<UserInfoList> {
         CryButtons.edit(context, selectedList.length != 1 ? null : () => _edit(selectedList[0])),
       ],
     );
-    var result = Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(height: 10),
-          form,
-          buttonBar,
-          Expanded(child: SingleChildScrollView(child: table)),
-        ],
-      ),
+    var result = ListView(
+      children: <Widget>[
+        form,
+        buttonBar,
+        table,
+      ],
     );
     return result;
   }
