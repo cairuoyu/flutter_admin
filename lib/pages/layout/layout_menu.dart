@@ -118,7 +118,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
     var result = Utils.isMenuDisplayTypeDrawer(context)
         ? Drawer(child: menuStack)
         : SizedBox(
-            width: expandMenu ? 300 : 60,
+            width: expandMenu ? 350 : 60,
             child: menuStack,
           );
     return result;

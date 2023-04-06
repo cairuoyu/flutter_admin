@@ -90,34 +90,44 @@ class _LayoutState extends State {
                   scaffoldStateKey.currentState!.openDrawer();
                 },
               )),
-      title: Row(children: [
-        Text(currentSubsystem?.name ?? '--'),
-        PopupMenuButton(
-            tooltip: '选择子系统',
-            onSelected: (String v) async {
-              var subsystem = subsystemList.firstWhere((element) => element.id == v);
-              StoreUtil.write(Constant.KEY_CURRENT_SUBSYSTEM, subsystem.toMap());
-              await StoreUtil.loadMenuData();
-              StoreUtil.init();
-              setState(() {});
-            },
-            itemBuilder: (context) => subsystemList.map<PopupMenuEntry<String>>(
-                  (e) {
-                    var enabled = e.id != currentSubsystem?.id;
+      title: Row(
+        children: [
+          PopupMenuButton(
+              tooltip: '选择子系统',
+              onSelected: (String v) async {
+                var subsystem = subsystemList.firstWhere((element) => element.id == v);
+                StoreUtil.write(Constant.KEY_CURRENT_SUBSYSTEM, subsystem.toMap());
+                await StoreUtil.loadMenuData();
+                StoreUtil.init();
+                setState(() {});
+              },
+              itemBuilder: (context) => subsystemList.map<PopupMenuEntry<String>>(
+                    (e) {
+                      var enabled = e.id != currentSubsystem?.id;
 
-                    return PopupMenuItem<String>(
-                      enabled: enabled,
-                      value: e.id,
-                      child: ListTile(
-                        title: Text(
-                          e.name ?? '--',
-                          style: TextStyle(color: enabled ? null : Colors.black12),
+                      return PopupMenuItem<String>(
+                        enabled: enabled,
+                        value: e.id,
+                        child: ListTile(
+                          title: Text(
+                            e.name ?? '--',
+                            style: TextStyle(color: enabled ? null : Colors.black12),
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                ).toList()),
-      ]),
+                      );
+                    },
+                  ).toList()),
+          Expanded(
+            child: Tooltip(
+              message: currentSubsystem?.name ?? '--',
+              child: Text(
+                currentSubsystem?.name ?? '--',
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+        ],
+      ),
       actions: <Widget>[
         Tooltip(
           message: 'Setting',

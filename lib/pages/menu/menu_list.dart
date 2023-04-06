@@ -79,7 +79,7 @@ class _MenuListState extends State<MenuList> {
     var body = this.isEdit && isDisplayDesktop(context)
         ? Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [isEdit ? SizedBox(width: 400.0, child: menuList) : menuList, Expanded(child: menuEdit)],
+            children: [isEdit ? SizedBox(width: 600.0, child: menuList) : menuList, Expanded(child: menuEdit)],
           )
         : menuList;
     var result = Scaffold(
