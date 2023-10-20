@@ -28,7 +28,7 @@ dev_dependencies:
     sdk: flutter
 
 dependency_overrides:
-  collection: 1.16.0
+  intl: any
 
 flutter:
   uses-material-design: true
