@@ -219,7 +219,7 @@ class _LoginState extends State<Login> {
             alignment: Alignment.bottomCenter,
             child: SizedBox(
               width: 420,
-              child: ElevatedButton(
+              child: FilledButton(
                 onPressed: _login,
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0))),

@@ -185,7 +185,7 @@ class _RegisterState extends State {
             alignment: Alignment.bottomCenter,
             child: SizedBox(
               width: 400,
-              child: ElevatedButton(
+              child: FilledButton(
                 onPressed: () {
                   _register();
                 },

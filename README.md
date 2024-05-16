@@ -2,7 +2,7 @@
 ![GitHub](https://img.shields.io/github/license/cairuoyu/flutter_admin)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/cairuoyu/flutter_admin)
 ![GitHub repo size](https://img.shields.io/github/repo-size/cairuoyu/flutter_admin?color=yellow)
-![Flutter version](https://img.shields.io/badge/flutter-3.7.7-green)
+![Flutter version](https://img.shields.io/badge/flutter-3.19.6-green)
 
 >  简体中文 | [English](./README.en.md)
 
@@ -118,6 +118,7 @@ http://www.cairuoyu.com/flutter_admin
 ![image](http://cairuoyu.com/screenshots/flutter_admin_login.png)
 ![image](http://cairuoyu.com/screenshots/flutter_admin_dashboard.png)
 ![image](http://cairuoyu.com/screenshots/flutter_admin_setting.png)
+![image](http://cairuoyu.com/screenshots/flutter_admin_chart.png)
 ![image](http://cairuoyu.com/screenshots/flutter_admin_role_user.png)
 ![image](http://cairuoyu.com/screenshots/flutter_admin_personEdit.png)
 ![image](http://cairuoyu.com/screenshots/flutter_admin_menu.png)
@@ -144,3 +145,4 @@ http://www.cairuoyu.com/flutter_admin
 
 ![](http://cairuoyu.com/screenshots/pay.png)
 
+[Paypal Me](https://www.paypal.me/cairuoyu)

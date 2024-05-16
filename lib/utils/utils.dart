@@ -123,6 +123,7 @@ class Utils {
     }
 
     return ThemeData(
+      useMaterial3: false,
       brightness: currentBrightness,
       primaryColor: currentThemeColor,
       iconTheme: IconThemeData(color: currentThemeColor),
