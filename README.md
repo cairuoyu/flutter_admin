@@ -110,31 +110,31 @@ flutter build apk
 ```
 
 ## live demo
-http://www.cairuoyu.com/flutter_admin
+http://www.cairuoyu.com:81/flutter_admin
 
 ### web
-![image](http://cairuoyu.com/screenshots/flutter_admin1.gif)
-![image](http://cairuoyu.com/screenshots/flutter_admin2.gif)
-![image](http://cairuoyu.com/screenshots/flutter_admin_login.png)
-![image](http://cairuoyu.com/screenshots/flutter_admin_dashboard.png)
-![image](http://cairuoyu.com/screenshots/flutter_admin_setting.png)
-![image](http://cairuoyu.com/screenshots/flutter_admin_chart.png)
-![image](http://cairuoyu.com/screenshots/flutter_admin_role_user.png)
-![image](http://cairuoyu.com/screenshots/flutter_admin_personEdit.png)
-![image](http://cairuoyu.com/screenshots/flutter_admin_menu.png)
+![image](./screenshots/flutter_admin1.gif)
+![image](./screenshots/flutter_admin2.gif)
+![image](./screenshots/flutter_admin_login.png)
+![image](./screenshots/flutter_admin_dashboard.png)
+![image](./screenshots/flutter_admin_setting.png)
+![image](./screenshots/flutter_admin_chart.png)
+![image](./screenshots/flutter_admin_role_user.png)
+![image](./screenshots/flutter_admin_personEdit.png)
+![image](./screenshots/flutter_admin_menu.png)
 
 ### android
-<img src="http://cairuoyu.com/screenshots/flutter_admin_dashboard_app.png" width="50%" alt="dashboard"/>
-<img src="http://cairuoyu.com/screenshots/flutter_admin_setting_app.png" width="50%" alt="'setting"/>
+![image](./screenshots/flutter_admin_dashboard_app.png)
+![image](./screenshots/flutter_admin_setting_app.png)
 
 ### windows
-![image](http://cairuoyu.com/screenshots/flutter_admin_windows.png)
+![image](./screenshots/flutter_admin_windows.png)
 
 ## 加入讨论组
 
 ### 加我微信拉你入群
 #### 申请时请添加备注：flutter_admin
-![image](http://cairuoyu.com/screenshots/qrcode_wechat_cry.png)
+![image](./screenshots/qrcode_wechat_cry.png)
 
 ### QQ
 851796663
@@ -143,6 +143,6 @@ http://www.cairuoyu.com/flutter_admin
 
 ## 赞助
 
-![](http://cairuoyu.com/screenshots/pay.png)
+![](./screenshots/pay.png)
 
 [Paypal Me](https://www.paypal.me/cairuoyu)
