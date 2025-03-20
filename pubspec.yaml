@@ -20,8 +20,8 @@ dependencies:
   flutter_simple_treeview: ^3.0.0-nullsafety.1
   get: ^4.0.0-nullsafety.2
   get_storage: ^2.0.2
-  syncfusion_flutter_charts: ^20.1.60+1
-  syncfusion_flutter_datagrid: ^20.1.60
+  syncfusion_flutter_charts: ^28.2.9
+  syncfusion_flutter_datagrid: ^28.2.9
 
 dev_dependencies:
   flutter_test:

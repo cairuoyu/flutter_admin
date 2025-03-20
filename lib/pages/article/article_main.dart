@@ -191,7 +191,6 @@ class _ArticleMainState extends State<ArticleMain> {
     );
     var pager = SfDataPagerTheme(
       data: SfDataPagerThemeData(
-        brightness: Brightness.light,
         selectedItemColor: Get.theme.primaryColor,
       ),
       child: SfDataPager(
