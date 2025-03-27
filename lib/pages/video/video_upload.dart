@@ -34,7 +34,7 @@ class VideoUpload extends StatefulWidget {
 
 class VideoUploadState extends State<VideoUpload> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  PickedFile? pickedFile;
+  XFile? pickedFile;
   final ImagePicker videoPicker = ImagePicker();
   VideoPlayerController? controller;
   Video video = Video();
@@ -97,7 +97,7 @@ class VideoUploadState extends State<VideoUpload> {
   }
 
   pickVideo() async {
-    pickedFile = await videoPicker.getVideo(source: ImageSource.gallery);
+    pickedFile = await videoPicker.pickVideo(source: ImageSource.gallery);
     if (pickedFile == null || !mounted) {
       return;
     }

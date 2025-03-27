@@ -9,9 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
-  cry: 1.3.0
+  cry: 2.0.0
   font_awesome_flutter: ^10.1.0
   flutter_colorpicker: ^1.0.3
   url_launcher: ^6.0.3
@@ -26,9 +24,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-dependency_overrides:
-  intl: any
 
 flutter:
   uses-material-design: true

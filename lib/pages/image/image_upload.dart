@@ -32,7 +32,7 @@ class ImageUpload extends StatefulWidget {
 
 class ImageUploadState extends State<ImageUpload> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  PickedFile? pickedFile;
+  XFile? pickedFile;
   final ImagePicker imagePicker = ImagePicker();
   ImageModel imageModel = ImageModel();
   Uint8List? imageBytes;
@@ -103,7 +103,7 @@ class ImageUploadState extends State<ImageUpload> {
   }
 
   pickImage(ImageSource source) async {
-    pickedFile = await imagePicker.getImage(source: source);
+    pickedFile = await imagePicker.pickImage(source: source);
     if (pickedFile == null) {
       return;
     }

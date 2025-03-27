@@ -53,8 +53,7 @@ class CryDioInterceptors extends InterceptorsWrapper {
     CryUtils.loaded();
     CryLogger.error('ERROR[${err.response?.statusCode}] => PATH: ${err.response?.realUri}');
     CryLogger.error(err.toString());
-    String message = '请求出错：' + err.toString();
-    CryUtils.message(message);
+    CryUtils.message('服务器忙，请稍后再试');
     super.onError(err, handler);
   }
 }

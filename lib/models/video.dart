@@ -5,7 +5,6 @@ class Video {
     String? categoryId;
     String? thumbs;
     String? memo;
-    String? createTime;
 
 //<editor-fold desc="Data Methods" defaultstate="collapsed">
 
@@ -15,7 +14,6 @@ class Video {
     this.categoryId,
     this.thumbs,
     this.memo,
-    this.createTime,
   });
 
     Video copyWith({
@@ -24,7 +22,6 @@ class Video {
     String? categoryId,
     String? thumbs,
     String? memo,
-    String? createTime,
   }) {
     return new Video(
       title: title ?? this.title,
@@ -32,13 +29,12 @@ class Video {
       categoryId: categoryId ?? this.categoryId,
       thumbs: thumbs ?? this.thumbs,
       memo: memo ?? this.memo,
-      createTime: createTime ?? this.createTime,
     );
   }
 
     @override
   String toString() {
-    return 'Video{title: $title, url: $url, categoryId: $categoryId, thumbs: $thumbs, memo: $memo, createTime: $createTime}';
+    return 'Video{title: $title, url: $url, categoryId: $categoryId, thumbs: $thumbs, memo: $memo}';
   }
 
     @override
@@ -50,11 +46,10 @@ class Video {
           url == other.url &&
           categoryId == other.categoryId &&
           thumbs == other.thumbs &&
-          memo == other.memo &&
-          createTime == other.createTime);
+          memo == other.memo );
 
     @override
-  int get hashCode => title.hashCode ^ url.hashCode ^ categoryId.hashCode ^ thumbs.hashCode ^ memo.hashCode ^ createTime.hashCode;
+  int get hashCode => title.hashCode ^ url.hashCode ^ categoryId.hashCode ^ thumbs.hashCode ^ memo.hashCode;
 
     factory Video.fromMap(Map<String, dynamic> map) {
     return new Video(
@@ -63,7 +58,6 @@ class Video {
       categoryId: map['categoryId'] as String?,
       thumbs: map['thumbs'] as String?,
       memo: map['memo'] as String?,
-      createTime: map['createTime'] as String?,
     );
   }
 
@@ -75,7 +69,6 @@ class Video {
       'categoryId': this.categoryId,
       'thumbs': this.thumbs,
       'memo': this.memo,
-      'createTime': this.createTime,
     };
   }
 
