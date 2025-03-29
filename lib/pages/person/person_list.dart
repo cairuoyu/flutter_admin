@@ -5,21 +5,13 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/cry.dart';
-import 'package:cry/cry_button_bar.dart';
-import 'package:cry/form1/cry_input.dart';
-import 'package:cry/form1/cry_select.dart';
-import 'package:cry/model/order_item_model.dart';
-import 'package:cry/utils/cry_utils.dart';
+import 'package:cry/utils.dart';
+import 'package:cry/widgets1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/person_api.dart';
-import 'package:cry/cry_button.dart';
-import 'package:cry/cry_dialog.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
-import 'package:cry/model/page_model.dart';
+import 'package:cry/model.dart';
 import 'package:flutter_admin/models/person_model.dart';
-import 'package:cry/model/request_body_api.dart';
-import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 import '../../generated/l10n.dart';
 import 'person_edit.dart';
@@ -139,7 +131,7 @@ class PersonListState extends State {
                     var result = await PersonApi.removeByIds(ids);
                     if (result.success) {
                       _query();
-                      CryUtils.message(S.of(Cry.context).success);
+                      CryUtil.message(S.of(CryUtil.context).success);
                     }
                   });
                 },
@@ -303,7 +295,7 @@ class MyDS extends DataTableSource {
                   var result = await PersonApi.removeByIds([personModel.id]);
                   if (result.success) {
                     loadData();
-                    CryUtils.message(S.of(Cry.context).success);
+                    CryUtil.message(S.of(CryUtil.context).success);
                   }
                 });
               },

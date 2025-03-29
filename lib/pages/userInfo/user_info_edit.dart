@@ -5,17 +5,16 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/cry_all.dart';
-import 'package:cry/data/location.dart';
-import 'package:cry/model/cascade_model.dart';
+import 'package:cry/data.dart';
+import 'package:cry/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/user_info_api.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
-import 'package:cry/model/response_body_api.dart';
+import 'package:cry/model.dart';
 import 'package:flutter_admin/models/dept.dart';
 import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/pages/common/dept_selector.dart';
-import 'package:cry/utils/cry_utils.dart';
+import 'package:cry/utils.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 import '../../generated/l10n.dart';
 
@@ -124,7 +123,7 @@ class _UserInfoEditState extends State<UserInfoEdit> {
                 return;
               }
               Navigator.pop(context, true);
-              CryUtils.message(S.of(context).saved);
+              CryUtil.message(S.of(context).saved);
             });
           },
           iconData: Icons.save,

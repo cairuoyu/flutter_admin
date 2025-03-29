@@ -5,15 +5,13 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/cry_button_bar.dart';
-import 'package:cry/cry_buttons.dart';
-import 'package:cry/form/cry_input.dart';
+import 'package:cry/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/message_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/message.dart';
 import 'package:flutter_admin/models/message_replay_model.dart';
-import 'package:cry/utils/cry_utils.dart';
+import 'package:cry/utils.dart';
 
 class MessageReplay extends StatefulWidget {
   final Message? message;
@@ -78,7 +76,7 @@ class _MessageReplayState extends State<MessageReplay> {
     var result = await MessageApi.replayCommit(messageReplayModel.toMap());
     if (result.success!) {
       Navigator.pop(context);
-      CryUtils.message(S.of(context).success);
+      CryUtil.message(S.of(context).success);
     }
   }
 }

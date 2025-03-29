@@ -5,19 +5,12 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/cry_button_bar.dart';
-import 'package:cry/cry_buttons.dart';
-import 'package:cry/form/cry_input.dart';
-import 'package:cry/form/cry_select_custom_widget.dart';
+import 'package:cry/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/user_info_api.dart';
-import 'package:cry/cry_button.dart';
-import 'package:cry/cry_data_table.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
-import 'package:cry/model/page_model.dart';
-import 'package:cry/model/request_body_api.dart';
-import 'package:cry/model/response_body_api.dart';
+import 'package:cry/model.dart';
 import 'package:flutter_admin/models/dept.dart';
 import 'package:flutter_admin/models/user_info.dart';
 import 'package:flutter_admin/pages/common/dept_selector.dart';

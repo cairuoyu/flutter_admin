@@ -5,9 +5,9 @@
 /// @version: 1.0
 /// @description:
 
+import 'package:cry/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:cry/cry_button.dart';
-import 'package:cry/cry.dart';
+import 'package:cry/utils.dart';
 
 class Page404 extends StatelessWidget {
   const Page404({Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class Page404 extends StatelessWidget {
               iconData: Icons.arrow_back,
               label: '返回首页',
               onPressed: () {
-                Cry.pushNamed('/');
+                CryUtil.pushNamed('/');
               },
             ),
           ],

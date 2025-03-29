@@ -5,8 +5,8 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/cry_all.dart';
-import 'package:cry/model/response_body_api.dart';
+import 'package:cry/model.dart';
+import 'package:cry/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/subsystem_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';

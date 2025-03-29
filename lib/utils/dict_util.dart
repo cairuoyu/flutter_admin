@@ -5,7 +5,7 @@
 /// @version: 1.0
 /// @description: 数据字典工具
 
-import 'package:cry/vo/select_option_vo.dart';
+import 'package:cry/vo.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 

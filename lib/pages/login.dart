@@ -5,13 +5,11 @@
 /// @version: 1.0
 /// @description: 登录
 
-import 'package:cry/common/application_context.dart';
-import 'package:cry/common/face_recognition.dart';
-import 'package:cry/common/face_service_import.dart';
+import 'package:cry/common.dart';
 import 'package:flutter/material.dart';
-import 'package:cry/cry.dart';
+import 'package:cry/utils.dart';
 import 'package:flutter_admin/constants/constant.dart';
-import 'package:cry/model/response_body_api.dart';
+import 'package:cry/model.dart';
 import 'package:flutter_admin/pages/common/lang_switch.dart';
 import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/api/user_api.dart';
@@ -234,7 +232,7 @@ class _LoginState extends State<Login> {
   }
 
   _register() {
-    Cry.pushNamed('/register');
+    CryUtil.pushNamed('/register');
   }
 
   _login() async {
@@ -261,6 +259,6 @@ class _LoginState extends State<Login> {
     await StoreUtil.loadDefaultTabs();
     StoreUtil.init();
 
-    Cry.pushNamed('/');
+    CryUtil.pushNamed('/');
   }
 }

@@ -5,9 +5,8 @@
 /// @version: 1.0
 /// @description: 常用工具类
 
-import 'package:cry/cry.dart';
-import 'package:cry/cry_dialog.dart';
-import 'package:cry/utils/adaptive_util.dart';
+import 'package:cry/utils.dart';
+import 'package:cry/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/common/routes.dart';
 import 'package:flutter_admin/constants/constant.dart';
@@ -22,7 +21,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 class Utils {
   static fullscreenDialog(Widget widget) {
     return Navigator.push<void>(
-      Cry.context,
+      CryUtil.context,
       MaterialPageRoute(
         builder: (_) => widget,
         fullscreenDialog: true,

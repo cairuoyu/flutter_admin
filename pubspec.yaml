@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cry: 2.0.0
+  cry: 2.1.0
   font_awesome_flutter: ^10.1.0
   flutter_colorpicker: ^1.0.3
   url_launcher: ^6.0.3

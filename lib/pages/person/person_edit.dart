@@ -5,16 +5,12 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/form1/cry_input.dart';
-import 'package:cry/form1/cry_select.dart';
-import 'package:cry/form1/cry_select_date.dart';
-import 'package:cry/utils/adaptive_util.dart';
+import 'package:cry/utils.dart';
+import 'package:cry/widgets1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/person_api.dart';
-import 'package:cry/cry_button.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/models/person_model.dart';
-import 'package:cry/utils/cry_utils.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 import '../../generated/l10n.dart';
 
@@ -105,7 +101,7 @@ class PersonEditState extends State<PersonEdit> {
             form.save();
             PersonApi.saveOrUpdate(_personModel!.toMap()).then((res) {
               Navigator.pop(context, true);
-              CryUtils.message(S.of(context).saved);
+              CryUtil.message(S.of(context).saved);
             });
           },
         ),

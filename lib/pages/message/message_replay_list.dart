@@ -5,12 +5,9 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/cry_list_view.dart';
-import 'package:cry/model/order_item_model.dart';
-import 'package:cry/model/page_model.dart';
+import 'package:cry/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:cry/model/request_body_api.dart';
-import 'package:cry/model/response_body_api.dart';
+import 'package:cry/model.dart';
 import 'package:flutter_admin/api/message_api.dart';
 import 'package:flutter_admin/models/message.dart';
 import 'package:flutter_admin/models/message_replay_model.dart';

@@ -5,17 +5,14 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/cry_button_bar.dart';
-import 'package:cry/cry_buttons.dart';
-import 'package:cry/form/cry_input.dart';
+import 'package:cry/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/dict_item_api.dart';
-import 'package:cry/cry_button.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dict.dart';
 import 'package:flutter_admin/models/dict_item.dart';
-import 'package:cry/model/response_body_api.dart';
-import 'package:cry/utils/cry_utils.dart';
+import 'package:cry/model.dart';
+import 'package:cry/utils.dart';
 import 'package:quiver/strings.dart';
 
 class DictItemListEdit extends StatefulWidget {
@@ -127,7 +124,7 @@ class DictItemListEditState extends State<DictItemListEdit> {
     this.tableFormKey.currentState!.save();
 
     if (this.dictItemList.any((element) => isEmpty(element.name) || isEmpty(element.code))) {
-      CryUtils.message(S.of(context).completeTheTableData);
+      CryUtil.message(S.of(context).completeTheTableData);
       return false;
     }
     return true;

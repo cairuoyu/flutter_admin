@@ -5,8 +5,8 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/model/response_body_api.dart';
-import 'package:cry/utils/http_util.dart';
+import 'package:cry/model.dart';
+import 'package:cry/utils.dart';
 
 class SettingDefaultTabApi {
   static Future<ResponseBodyApi> list() {

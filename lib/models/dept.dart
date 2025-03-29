@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cry/vo/tree_vo.dart';
+import 'package:cry/vo.dart';
 
 class Dept extends TreeData {
   String? id;

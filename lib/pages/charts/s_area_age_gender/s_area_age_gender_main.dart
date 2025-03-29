@@ -5,7 +5,7 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/common/keep_alive_wrapper.dart';
+import 'package:cry/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/s_area_age_gender.dart';
 import 'package:flutter_admin/constants/enum.dart';

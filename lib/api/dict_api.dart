@@ -6,7 +6,7 @@
 /// @description:
 
 
-import 'package:cry/utils/http_util.dart';
+import 'package:cry/utils.dart';
 
 class DictApi {
   static map() {

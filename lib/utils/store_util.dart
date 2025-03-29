@@ -5,7 +5,7 @@
 /// @version: 1.0
 /// @description: 存储工具类
 
-import 'package:cry/model/response_body_api.dart';
+import 'package:cry/model.dart';
 import 'package:flutter_admin/api/dict_api.dart';
 import 'package:flutter_admin/api/menu_api.dart';
 import 'package:flutter_admin/api/setting_default_tab.dart';

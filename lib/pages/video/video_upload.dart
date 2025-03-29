@@ -7,15 +7,11 @@
 
 import 'dart:typed_data';
 
-import 'package:cry/cry_button_bar.dart';
-import 'package:cry/cry_buttons.dart';
-import 'package:cry/form/cry_input.dart';
+import 'package:cry/widgets.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/video_api.dart';
-import 'package:cry/cry_button.dart';
-import 'package:cry/cry_dialog.dart';
-import 'package:cry/model/response_body_api.dart';
+import 'package:cry/model.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/video.dart';
 import 'package:flutter_admin/utils/utils.dart';

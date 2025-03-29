@@ -8,14 +8,11 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
-import 'package:cry/common/application_context.dart';
-import 'package:cry/common/face_recognition.dart';
-import 'package:cry/common/face_service_import.dart';
+import 'package:cry/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/user_api.dart';
-import 'package:cry/cry.dart';
+import 'package:cry/utils.dart';
 import 'package:flutter_admin/models/user.dart';
-import 'package:cry/utils/cry_utils.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import '../generated/l10n.dart';
 import 'package:dio/dio.dart';
@@ -214,7 +211,7 @@ class _RegisterState extends State {
   }
 
   _login() {
-    Cry.pushNamed('/login');
+    CryUtil.pushNamed('/login');
   }
 
   _register() {
@@ -239,7 +236,7 @@ class _RegisterState extends State {
           return;
         }
         _login();
-        CryUtils.message(S.of(context).registerSuccess);
+        CryUtil.message(S.of(context).registerSuccess);
       });
     }
   }

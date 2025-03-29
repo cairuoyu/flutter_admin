@@ -1,3 +1,6 @@
+import 'package:cry/model.dart';
+import 'package:cry/utils.dart';
+
 /// @author: cairuoyu
 /// @homepage: http://cairuoyu.com
 /// @github: https://github.com/cairuoyu/flutter_admin
@@ -5,8 +8,6 @@
 /// @version: 1.0
 /// @description: 文章api
 
-import 'package:cry/model/response_body_api.dart';
-import 'package:cry/utils/http_util.dart';
 
 class ArticleApi {
   static Future<ResponseBodyApi> page(data) async {

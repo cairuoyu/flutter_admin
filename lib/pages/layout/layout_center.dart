@@ -5,8 +5,8 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/common/indexed_stack_lazy.dart';
-import 'package:cry/cry_all.dart';
+import 'package:cry/common.dart';
+import 'package:cry/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/common/routes.dart';
 import 'package:flutter_admin/constants/enum.dart';

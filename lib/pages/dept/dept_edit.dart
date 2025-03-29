@@ -5,17 +5,13 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/cry_button_bar.dart';
-import 'package:cry/cry_buttons.dart';
-import 'package:cry/form/cry_input.dart';
-import 'package:cry/form/cry_input_num.dart';
-import 'package:cry/form/cry_select.dart';
+import 'package:cry/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/dept_api.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dept.dart';
-import 'package:cry/utils/cry_utils.dart';
+import 'package:cry/utils.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 
 class DeptEdit extends StatefulWidget {
@@ -122,6 +118,6 @@ class _DeptEditState extends State<DeptEdit> {
       return;
     }
     Navigator.pop(context, true);
-    CryUtils.message(S.of(context).success);
+    CryUtil.message(S.of(context).success);
   }
 }

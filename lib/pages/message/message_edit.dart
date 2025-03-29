@@ -5,14 +5,12 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/cry_button_bar.dart';
-import 'package:cry/cry_buttons.dart';
-import 'package:cry/form/cry_input.dart';
+import 'package:cry/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/message_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/message.dart';
-import 'package:cry/utils/cry_utils.dart';
+import 'package:cry/utils.dart';
 
 class MessageEdit extends StatefulWidget {
   @override
@@ -69,7 +67,7 @@ class _MessageEditState extends State<MessageEdit> {
     }
     this.formKey.currentState!.save();
     await MessageApi.save(this._message.toMap());
-    CryUtils.message(S.of(context).success);
+    CryUtil.message(S.of(context).success);
     this.setState(() {});
   }
 }

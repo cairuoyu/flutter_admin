@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cry/vo/tree_vo.dart';
+import 'package:cry/vo.dart';
 import 'package:flutter_admin/models/tab_page.dart';
 
 class Menu extends TreeData {

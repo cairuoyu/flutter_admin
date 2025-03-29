@@ -5,18 +5,14 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/cry_button.dart';
-import 'package:cry/cry_dialog.dart';
-import 'package:cry/model/request_body_api.dart';
-import 'package:cry/utils/adaptive_util.dart';
-import 'package:cry/utils/cry_utils.dart';
-import 'package:cry/utils/tree_util.dart';
-import 'package:cry/vo/tree_vo.dart';
+import 'package:cry/utils.dart';
+import 'package:cry/vo.dart';
+import 'package:cry/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/menu_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
-import 'package:cry/model/response_body_api.dart';
+import 'package:cry/model.dart';
 import 'package:flutter_admin/models/subsystem.dart';
 import 'package:flutter_admin/pages/menu/menu_edit.dart';
 import 'package:flutter_admin/pages/menu/menu_table_tree.dart';
@@ -123,7 +119,7 @@ class _MenuListState extends State<MenuList> {
       if (!responseBodyApi.success!) {
         return;
       }
-      CryUtils.message(S.of(context).success);
+      CryUtil.message(S.of(context).success);
       _loadData();
     });
   }

@@ -5,7 +5,7 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/utils/adaptive_util.dart';
+import 'package:cry/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/pages/dash/task_statistical_chart.dart';

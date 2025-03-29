@@ -5,19 +5,12 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/cry_button.dart';
-import 'package:cry/cry_button_bar.dart';
-import 'package:cry/cry_buttons.dart';
-import 'package:cry/cry_dialog.dart';
-import 'package:cry/form/cry_input.dart';
-import 'package:cry/model/request_body_api.dart';
-import 'package:cry/model/response_body_api.dart';
-import 'package:cry/utils/cry_utils.dart';
-import 'package:cry/utils/tree_util.dart';
-import 'package:cry/vo/tree_vo.dart';
+import 'package:cry/model.dart';
+import 'package:cry/utils.dart';
+import 'package:cry/vo.dart';
+import 'package:cry/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/dept_api.dart';
-import 'package:cry/cry.dart';
 import 'package:flutter_admin/constants/enum.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dept.dart';
@@ -131,7 +124,7 @@ class _DeptListState extends State<DeptList> {
     var result = await DeptApi.removeByIds(ids);
     if (result.success) {
       _loadData();
-      CryUtils.message(S.of(Cry.context).success);
+      CryUtil.message(S.of(CryUtil.context).success);
     }
   }
 

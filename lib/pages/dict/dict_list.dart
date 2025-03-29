@@ -5,24 +5,16 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/cry_button_bar.dart';
-import 'package:cry/cry_buttons.dart';
-import 'package:cry/cry_data_table.dart';
-import 'package:cry/cry_dialog.dart';
-import 'package:cry/form/cry_input.dart';
-import 'package:cry/model/order_item_model.dart';
-import 'package:cry/model/page_model.dart';
+import 'package:cry/model.dart';
+import 'package:cry/widgets.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/dict_api.dart';
-import 'package:cry/cry_button.dart';
 import 'package:flutter_admin/constants/constant_dict.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dict.dart';
-import 'package:cry/model/request_body_api.dart';
-import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/dict/dict_edit.dart';
-import 'package:cry/utils/cry_utils.dart';
+import 'package:cry/utils.dart';
 import 'package:flutter_admin/utils/dict_util.dart';
 import 'package:flutter_admin/utils/utils.dart';
 import 'package:dio/dio.dart';
@@ -155,7 +147,7 @@ class _DictList extends State<DictList> {
     var data = FormData.fromMap({'file': file});
     await DictApi.importExcel(data);
     this._loadData();
-    CryUtils.message(S.of(context).success);
+    CryUtil.message(S.of(context).success);
   }
 
   _exportExcel() async {
@@ -182,7 +174,7 @@ class _DictList extends State<DictList> {
       var result = await DictApi.removeByIds(dictList.map((e) => e.id).toList());
       if (result.success) {
         this._loadData();
-        CryUtils.message(S.of(context).success);
+        CryUtil.message(S.of(context).success);
       }
     });
   }

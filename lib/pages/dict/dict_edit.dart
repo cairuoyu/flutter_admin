@@ -5,16 +5,15 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/cry_buttons.dart';
-import 'package:cry/form/cry_input.dart';
+import 'package:cry/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/dict_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/dict.dart';
 import 'package:flutter_admin/models/dict_item.dart';
-import 'package:cry/model/response_body_api.dart';
+import 'package:cry/model.dart';
 import 'package:flutter_admin/pages/dict/dict_item_list_edit.dart';
-import 'package:cry/utils/cry_utils.dart';
+import 'package:cry/utils.dart';
 
 class DictEdit extends StatefulWidget {
   final Dict? dict;
@@ -113,6 +112,6 @@ class _DictEditState extends State<DictEdit> {
       return;
     }
     Navigator.pop(context, true);
-    CryUtils.message(S.of(context).success);
+    CryUtil.message(S.of(context).success);
   }
 }

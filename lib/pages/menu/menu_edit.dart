@@ -5,18 +5,14 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/cry_button_bar.dart';
-import 'package:cry/cry_buttons.dart';
-import 'package:cry/form/cry_input.dart';
-import 'package:cry/form/cry_input_num.dart';
-import 'package:cry/form/cry_select_custom_widget.dart';
+import 'package:cry/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/menu_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/menu.dart';
-import 'package:cry/model/response_body_api.dart';
+import 'package:cry/model.dart';
 import 'package:flutter_admin/pages/common/icon_selector.dart';
-import 'package:cry/utils/cry_utils.dart';
+import 'package:cry/utils.dart';
 import 'menu_selector.dart';
 
 class MenuEdit extends StatefulWidget {
@@ -55,7 +51,7 @@ class _MenuEditState extends State<MenuEdit> {
               if (!res.success!) {
                 return;
               }
-              CryUtils.message(S.of(context).saved);
+              CryUtil.message(S.of(context).saved);
               if (widget.onSave != null) {
                 widget.onSave!();
               }

@@ -5,7 +5,7 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/utils/http_util.dart';
+import 'package:cry/utils.dart';
 
 class RoleUserApi {
   static saveBatch(data){

@@ -6,7 +6,7 @@
 /// @description: 路由代码，可根据业务自定义
 
 import 'package:collection/collection.dart' show IterableExtension;
-import 'package:cry/routes/cry_router_delegate.dart';
+import 'package:cry/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/common/routes.dart';
 import 'package:flutter_admin/models/tab_page.dart';

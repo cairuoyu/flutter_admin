@@ -5,9 +5,9 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/common/application_context.dart';
-import 'package:cry/cry.dart';
-import 'package:cry/cry_all.dart';
+import 'package:cry/common.dart';
+import 'package:cry/utils.dart';
+import 'package:cry/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/constants/constant.dart';
 import 'package:flutter_admin/generated/l10n.dart';
@@ -147,7 +147,7 @@ class _LayoutState extends State {
                 Utils.openTab('userInfoMine');
               } else if (v == 'logout') {
                 Utils.logout();
-                Cry.pushNamedAndRemove('/login');
+                CryUtil.pushNamedAndRemove('/login');
               }
             },
             child: Align(

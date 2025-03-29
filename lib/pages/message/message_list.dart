@@ -5,20 +5,13 @@
 /// @version: 1.0
 /// @description:
 
-import 'package:cry/cry_button.dart';
-import 'package:cry/cry_button_bar.dart';
-import 'package:cry/cry_buttons.dart';
-import 'package:cry/cry_dialog.dart';
-import 'package:cry/cry_list_view.dart';
-import 'package:cry/model/order_item_model.dart';
-import 'package:cry/model/page_model.dart';
-import 'package:cry/utils/cry_utils.dart';
+import 'package:cry/model.dart';
+import 'package:cry/utils.dart';
+import 'package:cry/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/message_api.dart';
 import 'package:flutter_admin/generated/l10n.dart';
 import 'package:flutter_admin/models/message.dart';
-import 'package:cry/model/request_body_api.dart';
-import 'package:cry/model/response_body_api.dart';
 import 'package:flutter_admin/pages/message/message_replay.dart';
 import 'package:flutter_admin/pages/message/message_view.dart';
 import 'package:flutter_admin/utils/utils.dart';
@@ -82,7 +75,7 @@ class MessageListState extends State<MessageList> {
       if (!res.success!) {
         return;
       }
-      CryUtils.message(S.of(context).success);
+      CryUtil.message(S.of(context).success);
       reloadData();
     });
   }
