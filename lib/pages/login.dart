@@ -15,8 +15,6 @@ import 'package:flutter_admin/utils/store_util.dart';
 import 'package:flutter_admin/api/user_api.dart';
 import 'package:flutter_admin/models/user.dart';
 import '../generated/l10n.dart';
-import 'package:google_ml_kit/google_ml_kit.dart';
-import 'package:camera/camera.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -53,26 +51,7 @@ class _LoginState extends State<Login> {
       style: TextStyle(fontSize: 16, color: Colors.blue),
       textScaleFactor: 3.2,
     );
-    return isFaceRecognition
-        ? FaceRecognition(
-            onFountFace: (CameraImage cameraImage, String imagePath, List<Face> faces) async {
-              String faceData = FaceService().toData(cameraImage, faces[0]);
-              var responseBodyApi = await UserApi.loginByFace(faceData);
-              if (!responseBodyApi.success!) {
-                setState(() {
-                  this.isFaceRecognition = false;
-                });
-                return;
-              }
-              _loginSuccess(responseBodyApi);
-            },
-            onBack: () {
-              setState(() {
-                this.isFaceRecognition = false;
-              });
-            },
-          )
-        : Container(
+    return Container(
             color: Colors.cyan.shade100,
             child: ListView(
               children: <Widget>[

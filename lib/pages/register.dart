@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/api/user_api.dart';
 import 'package:cry/utils.dart';
 import 'package:flutter_admin/models/user.dart';
-import 'package:google_ml_kit/google_ml_kit.dart';
 import '../generated/l10n.dart';
 import 'package:dio/dio.dart';
 
@@ -29,7 +28,7 @@ class _RegisterState extends State {
   bool isFaceRecognition = false;
   String? imagePath;
   CameraImage? cameraImage;
-  Face? face;
+  // Face? face;
 
   @override
   void initState() {
@@ -41,23 +40,7 @@ class _RegisterState extends State {
     return Theme(
       data: ThemeData(),
       child: Scaffold(
-        body: isFaceRecognition
-            ? FaceRecognition(
-                onFountFace: (CameraImage cameraImage, String imagePath, List<Face> faces) {
-                  setState(() {
-                    this.isFaceRecognition = false;
-                    this.imagePath = imagePath;
-                    this.cameraImage = cameraImage;
-                    this.face = faces[0];
-                  });
-                },
-                onBack: () {
-                  setState(() {
-                    this.isFaceRecognition = false;
-                  });
-                },
-              )
-            : _buildPageContent(),
+        body:  _buildPageContent(),
       ),
     );
   }
@@ -221,14 +204,14 @@ class _RegisterState extends State {
       String faceData = '';
       Map<String, dynamic> map = user.toMap();
       map['file'] = null;
-      if (this.cameraImage != null && this.face != null) {
-        faceData = FaceService().toData(this.cameraImage!, this.face!);
-        map['face'] = faceData;
-
-        var value = File(this.imagePath!).readAsBytesSync();
-        var file = MultipartFile.fromBytes(value, filename: 'test.png'); //todo
-        map['file'] = file;
-      }
+      // if (this.cameraImage != null && this.face != null) {
+      //   faceData = FaceService().toData(this.cameraImage!, this.face!);
+      //   map['face'] = faceData;
+      //
+      //   var value = File(this.imagePath!).readAsBytesSync();
+      //   var file = MultipartFile.fromBytes(value, filename: 'test.png'); //todo
+      //   map['file'] = file;
+      // }
       FormData formData = FormData.fromMap(map);
 
       UserApi.register(formData).then((v) {

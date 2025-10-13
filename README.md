@@ -2,11 +2,11 @@
 ![GitHub](https://img.shields.io/github/license/cairuoyu/flutter_admin)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/cairuoyu/flutter_admin)
 ![GitHub repo size](https://img.shields.io/github/repo-size/cairuoyu/flutter_admin?color=yellow)
-![Flutter version](https://img.shields.io/badge/flutter-3.19.6-green)
+![Flutter version](https://img.shields.io/badge/flutter-3.35.6-green)
 
 >  简体中文 | [English](./README.en.md)
 
-> 使用flutter实现的一个后台管理系统。本项目为前端，对应的后端为 https://github.com/cairuoyu/flutter_admin_backend
+> 使用flutter、Java实现的一个后台管理系统。本项目为前端，对应的后端为 https://github.com/cairuoyu/flutter_admin_backend
 
 > 本项目作为一个基于Flutter开发Web、Android、iOS、Windows、macOS、Linux等多端应用程序的模板、例子、演示，在功能上提供多种实现方式，而且不断地在完善。通过这个项目，可以高效学习Flutter或快速地开发一个新的跨端应用。
 

@@ -2,11 +2,11 @@
 ![GitHub](https://img.shields.io/github/license/cairuoyu/flutter_admin)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/cairuoyu/flutter_admin)
 ![GitHub repo size](https://img.shields.io/github/repo-size/cairuoyu/flutter_admin?color=yellow)
-![Flutter version](https://img.shields.io/badge/flutter-3.19.6-green)
+![Flutter version](https://img.shields.io/badge/flutter-3.35.6-green)
 
 > [简体中文](./README.md) | English
 
-> A Background Management System Implemented Using Flutter.This project for the front end, the corresponding back-end to https://github.com/cairuoyu/flutter_admin_backend
+> A Background Management System Implemented Using Flutter\Java.This project for the front end, the corresponding back-end to https://github.com/cairuoyu/flutter_admin_backend
 
 > As a template, example and demonstration for developing multi-terminal applications such as Web, Android, IOS, Windows, MacOS and Linux based on Flutter, this project provides a variety of implementation methods in terms of functions and is constantly being improved. With this project, you can learn Flutter efficiently or quickly develop a new cross-end application.
 
@@ -110,7 +110,7 @@ flutter build apk
 ```
 
 ## live demo
-http://www.cairuoyu.com/flutter_admin
+http://www.cairuoyu.com:81/flutter_admin
 
 ### web
 ![image](http://cairuoyu.com/screenshots/flutter_admin1.gif)
